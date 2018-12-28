@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: merchant-service
+server:
+  port: 8099
+eureka:
+  client:
+    service-url:
+      defaultZone: http://192.168.1.100:8888/eureka/

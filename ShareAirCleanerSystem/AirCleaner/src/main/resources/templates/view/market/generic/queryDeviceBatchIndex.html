@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>设备批次管理</title>
+    <link rel="stylesheet" href="../../../frame/layui/css/layui.css">
+    <link rel="stylesheet" href="../../../frame/static/css/style.css">
+    <link rel="icon" href="../../../frame/static/image/code.png">
+</head>
+<body class="body">
+	<div class="layui-card-header">
+		<i class="layui-icon">  </i> <span class="layui-breadcrumb"
+			lay-separator=">" style="visibility: visible;"> <a>您现在的所在位置</a>
+		<span lay-separator="">&gt;</span> <a>基本要素维护</a> <span
+		lay-separator="">&gt;</span> <cite><a>设备批次管理</a></cite></span>
+	</div>	
+<fieldset class="layui-elem-field" style="border-color:rgb(30, 159, 255); margin-top:1em;padding-left:2em;padding-right:2em;padding-top:1em;">
+	<legend>设备批次信息查询</legend>
+	<form class="layui-form" id="searchForm">
+		<div style="margin-top:5px;" class="layui-row">
+			<!--批次编号-->
+			<div class="layui-col-md4">
+				<div class="layui-form-item">
+					<label class="layui-form-label"> 批次编号：</label>
+					<div class="layui-input-block">
+						<input type="text" class="layui-input" name="batchNo" autocomplete="on" placeholder="批次编号">
+					</div>
+				</div>
+			</div>
+			<!--批次名称-->
+			<div class="layui-col-md4">
+				<div class="layui-form-item">
+				<label class="layui-form-label">批次名称：</label>
+					<div class="layui-input-block">
+						<input type="text" class="layui-input" name="batchName" autocomplete="off" placeholder="批次名称">
+					</div>
+				</div>
+			</div>
+			<!--投资商-->
+			<div class="layui-col-md4">
+				<div class="layui-form-item">
+					<label class="layui-form-label">投资商：</label>
+					<div class="layui-input-block" id="investorTag">
+						<div style="height:0px;width:0px;overflow:hidden">
+							<input name="investorId">
+						</div>
+						<div class="layui-input-inline" style="width:100%" ;> 
+							<select id="investor" name="investorId" lay-filter="investorTag">  
+								<option value="">请选择投资商</option>   
+							</select>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--右侧功能按钮-->
+		<div style="margin-top:5px;" class="layui-row">
+			<div class="layui-col-md4" style="float: right;">
+				<div class="layui-btn-container" style="text-align:center;margin-bottom: 1em;">
+					<div class="layui-inline" style="margin-right: 0px;">
+						<button id="searchBtn" class="layui-btn layui-btn-primary" lay-submit=""   lay-filter="searchSubmit" title="查询">查询</button>
+					</div>
+					<div class="layui-inline" style="margin-right: 0px;">
+						<button class="layui-btn layui-btn-primary" lay-filter="bnt-reset" title="重置">重置</button>									
+					</div>
+					<div class="layui-inline" id="addbtn">
+						<button type="button" data-method="add" class="layui-btn layui-btn-normal layui-icon" title="新增批次信息">新增</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</fieldset>
+<!-- 表格 -->
+<table id="deviceBatchList" lay-filter="deviceBatchTable"></table>
+<script type="text/javascript" src="../../../frame/layui/layui.js"></script>
+<script type="text/javascript" src="../../../js/index.js"></script>
+<script type="text/javascript" src="../../../js/market/generic/queryDeviceBatchIndex.js"></script>
+<!-- 序号 -->
+<!-- 表格操作按钮集 -->
+<script type="text/html" id="barOption">
+	<a class="layui-icon layui-btn layui-btn-mini layui-btn-normal" lay-event="detail">&#xe654;</a>
+	<a class="layui-btn layui-btn-mini layui-btn-normal" lay-event="edit">编辑</a>
+	<a class="layui-btn layui-btn-mini layui-btn-danger" lay-event="del">删除</a>
+</script>
+		</body>
+		

@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: customer-service
+server:
+  port: 8089
+eureka:
+  client:
+    service-url:
+      defaultZone: http://192.168.1.100:8888/eureka/
+token:
+  partner: 77b872abfe1260053032219354882d91
+  key: ldingadmin

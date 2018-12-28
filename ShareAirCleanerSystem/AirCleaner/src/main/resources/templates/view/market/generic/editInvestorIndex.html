@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>投资商信息编辑</title>
+    <link rel="stylesheet" href="../../../frame/layui/css/layui.css">
+   
+</head>
+<body class="body">
+	<fieldset class="layui-elem-field" style="border-color:rgb(30, 159, 255); margin-top:1em;padding-left:1em;padding-right:2em;padding-top:1em;">
+		<legend data-th-text="${investor.legend}">公司信息查询</legend>
+		<form class="layui-form" action="" th:object="${investor}" >
+		<input type="hidden" name ="id" th:field="*{id}"/>
+		    <!-- 投资商名称 -->
+		    <div class="layui-form-item">
+		        <label class="layui-form-label"><span style="color:red">*</span>身份证号码</label>
+			    <div class="layui-input-block">
+			    	<input type="text" class="layui-input"  th:field="*{identificationNumber}" lay-verify="required|identificationNumber"  autocomplete="off" placeholder="身份证号码">
+				</div>
+		    </div>
+		    <!--投资商名称  -->
+		    <div class="layui-form-item">
+		        <label class="layui-form-label"><span style="color:red">*</span>投资商名称</label>
+			    <div class="layui-input-block">
+			    	<input type="text" class="layui-input" th:field="*{name}" lay-verify="name"  autocomplete="off" placeholder="投资商名称">
+				</div>
+		    </div>
+		    <!--投资商地址  -->
+		    <div class="layui-form-item">
+			    <label class="layui-form-label" style="word-break: keep-all;"><span style="color:red">*</span>投资商地址</label>
+				<div class="layui-input-block">
+					<input type="text" class="layui-input"  th:field="*{address}" lay-verify="address"  autocomplete="off" placeholder="投资商地址">
+				</div>
+		    </div>
+		    <!--联系人  -->
+		    <div class="layui-form-item">
+		        <label class="layui-form-label" style="word-break: keep-all;"><span style="color:red">*</span>联系人</label>
+				<div class="layui-input-block">
+					<input type="text" class="layui-input"  th:field="*{legalPerson}" lay-verify="legalPerson"  autocomplete="off" placeholder="联系人">
+				</div>
+		    </div>
+		    <!--联系电话  -->
+			<div class="layui-form-item">
+		        <label class="layui-form-label" style="word-break: keep-all;"><span style="color:red">*</span>联系电话</label>
+				<div class="layui-input-block">
+					<input type="text" class="layui-input"  th:field="*{phoneNumber}" lay-verify="required|phoneNumber"  autocomplete="off" placeholder="联系电话">
+				</div>
+		    </div>
+		    <!--电子邮箱 -->   
+		    <div class="layui-form-item">
+		        <label class="layui-form-label">电子邮箱</label>
+				<div class="layui-input-block">
+					<input type="text" class="layui-input" th:field="*{email}" lay-verify="emails" autocomplete="off" placeholder="电子邮箱">
+				</div>
+		    </div>
+		    <!--成立时间-->
+		    <div class="layui-form-item">
+		        <label class="layui-form-label">成立时间</label>
+				<div class="layui-input-block">
+					<input id="date" type="text" class="layui-input" th:field="*{joinTime}"  autocomplete="off" placeholder="成立时间">
+				</div>
+		    </div>
+		    <!--微信号-->
+		    <div class="layui-form-item">
+		        <label class="layui-form-label">微信号</label>
+				<div class="layui-input-block">
+					<input type="text" class="layui-input" th:field="*{weixin}" lay-verify="weixin"  autocomplete="off" placeholder="微信号">
+				</div>
+		    </div>
+		    <!--底部功能按钮-->
+		    <div class="layui-form-item" style="text-align: center;">
+		        <div class="layui-input-block">		            
+		            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+		            <button class="layui-btn layui-btn layui-btn-normal" lay-submit="" lay-filter="demo1">提交</button>
+		        </div>
+		    </div>
+		</form>
+	</fieldset>
+
+<script src="../../../frame/layui/layui.js" charset="utf-8"></script>
+<script type="text/javascript" src="../../../js/market/generic/editInvestorIndex.js"></script>
+</body>
+</html>

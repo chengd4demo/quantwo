@@ -1,0 +1,550 @@
+2018-12-13 12:03:06.119  INFO [order-service] 10924 --- [           main] s.c.a.AnnotationConfigApplicationContext : Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@616ac46a: startup date [Thu Dec 13 12:03:06 CST 2018]; root of context hierarchy
+2018-12-13 12:03:06.867  INFO [order-service] 10924 --- [           main] f.a.AutowiredAnnotationBeanPostProcessor : JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-12-13 12:03:07.048  INFO [order-service] 10924 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'configurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$412dff57] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-12-13 12:03:09.658  INFO [order-service] 10924 --- [           main] c.c.c.ConfigServicePropertySourceLocator : Fetching config from server at: http://localhost:8888
+2018-12-13 12:03:11.037  WARN [order-service] 10924 --- [           main] c.c.c.ConfigServicePropertySourceLocator : Could not locate PropertySource: I/O error on GET request for "http://localhost:8888/order-service/default": Connection refused: connect; nested exception is java.net.ConnectException: Connection refused: connect
+2018-12-13 12:03:11.039  INFO [order-service] 10924 --- [           main] com.qt.air.cleaner.order.Application     : The following profiles are active: dev
+2018-12-13 12:03:11.067  INFO [order-service] 10924 --- [           main] ationConfigEmbeddedWebApplicationContext : Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@2c282004: startup date [Thu Dec 13 12:03:11 CST 2018]; parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@616ac46a
+2018-12-13 12:03:14.484  INFO [order-service] 10924 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2018-12-13 12:03:14.777  INFO [order-service] 10924 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2018-12-13 12:03:14.877  INFO [order-service] 10924 --- [           main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.qt.air.cleaner.order.repository.TraderRepository.
+2018-12-13 12:03:14.880  INFO [order-service] 10924 --- [           main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.qt.air.cleaner.order.repository.InvestorRepository.
+2018-12-13 12:03:14.882  INFO [order-service] 10924 --- [           main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.qt.air.cleaner.order.repository.BillingRepository.
+2018-12-13 12:03:14.883  INFO [order-service] 10924 --- [           main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.qt.air.cleaner.order.repository.AccountInBoundRepository.
+2018-12-13 12:03:14.884  INFO [order-service] 10924 --- [           main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.qt.air.cleaner.order.repository.CompanyRepository.
+2018-12-13 12:03:15.775  INFO [order-service] 10924 --- [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=6013be22-5750-3931-a17a-b84a54efe77c
+2018-12-13 12:03:15.864  INFO [order-service] 10924 --- [           main] f.a.AutowiredAnnotationBeanPostProcessor : JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-12-13 12:03:16.354  INFO [order-service] 10924 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$2513fc5a] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-12-13 12:03:16.486  INFO [order-service] 10924 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$412dff57] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-12-13 12:03:17.571  INFO [order-service] 10924 --- [           main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat initialized with port(s): 3004 (http)
+2018-12-13 12:03:17.594  INFO [order-service] 10924 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2018-12-13 12:03:17.596  INFO [order-service] 10924 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.23
+2018-12-13 12:03:18.182  INFO [order-service] 10924 --- [ost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2018-12-13 12:03:18.183  INFO [order-service] 10924 --- [ost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 7116 ms
+2018-12-13 12:03:19.306  INFO [order-service] 10924 --- [ost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2018-12-13 12:03:19.316  INFO [order-service] 10924 --- [ost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'metricsFilter' to: [/*]
+2018-12-13 12:03:19.317  INFO [order-service] 10924 --- [ost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2018-12-13 12:03:19.317  INFO [order-service] 10924 --- [ost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2018-12-13 12:03:19.317  INFO [order-service] 10924 --- [ost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2018-12-13 12:03:19.317  INFO [order-service] 10924 --- [ost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2018-12-13 12:03:19.317  INFO [order-service] 10924 --- [ost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'webRequestLoggingFilter' to: [/*]
+2018-12-13 12:03:19.318  INFO [order-service] 10924 --- [ost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'applicationContextIdFilter' to: [/*]
+2018-12-13 12:03:21.444  INFO [order-service] 10924 --- [           main] j.LocalContainerEntityManagerFactoryBean : Building JPA container EntityManagerFactory for persistence unit 'default'
+2018-12-13 12:03:21.501  INFO [order-service] 10924 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2018-12-13 12:03:22.249  INFO [order-service] 10924 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate Core {5.0.12.Final}
+2018-12-13 12:03:22.252  INFO [order-service] 10924 --- [           main] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2018-12-13 12:03:22.254  INFO [order-service] 10924 --- [           main] org.hibernate.cfg.Environment            : HHH000021: Bytecode provider name : javassist
+2018-12-13 12:03:22.595  INFO [order-service] 10924 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2018-12-13 12:03:23.251  INFO [order-service] 10924 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.Oracle9iDialect
+2018-12-13 12:03:24.290  WARN [order-service] 10924 --- [           main] org.hibernate.id.GUIDGenerator           : HHH000065: DEPRECATED : use [org.hibernate.id.UUIDGenerator] instead with custom [org.hibernate.id.UUIDGenerationStrategy] implementation
+2018-12-13 12:03:26.008  INFO [order-service] 10924 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2018-12-13 12:03:28.002  INFO [order-service] 10924 --- [           main] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2018-12-13 12:03:32.432  INFO [order-service] 10924 --- [           main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@2c282004: startup date [Thu Dec 13 12:03:11 CST 2018]; parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@616ac46a
+2018-12-13 12:03:33.137  INFO [order-service] 10924 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/inbound/list],methods=[POST]}" onto public com.qt.air.cleaner.base.dto.ResultInfo com.qt.air.cleaner.order.service.impl.AccountInBoundServiceImpl.queryAccountInbound(com.qt.air.cleaner.base.dto.RequestParame) throws com.qt.air.cleaner.base.exception.BusinessRuntimeException
+2018-12-13 12:03:33.149  INFO [order-service] 10924 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/create],methods=[POST]}" onto public com.qt.air.cleaner.base.dto.ResultInfo com.qt.air.cleaner.order.service.impl.BillingServiceImpl.createBilling(com.qt.air.cleaner.order.vo.BillingView) throws com.qt.air.cleaner.base.exception.BusinessRuntimeException
+2018-12-13 12:03:33.150  INFO [order-service] 10924 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/query],methods=[POST]}" onto public com.qt.air.cleaner.base.dto.ResultInfo com.qt.air.cleaner.order.service.impl.BillingServiceImpl.queryBilling(java.lang.String) throws com.qt.air.cleaner.base.exception.BusinessRuntimeException
+2018-12-13 12:03:33.151  INFO [order-service] 10924 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/update],methods=[POST]}" onto public com.qt.air.cleaner.base.dto.ResultInfo com.qt.air.cleaner.order.service.impl.BillingServiceImpl.updateBilling(java.lang.String,java.lang.String,java.lang.Integer,java.lang.String,java.lang.String) throws com.qt.air.cleaner.base.exception.BusinessRuntimeException
+2018-12-13 12:03:33.152  INFO [order-service] 10924 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/updateWeiXin],methods=[POST]}" onto public com.qt.air.cleaner.base.dto.ResultInfo com.qt.air.cleaner.order.service.impl.BillingServiceImpl.updateWeiXin(java.lang.String,java.lang.String) throws com.qt.air.cleaner.base.exception.BusinessRuntimeException
+2018-12-13 12:03:33.177  INFO [order-service] 10924 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/redis]}" onto public com.qt.air.cleaner.base.dto.ResultInfo com.qt.air.cleaner.order.service.impl.BillingServiceImpl.redis(java.lang.String)
+2018-12-13 12:03:33.186  INFO [order-service] 10924 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2018-12-13 12:03:33.189  INFO [order-service] 10924 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-12-13 12:03:33.369  INFO [order-service] 10924 --- [           main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-12-13 12:03:33.371  INFO [order-service] 10924 --- [           main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-12-13 12:03:33.643  INFO [order-service] 10924 --- [           main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-12-13 12:03:36.826  INFO [order-service] 10924 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/configprops || /configprops.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018-12-13 12:03:36.827  INFO [order-service] 10924 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/info || /info.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018-12-13 12:03:36.829  INFO [order-service] 10924 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/refresh || /refresh.json],methods=[POST]}" onto public java.lang.Object org.springframework.cloud.endpoint.GenericPostableMvcEndpoint.invoke()
+2018-12-13 12:03:36.830  INFO [order-service] 10924 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/health || /health.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.HealthMvcEndpoint.invoke(javax.servlet.http.HttpServletRequest,java.security.Principal)
+2018-12-13 12:03:36.832  INFO [order-service] 10924 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/trace || /trace.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018-12-13 12:03:36.835  INFO [order-service] 10924 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/loggers/{name:.*}],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.LoggersMvcEndpoint.get(java.lang.String)
+2018-12-13 12:03:36.836  INFO [order-service] 10924 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/loggers/{name:.*}],methods=[POST],consumes=[application/vnd.spring-boot.actuator.v1+json || application/json],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.LoggersMvcEndpoint.set(java.lang.String,java.util.Map<java.lang.String, java.lang.String>)
+2018-12-13 12:03:36.837  INFO [order-service] 10924 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/loggers || /loggers.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018-12-13 12:03:36.838  INFO [order-service] 10924 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/beans || /beans.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018-12-13 12:03:36.844  INFO [order-service] 10924 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/metrics/{name:.*}],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.MetricsMvcEndpoint.value(java.lang.String)
+2018-12-13 12:03:36.856  INFO [order-service] 10924 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/metrics || /metrics.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018-12-13 12:03:36.864  INFO [order-service] 10924 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/autoconfig || /autoconfig.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018-12-13 12:03:36.866  INFO [order-service] 10924 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/env],methods=[POST]}" onto public java.lang.Object org.springframework.cloud.context.environment.EnvironmentManagerMvcEndpoint.value(java.util.Map<java.lang.String, java.lang.String>)
+2018-12-13 12:03:36.868  INFO [order-service] 10924 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/env/reset],methods=[POST]}" onto public java.util.Map<java.lang.String, java.lang.Object> org.springframework.cloud.context.environment.EnvironmentManagerMvcEndpoint.reset()
+2018-12-13 12:03:36.870  INFO [order-service] 10924 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/pause || /pause.json],methods=[POST]}" onto public java.lang.Object org.springframework.cloud.endpoint.GenericPostableMvcEndpoint.invoke()
+2018-12-13 12:03:36.872  INFO [order-service] 10924 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/restart || /restart.json],methods=[POST]}" onto public java.lang.Object org.springframework.cloud.context.restart.RestartMvcEndpoint.invoke()
+2018-12-13 12:03:36.873  INFO [order-service] 10924 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/features || /features.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018-12-13 12:03:36.874  INFO [order-service] 10924 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/mappings || /mappings.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018-12-13 12:03:36.876  INFO [order-service] 10924 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/heapdump || /heapdump.json],methods=[GET],produces=[application/octet-stream]}" onto public void org.springframework.boot.actuate.endpoint.mvc.HeapdumpMvcEndpoint.invoke(boolean,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse) throws java.io.IOException,javax.servlet.ServletException
+2018-12-13 12:03:36.880  INFO [order-service] 10924 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/resume || /resume.json],methods=[POST]}" onto public java.lang.Object org.springframework.cloud.endpoint.GenericPostableMvcEndpoint.invoke()
+2018-12-13 12:03:36.881  INFO [order-service] 10924 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/archaius || /archaius.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018-12-13 12:03:36.882  INFO [order-service] 10924 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/env/{name:.*}],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EnvironmentMvcEndpoint.value(java.lang.String)
+2018-12-13 12:03:36.883  INFO [order-service] 10924 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/env || /env.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018-12-13 12:03:36.885  INFO [order-service] 10924 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/auditevents || /auditevents.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public org.springframework.http.ResponseEntity<?> org.springframework.boot.actuate.endpoint.mvc.AuditEventsMvcEndpoint.findByPrincipalAndAfterAndType(java.lang.String,java.util.Date,java.lang.String)
+2018-12-13 12:03:36.887  INFO [order-service] 10924 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/dump || /dump.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018-12-13 12:03:39.207  WARN [order-service] 10924 --- [           main] c.n.c.sources.URLConfigurationSource     : No URLs will be polled as dynamic configuration sources.
+2018-12-13 12:03:39.208  INFO [order-service] 10924 --- [           main] c.n.c.sources.URLConfigurationSource     : To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2018-12-13 12:03:39.228  WARN [order-service] 10924 --- [           main] c.n.c.sources.URLConfigurationSource     : No URLs will be polled as dynamic configuration sources.
+2018-12-13 12:03:39.229  INFO [order-service] 10924 --- [           main] c.n.c.sources.URLConfigurationSource     : To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2018-12-13 12:03:39.856  INFO [order-service] 10924 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2018-12-13 12:03:39.877  INFO [order-service] 10924 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'environmentManager' has been autodetected for JMX exposure
+2018-12-13 12:03:39.884  INFO [order-service] 10924 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'configurationPropertiesRebinder' has been autodetected for JMX exposure
+2018-12-13 12:03:39.885  INFO [order-service] 10924 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'refreshEndpoint' has been autodetected for JMX exposure
+2018-12-13 12:03:39.902  INFO [order-service] 10924 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'restartEndpoint' has been autodetected for JMX exposure
+2018-12-13 12:03:39.905  INFO [order-service] 10924 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'refreshScope' has been autodetected for JMX exposure
+2018-12-13 12:03:39.913  INFO [order-service] 10924 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Located managed bean 'environmentManager': registering with JMX server as MBean [org.springframework.cloud.context.environment:name=environmentManager,type=EnvironmentManager]
+2018-12-13 12:03:39.962  INFO [order-service] 10924 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Located managed bean 'restartEndpoint': registering with JMX server as MBean [org.springframework.cloud.context.restart:name=restartEndpoint,type=RestartEndpoint]
+2018-12-13 12:03:40.004  INFO [order-service] 10924 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Located managed bean 'refreshScope': registering with JMX server as MBean [org.springframework.cloud.context.scope.refresh:name=refreshScope,type=RefreshScope]
+2018-12-13 12:03:40.019  INFO [order-service] 10924 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Located managed bean 'configurationPropertiesRebinder': registering with JMX server as MBean [org.springframework.cloud.context.properties:name=configurationPropertiesRebinder,context=2c282004,type=ConfigurationPropertiesRebinder]
+2018-12-13 12:03:40.027  INFO [order-service] 10924 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Located managed bean 'refreshEndpoint': registering with JMX server as MBean [org.springframework.cloud.endpoint:name=refreshEndpoint,type=RefreshEndpoint]
+2018-12-13 12:03:40.854  INFO [order-service] 10924 --- [           main] o.s.c.support.DefaultLifecycleProcessor  : Starting beans in phase 0
+2018-12-13 12:03:40.863  INFO [order-service] 10924 --- [           main] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2018-12-13 12:03:41.701  INFO [order-service] 10924 --- [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON encoding codec LegacyJacksonJson
+2018-12-13 12:03:41.704  INFO [order-service] 10924 --- [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON decoding codec LegacyJacksonJson
+2018-12-13 12:03:42.182  INFO [order-service] 10924 --- [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using XML encoding codec XStreamXml
+2018-12-13 12:03:42.182  INFO [order-service] 10924 --- [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using XML decoding codec XStreamXml
+2018-12-13 12:03:43.527  INFO [order-service] 10924 --- [           main] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 12:03:44.229  INFO [order-service] 10924 --- [           main] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2018-12-13 12:03:44.229  INFO [order-service] 10924 --- [           main] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2018-12-13 12:03:44.230  INFO [order-service] 10924 --- [           main] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2018-12-13 12:03:44.230  INFO [order-service] 10924 --- [           main] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2018-12-13 12:03:44.230  INFO [order-service] 10924 --- [           main] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2018-12-13 12:03:44.230  INFO [order-service] 10924 --- [           main] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
+2018-12-13 12:03:44.230  INFO [order-service] 10924 --- [           main] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2018-12-13 12:03:44.718  INFO [order-service] 10924 --- [           main] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2018-12-13 12:03:44.722  INFO [order-service] 10924 --- [           main] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 30
+2018-12-13 12:03:44.731  INFO [order-service] 10924 --- [           main] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
+2018-12-13 12:03:44.747  INFO [order-service] 10924 --- [           main] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1544673824746 with initial instances count: 6
+2018-12-13 12:03:44.785  INFO [order-service] 10924 --- [           main] c.n.e.EurekaDiscoveryClientConfiguration : Registering application order-service with eureka with status UP
+2018-12-13 12:03:44.787  INFO [order-service] 10924 --- [           main] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1544673824787, current=UP, previous=STARTING]
+2018-12-13 12:03:44.791  INFO [order-service] 10924 --- [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_ORDER-SERVICE/SC-201701131050:order-service:3004: registering service...
+2018-12-13 12:03:45.704  INFO [order-service] 10924 --- [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_ORDER-SERVICE/SC-201701131050:order-service:3004 - registration status: 204
+2018-12-13 12:03:46.116  INFO [order-service] 10924 --- [           main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 3004 (http)
+2018-12-13 12:03:46.119  INFO [order-service] 10924 --- [           main] c.n.e.EurekaDiscoveryClientConfiguration : Updating port to 3004
+2018-12-13 12:03:46.147  INFO [order-service] 10924 --- [           main] com.qt.air.cleaner.order.Application     : Started Application in 43.473 seconds (JVM running for 46.53)
+2018-12-13 12:04:45.757 ERROR [order-service] 10924 --- [freshExecutor-0] c.n.d.s.t.d.RedirectingEurekaHttpClient  : Request execution error
+
+com.sun.jersey.api.client.ClientHandlerException: java.net.ConnectException: Connection refused: connect
+	at com.sun.jersey.client.apache4.ApacheHttpClient4Handler.handle(ApacheHttpClient4Handler.java:187)
+	at com.sun.jersey.api.client.filter.GZIPContentEncodingFilter.handle(GZIPContentEncodingFilter.java:123)
+	at com.netflix.discovery.EurekaIdentityHeaderFilter.handle(EurekaIdentityHeaderFilter.java:27)
+	at com.sun.jersey.api.client.Client.handle(Client.java:652)
+	at com.sun.jersey.api.client.WebResource.handle(WebResource.java:682)
+	at com.sun.jersey.api.client.WebResource.access$200(WebResource.java:74)
+	at com.sun.jersey.api.client.WebResource$Builder.get(WebResource.java:509)
+	at com.netflix.discovery.shared.transport.jersey.AbstractJerseyEurekaHttpClient.getApplicationsInternal(AbstractJerseyEurekaHttpClient.java:194)
+	at com.netflix.discovery.shared.transport.jersey.AbstractJerseyEurekaHttpClient.getDelta(AbstractJerseyEurekaHttpClient.java:170)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$7.execute(EurekaHttpClientDecorator.java:152)
+	at com.netflix.discovery.shared.transport.decorator.MetricsCollectingEurekaHttpClient.execute(MetricsCollectingEurekaHttpClient.java:73)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.getDelta(EurekaHttpClientDecorator.java:149)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$7.execute(EurekaHttpClientDecorator.java:152)
+	at com.netflix.discovery.shared.transport.decorator.RedirectingEurekaHttpClient.execute(RedirectingEurekaHttpClient.java:89)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.getDelta(EurekaHttpClientDecorator.java:149)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$7.execute(EurekaHttpClientDecorator.java:152)
+	at com.netflix.discovery.shared.transport.decorator.RetryableEurekaHttpClient.execute(RetryableEurekaHttpClient.java:119)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.getDelta(EurekaHttpClientDecorator.java:149)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$7.execute(EurekaHttpClientDecorator.java:152)
+	at com.netflix.discovery.shared.transport.decorator.SessionedEurekaHttpClient.execute(SessionedEurekaHttpClient.java:77)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.getDelta(EurekaHttpClientDecorator.java:149)
+	at com.netflix.discovery.DiscoveryClient.getAndUpdateDelta(DiscoveryClient.java:1064)
+	at com.netflix.discovery.DiscoveryClient.fetchRegistry(DiscoveryClient.java:946)
+	at com.netflix.discovery.DiscoveryClient.refreshRegistry(DiscoveryClient.java:1468)
+	at com.netflix.discovery.DiscoveryClient$CacheRefreshThread.run(DiscoveryClient.java:1435)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.net.DualStackPlainSocketImpl.waitForConnect(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:85)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:345)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:589)
+	at org.apache.http.conn.scheme.PlainSocketFactory.connectSocket(PlainSocketFactory.java:121)
+	at org.apache.http.impl.conn.DefaultClientConnectionOperator.openConnection(DefaultClientConnectionOperator.java:180)
+	at org.apache.http.impl.conn.AbstractPoolEntry.open(AbstractPoolEntry.java:144)
+	at org.apache.http.impl.conn.AbstractPooledConnAdapter.open(AbstractPooledConnAdapter.java:134)
+	at org.apache.http.impl.client.DefaultRequestDirector.tryConnect(DefaultRequestDirector.java:610)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:445)
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:835)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:118)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:56)
+	at com.sun.jersey.client.apache4.ApacheHttpClient4Handler.handle(ApacheHttpClient4Handler.java:173)
+	... 29 common frames omitted
+
+2018-12-13 12:04:45.758  WARN [order-service] 10924 --- [freshExecutor-0] c.n.d.s.t.d.RetryableEurekaHttpClient    : Request execution failure
+2018-12-13 12:04:45.868 ERROR [order-service] 10924 --- [tbeatExecutor-0] c.n.d.s.t.d.RedirectingEurekaHttpClient  : Request execution error
+
+com.sun.jersey.api.client.ClientHandlerException: java.net.ConnectException: Connection refused: connect
+	at com.sun.jersey.client.apache4.ApacheHttpClient4Handler.handle(ApacheHttpClient4Handler.java:187)
+	at com.sun.jersey.api.client.filter.GZIPContentEncodingFilter.handle(GZIPContentEncodingFilter.java:123)
+	at com.netflix.discovery.EurekaIdentityHeaderFilter.handle(EurekaIdentityHeaderFilter.java:27)
+	at com.sun.jersey.api.client.Client.handle(Client.java:652)
+	at com.sun.jersey.api.client.WebResource.handle(WebResource.java:682)
+	at com.sun.jersey.api.client.WebResource.access$200(WebResource.java:74)
+	at com.sun.jersey.api.client.WebResource$Builder.put(WebResource.java:529)
+	at com.netflix.discovery.shared.transport.jersey.AbstractJerseyEurekaHttpClient.sendHeartBeat(AbstractJerseyEurekaHttpClient.java:102)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$3.execute(EurekaHttpClientDecorator.java:92)
+	at com.netflix.discovery.shared.transport.decorator.MetricsCollectingEurekaHttpClient.execute(MetricsCollectingEurekaHttpClient.java:73)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.sendHeartBeat(EurekaHttpClientDecorator.java:89)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$3.execute(EurekaHttpClientDecorator.java:92)
+	at com.netflix.discovery.shared.transport.decorator.RedirectingEurekaHttpClient.execute(RedirectingEurekaHttpClient.java:89)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.sendHeartBeat(EurekaHttpClientDecorator.java:89)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$3.execute(EurekaHttpClientDecorator.java:92)
+	at com.netflix.discovery.shared.transport.decorator.RetryableEurekaHttpClient.execute(RetryableEurekaHttpClient.java:119)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.sendHeartBeat(EurekaHttpClientDecorator.java:89)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$3.execute(EurekaHttpClientDecorator.java:92)
+	at com.netflix.discovery.shared.transport.decorator.SessionedEurekaHttpClient.execute(SessionedEurekaHttpClient.java:77)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.sendHeartBeat(EurekaHttpClientDecorator.java:89)
+	at com.netflix.discovery.DiscoveryClient.renew(DiscoveryClient.java:832)
+	at com.netflix.discovery.DiscoveryClient$HeartbeatThread.run(DiscoveryClient.java:1396)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.net.DualStackPlainSocketImpl.waitForConnect(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:85)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:345)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:589)
+	at org.apache.http.conn.scheme.PlainSocketFactory.connectSocket(PlainSocketFactory.java:121)
+	at org.apache.http.impl.conn.DefaultClientConnectionOperator.openConnection(DefaultClientConnectionOperator.java:180)
+	at org.apache.http.impl.conn.AbstractPoolEntry.open(AbstractPoolEntry.java:144)
+	at org.apache.http.impl.conn.AbstractPooledConnAdapter.open(AbstractPooledConnAdapter.java:134)
+	at org.apache.http.impl.client.DefaultRequestDirector.tryConnect(DefaultRequestDirector.java:610)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:445)
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:835)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:118)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:56)
+	at com.sun.jersey.client.apache4.ApacheHttpClient4Handler.handle(ApacheHttpClient4Handler.java:173)
+	... 26 common frames omitted
+
+2018-12-13 12:04:45.869  WARN [order-service] 10924 --- [tbeatExecutor-0] c.n.d.s.t.d.RetryableEurekaHttpClient    : Request execution failure
+2018-12-13 12:04:46.771 ERROR [order-service] 10924 --- [freshExecutor-0] c.n.d.s.t.d.RedirectingEurekaHttpClient  : Request execution error
+
+com.sun.jersey.api.client.ClientHandlerException: java.net.ConnectException: Connection refused: connect
+	at com.sun.jersey.client.apache4.ApacheHttpClient4Handler.handle(ApacheHttpClient4Handler.java:187)
+	at com.sun.jersey.api.client.filter.GZIPContentEncodingFilter.handle(GZIPContentEncodingFilter.java:123)
+	at com.netflix.discovery.EurekaIdentityHeaderFilter.handle(EurekaIdentityHeaderFilter.java:27)
+	at com.sun.jersey.api.client.Client.handle(Client.java:652)
+	at com.sun.jersey.api.client.WebResource.handle(WebResource.java:682)
+	at com.sun.jersey.api.client.WebResource.access$200(WebResource.java:74)
+	at com.sun.jersey.api.client.WebResource$Builder.get(WebResource.java:509)
+	at com.netflix.discovery.shared.transport.jersey.AbstractJerseyEurekaHttpClient.getApplicationsInternal(AbstractJerseyEurekaHttpClient.java:194)
+	at com.netflix.discovery.shared.transport.jersey.AbstractJerseyEurekaHttpClient.getDelta(AbstractJerseyEurekaHttpClient.java:170)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$7.execute(EurekaHttpClientDecorator.java:152)
+	at com.netflix.discovery.shared.transport.decorator.MetricsCollectingEurekaHttpClient.execute(MetricsCollectingEurekaHttpClient.java:73)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.getDelta(EurekaHttpClientDecorator.java:149)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$7.execute(EurekaHttpClientDecorator.java:152)
+	at com.netflix.discovery.shared.transport.decorator.RedirectingEurekaHttpClient.executeOnNewServer(RedirectingEurekaHttpClient.java:118)
+	at com.netflix.discovery.shared.transport.decorator.RedirectingEurekaHttpClient.execute(RedirectingEurekaHttpClient.java:79)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.getDelta(EurekaHttpClientDecorator.java:149)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$7.execute(EurekaHttpClientDecorator.java:152)
+	at com.netflix.discovery.shared.transport.decorator.RetryableEurekaHttpClient.execute(RetryableEurekaHttpClient.java:119)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.getDelta(EurekaHttpClientDecorator.java:149)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$7.execute(EurekaHttpClientDecorator.java:152)
+	at com.netflix.discovery.shared.transport.decorator.SessionedEurekaHttpClient.execute(SessionedEurekaHttpClient.java:77)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.getDelta(EurekaHttpClientDecorator.java:149)
+	at com.netflix.discovery.DiscoveryClient.getAndUpdateDelta(DiscoveryClient.java:1064)
+	at com.netflix.discovery.DiscoveryClient.fetchRegistry(DiscoveryClient.java:946)
+	at com.netflix.discovery.DiscoveryClient.refreshRegistry(DiscoveryClient.java:1468)
+	at com.netflix.discovery.DiscoveryClient$CacheRefreshThread.run(DiscoveryClient.java:1435)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.net.DualStackPlainSocketImpl.waitForConnect(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:85)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:345)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:589)
+	at org.apache.http.conn.scheme.PlainSocketFactory.connectSocket(PlainSocketFactory.java:121)
+	at org.apache.http.impl.conn.DefaultClientConnectionOperator.openConnection(DefaultClientConnectionOperator.java:180)
+	at org.apache.http.impl.conn.AbstractPoolEntry.open(AbstractPoolEntry.java:144)
+	at org.apache.http.impl.conn.AbstractPooledConnAdapter.open(AbstractPooledConnAdapter.java:134)
+	at org.apache.http.impl.client.DefaultRequestDirector.tryConnect(DefaultRequestDirector.java:610)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:445)
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:835)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:118)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:56)
+	at com.sun.jersey.client.apache4.ApacheHttpClient4Handler.handle(ApacheHttpClient4Handler.java:173)
+	... 30 common frames omitted
+
+2018-12-13 12:04:46.772  WARN [order-service] 10924 --- [freshExecutor-0] c.n.d.s.t.d.RetryableEurekaHttpClient    : Request execution failure
+2018-12-13 12:04:46.879 ERROR [order-service] 10924 --- [tbeatExecutor-0] c.n.d.s.t.d.RedirectingEurekaHttpClient  : Request execution error
+
+com.sun.jersey.api.client.ClientHandlerException: java.net.ConnectException: Connection refused: connect
+	at com.sun.jersey.client.apache4.ApacheHttpClient4Handler.handle(ApacheHttpClient4Handler.java:187)
+	at com.sun.jersey.api.client.filter.GZIPContentEncodingFilter.handle(GZIPContentEncodingFilter.java:123)
+	at com.netflix.discovery.EurekaIdentityHeaderFilter.handle(EurekaIdentityHeaderFilter.java:27)
+	at com.sun.jersey.api.client.Client.handle(Client.java:652)
+	at com.sun.jersey.api.client.WebResource.handle(WebResource.java:682)
+	at com.sun.jersey.api.client.WebResource.access$200(WebResource.java:74)
+	at com.sun.jersey.api.client.WebResource$Builder.put(WebResource.java:529)
+	at com.netflix.discovery.shared.transport.jersey.AbstractJerseyEurekaHttpClient.sendHeartBeat(AbstractJerseyEurekaHttpClient.java:102)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$3.execute(EurekaHttpClientDecorator.java:92)
+	at com.netflix.discovery.shared.transport.decorator.MetricsCollectingEurekaHttpClient.execute(MetricsCollectingEurekaHttpClient.java:73)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.sendHeartBeat(EurekaHttpClientDecorator.java:89)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$3.execute(EurekaHttpClientDecorator.java:92)
+	at com.netflix.discovery.shared.transport.decorator.RedirectingEurekaHttpClient.executeOnNewServer(RedirectingEurekaHttpClient.java:118)
+	at com.netflix.discovery.shared.transport.decorator.RedirectingEurekaHttpClient.execute(RedirectingEurekaHttpClient.java:79)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.sendHeartBeat(EurekaHttpClientDecorator.java:89)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$3.execute(EurekaHttpClientDecorator.java:92)
+	at com.netflix.discovery.shared.transport.decorator.RetryableEurekaHttpClient.execute(RetryableEurekaHttpClient.java:119)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.sendHeartBeat(EurekaHttpClientDecorator.java:89)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$3.execute(EurekaHttpClientDecorator.java:92)
+	at com.netflix.discovery.shared.transport.decorator.SessionedEurekaHttpClient.execute(SessionedEurekaHttpClient.java:77)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.sendHeartBeat(EurekaHttpClientDecorator.java:89)
+	at com.netflix.discovery.DiscoveryClient.renew(DiscoveryClient.java:832)
+	at com.netflix.discovery.DiscoveryClient$HeartbeatThread.run(DiscoveryClient.java:1396)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.net.DualStackPlainSocketImpl.waitForConnect(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:85)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:345)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:589)
+	at org.apache.http.conn.scheme.PlainSocketFactory.connectSocket(PlainSocketFactory.java:121)
+	at org.apache.http.impl.conn.DefaultClientConnectionOperator.openConnection(DefaultClientConnectionOperator.java:180)
+	at org.apache.http.impl.conn.AbstractPoolEntry.open(AbstractPoolEntry.java:144)
+	at org.apache.http.impl.conn.AbstractPooledConnAdapter.open(AbstractPooledConnAdapter.java:134)
+	at org.apache.http.impl.client.DefaultRequestDirector.tryConnect(DefaultRequestDirector.java:610)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:445)
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:835)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:118)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:56)
+	at com.sun.jersey.client.apache4.ApacheHttpClient4Handler.handle(ApacheHttpClient4Handler.java:173)
+	... 27 common frames omitted
+
+2018-12-13 12:04:46.880  WARN [order-service] 10924 --- [tbeatExecutor-0] c.n.d.s.t.d.RetryableEurekaHttpClient    : Request execution failure
+2018-12-13 12:04:47.494 ERROR [order-service] 10924 --- [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_ORDER-SERVICE/SC-201701131050:order-service:3004 - was unable to refresh its cache! status = Cannot execute request on any known server
+
+com.netflix.discovery.shared.transport.TransportException: Cannot execute request on any known server
+	at com.netflix.discovery.shared.transport.decorator.RetryableEurekaHttpClient.execute(RetryableEurekaHttpClient.java:111)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.getDelta(EurekaHttpClientDecorator.java:149)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$7.execute(EurekaHttpClientDecorator.java:152)
+	at com.netflix.discovery.shared.transport.decorator.SessionedEurekaHttpClient.execute(SessionedEurekaHttpClient.java:77)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.getDelta(EurekaHttpClientDecorator.java:149)
+	at com.netflix.discovery.DiscoveryClient.getAndUpdateDelta(DiscoveryClient.java:1064)
+	at com.netflix.discovery.DiscoveryClient.fetchRegistry(DiscoveryClient.java:946)
+	at com.netflix.discovery.DiscoveryClient.refreshRegistry(DiscoveryClient.java:1468)
+	at com.netflix.discovery.DiscoveryClient$CacheRefreshThread.run(DiscoveryClient.java:1435)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+2018-12-13 12:04:47.494 ERROR [order-service] 10924 --- [tbeatExecutor-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_ORDER-SERVICE/SC-201701131050:order-service:3004 - was unable to send heartbeat!
+
+com.netflix.discovery.shared.transport.TransportException: Cannot execute request on any known server
+	at com.netflix.discovery.shared.transport.decorator.RetryableEurekaHttpClient.execute(RetryableEurekaHttpClient.java:111)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.sendHeartBeat(EurekaHttpClientDecorator.java:89)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$3.execute(EurekaHttpClientDecorator.java:92)
+	at com.netflix.discovery.shared.transport.decorator.SessionedEurekaHttpClient.execute(SessionedEurekaHttpClient.java:77)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.sendHeartBeat(EurekaHttpClientDecorator.java:89)
+	at com.netflix.discovery.DiscoveryClient.renew(DiscoveryClient.java:832)
+	at com.netflix.discovery.DiscoveryClient$HeartbeatThread.run(DiscoveryClient.java:1396)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+2018-12-13 12:05:17.726  INFO [order-service] 10924 --- [tbeatExecutor-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_ORDER-SERVICE/SC-201701131050:order-service:3004 - Re-registering apps/ORDER-SERVICE
+2018-12-13 12:05:17.726  INFO [order-service] 10924 --- [tbeatExecutor-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_ORDER-SERVICE/SC-201701131050:order-service:3004: registering service...
+2018-12-13 12:05:17.935  INFO [order-service] 10924 --- [tbeatExecutor-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_ORDER-SERVICE/SC-201701131050:order-service:3004 - registration status: 204
+2018-12-13 12:05:47.835  INFO [order-service] 10924 --- [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2018-12-13 12:05:47.836  INFO [order-service] 10924 --- [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2018-12-13 12:05:47.837  INFO [order-service] 10924 --- [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2018-12-13 12:05:47.837  INFO [order-service] 10924 --- [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2018-12-13 12:05:47.837  INFO [order-service] 10924 --- [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2018-12-13 12:05:47.838  INFO [order-service] 10924 --- [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : Application version is -1: false
+2018-12-13 12:05:47.838  INFO [order-service] 10924 --- [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2018-12-13 12:05:47.859  INFO [order-service] 10924 --- [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2018-12-13 12:08:14.577  INFO [order-service] 10924 --- [nio-3004-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2018-12-13 12:08:14.577  INFO [order-service] 10924 --- [nio-3004-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization started
+2018-12-13 12:08:14.661  INFO [order-service] 10924 --- [nio-3004-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization completed in 84 ms
+2018-12-13 12:08:14.865  INFO [order-service] 10924 --- [nio-3004-exec-1] c.q.a.c.o.s.i.AccountInBoundServiceImpl  : execute method queryAccountInbound() param --> weixin:com.qt.air.cleaner.base.dto.RequestParame@160481de
+2018-12-13 12:08:44.249  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 12:13:44.255  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 12:18:44.271  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 12:19:23.176  INFO [order-service] 10924 --- [nio-3004-exec-3] c.q.a.c.o.s.i.AccountInBoundServiceImpl  : execute method queryAccountInbound() param --> weixin:com.qt.air.cleaner.base.dto.RequestParame@eed8b6e
+2018-12-13 12:23:17.562  INFO [order-service] 10924 --- [nio-3004-exec-4] c.q.a.c.o.s.i.AccountInBoundServiceImpl  : execute method queryAccountInbound() param --> weixin:com.qt.air.cleaner.base.dto.RequestParame@761b4bdf
+2018-12-13 12:23:21.158  INFO [order-service] 10924 --- [nio-3004-exec-6] c.q.a.c.o.s.i.AccountInBoundServiceImpl  : execute method queryAccountInbound() param --> weixin:com.qt.air.cleaner.base.dto.RequestParame@13defbc2
+2018-12-13 12:23:44.277  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 12:24:14.167  INFO [order-service] 10924 --- [nio-3004-exec-8] c.q.a.c.o.s.i.AccountInBoundServiceImpl  : execute method queryAccountInbound() param --> weixin:com.qt.air.cleaner.base.dto.RequestParame@1d87d111
+2018-12-13 12:24:24.797  INFO [order-service] 10924 --- [io-3004-exec-10] c.q.a.c.o.s.i.AccountInBoundServiceImpl  : execute method queryAccountInbound() param --> weixin:com.qt.air.cleaner.base.dto.RequestParame@606ee780
+2018-12-13 12:27:26.511  INFO [order-service] 10924 --- [nio-3004-exec-2] c.q.a.c.o.s.i.AccountInBoundServiceImpl  : execute method queryAccountInbound() param --> weixin:com.qt.air.cleaner.base.dto.RequestParame@6c10c140
+2018-12-13 12:28:44.287  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 12:28:51.610  INFO [order-service] 10924 --- [nio-3004-exec-5] c.q.a.c.o.s.i.AccountInBoundServiceImpl  : execute method queryAccountInbound() param --> weixin:com.qt.air.cleaner.base.dto.RequestParame@347ea2b4
+2018-12-13 12:33:44.294  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 12:38:44.296  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 12:43:44.301  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 12:48:44.319  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 12:52:48.003  INFO [order-service] 10924 --- [nio-3004-exec-6] c.q.a.c.o.s.i.AccountInBoundServiceImpl  : execute method queryAccountInbound() param --> weixin:com.qt.air.cleaner.base.dto.RequestParame@60f3b515
+2018-12-13 12:53:44.329  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 12:58:44.332  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 12:59:00.654  INFO [order-service] 10924 --- [nio-3004-exec-8] c.q.a.c.o.s.i.AccountInBoundServiceImpl  : execute method queryAccountInbound() param --> weixin:com.qt.air.cleaner.base.dto.RequestParame@5079372
+2018-12-13 13:03:44.333  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 13:04:31.167  INFO [order-service] 10924 --- [io-3004-exec-10] c.q.a.c.o.s.i.AccountInBoundServiceImpl  : execute method queryAccountInbound() param --> weixin:com.qt.air.cleaner.base.dto.RequestParame@3e97c56f
+2018-12-13 13:05:14.822  INFO [order-service] 10924 --- [nio-3004-exec-2] c.q.a.c.o.s.i.AccountInBoundServiceImpl  : execute method queryAccountInbound() param --> weixin:com.qt.air.cleaner.base.dto.RequestParame@79a865d8
+2018-12-13 13:05:16.931  INFO [order-service] 10924 --- [nio-3004-exec-3] c.q.a.c.o.s.i.AccountInBoundServiceImpl  : execute method queryAccountInbound() param --> weixin:com.qt.air.cleaner.base.dto.RequestParame@4c3b7ce7
+2018-12-13 13:05:18.534  INFO [order-service] 10924 --- [nio-3004-exec-5] c.q.a.c.o.s.i.AccountInBoundServiceImpl  : execute method queryAccountInbound() param --> weixin:com.qt.air.cleaner.base.dto.RequestParame@1383d269
+2018-12-13 13:05:29.252  INFO [order-service] 10924 --- [nio-3004-exec-4] c.q.a.c.o.s.i.AccountInBoundServiceImpl  : execute method queryAccountInbound() param --> weixin:com.qt.air.cleaner.base.dto.RequestParame@de7ea71
+2018-12-13 13:05:44.586  INFO [order-service] 10924 --- [nio-3004-exec-6] c.q.a.c.o.s.i.AccountInBoundServiceImpl  : execute method queryAccountInbound() param --> weixin:com.qt.air.cleaner.base.dto.RequestParame@7ca73055
+2018-12-13 13:06:35.084  INFO [order-service] 10924 --- [nio-3004-exec-7] c.q.a.c.o.s.i.AccountInBoundServiceImpl  : execute method queryAccountInbound() param --> weixin:com.qt.air.cleaner.base.dto.RequestParame@68ab87ac
+2018-12-13 13:06:47.371  INFO [order-service] 10924 --- [nio-3004-exec-9] c.q.a.c.o.s.i.AccountInBoundServiceImpl  : execute method queryAccountInbound() param --> weixin:com.qt.air.cleaner.base.dto.RequestParame@1793b9cf
+2018-12-13 13:06:52.575  INFO [order-service] 10924 --- [io-3004-exec-10] c.q.a.c.o.s.i.AccountInBoundServiceImpl  : execute method queryAccountInbound() param --> weixin:com.qt.air.cleaner.base.dto.RequestParame@491064ab
+2018-12-13 13:08:44.339  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 13:13:44.341  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 13:18:44.342  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 13:23:44.346  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 13:28:44.362  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 13:33:44.364  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 13:38:44.367  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 13:43:44.371  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 14:05:46.563  INFO [order-service] 10924 --- [nio-3004-exec-2] c.q.a.c.o.s.i.AccountInBoundServiceImpl  : execute method queryAccountInbound() param --> weixin:com.qt.air.cleaner.base.dto.RequestParame@500e1c9c
+2018-12-13 14:06:36.965  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 14:11:36.966  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 14:16:36.968  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 14:21:36.975  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 14:26:36.977  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 14:31:36.979  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 14:36:37.141  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 14:41:37.180  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 14:45:04.392  INFO [order-service] 10924 --- [nio-3004-exec-3] c.q.a.c.o.s.i.AccountInBoundServiceImpl  : execute method queryAccountInbound() param --> weixin:com.qt.air.cleaner.base.dto.RequestParame@6dc14bfd
+2018-12-13 14:45:42.003  INFO [order-service] 10924 --- [nio-3004-exec-5] c.q.a.c.o.s.i.AccountInBoundServiceImpl  : execute method queryAccountInbound() param --> weixin:com.qt.air.cleaner.base.dto.RequestParame@454dd664
+2018-12-13 14:46:10.506  INFO [order-service] 10924 --- [nio-3004-exec-6] c.q.a.c.o.s.i.AccountInBoundServiceImpl  : execute method queryAccountInbound() param --> weixin:com.qt.air.cleaner.base.dto.RequestParame@2febad1a
+2018-12-13 14:46:20.344  INFO [order-service] 10924 --- [nio-3004-exec-7] c.q.a.c.o.s.i.AccountInBoundServiceImpl  : execute method queryAccountInbound() param --> weixin:com.qt.air.cleaner.base.dto.RequestParame@2a73bec0
+2018-12-13 14:46:30.087  INFO [order-service] 10924 --- [nio-3004-exec-8] c.q.a.c.o.s.i.AccountInBoundServiceImpl  : execute method queryAccountInbound() param --> weixin:com.qt.air.cleaner.base.dto.RequestParame@c4a9bae
+2018-12-13 14:46:37.194  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 14:47:34.187  INFO [order-service] 10924 --- [io-3004-exec-10] c.q.a.c.o.s.i.AccountInBoundServiceImpl  : execute method queryAccountInbound() param --> weixin:com.qt.air.cleaner.base.dto.RequestParame@24cf6ad6
+2018-12-13 14:51:37.216  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 14:56:37.370  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 15:01:37.409  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 15:06:37.441  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 15:10:56.476  INFO [order-service] 10924 --- [nio-3004-exec-1] c.q.a.c.o.s.i.AccountInBoundServiceImpl  : execute method queryAccountInbound() param --> weixin:com.qt.air.cleaner.base.dto.RequestParame@58f8ef1b
+2018-12-13 15:11:37.489  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 15:12:23.293  INFO [order-service] 10924 --- [nio-3004-exec-2] c.q.a.c.o.s.i.AccountInBoundServiceImpl  : execute method queryAccountInbound() param --> weixin:com.qt.air.cleaner.base.dto.RequestParame@7534564c
+2018-12-13 15:16:37.531  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 15:21:37.546  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 15:26:37.581  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 15:31:37.659  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 15:36:37.702  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 15:41:37.729  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 15:46:37.768  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 15:51:37.810  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 15:56:37.857  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 16:01:37.868  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 16:06:37.869  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 16:11:37.870  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 16:16:37.893  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 16:21:20.475  INFO [order-service] 10924 --- [nio-3004-exec-3] c.q.a.c.o.s.i.AccountInBoundServiceImpl  : execute method queryAccountInbound() param --> weixin:com.qt.air.cleaner.base.dto.RequestParame@646a4dea
+2018-12-13 16:21:37.895  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 16:26:37.898  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 16:31:37.901  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 16:36:37.905  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 16:41:37.936  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 16:46:37.940  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 16:51:37.943  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 16:56:37.968  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 17:01:37.971  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 17:06:37.997  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 17:11:38.008  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 17:16:38.011  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 17:21:38.013  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 17:26:38.060  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 17:31:38.090  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 17:36:38.091  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 17:41:38.113  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 17:46:38.116  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 17:51:38.154  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 17:56:38.188  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 18:01:38.214  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 18:06:38.217  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 18:11:38.242  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 18:16:38.278  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 18:21:38.304  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 18:26:38.317  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 18:31:38.320  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 18:36:38.321  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 18:41:38.323  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 18:46:38.356  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 18:51:38.363  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 18:56:38.366  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 19:01:38.372  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 19:06:38.405  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 19:11:38.432  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 19:16:38.443  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 19:21:38.448  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 19:26:38.448  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 19:31:38.524  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 19:36:38.527  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 19:41:38.528  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 19:46:38.530  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 19:51:38.564  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 19:56:38.572  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 20:01:38.616  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 20:06:38.646  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 20:11:38.648  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 20:16:38.665  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 20:21:38.691  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 20:26:38.692  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 20:31:38.695  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 20:36:38.697  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 20:41:38.729  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 20:46:38.732  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 20:51:38.762  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 20:56:38.789  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 21:01:38.801  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 21:06:38.848  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 21:11:38.871  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 21:16:38.909  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 21:21:38.911  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 21:26:38.915  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 21:31:38.916  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 21:36:38.963  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 21:41:38.992  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 21:46:47.769  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 21:51:47.783  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 21:56:47.789  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 22:01:47.790  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 22:06:47.826  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 22:11:47.834  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 22:16:47.836  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 22:21:47.837  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 22:26:47.901  INFO [order-service] 10924 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-13 22:28:19.158  INFO [order-service] 10924 --- [on(2)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2018-12-13 22:28:19.324  INFO [order-service] 10924 --- [on(2)-127.0.0.1] ationConfigEmbeddedWebApplicationContext : Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@2c282004: startup date [Thu Dec 13 12:03:11 CST 2018]; parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@616ac46a
+2018-12-13 22:28:20.090  INFO [order-service] 10924 --- [on(2)-127.0.0.1] c.n.e.EurekaDiscoveryClientConfiguration : Unregistering application order-service with eureka with status DOWN
+2018-12-13 22:28:20.121  WARN [order-service] 10924 --- [on(2)-127.0.0.1] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1544711300090, current=DOWN, previous=UP]
+2018-12-13 22:28:20.184  INFO [order-service] 10924 --- [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_ORDER-SERVICE/SC-201701131050:order-service:3004: registering service...
+2018-12-13 22:28:20.618  INFO [order-service] 10924 --- [on(2)-127.0.0.1] com.netflix.discovery.DiscoveryClient    : Shutting down DiscoveryClient ...
+2018-12-13 22:28:20.633  INFO [order-service] 10924 --- [on(2)-127.0.0.1] com.netflix.discovery.DiscoveryClient    : Unregistering ...
+2018-12-13 22:28:20.883  INFO [order-service] 10924 --- [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_ORDER-SERVICE/SC-201701131050:order-service:3004 - registration status: 204
+2018-12-13 22:28:21.180  INFO [order-service] 10924 --- [on(2)-127.0.0.1] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_ORDER-SERVICE/SC-201701131050:order-service:3004 - deregister  status: 200
+2018-12-13 22:28:21.524  INFO [order-service] 10924 --- [on(2)-127.0.0.1] com.netflix.discovery.DiscoveryClient    : Completed shut down of DiscoveryClient
+2018-12-13 22:28:23.209  INFO [order-service] 10924 --- [on(2)-127.0.0.1] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 0
+2018-12-13 22:28:24.092  INFO [order-service] 10924 --- [on(2)-127.0.0.1] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
+2018-12-13 22:28:24.123  INFO [order-service] 10924 --- [on(2)-127.0.0.1] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans
+2018-12-13 22:28:24.483  INFO [order-service] 10924 --- [on(2)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2018-12-13 22:28:28.044  INFO [order-service] 10924 --- [on(2)-127.0.0.1] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2018-12-13 22:28:28.651  INFO [order-service] 10924 --- [ost-startStop-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Destroying Spring FrameworkServlet 'dispatcherServlet'

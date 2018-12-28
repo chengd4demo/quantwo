@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>新增批次信息</title>
+	<link rel="stylesheet" href="../../../frame/layui/css/layui.css">
+	<link rel="stylesheet" href="../../../frame/static/css/style.css">
+</head>
+<body class="body">
+	<fieldset class="layui-elem-field" style="border-color:rgb(30, 159, 255);margin-top:1em;padding-left:1em;padding-right:2em;padding-top:1em;">
+			<legend data-th-text="${device.legend}">维护批次信息</legend>
+		<form class="layui-form" layui-form="device" action="" th:object="${device}" >
+		<input type="hidden" name ="id" th:field="*{id}"/>	
+		<input type="hidden" name ="deviceBatchId" th:field="*{deviceBatchId}"/>			
+		     <!--设备序列号-->
+		    <div class="layui-form-item" th:if="${device.id != null}">
+		        <label class="layui-form-label">设备序列号</label>
+		        <div class="layui-input-block">
+		            <input type="text" name="deviceSequence" th:field="*{deviceSequence}" readonly="readonly" lay-verify="required|deviceSequence" placeholder="请输入设备编码" autocomplete="off" class="layui-input">
+		        </div>
+		    </div>
+		    <!--设备编码-->
+		    <div class="layui-form-item">
+		        <label class="layui-form-label"><span style="color:red">*</span>设备编码</label>
+		        <div class="layui-input-block">
+		            <input type="number" name="machNo" oninput="if(value.length>11)value=value.slice(0,15)"  th:field="*{machNo}" lay-verify="required|machNo" placeholder="请输入设备编码" autocomplete="off" class="layui-input">
+		        </div>
+		    </div>
+		    <!--安装地址-->
+		    <div class="layui-form-item">
+		        <label class="layui-form-label"><span style="color:red">*</span>安装地址</label>
+		        <div class="layui-input-block">
+		            <input type="text" name="setupAddress" th:field="*{setupAddress}" lay-verify="setupAddress" placeholder="请输入安装地址" autocomplete="off" class="layui-input">
+		        </div>
+		    </div>
+		    <!--安装时间-->
+		    <div class="layui-form-item">
+		        <label class="layui-form-label">安装时间</label>
+		        <div class="layui-input-block">
+		            <input type="text" name="setupTime" id="date" th:field="*{setupTime}" placeholder="请选择安装时间" autocomplete="off" class="layui-input">
+		        </div>
+		    </div>
+		    <!--所属公司-->
+			<div class="layui-form-item">
+	            <label class="layui-form-label">所属公司</label>
+	            <div class="layui-input-block">
+	                <select th:field="*{companyId}" lay-search="">
+	                    <option value="">直接选择或搜索选择</option>
+	                    <option th:each="company:${companys}" th:value="${company.id}" th:text="${company.name}"></option>                    
+	                </select>
+	            </div>
+    		</div>
+    		<!--所属投资商-->
+			<div class="layui-form-item">
+	            <label class="layui-form-label">所属投资商</label>
+	            <div class="layui-input-block">
+	               <select th:field="*{investorId}" lay-search="">
+	                    <option value="">直接选择或搜索选择</option>
+	                    <option th:each="investor:${investors}" th:value="${investor.id}" th:text="${investor.name}"></option>                                        
+	                </select>
+	            </div>
+    		</div>   		
+    		<!--所属商家-->
+			<div class="layui-form-item">
+	            <label class="layui-form-label">所属商家</label>
+	            <div class="layui-input-block">
+	                <select  th:field="*{traderId}" lay-search="">
+	                    <option value="">直接选择或搜索选择</option>
+	                    <option th:each="trader:${traders}" th:value="${trader.id}" th:text="${trader.name}"></option>                    
+	                </select>
+	            </div>
+    		</div>
+    		<!--所属促销员-->
+			<div class="layui-form-item">
+	            <label class="layui-form-label">所属促销员</label>
+	            <div class="layui-input-block">
+	                <select th:field="*{salerId}" lay-search="">
+	                    <option value="">直接选择或搜索选择</option>
+	                    <option th:each="saler:${salers}" th:value="${saler.id}" th:text="${saler.name}"></option>                  
+	                </select>
+	            </div>
+    		</div>
+    		<!--价格体系-->
+			<div class="layui-form-item">
+	            <label class="layui-form-label">价格体系</label>
+	            <div class="layui-input-block">
+	                <select th:field="*{priceSystemId}" lay-search="">
+	                    <option value="">直接选择或搜索选择</option>
+	                    <option th:each="priceSystem:${priceSystems}" th:value="${priceSystem.id}" th:text="${priceSystem.name}"></option>	                    
+	                </select>
+	            </div>
+    		</div>
+		    <!--底部提交按钮-->
+		    <div class="layui-form-item" style="text-align: center;">
+		        <div class="layui-input-block">
+		            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+		            <button class="layui-btn layui-btn layui-btn-normal" lay-submit="" lay-filter="demo1">提交</button>
+		        </div>
+		    </div>
+		</form>
+	</fieldset>
+
+<script src="../../../frame/layui/layui.js" charset="utf-8"></script>
+<script type="text/javascript" src="../../../js/market/generic/editDeviceIndex.js"></script>
+</body>
+</html>

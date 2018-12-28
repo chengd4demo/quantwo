@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>菜单信息编辑</title>
+    <link rel="stylesheet" href="../../../frame/layui/css/layui.css">
+    <link rel="stylesheet" href="../../../frame/static/css/style.css">
+</head>
+<body class="body">
+	<fieldset class="layui-elem-field" style="border-color:rgb(30, 159, 255); margin-top:0em;padding-left:1em;padding-right:2em;padding-top:1em;">
+		<legend data-th-text="${menu.legend}"></legend>
+		<form class="layui-form" layui-form="user" th:object="${menu}" action="">
+		<input type="hidden"  th:field="*{id}"/>
+		<input type="hidden"  th:field="*{parentKey}"/>
+			<div class="layui-form-item"  th:if="${menu.parentKey == null}">
+	            <label class="layui-form-label">上级菜单</label>
+	            <div class="layui-input-block">
+	                <select th:field="*{parentKey}" >
+					    <option value="">请选择上级菜单</option>
+					     <option th:each="menu:${menues}" th:value="${menu.id}" th:if="${menu.parentKey == null}" th:text="${menu.name}"/>
+					</select>
+	            </div>
+    		</div>
+		    <div class="layui-form-item">
+		        <label class="layui-form-label"><span style="color:red">*</span>菜单名称</label>
+		        <div class="layui-input-block">
+		            <input type="text" name="name" th:field="*{name}" lay-verify="name" placeholder="请输入菜单名称" autocomplete="off" class="layui-input" >
+		        </div>
+		    </div>
+		    <div class="layui-form-item">
+		        <label class="layui-form-label"><span style="color:red">*</span>URL地址</label>
+		        <div class="layui-input-block">
+		            <input type="text" name="url" th:field="*{url}"  placeholder="请输入URL地址" autocomplete="off" class="layui-input" >
+		        </div>
+		    </div>
+		    <div class="layui-form-item">
+		        <label class="layui-form-label">图标</label>
+		        <div class="layui-inline" style="width: 64%">
+		            <input id = "cssClassId" type="text" name="cssClass" th:field="*{cssClass}" th:value="${cls}" placeholder="请选择图标" autocomplete="off" class="layui-input"  >
+		        </div>
+		        <div class="layui-inline" style="margin-left: -2em;float:right">
+		        	<button class="layui-btn layui-btn-normal" lay-submit="" lay-filter="addIcon">+选择</button>
+		        </div>
+		    </div>
+		    <!--底部提交按钮-->
+		    <div class="layui-form-item" style="text-align: center;">
+		        <div class="layui-input-block">
+		            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+		            <button class="layui-btn layui-btn layui-btn-normal" lay-submit="" lay-filter="demo1">提交</button>
+		        </div>
+		    </div>
+		</form>
+	</fieldset>
+
+<script src="../../../frame/layui/layui.js" charset="utf-8"></script>
+<script type="text/javascript" src="../../../js/system/menu/editMenuIndex.js"></script>
+</body>
+</html>

@@ -1,0 +1,318 @@
+2018-12-17 13:35:20.104  INFO [device-server] 11456 --- [           main] s.c.a.AnnotationConfigApplicationContext : Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@52e7a6b2: startup date [Mon Dec 17 13:35:20 CST 2018]; root of context hierarchy
+2018-12-17 13:35:20.844  INFO [device-server] 11456 --- [           main] f.a.AutowiredAnnotationBeanPostProcessor : JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-12-17 13:35:21.093  INFO [device-server] 11456 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'configurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$6e125a75] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-12-17 13:35:23.655  INFO [device-server] 11456 --- [           main] c.c.c.ConfigServicePropertySourceLocator : Fetching config from server at: http://localhost:8888
+2018-12-17 13:35:25.104  WARN [device-server] 11456 --- [           main] c.c.c.ConfigServicePropertySourceLocator : Could not locate PropertySource: I/O error on GET request for "http://localhost:8888/device-server/default": Connection refused: connect; nested exception is java.net.ConnectException: Connection refused: connect
+2018-12-17 13:35:25.106  INFO [device-server] 11456 --- [           main] com.qt.air.cleaner.device.Application    : The following profiles are active: dev
+2018-12-17 13:35:25.134  INFO [device-server] 11456 --- [           main] ationConfigEmbeddedWebApplicationContext : Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@28a2a3e7: startup date [Mon Dec 17 13:35:25 CST 2018]; parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@52e7a6b2
+2018-12-17 13:35:29.282  INFO [device-server] 11456 --- [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=bbb878f6-821e-39e2-872f-5a2e54b91acd
+2018-12-17 13:35:29.380  INFO [device-server] 11456 --- [           main] f.a.AutowiredAnnotationBeanPostProcessor : JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-12-17 13:35:30.014  INFO [device-server] 11456 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$51f85778] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-12-17 13:35:30.163  INFO [device-server] 11456 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$6e125a75] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-12-17 13:35:31.271  INFO [device-server] 11456 --- [           main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat initialized with port(s): 3000 (http)
+2018-12-17 13:35:31.306  INFO [device-server] 11456 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2018-12-17 13:35:31.309  INFO [device-server] 11456 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.23
+2018-12-17 13:35:31.812  INFO [device-server] 11456 --- [ost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2018-12-17 13:35:31.814  INFO [device-server] 11456 --- [ost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 6680 ms
+2018-12-17 13:35:32.929  INFO [device-server] 11456 --- [ost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2018-12-17 13:35:32.943  INFO [device-server] 11456 --- [ost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'metricsFilter' to: [/*]
+2018-12-17 13:35:32.945  INFO [device-server] 11456 --- [ost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2018-12-17 13:35:32.947  INFO [device-server] 11456 --- [ost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2018-12-17 13:35:32.948  INFO [device-server] 11456 --- [ost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2018-12-17 13:35:32.948  INFO [device-server] 11456 --- [ost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2018-12-17 13:35:32.949  INFO [device-server] 11456 --- [ost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'webRequestLoggingFilter' to: [/*]
+2018-12-17 13:35:32.950  INFO [device-server] 11456 --- [ost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'applicationContextIdFilter' to: [/*]
+2018-12-17 13:35:34.841  INFO [device-server] 11456 --- [           main] j.LocalContainerEntityManagerFactoryBean : Building JPA container EntityManagerFactory for persistence unit 'default'
+2018-12-17 13:35:34.887  INFO [device-server] 11456 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2018-12-17 13:35:35.201  INFO [device-server] 11456 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate Core {5.0.12.Final}
+2018-12-17 13:35:35.203  INFO [device-server] 11456 --- [           main] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2018-12-17 13:35:35.205  INFO [device-server] 11456 --- [           main] org.hibernate.cfg.Environment            : HHH000021: Bytecode provider name : javassist
+2018-12-17 13:35:35.420  INFO [device-server] 11456 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2018-12-17 13:35:36.136  INFO [device-server] 11456 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.Oracle9iDialect
+2018-12-17 13:35:37.186  WARN [device-server] 11456 --- [           main] org.hibernate.id.GUIDGenerator           : HHH000065: DEPRECATED : use [org.hibernate.id.UUIDGenerator] instead with custom [org.hibernate.id.UUIDGenerationStrategy] implementation
+2018-12-17 13:35:38.647  INFO [device-server] 11456 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2018-12-17 13:35:44.174  INFO [device-server] 11456 --- [           main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@28a2a3e7: startup date [Mon Dec 17 13:35:25 CST 2018]; parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@52e7a6b2
+2018-12-17 13:35:44.595  INFO [device-server] 11456 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/deviceTurnOff/{deviceId}],methods=[POST]}" onto public com.qt.air.cleaner.base.dto.ResultInfo com.qt.air.cleaner.device.service.impl.DeviceServiceImpl.deviceTurnOff(java.lang.String)
+2018-12-17 13:35:44.597  INFO [device-server] 11456 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/deviceTurnNo],methods=[POST]}" onto public com.qt.air.cleaner.base.dto.ResultInfo com.qt.air.cleaner.device.service.impl.DeviceServiceImpl.deviceTurnOn(java.util.Map<java.lang.String, java.lang.Object>)
+2018-12-17 13:35:44.598  INFO [device-server] 11456 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/queryDeviceMonitors],methods=[POST]}" onto public com.qt.air.cleaner.base.dto.ResultInfo com.qt.air.cleaner.device.service.impl.DeviceServiceImpl.queryDeviceMonitorPage(com.qt.air.cleaner.base.dto.RequestParame)
+2018-12-17 13:35:44.599  INFO [device-server] 11456 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/queryDeviceMonitor/{deviceId}],methods=[POST]}" onto public com.qt.air.cleaner.base.dto.ResultInfo com.qt.air.cleaner.device.service.impl.DeviceServiceImpl.queryDeviceMonitor(java.lang.String)
+2018-12-17 13:35:44.600  INFO [device-server] 11456 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/query/{deviceId}],methods=[GET]}" onto public com.qt.air.cleaner.base.dto.ResultInfo com.qt.air.cleaner.device.service.impl.DeviceServiceImpl.queryDeviceStatus(java.lang.String)
+2018-12-17 13:35:44.601  INFO [device-server] 11456 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/investorForTrader],methods=[POST]}" onto public com.qt.air.cleaner.base.dto.ResultInfo com.qt.air.cleaner.device.service.impl.DeviceServiceImpl.queryInvestorForTrader(com.qt.air.cleaner.base.dto.RequestParame)
+2018-12-17 13:35:44.605  INFO [device-server] 11456 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2018-12-17 13:35:44.606  INFO [device-server] 11456 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-12-17 13:35:44.770  INFO [device-server] 11456 --- [           main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-12-17 13:35:44.772  INFO [device-server] 11456 --- [           main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-12-17 13:35:44.995  INFO [device-server] 11456 --- [           main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-12-17 13:35:47.599  INFO [device-server] 11456 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/env/{name:.*}],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EnvironmentMvcEndpoint.value(java.lang.String)
+2018-12-17 13:35:47.600  INFO [device-server] 11456 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/env || /env.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018-12-17 13:35:47.602  INFO [device-server] 11456 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/pause || /pause.json],methods=[POST]}" onto public java.lang.Object org.springframework.cloud.endpoint.GenericPostableMvcEndpoint.invoke()
+2018-12-17 13:35:47.607  INFO [device-server] 11456 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/loggers/{name:.*}],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.LoggersMvcEndpoint.get(java.lang.String)
+2018-12-17 13:35:47.607  INFO [device-server] 11456 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/loggers/{name:.*}],methods=[POST],consumes=[application/vnd.spring-boot.actuator.v1+json || application/json],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.LoggersMvcEndpoint.set(java.lang.String,java.util.Map<java.lang.String, java.lang.String>)
+2018-12-17 13:35:47.608  INFO [device-server] 11456 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/loggers || /loggers.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018-12-17 13:35:47.610  INFO [device-server] 11456 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/beans || /beans.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018-12-17 13:35:47.612  INFO [device-server] 11456 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/info || /info.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018-12-17 13:35:47.615  INFO [device-server] 11456 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/env],methods=[POST]}" onto public java.lang.Object org.springframework.cloud.context.environment.EnvironmentManagerMvcEndpoint.value(java.util.Map<java.lang.String, java.lang.String>)
+2018-12-17 13:35:47.616  INFO [device-server] 11456 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/env/reset],methods=[POST]}" onto public java.util.Map<java.lang.String, java.lang.Object> org.springframework.cloud.context.environment.EnvironmentManagerMvcEndpoint.reset()
+2018-12-17 13:35:47.619  INFO [device-server] 11456 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/dump || /dump.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018-12-17 13:35:47.625  INFO [device-server] 11456 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/metrics/{name:.*}],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.MetricsMvcEndpoint.value(java.lang.String)
+2018-12-17 13:35:47.629  INFO [device-server] 11456 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/metrics || /metrics.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018-12-17 13:35:47.631  INFO [device-server] 11456 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/heapdump || /heapdump.json],methods=[GET],produces=[application/octet-stream]}" onto public void org.springframework.boot.actuate.endpoint.mvc.HeapdumpMvcEndpoint.invoke(boolean,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse) throws java.io.IOException,javax.servlet.ServletException
+2018-12-17 13:35:47.633  INFO [device-server] 11456 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/refresh || /refresh.json],methods=[POST]}" onto public java.lang.Object org.springframework.cloud.endpoint.GenericPostableMvcEndpoint.invoke()
+2018-12-17 13:35:47.635  INFO [device-server] 11456 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/configprops || /configprops.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018-12-17 13:35:47.638  INFO [device-server] 11456 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/autoconfig || /autoconfig.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018-12-17 13:35:47.640  INFO [device-server] 11456 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/health || /health.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.HealthMvcEndpoint.invoke(javax.servlet.http.HttpServletRequest,java.security.Principal)
+2018-12-17 13:35:47.645  INFO [device-server] 11456 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/resume || /resume.json],methods=[POST]}" onto public java.lang.Object org.springframework.cloud.endpoint.GenericPostableMvcEndpoint.invoke()
+2018-12-17 13:35:47.648  INFO [device-server] 11456 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/features || /features.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018-12-17 13:35:47.652  INFO [device-server] 11456 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/restart || /restart.json],methods=[POST]}" onto public java.lang.Object org.springframework.cloud.context.restart.RestartMvcEndpoint.invoke()
+2018-12-17 13:35:47.653  INFO [device-server] 11456 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/trace || /trace.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018-12-17 13:35:47.654  INFO [device-server] 11456 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/mappings || /mappings.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018-12-17 13:35:47.655  INFO [device-server] 11456 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/auditevents || /auditevents.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public org.springframework.http.ResponseEntity<?> org.springframework.boot.actuate.endpoint.mvc.AuditEventsMvcEndpoint.findByPrincipalAndAfterAndType(java.lang.String,java.util.Date,java.lang.String)
+2018-12-17 13:35:47.656  INFO [device-server] 11456 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/archaius || /archaius.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018-12-17 13:35:48.624  WARN [device-server] 11456 --- [           main] c.n.c.sources.URLConfigurationSource     : No URLs will be polled as dynamic configuration sources.
+2018-12-17 13:35:48.626  INFO [device-server] 11456 --- [           main] c.n.c.sources.URLConfigurationSource     : To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2018-12-17 13:35:48.652  WARN [device-server] 11456 --- [           main] c.n.c.sources.URLConfigurationSource     : No URLs will be polled as dynamic configuration sources.
+2018-12-17 13:35:48.652  INFO [device-server] 11456 --- [           main] c.n.c.sources.URLConfigurationSource     : To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2018-12-17 13:35:49.154  INFO [device-server] 11456 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2018-12-17 13:35:49.183  INFO [device-server] 11456 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'environmentManager' has been autodetected for JMX exposure
+2018-12-17 13:35:49.189  INFO [device-server] 11456 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'configurationPropertiesRebinder' has been autodetected for JMX exposure
+2018-12-17 13:35:49.191  INFO [device-server] 11456 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'refreshEndpoint' has been autodetected for JMX exposure
+2018-12-17 13:35:49.192  INFO [device-server] 11456 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'restartEndpoint' has been autodetected for JMX exposure
+2018-12-17 13:35:49.193  INFO [device-server] 11456 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'refreshScope' has been autodetected for JMX exposure
+2018-12-17 13:35:49.198  INFO [device-server] 11456 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Located managed bean 'environmentManager': registering with JMX server as MBean [org.springframework.cloud.context.environment:name=environmentManager,type=EnvironmentManager]
+2018-12-17 13:35:49.243  INFO [device-server] 11456 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Located managed bean 'restartEndpoint': registering with JMX server as MBean [org.springframework.cloud.context.restart:name=restartEndpoint,type=RestartEndpoint]
+2018-12-17 13:35:49.272  INFO [device-server] 11456 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Located managed bean 'refreshScope': registering with JMX server as MBean [org.springframework.cloud.context.scope.refresh:name=refreshScope,type=RefreshScope]
+2018-12-17 13:35:49.312  INFO [device-server] 11456 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Located managed bean 'configurationPropertiesRebinder': registering with JMX server as MBean [org.springframework.cloud.context.properties:name=configurationPropertiesRebinder,context=28a2a3e7,type=ConfigurationPropertiesRebinder]
+2018-12-17 13:35:49.335  INFO [device-server] 11456 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Located managed bean 'refreshEndpoint': registering with JMX server as MBean [org.springframework.cloud.endpoint:name=refreshEndpoint,type=RefreshEndpoint]
+2018-12-17 13:35:50.315  INFO [device-server] 11456 --- [           main] o.s.c.support.DefaultLifecycleProcessor  : Starting beans in phase 0
+2018-12-17 13:35:50.339  INFO [device-server] 11456 --- [           main] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2018-12-17 13:35:51.054  INFO [device-server] 11456 --- [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON encoding codec LegacyJacksonJson
+2018-12-17 13:35:51.055  INFO [device-server] 11456 --- [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON decoding codec LegacyJacksonJson
+2018-12-17 13:35:51.429  INFO [device-server] 11456 --- [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using XML encoding codec XStreamXml
+2018-12-17 13:35:51.430  INFO [device-server] 11456 --- [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using XML decoding codec XStreamXml
+2018-12-17 13:35:52.383  INFO [device-server] 11456 --- [           main] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-17 13:35:52.887  INFO [device-server] 11456 --- [           main] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2018-12-17 13:35:52.890  INFO [device-server] 11456 --- [           main] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2018-12-17 13:35:52.890  INFO [device-server] 11456 --- [           main] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2018-12-17 13:35:52.890  INFO [device-server] 11456 --- [           main] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2018-12-17 13:35:52.891  INFO [device-server] 11456 --- [           main] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2018-12-17 13:35:52.891  INFO [device-server] 11456 --- [           main] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
+2018-12-17 13:35:52.891  INFO [device-server] 11456 --- [           main] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2018-12-17 13:35:53.362  INFO [device-server] 11456 --- [           main] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2018-12-17 13:35:53.366  INFO [device-server] 11456 --- [           main] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 30
+2018-12-17 13:35:53.372  INFO [device-server] 11456 --- [           main] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
+2018-12-17 13:35:53.380  INFO [device-server] 11456 --- [           main] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1545024953380 with initial instances count: 11
+2018-12-17 13:35:53.483  INFO [device-server] 11456 --- [           main] c.n.e.EurekaDiscoveryClientConfiguration : Registering application device-server with eureka with status UP
+2018-12-17 13:35:53.487  INFO [device-server] 11456 --- [           main] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1545024953487, current=UP, previous=STARTING]
+2018-12-17 13:35:53.489  INFO [device-server] 11456 --- [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_DEVICE-SERVER/SC-201701131050:device-server:3000: registering service...
+2018-12-17 13:35:53.540  INFO [device-server] 11456 --- [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_DEVICE-SERVER/SC-201701131050:device-server:3000 - registration status: 204
+2018-12-17 13:35:53.864  INFO [device-server] 11456 --- [           main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 3000 (http)
+2018-12-17 13:35:53.865  INFO [device-server] 11456 --- [           main] c.n.e.EurekaDiscoveryClientConfiguration : Updating port to 3000
+2018-12-17 13:35:53.880  INFO [device-server] 11456 --- [           main] com.qt.air.cleaner.device.Application    : Started Application in 37.117 seconds (JVM running for 40.096)
+2018-12-17 13:40:52.930  INFO [device-server] 11456 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-17 13:45:52.932  INFO [device-server] 11456 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-17 13:46:59.132  INFO [device-server] 11456 --- [nio-3000-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2018-12-17 13:46:59.133  INFO [device-server] 11456 --- [nio-3000-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization started
+2018-12-17 13:46:59.235  INFO [device-server] 11456 --- [nio-3000-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization completed in 102 ms
+2018-12-17 13:46:59.443  INFO [device-server] 11456 --- [nio-3000-exec-1] c.q.a.c.d.s.impl.DeviceServiceImpl       : execute method queryInvestorForTrader() param --> requestParame:com.qt.air.cleaner.base.dto.RequestParame@4c3b596c
+2018-12-17 13:50:52.934  INFO [device-server] 11456 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-17 13:52:43.040  INFO [device-server] 11456 --- [nio-3000-exec-8] c.q.a.c.d.s.impl.DeviceServiceImpl       : execute method queryInvestorForTrader() param --> requestParame:com.qt.air.cleaner.base.dto.RequestParame@17d429d6
+2018-12-17 13:52:50.266  INFO [device-server] 11456 --- [io-3000-exec-10] c.q.a.c.d.s.impl.DeviceServiceImpl       : execute method queryInvestorForTrader() param --> requestParame:com.qt.air.cleaner.base.dto.RequestParame@62ea415a
+2018-12-17 13:54:50.241  INFO [device-server] 11456 --- [nio-3000-exec-2] c.q.a.c.d.s.impl.DeviceServiceImpl       : execute method queryInvestorForTrader() param --> requestParame:com.qt.air.cleaner.base.dto.RequestParame@3ab3f589
+2018-12-17 13:54:56.159  INFO [device-server] 11456 --- [io-3000-exec-10] c.q.a.c.d.s.impl.DeviceServiceImpl       : execute method queryInvestorForTrader() param --> requestParame:com.qt.air.cleaner.base.dto.RequestParame@2d10a94c
+2018-12-17 13:55:53.020  INFO [device-server] 11456 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-17 13:58:12.746  INFO [device-server] 11456 --- [nio-3000-exec-3] c.q.a.c.d.s.impl.DeviceServiceImpl       : execute method queryInvestorForTrader() param --> requestParame:com.qt.air.cleaner.base.dto.RequestParame@2d4017ad
+2018-12-17 14:00:31.009  INFO [device-server] 11456 --- [nio-3000-exec-7] c.q.a.c.d.s.impl.DeviceServiceImpl       : execute method queryInvestorForTrader() param --> requestParame:com.qt.air.cleaner.base.dto.RequestParame@2ca5dece
+2018-12-17 14:00:53.068  INFO [device-server] 11456 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-17 14:02:29.300  INFO [device-server] 11456 --- [nio-3000-exec-9] c.q.a.c.d.s.impl.DeviceServiceImpl       : execute method queryInvestorForTrader() param --> requestParame:com.qt.air.cleaner.base.dto.RequestParame@624dda01
+2018-12-17 14:03:02.378  INFO [device-server] 11456 --- [n(13)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2018-12-17 14:03:02.378  INFO [device-server] 11456 --- [n(15)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2018-12-17 14:03:02.378  INFO [device-server] 11456 --- [n(13)-127.0.0.1] ationConfigEmbeddedWebApplicationContext : Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@28a2a3e7: startup date [Mon Dec 17 13:35:25 CST 2018]; parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@52e7a6b2
+2018-12-17 14:03:02.379  INFO [device-server] 11456 --- [n(10)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2018-12-17 14:03:02.378  INFO [device-server] 11456 --- [n(12)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2018-12-17 14:03:02.380  INFO [device-server] 11456 --- [n(13)-127.0.0.1] c.n.e.EurekaDiscoveryClientConfiguration : Unregistering application device-server with eureka with status DOWN
+2018-12-17 14:03:02.380  WARN [device-server] 11456 --- [n(13)-127.0.0.1] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1545026582380, current=DOWN, previous=UP]
+2018-12-17 14:03:02.380  INFO [device-server] 11456 --- [n(13)-127.0.0.1] com.netflix.discovery.DiscoveryClient    : Shutting down DiscoveryClient ...
+2018-12-17 14:03:02.381  INFO [device-server] 11456 --- [on(9)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2018-12-17 14:03:02.381  INFO [device-server] 11456 --- [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_DEVICE-SERVER/SC-201701131050:device-server:3000: registering service...
+2018-12-17 14:03:02.381  INFO [device-server] 11456 --- [n(13)-127.0.0.1] com.netflix.discovery.DiscoveryClient    : Unregistering ...
+2018-12-17 14:03:02.378  INFO [device-server] 11456 --- [on(8)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2018-12-17 14:03:02.395  INFO [device-server] 11456 --- [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_DEVICE-SERVER/SC-201701131050:device-server:3000 - registration status: 204
+2018-12-17 14:03:02.426  INFO [device-server] 11456 --- [n(14)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2018-12-17 14:03:02.426  INFO [device-server] 11456 --- [n(11)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2018-12-17 14:03:02.464  INFO [device-server] 11456 --- [n(16)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2018-12-17 14:03:02.468  INFO [device-server] 11456 --- [n(17)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2018-12-17 14:03:02.643  INFO [device-server] 11456 --- [n(13)-127.0.0.1] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_DEVICE-SERVER/SC-201701131050:device-server:3000 - deregister  status: 200
+2018-12-17 14:03:02.650  INFO [device-server] 11456 --- [n(13)-127.0.0.1] com.netflix.discovery.DiscoveryClient    : Completed shut down of DiscoveryClient
+2018-12-17 14:03:02.652  INFO [device-server] 11456 --- [n(13)-127.0.0.1] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 0
+2018-12-17 14:03:02.660  INFO [device-server] 11456 --- [n(13)-127.0.0.1] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
+2018-12-17 14:03:02.660  INFO [device-server] 11456 --- [n(13)-127.0.0.1] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans
+2018-12-17 14:03:02.666  INFO [device-server] 11456 --- [n(13)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2018-12-17 14:03:03.604  INFO [device-server] 11456 --- [n(13)-127.0.0.1] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2018-12-17 14:03:03.650  INFO [device-server] 11456 --- [ost-startStop-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2018-12-17 14:46:11.277  INFO [device-server] 8144 --- [           main] s.c.a.AnnotationConfigApplicationContext : Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@8dbfffb: startup date [Mon Dec 17 14:46:11 CST 2018]; root of context hierarchy
+2018-12-17 14:46:12.611  INFO [device-server] 8144 --- [           main] f.a.AutowiredAnnotationBeanPostProcessor : JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-12-17 14:46:12.815  INFO [device-server] 8144 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'configurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$1eed5335] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-12-17 14:46:17.566  INFO [device-server] 8144 --- [           main] c.c.c.ConfigServicePropertySourceLocator : Fetching config from server at: http://localhost:8888
+2018-12-17 14:46:19.335  WARN [device-server] 8144 --- [           main] c.c.c.ConfigServicePropertySourceLocator : Could not locate PropertySource: I/O error on GET request for "http://localhost:8888/device-server/default": Connection refused: connect; nested exception is java.net.ConnectException: Connection refused: connect
+2018-12-17 14:46:19.349  INFO [device-server] 8144 --- [           main] c.q.air.cleaner.device.ApplicationTests  : The following profiles are active: dev
+2018-12-17 14:46:19.358  INFO [device-server] 8144 --- [           main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@4dd94a58: startup date [Mon Dec 17 14:46:19 CST 2018]; parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@8dbfffb
+2018-12-17 14:46:28.850  INFO [device-server] 8144 --- [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=eff1ea4f-a8e0-335e-bb1b-7901bfa7b5f3
+2018-12-17 14:46:30.320  INFO [device-server] 8144 --- [           main] f.a.AutowiredAnnotationBeanPostProcessor : JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-12-17 14:46:31.544  INFO [device-server] 8144 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$2d35038] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-12-17 14:46:32.154  INFO [device-server] 8144 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$1eed5335] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-12-17 14:46:38.713  INFO [device-server] 8144 --- [           main] j.LocalContainerEntityManagerFactoryBean : Building JPA container EntityManagerFactory for persistence unit 'default'
+2018-12-17 14:46:38.769  INFO [device-server] 8144 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2018-12-17 14:46:39.283  INFO [device-server] 8144 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate Core {5.0.12.Final}
+2018-12-17 14:46:39.299  INFO [device-server] 8144 --- [           main] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2018-12-17 14:46:39.315  INFO [device-server] 8144 --- [           main] org.hibernate.cfg.Environment            : HHH000021: Bytecode provider name : javassist
+2018-12-17 14:46:39.684  INFO [device-server] 8144 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2018-12-17 14:46:40.514  INFO [device-server] 8144 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.Oracle9iDialect
+2018-12-17 14:46:41.458  WARN [device-server] 8144 --- [           main] o.s.w.c.s.GenericWebApplicationContext   : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaAutoConfiguration.class]: Invocation of init method failed; nested exception is org.hibernate.boot.registry.classloading.spi.ClassLoadingException: Unable to load class [com.qt.air.cleaner.device.domain.Account]
+2018-12-17 14:46:41.845  INFO [device-server] 8144 --- [           main] utoConfigurationReportLoggingInitializer : 
+
+Error starting ApplicationContext. To display the auto-configuration report re-run your application with 'debug' enabled.
+2018-12-17 14:46:41.862 ERROR [device-server] 8144 --- [           main] o.s.boot.SpringApplication               : Application startup failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaAutoConfiguration.class]: Invocation of init method failed; nested exception is org.hibernate.boot.registry.classloading.spi.ClassLoadingException: Unable to load class [com.qt.air.cleaner.device.domain.Account]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1628)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:555)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1080)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:857)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:543)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:693)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:360)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:303)
+	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:120)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:98)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:116)
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83)
+	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:189)
+	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:131)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:230)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:228)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:287)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:289)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:247)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:94)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:191)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:283)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:173)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:153)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:128)
+	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:203)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:103)
+Caused by: org.hibernate.boot.registry.classloading.spi.ClassLoadingException: Unable to load class [com.qt.air.cleaner.device.domain.Account]
+	at org.hibernate.boot.registry.classloading.internal.ClassLoaderServiceImpl.classForName(ClassLoaderServiceImpl.java:229)
+	at org.hibernate.boot.model.source.internal.annotations.AnnotationMetadataSourceProcessorImpl.<init>(AnnotationMetadataSourceProcessorImpl.java:103)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess$1.<init>(MetadataBuildingProcess.java:147)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:141)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:847)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:874)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:60)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:360)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:382)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:371)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:336)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1687)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1624)
+	... 41 common frames omitted
+Caused by: java.lang.ClassNotFoundException: Could not load requested class : com.qt.air.cleaner.device.domain.Account
+	at org.hibernate.boot.registry.classloading.internal.ClassLoaderServiceImpl$AggregatedClassLoader.findClass(ClassLoaderServiceImpl.java:217)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	at java.lang.Class.forName0(Native Method)
+	at java.lang.Class.forName(Class.java:344)
+	at org.hibernate.boot.registry.classloading.internal.ClassLoaderServiceImpl.classForName(ClassLoaderServiceImpl.java:226)
+	... 53 common frames omitted
+
+2018-12-17 14:46:41.868 ERROR [device-server] 8144 --- [           main] o.s.test.context.TestContextManager      : Caught exception while allowing TestExecutionListener [org.springframework.test.context.web.ServletTestExecutionListener@bef2d72] to prepare test instance [com.qt.air.cleaner.device.ApplicationTests@55bf35e5]
+
+java.lang.IllegalStateException: Failed to load ApplicationContext
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:124)
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83)
+	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:189)
+	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:131)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:230)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:228)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:287)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:289)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:247)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:94)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:191)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:283)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:173)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:153)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:128)
+	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:203)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:103)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaAutoConfiguration.class]: Invocation of init method failed; nested exception is org.hibernate.boot.registry.classloading.spi.ClassLoadingException: Unable to load class [com.qt.air.cleaner.device.domain.Account]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1628)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:555)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1080)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:857)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:543)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:693)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:360)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:303)
+	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:120)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:98)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:116)
+	... 26 common frames omitted
+Caused by: org.hibernate.boot.registry.classloading.spi.ClassLoadingException: Unable to load class [com.qt.air.cleaner.device.domain.Account]
+	at org.hibernate.boot.registry.classloading.internal.ClassLoaderServiceImpl.classForName(ClassLoaderServiceImpl.java:229)
+	at org.hibernate.boot.model.source.internal.annotations.AnnotationMetadataSourceProcessorImpl.<init>(AnnotationMetadataSourceProcessorImpl.java:103)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess$1.<init>(MetadataBuildingProcess.java:147)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:141)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:847)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:874)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:60)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:360)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:382)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:371)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:336)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1687)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1624)
+	... 41 common frames omitted
+Caused by: java.lang.ClassNotFoundException: Could not load requested class : com.qt.air.cleaner.device.domain.Account
+	at org.hibernate.boot.registry.classloading.internal.ClassLoaderServiceImpl$AggregatedClassLoader.findClass(ClassLoaderServiceImpl.java:217)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	at java.lang.Class.forName0(Native Method)
+	at java.lang.Class.forName(Class.java:344)
+	at org.hibernate.boot.registry.classloading.internal.ClassLoaderServiceImpl.classForName(ClassLoaderServiceImpl.java:226)
+	... 53 common frames omitted
+

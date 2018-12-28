@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <!-- 引入YDUI样式 -->
+    <link rel="stylesheet" href="./lib/YDUI/css/ydui.css" />
+    <link rel="stylesheet" href="css/index.css">
+    <!-- 引入YDUI自适应解决方案类库 -->
+    <script src="./lib/YDUI/js/ydui.flexible.js"></script>
+</head>
+<body>
+<section class="g-flexview">
+    <div class="logo">
+        <img src="./images/logo.jpg">
+    </div>
+    <div class="device-info">
+        <div class="form-group">
+            <label class="control-label">设备编号：</label>
+            <span id="deviceId"></span>
+        </div>
+        <div class="form-group">
+            <label class="control-label">是否在线：</label>
+            <span class="badge badge-radius" id="onLine"></span>
+        </div>
+        <div class="form-group">
+            <label class="control-label">是否可用：</label>
+            <span class="badge badge-radius" id="available"></span>
+        </div>
+        <div class="form-group">
+            <label class="control-label">PM25：</label>
+            <span class="badge badge-radius badge-warning" id="pm25"></span>
+        </div>
+    </div>
+    <div id="mask"
+		style="display: none; background-color: #ccc; width: 100%; position: absolute; height: 100%; opacity: 0.5; z-index: 99; top: 0px; left: 0px">
+	</div>
+    <section class="g-scrollview">
+        <div id="prices">
+        </div>
+    </section>
+
+</section>
+<!-- 引入jQuery 2.0+ -->
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<!-- 引入YDUI脚本 -->
+<script src="./lib/YDUI/js/ydui.js"></script>
+<script>
+    !function ($) {
+        $.ajax({
+            type: "POST",
+            url: "http://qtzf.vtcom.cn/market/device/query/"+getQueryString('scene_str'),
+            async: false,
+            success:function (res) {
+                $("#deviceId").html(res.deviceId);
+                $("#onLine").html(res.onLine ? '在线': '不在线');
+                if(res.onLine){
+                    $("#onLine").addClass('badge-primary');
+                }else{
+                    $("#onLine").removeClass('badge-primary');
+                }
+                $("#available").html(res.available ? '可用': '不可用');
+                if(res.available){
+                    $("#available").addClass('badge-primary');
+                }else{
+                    $("#available").removeClass('badge-primary');
+                }
+
+                $("#pm25").html(res.pm25);
+                for(var i = 0; i < res.price.length; i++){
+                    var p = res.price[i];
+                    $("#prices").append(
+                        '<div class="price-item1" onclick="toPay('+res.available+',\''+res.deviceId+'\',\''+p.priceId+'\')">' +
+                        '   <div class="price-time">'+(p.costTime/60)+'小时</div>' +
+                        '   <div class="price-value">' +
+                        '       <div class="price"><em>¥</em>'+p.realPrice+'</div>' +
+                        '       <div class="del-price"><em>¥</em>'+p.unitPrice+'</div>' +
+                        '   </div>' +
+                        '</div>'
+                    );
+                }
+            }
+        });
+    }(jQuery);
+
+    /**
+     * 获取浏览器参数
+     * @param name
+     * @returns {*}
+     */
+    function getQueryString(name) {
+        var result = window.location.search.match(new RegExp("[\?\&]" + name + "=([^\&]+)", "i"));
+        if (result === null || result.length < 1) {
+            return "";
+        }
+        return result[1];
+    }
+    function toPay(available,deviceId,priceId) {
+        if(available){
+       		var $mask = $("#mask");
+			if ($mask.length || $mask.length > 0) {
+				$mask.css("display","block");
+			}
+            location.href =  'http://qtzf.vtcom.cn/market/wx/billing?deviceId='+deviceId+'&priceId='+priceId;
+        }
+    }
+</script>
+</body>
+</html>

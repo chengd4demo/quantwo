@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>发货</title>
+    <link rel="stylesheet" href="../../../frame/layui/css/layui.css">
+    <link rel="stylesheet" href="../../../frame/static/css/style.css">
+   
+</head>
+<body class="body">
+	<fieldset class="layui-elem-field" style="border-color:rgb(30, 159, 255); margin-top:1em;padding-left:1em;padding-right:2em;padding-top:1em;">
+		<legend>物流发货确认</legend>
+		<form class="layui-form" action="" th:object="${winningConfing}" >
+		<input type="hidden" name ="id" th:field="*{id}"/>	
+		    <!-- 发货奖品 -->
+		     <div class="layui-form-item">
+		        <label class="layui-form-label">发货奖品:</label>
+			    <div class="layui-input-block">	
+			    	<div class="layui-form-label" data-th-text="*{prizeName}" style="margin-left: -80px;"></div>
+				</div>
+		    </div>		    
+		    <!-- 发货地址 -->	
+		    <div class="layui-form-item">
+		        <label class="layui-form-label">发货地址:</label>
+			    <div class="layui-input-block">	
+			    	<div class="layui-form-label"  data-th-text="*{address}" style="margin-left: -80px;"></div>
+				</div>
+		    </div>
+		    <!-- 邮编 -->	
+		     <div class="layui-form-item">
+		        <label class="layui-form-label">邮编:</label>
+			    <div class="layui-input-block">	
+			    	<div class="layui-form-label" data-th-text="*{postCode}" style="margin-left: -60px;"></div>
+				</div>
+		    </div>	
+		    <!-- 物流编号 -->
+		    <div class="layui-form-item">
+		        <label class="layui-form-label">物流编号</label>
+		        <div class="layui-input-block">
+		            <input type="text" name="logisticsNum" th:field="*{logisticsNum}" lay-verify="required" placeholder="请输入物流号"  class="layui-input" >
+		        </div>
+		    </div>	    	
+		    <!--底部功能按钮-->
+		    <div class="layui-form-item" style="text-align: center;">
+		        <div class="layui-input-block">		            
+		            <button lay-submit="" lay-filter="closeWinning" class="layui-btn layui-btn-primary">取消</button>
+		            <button class="layui-btn layui-btn layui-btn-normal" lay-submit="" lay-filter="submitWinning">确定</button>
+		        </div>
+		    </div>
+		</form>
+	</fieldset>
+
+<script src="../../../frame/layui/layui.js" charset="utf-8"></script>
+<script type="text/javascript" src="../../../js/market/activity/editWinningIndex.js"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://192.168.1.100:8888/eureka/
+server:
+  port: 8769
+spring:
+  application:
+    name: zuul-service
+zuul:
+  routes:
+    customer-web-api: 
+      path: /customer-web-api/**
+      serviceId: customer-service
+    merchant-web-api: 
+      path: /merchant-web-api/**
+      serviceId: merchant-service
+token:
+  partner: 77b872abfe1260053032219354882d91
+  key: ldingadmin
+
+    

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>价格体系管理</title>
+		<link rel="stylesheet" href="../../../../frame/layui/css/layui.css">
+		<link rel="stylesheet" href="../../../../frame/static/css/style.css">
+	</head>
+<body class="body">
+    <div class="layui-card-header">
+		<i class="layui-icon">  </i> <span class="layui-breadcrumb"
+		lay-separator=">" style="visibility: visible;"> <a>您现在的所在位置</a>
+		<span lay-separator="">&gt;</span> <a>基本要素维护</a> <span
+		lay-separator="">&gt;</span> <cite><a>价格体系管理</a></cite></span>
+	</div>	
+<fieldset class="layui-elem-field" style="border-color:rgb(30, 159, 255);margin-top:1em;padding-left:2em;padding-right:10em;padding-top:1em;">
+	<legend>价格信息查询</legend>
+	<form class="layui-form" id="searchForm">
+		<div class="layui-form">
+			<!--价格体系名称-->
+		    <div class="layui-col-md6">
+				<div class="layui-form-item">
+				    <label class="layui-form-label" style="word-break: keep-all;">价格体系名称：</label>
+				    <div class="layui-input-block">
+				    	<input type="text" class="layui-input" name="name" autocomplete="off" placeholder="价格体系名称">
+					</div>
+				</div>
+			</div>
+			<!--右侧功能按钮-->
+			<div class="layui-col-md4" style="float: right;margin-right: -8em;margin-bottom: 1em;">
+				<div class="layui-btn-container">
+					<div class="layui-inline" style="margin-right: 0px;">
+						<button id="searchBtn" class="layui-btn layui-btn-primary" lay-submit=""   lay-filter="searchSubmit" title="查询">查询</button>
+					</div>
+					<div class="layui-inline" style="margin-right: 0px;">
+						<button type="reset" class="layui-btn layui-btn-primary" title="重置">重置</button>									
+					</div>
+					<div class="layui-inline" id="addbtn">
+						<button type="button" data-method="add" class="layui-btn layui-btn-normal layui-icon" title="新增价格体系">新增</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</fieldset>
+		<!-- 表格 -->
+		<div id="priceSystemList" lay-filter="priceSystemTable"></div>
+
+		<script type="text/javascript" src="../../frame/layui/layui.js"></script>
+		<script type="text/javascript" src="../../js/index.js"></script>
+		<script type="text/javascript" src="../../js/market/price/queryPriceSystemIndex.js"></script>
+
+		<!-- 表格操作按钮集 -->
+		<script type="text/html" id="barOption">
+			{{#  if (d.state === 0) { }}
+				<a class="layui-btn layui-btn-mini layui-btn-warm" lay-event="priceSystemAffirm">激活</a>
+			{{#  } }}
+			<a class="layui-btn layui-btn-mini layui-btn-normal" lay-event="edit">编辑</a>
+			<a class="layui-btn layui-btn-mini layui-btn-danger" lay-event="del">删除</a>
+		</script>
+		<!-- 状态 -->
+	<script type="text/html" id="stateTag">
+  		{{#  if(d.state === 0){ }}
+			否
+  		{{#  } else if(d.state === 1) { }}
+			是
+  		{{#  } else { }}
+			{{#  d.state }}
+		{{#  } }}
+	</script>
+</body>
+</html>

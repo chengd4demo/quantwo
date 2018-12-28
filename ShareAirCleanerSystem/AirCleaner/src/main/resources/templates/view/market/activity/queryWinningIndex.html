@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>中奖名单</title>
+    <link rel="stylesheet" href="../../../frame/layui/css/layui.css">
+    <link rel="stylesheet" href="../../../frame/static/css/style.css">
+</head>
+<body class="body">
+	<!--中奖名单-->	
+       	<fieldset class="layui-elem-field" style="border-color:rgb(30, 159, 255); margin-top:1em;padding-right:5em;padding-top:1em;">
+			<legend>中奖名单</legend>
+			<form class="layui-form" id="searchWinningForm">
+				<div style="margin-top:5px;" class="layui-row">							
+					<!--手机号码-->
+					<div class="layui-col-md4" style="margin-right:0px;">
+						<div class="layui-form-item">
+							<label class="layui-form-label"> 手机号码：</label>
+							<div class="layui-input-block">
+								<input type="text" class="layui-input" name="phone" autocomplete="on" placeholder="手机号码">
+							</div>
+						</div>
+					</div>
+					<!-- 领奖时间 -->
+						<div class="layui-col-md4">
+							<div class="layui-form-item">
+								<label class="layui-form-label" style="word-break: keep-all;"> 领奖时间：</label>
+								<div class="layui-input-block">
+									<input type="text" id="date" class="layui-input" name="prizeTime" placeholder="领奖时间">
+								</div>
+							</div>
+						</div>
+					<!--奖品名称-->
+					<div class="layui-col-md4" style="margin-right:0px;">
+						<div class="layui-form-item">
+							<label class="layui-form-label"> 奖品名称：</label>
+							<div class="layui-input-block">
+								<input type="text" class="layui-input" name="prizeName" autocomplete="on" placeholder="奖品名称">
+							</div>
+						</div>
+					</div>
+					<!--是否兑奖-->
+					<div  class="layui-form">
+						<div class="layui-col-md4" style="margin-left:0px;">
+							<div class="layui-form-item">
+								<label class="layui-form-label">是否兑奖：</label>
+								<div class="layui-input-block" id="state">
+									<div style="height:0px;width:0px;overflow:hidden">
+										<input name="state">
+									</div>
+									<div class="layui-input-inline" style="width:100%" ;> 
+										<select id="state" name="state">  
+											<option value="">请选择</option>
+			                    			<option value="0">未领取</option>
+			                    			<option value="1">已领取</option>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>							
+					<!--右侧功能按钮-->
+					<div class="layui-col-md4" style="float: right;margin-bottom: 1em;">
+						<div class="layui-btn-container">
+							<div class="layui-inline" style="margin-right: 0px;">
+								<button id="searchWinningBtn" class="layui-btn layui-btn-primary" lay-submit=""   lay-filter="searchWinningBtn" title="查询">查询</button>
+							</div>
+							<div class="layui-inline" style="margin-right: 0px;">
+								<button class="layui-btn layui-btn-primary" lay-filter="winingReset" title="重置">重置</button>									
+							</div>						
+						</div>
+					</div>
+				</div>
+			</form>
+		</fieldset>				
+	<!-- 表格 -->
+	<table id="winningList" lay-filter="winningTable"></table>
+	<script type="text/javascript" src="../../../frame/layui/layui.all.js"></script>
+	<script type="text/javascript" src="../../../js/index.js"></script>
+	<script type="text/javascript" src="../../../js/market/activity/queryWinningIndex.js"></script>
+		
+	<!-- 表格操作按钮集 -->
+	<script type="text/html" id="winningOption">
+		<a class="layui-btn layui-btn-mini layui-btn-normal" lay-event="shipments">发货</a>
+	</script>
+	<!-- 状态 -->
+	<script type="text/html" id="stateTag">
+  		{{#  if(d.state === 0){ }}
+			否
+  		{{#  } else if(d.state === 1) { }}
+			是
+		{{#  } }}
+	</script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>退款</title>
+    <link rel="stylesheet" href="../../../frame/layui/css/layui.css">
+    <link rel="stylesheet" href="../../../frame/static/css/style.css">
+   
+</head>
+<body class="body">
+	<fieldset class="layui-elem-field" style="border-color:rgb(30, 159, 255); margin-top:1em;padding-left:1em;padding-right:2em;padding-top:1em;">
+		<legend>审核退款</legend>
+		<form class="layui-form" action="" th:object="${billingRefund}" >
+		<input type="hidden" name ="id" th:field="*{id}"/>	
+		<input type="hidden" name ="rejectReasonId" th:field="*{rejectReasonId}"/>	
+		    <!-- 审核判定 -->
+		     <div class="layui-form-item">
+		        <label class="layui-form-label"><span style="color:red">*</span>是否通过审核:</label>
+			    <div class="layui-input-block" id="refundStatus">	
+			    	<input type="hidden" id="hiddenRefundStatus" th:value="*{refundStatus}"/>	    	
+			    	<input type="radio" class="layui-input" name="refundStatus"  lay-verify="refundStatus"  lay-filter="refundStatus"  value="1" title="是">
+			    	<input type="radio" class="layui-input" name="refundStatus" lay-verify="refundStatus"  lay-filter="refundStatus"  checked="checked" value="2" title="否">
+				</div>
+		    </div>		    	
+		    <!--原因-->
+		    <div class="layui-form-item" id="reason">
+		        <label class="layui-form-label"><span style="color:red">*</span>原因:</label>
+				<div class="layui-input-block">
+					 <textarea name="rejectReason" placeholder="请输入内容" class="layui-textarea"></textarea>
+				</div>
+		    </div>
+		    <!--底部功能按钮-->
+		    <div class="layui-form-item" style="text-align: center;">
+		        <div class="layui-input-block">		            
+		            <button lay-submit="" lay-filter="closeAudit" class="layui-btn layui-btn-primary">取消</button>
+		            <button class="layui-btn layui-btn layui-btn-normal" lay-submit="" lay-filter="submitAudit">提交</button>
+		        </div>
+		    </div>
+		</form>
+	</fieldset>
+
+<script src="../../../frame/layui/layui.js" charset="utf-8"></script>
+<script type="text/javascript" src="../../../js/market/account/editAuditIndex.js"></script>
+</body>
+</html>

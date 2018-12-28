@@ -1,0 +1,865 @@
+2018-12-17 13:36:29.461  INFO [bootstrap] 12012 --- [           main] s.c.a.AnnotationConfigApplicationContext : Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@201a4587: startup date [Mon Dec 17 13:36:29 CST 2018]; root of context hierarchy
+2018-12-17 13:36:31.084  INFO [bootstrap] 12012 --- [           main] f.a.AutowiredAnnotationBeanPostProcessor : JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-12-17 13:36:31.572  INFO [bootstrap] 12012 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'configurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$2338800b] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-12-17 13:36:34.223  INFO [merchant-service] 12012 --- [           main] c.c.c.ConfigServicePropertySourceLocator : Fetching config from server at: http://localhost:8888
+2018-12-17 13:36:35.642  WARN [merchant-service] 12012 --- [           main] c.c.c.ConfigServicePropertySourceLocator : Could not locate PropertySource: I/O error on GET request for "http://localhost:8888/merchant-service/default": Connection refused: connect; nested exception is java.net.ConnectException: Connection refused: connect
+2018-12-17 13:36:35.646  INFO [merchant-service] 12012 --- [           main] c.q.a.cleaner.web.merchant.Application   : No active profile set, falling back to default profiles: default
+2018-12-17 13:36:35.675  INFO [merchant-service] 12012 --- [           main] ationConfigEmbeddedWebApplicationContext : Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@65e61854: startup date [Mon Dec 17 13:36:35 CST 2018]; parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@201a4587
+2018-12-17 13:36:38.312  INFO [merchant-service] 12012 --- [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=442cc142-4baa-3385-b8a4-4caf9681a54d
+2018-12-17 13:36:38.372  INFO [merchant-service] 12012 --- [           main] f.a.AutowiredAnnotationBeanPostProcessor : JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-12-17 13:36:38.475  INFO [merchant-service] 12012 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'com.qt.air.cleaner.web.merchant.service.DeviceService' of type [org.springframework.cloud.netflix.feign.FeignClientFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-12-17 13:36:38.477  INFO [merchant-service] 12012 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'com.qt.air.cleaner.web.merchant.service.OrderService' of type [org.springframework.cloud.netflix.feign.FeignClientFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-12-17 13:36:38.480  INFO [merchant-service] 12012 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'com.qt.air.cleaner.web.merchant.service.UserService' of type [org.springframework.cloud.netflix.feign.FeignClientFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-12-17 13:36:38.601  INFO [merchant-service] 12012 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$2338800b] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-12-17 13:36:39.701  INFO [merchant-service] 12012 --- [           main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat initialized with port(s): 8099 (http)
+2018-12-17 13:36:39.732  INFO [merchant-service] 12012 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2018-12-17 13:36:39.734  INFO [merchant-service] 12012 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.23
+2018-12-17 13:36:40.508  INFO [merchant-service] 12012 --- [ost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2018-12-17 13:36:40.814  INFO [merchant-service] 12012 --- [ost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 5139 ms
+2018-12-17 13:36:41.605  INFO [merchant-service] 12012 --- [ost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2018-12-17 13:36:41.631  INFO [merchant-service] 12012 --- [ost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2018-12-17 13:36:41.651  INFO [merchant-service] 12012 --- [ost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2018-12-17 13:36:41.652  INFO [merchant-service] 12012 --- [ost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2018-12-17 13:36:41.652  INFO [merchant-service] 12012 --- [ost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2018-12-17 13:36:41.834  INFO [merchant-service] 12012 --- [           main] s.c.a.AnnotationConfigApplicationContext : Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@45d64d27: startup date [Mon Dec 17 13:36:41 CST 2018]; parent: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@65e61854
+2018-12-17 13:36:41.885  INFO [merchant-service] 12012 --- [           main] f.a.AutowiredAnnotationBeanPostProcessor : JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-12-17 13:36:43.431  INFO [merchant-service] 12012 --- [           main] s.c.a.AnnotationConfigApplicationContext : Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@3ab6678b: startup date [Mon Dec 17 13:36:43 CST 2018]; parent: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@65e61854
+2018-12-17 13:36:43.523  INFO [merchant-service] 12012 --- [           main] f.a.AutowiredAnnotationBeanPostProcessor : JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-12-17 13:36:44.192  INFO [merchant-service] 12012 --- [           main] s.c.a.AnnotationConfigApplicationContext : Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@93f432e: startup date [Mon Dec 17 13:36:44 CST 2018]; parent: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@65e61854
+2018-12-17 13:36:44.430  INFO [merchant-service] 12012 --- [           main] f.a.AutowiredAnnotationBeanPostProcessor : JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-12-17 13:36:47.663  INFO [merchant-service] 12012 --- [           main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@65e61854: startup date [Mon Dec 17 13:36:35 CST 2018]; parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@201a4587
+2018-12-17 13:36:47.856  INFO [merchant-service] 12012 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/device-channel/investorForTrader],methods=[POST]}" onto com.qt.air.cleaner.base.dto.ResultInfo com.qt.air.cleaner.web.merchant.web.DeviceChannelController.queryInvestorForTrader(com.qt.air.cleaner.base.dto.RequestParame)
+2018-12-17 13:36:47.858  INFO [merchant-service] 12012 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/device-channel/queryDeviceMonitors],methods=[POST]}" onto com.qt.air.cleaner.base.dto.ResultInfo com.qt.air.cleaner.web.merchant.web.DeviceChannelController.queryDeviceMonitorPage(com.qt.air.cleaner.base.dto.RequestParame)
+2018-12-17 13:36:47.859  INFO [merchant-service] 12012 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/device-channel/queryDeviceMonitor/{deviceId}],methods=[POST]}" onto public com.qt.air.cleaner.base.dto.ResultInfo com.qt.air.cleaner.web.merchant.web.DeviceChannelController.queryDeviceMonitor(java.lang.String)
+2018-12-17 13:36:47.859  INFO [merchant-service] 12012 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/device-channel/query/{deviceId}],methods=[GET]}" onto public com.qt.air.cleaner.base.dto.ResultInfo com.qt.air.cleaner.web.merchant.web.DeviceChannelController.queryDeviceStatus(java.lang.String)
+2018-12-17 13:36:47.860  INFO [merchant-service] 12012 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/device-channel/deviceTurnOff/{deviceId}],methods=[POST]}" onto public com.qt.air.cleaner.base.dto.ResultInfo com.qt.air.cleaner.web.merchant.web.DeviceChannelController.deviceTurnOff(java.lang.String)
+2018-12-17 13:36:47.861  INFO [merchant-service] 12012 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/device-channel/deviceTurnOn],methods=[POST]}" onto public com.qt.air.cleaner.base.dto.ResultInfo com.qt.air.cleaner.web.merchant.web.DeviceChannelController.deviceTurnNo(java.util.Map<java.lang.String, java.lang.Object>)
+2018-12-17 13:36:47.863  INFO [merchant-service] 12012 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/order-channel/queryInbound],methods=[POST]}" onto public com.qt.air.cleaner.base.dto.ResultInfo com.qt.air.cleaner.web.merchant.web.OrderChannelController.queryInbound(com.qt.air.cleaner.base.dto.RequestParame)
+2018-12-17 13:36:47.868  INFO [merchant-service] 12012 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/user-channel/updatePhone],methods=[POST]}" onto public com.qt.air.cleaner.base.dto.ResultInfo com.qt.air.cleaner.web.merchant.web.UserChannelController.updatePhoneNumber(com.qt.air.cleaner.web.merchant.vo.PhoneInfo)
+2018-12-17 13:36:47.868  INFO [merchant-service] 12012 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/user-channel/bound],methods=[POST]}" onto public com.qt.air.cleaner.base.dto.ResultInfo com.qt.air.cleaner.web.merchant.web.UserChannelController.boundInfo(com.qt.air.cleaner.web.merchant.vo.Bound)
+2018-12-17 13:36:47.869  INFO [merchant-service] 12012 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/user-channel/query],methods=[POST]}" onto public com.qt.air.cleaner.base.dto.ResultInfo com.qt.air.cleaner.web.merchant.web.UserChannelController.queryUserInfo(java.lang.String)
+2018-12-17 13:36:47.870  INFO [merchant-service] 12012 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/user-channel/login],methods=[POST]}" onto public com.qt.air.cleaner.base.dto.ResultInfo com.qt.air.cleaner.web.merchant.web.UserChannelController.loginOrBound(com.qt.air.cleaner.web.merchant.vo.LoginInfo)
+2018-12-17 13:36:47.870  INFO [merchant-service] 12012 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/user-channel/updateTradePwd],methods=[POST]}" onto public com.qt.air.cleaner.base.dto.ResultInfo com.qt.air.cleaner.web.merchant.web.UserChannelController.updateTradePwd(com.qt.air.cleaner.web.merchant.vo.PasswordInfo)
+2018-12-17 13:36:47.871  INFO [merchant-service] 12012 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/user-channel/updateSelfInfo],methods=[POST]}" onto public com.qt.air.cleaner.base.dto.ResultInfo com.qt.air.cleaner.web.merchant.web.UserChannelController.updateSelfInfo(com.qt.air.cleaner.web.merchant.vo.SelfInfo)
+2018-12-17 13:36:47.876  INFO [merchant-service] 12012 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2018-12-17 13:36:47.876  INFO [merchant-service] 12012 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-12-17 13:36:48.015  INFO [merchant-service] 12012 --- [           main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-12-17 13:36:48.019  INFO [merchant-service] 12012 --- [           main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-12-17 13:36:48.192  INFO [merchant-service] 12012 --- [           main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-12-17 13:36:49.234  WARN [merchant-service] 12012 --- [           main] c.n.c.sources.URLConfigurationSource     : No URLs will be polled as dynamic configuration sources.
+2018-12-17 13:36:49.235  INFO [merchant-service] 12012 --- [           main] c.n.c.sources.URLConfigurationSource     : To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2018-12-17 13:36:49.427  WARN [merchant-service] 12012 --- [           main] c.n.c.sources.URLConfigurationSource     : No URLs will be polled as dynamic configuration sources.
+2018-12-17 13:36:49.428  INFO [merchant-service] 12012 --- [           main] c.n.c.sources.URLConfigurationSource     : To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2018-12-17 13:36:49.778  INFO [merchant-service] 12012 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2018-12-17 13:36:49.811  INFO [merchant-service] 12012 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'environmentManager' has been autodetected for JMX exposure
+2018-12-17 13:36:49.816  INFO [merchant-service] 12012 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'configurationPropertiesRebinder' has been autodetected for JMX exposure
+2018-12-17 13:36:49.821  INFO [merchant-service] 12012 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'refreshScope' has been autodetected for JMX exposure
+2018-12-17 13:36:49.829  INFO [merchant-service] 12012 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Located managed bean 'environmentManager': registering with JMX server as MBean [org.springframework.cloud.context.environment:name=environmentManager,type=EnvironmentManager]
+2018-12-17 13:36:49.864  INFO [merchant-service] 12012 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Located managed bean 'refreshScope': registering with JMX server as MBean [org.springframework.cloud.context.scope.refresh:name=refreshScope,type=RefreshScope]
+2018-12-17 13:36:49.877  INFO [merchant-service] 12012 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Located managed bean 'configurationPropertiesRebinder': registering with JMX server as MBean [org.springframework.cloud.context.properties:name=configurationPropertiesRebinder,context=65e61854,type=ConfigurationPropertiesRebinder]
+2018-12-17 13:36:50.296  INFO [merchant-service] 12012 --- [           main] o.s.c.support.DefaultLifecycleProcessor  : Starting beans in phase 0
+2018-12-17 13:36:50.325  INFO [merchant-service] 12012 --- [           main] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2018-12-17 13:36:51.147  INFO [merchant-service] 12012 --- [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON encoding codec LegacyJacksonJson
+2018-12-17 13:36:51.151  INFO [merchant-service] 12012 --- [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON decoding codec LegacyJacksonJson
+2018-12-17 13:36:51.988  INFO [merchant-service] 12012 --- [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using XML encoding codec XStreamXml
+2018-12-17 13:36:51.993  INFO [merchant-service] 12012 --- [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using XML decoding codec XStreamXml
+2018-12-17 13:36:53.711  INFO [merchant-service] 12012 --- [           main] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-17 13:36:54.595  INFO [merchant-service] 12012 --- [           main] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2018-12-17 13:36:54.602  INFO [merchant-service] 12012 --- [           main] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2018-12-17 13:36:54.602  INFO [merchant-service] 12012 --- [           main] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2018-12-17 13:36:54.602  INFO [merchant-service] 12012 --- [           main] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2018-12-17 13:36:54.602  INFO [merchant-service] 12012 --- [           main] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2018-12-17 13:36:54.603  INFO [merchant-service] 12012 --- [           main] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
+2018-12-17 13:36:54.603  INFO [merchant-service] 12012 --- [           main] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2018-12-17 13:36:55.691  INFO [merchant-service] 12012 --- [           main] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2018-12-17 13:36:55.712  INFO [merchant-service] 12012 --- [           main] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 30
+2018-12-17 13:36:55.716  INFO [merchant-service] 12012 --- [           main] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
+2018-12-17 13:36:55.900  INFO [merchant-service] 12012 --- [           main] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1545025015721 with initial instances count: 12
+2018-12-17 13:36:55.945  INFO [merchant-service] 12012 --- [           main] c.n.e.EurekaDiscoveryClientConfiguration : Registering application merchant-service with eureka with status UP
+2018-12-17 13:36:55.955  INFO [merchant-service] 12012 --- [           main] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1545025015955, current=UP, previous=STARTING]
+2018-12-17 13:36:55.958  INFO [merchant-service] 12012 --- [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_MERCHANT-SERVICE/SC-201701131050:merchant-service:8099: registering service...
+2018-12-17 13:36:56.001  INFO [merchant-service] 12012 --- [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_MERCHANT-SERVICE/SC-201701131050:merchant-service:8099 - registration status: 204
+2018-12-17 13:36:56.298  INFO [merchant-service] 12012 --- [           main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 8099 (http)
+2018-12-17 13:36:56.299  INFO [merchant-service] 12012 --- [           main] c.n.e.EurekaDiscoveryClientConfiguration : Updating port to 8099
+2018-12-17 13:36:56.305  INFO [merchant-service] 12012 --- [           main] c.q.a.cleaner.web.merchant.Application   : Started Application in 33.318 seconds (JVM running for 37.05)
+2018-12-17 13:41:54.623  INFO [merchant-service] 12012 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-17 13:46:52.540  INFO [merchant-service] 12012 --- [io-8099-exec-10] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2018-12-17 13:46:52.556  INFO [merchant-service] 12012 --- [io-8099-exec-10] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization started
+2018-12-17 13:46:52.658  INFO [merchant-service] 12012 --- [io-8099-exec-10] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization completed in 101 ms
+2018-12-17 13:46:52.858  INFO [merchant-service] 12012 --- [io-8099-exec-10] c.q.a.c.w.m.web.OrderChannelController   : execute order-channel's method queryInbound()  start -> paramcom.qt.air.cleaner.base.dto.RequestParame@3daf26ba
+2018-12-17 13:46:53.635  INFO [merchant-service] 12012 --- [order-service-1] s.c.a.AnnotationConfigApplicationContext : Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@76682d81: startup date [Mon Dec 17 13:46:53 CST 2018]; parent: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@65e61854
+2018-12-17 13:46:53.817  INFO [merchant-service] 12012 --- [order-service-1] f.a.AutowiredAnnotationBeanPostProcessor : JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-12-17 13:46:54.493  INFO [merchant-service] 12012 --- [order-service-1] c.netflix.config.ChainedDynamicProperty  : Flipping property: order-service.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+2018-12-17 13:46:54.639  INFO [merchant-service] 12012 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-17 13:46:54.803  INFO [merchant-service] 12012 --- [order-service-1] c.n.u.concurrent.ShutdownEnabledTimer    : Shutdown hook installed for: NFLoadBalancer-PingTimer-order-service
+2018-12-17 13:46:54.863  INFO [merchant-service] 12012 --- [order-service-1] c.netflix.loadbalancer.BaseLoadBalancer  : Client:order-service instantiated a LoadBalancer:DynamicServerListLoadBalancer:{NFLoadBalancer:name=order-service,current list of Servers=[],Load balancer stats=Zone stats: {},Server stats: []}ServerList:null
+2018-12-17 13:46:54.871  INFO [merchant-service] 12012 --- [order-service-1] c.n.l.DynamicServerListLoadBalancer      : Using serverListUpdater PollingServerListUpdater
+2018-12-17 13:46:54.934  INFO [merchant-service] 12012 --- [order-service-1] c.netflix.config.ChainedDynamicProperty  : Flipping property: order-service.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+2018-12-17 13:46:54.941  INFO [merchant-service] 12012 --- [order-service-1] c.n.l.DynamicServerListLoadBalancer      : DynamicServerListLoadBalancer for client order-service initialized: DynamicServerListLoadBalancer:{NFLoadBalancer:name=order-service,current list of Servers=[PC-20160903WRPI:3004, windows10.microdone.cn:3004],Load balancer stats=Zone stats: {defaultzone=[Zone:defaultzone;	Instance count:2;	Active connections count: 0;	Circuit breaker tripped count: 0;	Active connections per server: 0.0;]
+},Server stats: [[Server:PC-20160903WRPI:3004;	Zone:defaultZone;	Total Requests:0;	Successive connection failure:0;	Total blackout seconds:0;	Last connection made:Thu Jan 01 08:00:00 CST 1970;	First connection made: Thu Jan 01 08:00:00 CST 1970;	Active Connections:0;	total failure count in last (1000) msecs:0;	average resp time:0.0;	90 percentile resp time:0.0;	95 percentile resp time:0.0;	min resp time:0.0;	max resp time:0.0;	stddev resp time:0.0]
+, [Server:windows10.microdone.cn:3004;	Zone:defaultZone;	Total Requests:0;	Successive connection failure:0;	Total blackout seconds:0;	Last connection made:Thu Jan 01 08:00:00 CST 1970;	First connection made: Thu Jan 01 08:00:00 CST 1970;	Active Connections:0;	total failure count in last (1000) msecs:0;	average resp time:0.0;	90 percentile resp time:0.0;	95 percentile resp time:0.0;	min resp time:0.0;	max resp time:0.0;	stddev resp time:0.0]
+]}ServerList:org.springframework.cloud.netflix.ribbon.eureka.DomainExtractingServerList@46473724
+2018-12-17 13:46:55.879  INFO [merchant-service] 12012 --- [erListUpdater-0] c.netflix.config.ChainedDynamicProperty  : Flipping property: order-service.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+2018-12-17 13:46:57.331 ERROR [merchant-service] 12012 --- [io-8099-exec-10] c.q.a.c.w.m.web.OrderChannelController   : system error: OrderService#queryAccountInbound(RequestParame) failed and no fallback available.
+2018-12-17 13:46:57.446  INFO [merchant-service] 12012 --- [nio-8099-exec-7] c.q.a.c.w.m.web.DeviceChannelController  : execute method DeviceTurnOn() param --> requestParame:com.qt.air.cleaner.base.dto.RequestParame@62059df0
+2018-12-17 13:46:57.478  INFO [merchant-service] 12012 --- [device-server-1] s.c.a.AnnotationConfigApplicationContext : Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@557b5766: startup date [Mon Dec 17 13:46:57 CST 2018]; parent: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@65e61854
+2018-12-17 13:46:57.533  INFO [merchant-service] 12012 --- [device-server-1] f.a.AutowiredAnnotationBeanPostProcessor : JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-12-17 13:46:57.587  INFO [merchant-service] 12012 --- [device-server-1] c.netflix.config.ChainedDynamicProperty  : Flipping property: device-server.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+2018-12-17 13:46:57.590  INFO [merchant-service] 12012 --- [device-server-1] c.n.u.concurrent.ShutdownEnabledTimer    : Shutdown hook installed for: NFLoadBalancer-PingTimer-device-server
+2018-12-17 13:46:57.592  INFO [merchant-service] 12012 --- [device-server-1] c.netflix.loadbalancer.BaseLoadBalancer  : Client:device-server instantiated a LoadBalancer:DynamicServerListLoadBalancer:{NFLoadBalancer:name=device-server,current list of Servers=[],Load balancer stats=Zone stats: {},Server stats: []}ServerList:null
+2018-12-17 13:46:57.593  INFO [merchant-service] 12012 --- [device-server-1] c.n.l.DynamicServerListLoadBalancer      : Using serverListUpdater PollingServerListUpdater
+2018-12-17 13:46:57.597  INFO [merchant-service] 12012 --- [device-server-1] c.netflix.config.ChainedDynamicProperty  : Flipping property: device-server.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+2018-12-17 13:46:57.599  INFO [merchant-service] 12012 --- [device-server-1] c.n.l.DynamicServerListLoadBalancer      : DynamicServerListLoadBalancer for client device-server initialized: DynamicServerListLoadBalancer:{NFLoadBalancer:name=device-server,current list of Servers=[PC-20160903WRPI:3000, SC-201701131050:3000, windows10.microdone.cn:3000],Load balancer stats=Zone stats: {defaultzone=[Zone:defaultzone;	Instance count:3;	Active connections count: 0;	Circuit breaker tripped count: 0;	Active connections per server: 0.0;]
+},Server stats: [[Server:windows10.microdone.cn:3000;	Zone:defaultZone;	Total Requests:0;	Successive connection failure:0;	Total blackout seconds:0;	Last connection made:Thu Jan 01 08:00:00 CST 1970;	First connection made: Thu Jan 01 08:00:00 CST 1970;	Active Connections:0;	total failure count in last (1000) msecs:0;	average resp time:0.0;	90 percentile resp time:0.0;	95 percentile resp time:0.0;	min resp time:0.0;	max resp time:0.0;	stddev resp time:0.0]
+, [Server:PC-20160903WRPI:3000;	Zone:defaultZone;	Total Requests:0;	Successive connection failure:0;	Total blackout seconds:0;	Last connection made:Thu Jan 01 08:00:00 CST 1970;	First connection made: Thu Jan 01 08:00:00 CST 1970;	Active Connections:0;	total failure count in last (1000) msecs:0;	average resp time:0.0;	90 percentile resp time:0.0;	95 percentile resp time:0.0;	min resp time:0.0;	max resp time:0.0;	stddev resp time:0.0]
+, [Server:SC-201701131050:3000;	Zone:defaultZone;	Total Requests:0;	Successive connection failure:0;	Total blackout seconds:0;	Last connection made:Thu Jan 01 08:00:00 CST 1970;	First connection made: Thu Jan 01 08:00:00 CST 1970;	Active Connections:0;	total failure count in last (1000) msecs:0;	average resp time:0.0;	90 percentile resp time:0.0;	95 percentile resp time:0.0;	min resp time:0.0;	max resp time:0.0;	stddev resp time:0.0]
+]}ServerList:org.springframework.cloud.netflix.ribbon.eureka.DomainExtractingServerList@1bb2c39a
+2018-12-17 13:46:58.597  INFO [merchant-service] 12012 --- [erListUpdater-0] c.netflix.config.ChainedDynamicProperty  : Flipping property: device-server.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+2018-12-17 13:46:58.978  INFO [merchant-service] 12012 --- [nio-8099-exec-9] c.q.a.c.w.m.web.DeviceChannelController  : execute method queryDeviceMonitorPage() param --> requestParame:com.qt.air.cleaner.base.dto.RequestParame@73fb3ab8
+2018-12-17 13:46:59.008 ERROR [merchant-service] 12012 --- [nio-8099-exec-9] c.q.a.c.w.m.web.DeviceChannelController  : system error: DeviceService#queryDeviceMonitorPage(RequestParame) failed and no fallback available.
+2018-12-17 13:50:34.046  INFO [merchant-service] 12012 --- [nio-8099-exec-4] c.q.a.c.w.m.web.OrderChannelController   : execute order-channel's method queryInbound()  start -> paramcom.qt.air.cleaner.base.dto.RequestParame@5016ed52
+2018-12-17 13:50:34.089 ERROR [merchant-service] 12012 --- [nio-8099-exec-4] c.q.a.c.w.m.web.OrderChannelController   : system error: OrderService#queryAccountInbound(RequestParame) failed and no fallback available.
+2018-12-17 13:51:54.747  INFO [merchant-service] 12012 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-17 13:52:42.995  INFO [merchant-service] 12012 --- [nio-8099-exec-2] c.q.a.c.w.m.web.DeviceChannelController  : execute method DeviceTurnOn() param --> requestParame:com.qt.air.cleaner.base.dto.RequestParame@2f9d85cf
+2018-12-17 13:52:45.882  INFO [merchant-service] 12012 --- [nio-8099-exec-1] c.q.a.c.w.m.web.OrderChannelController   : execute order-channel's method queryInbound()  start -> paramcom.qt.air.cleaner.base.dto.RequestParame@2b57d02a
+2018-12-17 13:52:45.926 ERROR [merchant-service] 12012 --- [nio-8099-exec-1] c.q.a.c.w.m.web.OrderChannelController   : system error: OrderService#queryAccountInbound(RequestParame) failed and no fallback available.
+2018-12-17 13:52:47.419  INFO [merchant-service] 12012 --- [io-8099-exec-10] c.q.a.c.w.m.web.DeviceChannelController  : execute method DeviceTurnOn() param --> requestParame:com.qt.air.cleaner.base.dto.RequestParame@4942a5d2
+2018-12-17 13:52:49.215 ERROR [merchant-service] 12012 --- [io-8099-exec-10] c.q.a.c.w.m.web.DeviceChannelController  : system error: DeviceService#queryInvestorForTrader(RequestParame) failed and no fallback available.
+2018-12-17 13:52:50.227  INFO [merchant-service] 12012 --- [nio-8099-exec-9] c.q.a.c.w.m.web.DeviceChannelController  : execute method DeviceTurnOn() param --> requestParame:com.qt.air.cleaner.base.dto.RequestParame@350d1631
+2018-12-17 13:52:51.408  INFO [merchant-service] 12012 --- [nio-8099-exec-7] c.q.a.c.w.m.web.DeviceChannelController  : execute method queryDeviceMonitorPage() param --> requestParame:com.qt.air.cleaner.base.dto.RequestParame@33b12a0b
+2018-12-17 13:52:56.868  INFO [merchant-service] 12012 --- [nio-8099-exec-6] c.q.a.c.w.m.web.DeviceChannelController  : execute method queryDeviceMonitorPage() param --> requestParame:com.qt.air.cleaner.base.dto.RequestParame@52fce641
+2018-12-17 13:52:56.927 ERROR [merchant-service] 12012 --- [nio-8099-exec-6] c.q.a.c.w.m.web.DeviceChannelController  : system error: DeviceService#queryDeviceMonitorPage(RequestParame) failed and no fallback available.
+2018-12-17 13:53:11.310  INFO [merchant-service] 12012 --- [nio-8099-exec-5] c.q.a.c.w.m.web.DeviceChannelController  : execute method queryDeviceMonitorPage() param --> requestParame:com.qt.air.cleaner.base.dto.RequestParame@249833d7
+2018-12-17 13:53:13.678  INFO [merchant-service] 12012 --- [nio-8099-exec-8] c.q.a.c.w.m.web.DeviceChannelController  : execute method queryDeviceMonitorPage() param --> requestParame:com.qt.air.cleaner.base.dto.RequestParame@59ea2a8b
+2018-12-17 13:53:15.023 ERROR [merchant-service] 12012 --- [nio-8099-exec-8] c.q.a.c.w.m.web.DeviceChannelController  : system error: DeviceService#queryDeviceMonitorPage(RequestParame) failed and no fallback available.
+2018-12-17 13:53:15.873  INFO [merchant-service] 12012 --- [nio-8099-exec-4] c.q.a.c.w.m.web.DeviceChannelController  : execute method queryDeviceMonitorPage() param --> requestParame:com.qt.air.cleaner.base.dto.RequestParame@1fec131b
+2018-12-17 13:53:24.832  INFO [merchant-service] 12012 --- [nio-8099-exec-3] c.q.a.c.w.m.web.OrderChannelController   : execute order-channel's method queryInbound()  start -> paramcom.qt.air.cleaner.base.dto.RequestParame@30e36b6
+2018-12-17 13:53:24.845 ERROR [merchant-service] 12012 --- [nio-8099-exec-3] c.q.a.c.w.m.web.OrderChannelController   : system error: OrderService#queryAccountInbound(RequestParame) failed and no fallback available.
+2018-12-17 13:53:26.220  INFO [merchant-service] 12012 --- [nio-8099-exec-2] c.q.a.c.w.m.web.OrderChannelController   : execute order-channel's method queryInbound()  start -> paramcom.qt.air.cleaner.base.dto.RequestParame@60676477
+2018-12-17 13:53:27.626 ERROR [merchant-service] 12012 --- [nio-8099-exec-2] c.q.a.c.w.m.web.OrderChannelController   : system error: OrderService#queryAccountInbound(RequestParame) failed and no fallback available.
+2018-12-17 13:53:31.600  INFO [merchant-service] 12012 --- [nio-8099-exec-1] c.q.a.c.w.m.web.DeviceChannelController  : execute method queryDeviceMonitorPage() param --> requestParame:com.qt.air.cleaner.base.dto.RequestParame@4b450ae8
+2018-12-17 13:54:43.864  INFO [merchant-service] 12012 --- [nio-8099-exec-9] c.q.a.c.w.m.web.DeviceChannelController  : execute method DeviceTurnOn() param --> requestParame:com.qt.air.cleaner.base.dto.RequestParame@42fcb56b
+2018-12-17 13:54:43.946 ERROR [merchant-service] 12012 --- [nio-8099-exec-9] c.q.a.c.w.m.web.DeviceChannelController  : system error: DeviceService#queryInvestorForTrader(RequestParame) failed and no fallback available.
+2018-12-17 13:54:48.080  INFO [merchant-service] 12012 --- [nio-8099-exec-7] c.q.a.c.w.m.web.DeviceChannelController  : execute method DeviceTurnOn() param --> requestParame:com.qt.air.cleaner.base.dto.RequestParame@3301960b
+2018-12-17 13:54:50.868  INFO [merchant-service] 12012 --- [nio-8099-exec-6] c.q.a.c.w.m.web.DeviceChannelController  : execute method queryDeviceMonitorPage() param --> requestParame:com.qt.air.cleaner.base.dto.RequestParame@1d060855
+2018-12-17 13:54:50.889 ERROR [merchant-service] 12012 --- [nio-8099-exec-6] c.q.a.c.w.m.web.DeviceChannelController  : system error: DeviceService#queryDeviceMonitorPage(RequestParame) failed and no fallback available.
+2018-12-17 13:54:52.530  INFO [merchant-service] 12012 --- [nio-8099-exec-5] c.q.a.c.w.m.web.DeviceChannelController  : execute method queryDeviceMonitorPage() param --> requestParame:com.qt.air.cleaner.base.dto.RequestParame@1185f253
+2018-12-17 13:54:54.410  INFO [merchant-service] 12012 --- [nio-8099-exec-8] c.q.a.c.w.m.web.DeviceChannelController  : execute method DeviceTurnOn() param --> requestParame:com.qt.air.cleaner.base.dto.RequestParame@1ec2ed42
+2018-12-17 13:54:54.450 ERROR [merchant-service] 12012 --- [nio-8099-exec-8] c.q.a.c.w.m.web.DeviceChannelController  : system error: DeviceService#queryInvestorForTrader(RequestParame) failed and no fallback available.
+2018-12-17 13:54:56.152  INFO [merchant-service] 12012 --- [nio-8099-exec-4] c.q.a.c.w.m.web.DeviceChannelController  : execute method DeviceTurnOn() param --> requestParame:com.qt.air.cleaner.base.dto.RequestParame@48438d
+2018-12-17 13:55:18.535  INFO [merchant-service] 12012 --- [nio-8099-exec-3] c.q.a.c.w.m.web.OrderChannelController   : execute order-channel's method queryInbound()  start -> paramcom.qt.air.cleaner.base.dto.RequestParame@4cf4c29c
+2018-12-17 13:55:19.766 ERROR [merchant-service] 12012 --- [nio-8099-exec-3] c.q.a.c.w.m.web.OrderChannelController   : system error: OrderService#queryAccountInbound(RequestParame) failed and no fallback available.
+2018-12-17 13:55:20.018  INFO [merchant-service] 12012 --- [nio-8099-exec-2] c.q.a.c.w.m.web.OrderChannelController   : execute order-channel's method queryInbound()  start -> paramcom.qt.air.cleaner.base.dto.RequestParame@5b5718f9
+2018-12-17 13:55:20.025 ERROR [merchant-service] 12012 --- [nio-8099-exec-2] c.q.a.c.w.m.web.OrderChannelController   : system error: OrderService#queryAccountInbound(RequestParame) failed and no fallback available.
+2018-12-17 13:55:30.153  INFO [merchant-service] 12012 --- [nio-8099-exec-1] c.q.a.c.w.m.web.OrderChannelController   : execute order-channel's method queryInbound()  start -> paramcom.qt.air.cleaner.base.dto.RequestParame@3bb93e91
+2018-12-17 13:55:30.198 ERROR [merchant-service] 12012 --- [nio-8099-exec-1] c.q.a.c.w.m.web.OrderChannelController   : system error: OrderService#queryAccountInbound(RequestParame) failed and no fallback available.
+2018-12-17 13:56:54.811  INFO [merchant-service] 12012 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-17 13:57:46.082  INFO [merchant-service] 12012 --- [nio-8099-exec-9] c.q.a.c.w.m.web.DeviceChannelController  : execute method queryDeviceMonitorPage() param --> requestParame:com.qt.air.cleaner.base.dto.RequestParame@59652eb2
+2018-12-17 13:58:07.513  INFO [merchant-service] 12012 --- [nio-8099-exec-7] c.q.a.c.w.m.web.DeviceChannelController  : execute method DeviceTurnOn() param --> requestParame:com.qt.air.cleaner.base.dto.RequestParame@4ea950ee
+2018-12-17 13:58:09.652 ERROR [merchant-service] 12012 --- [nio-8099-exec-7] c.q.a.c.w.m.web.DeviceChannelController  : system error: DeviceService#queryInvestorForTrader(RequestParame) failed and no fallback available.
+2018-12-17 13:58:12.736  INFO [merchant-service] 12012 --- [nio-8099-exec-6] c.q.a.c.w.m.web.DeviceChannelController  : execute method DeviceTurnOn() param --> requestParame:com.qt.air.cleaner.base.dto.RequestParame@2c517459
+2018-12-17 14:00:30.998  INFO [merchant-service] 12012 --- [nio-8099-exec-8] c.q.a.c.w.m.web.DeviceChannelController  : execute method DeviceTurnOn() param --> requestParame:com.qt.air.cleaner.base.dto.RequestParame@72713024
+2018-12-17 14:00:37.040  INFO [merchant-service] 12012 --- [nio-8099-exec-4] c.q.a.c.w.m.web.DeviceChannelController  : execute method queryDeviceMonitorPage() param --> requestParame:com.qt.air.cleaner.base.dto.RequestParame@3f7ad32c
+2018-12-17 14:00:37.084 ERROR [merchant-service] 12012 --- [nio-8099-exec-4] c.q.a.c.w.m.web.DeviceChannelController  : system error: DeviceService#queryDeviceMonitorPage(RequestParame) failed and no fallback available.
+2018-12-17 14:00:41.403  INFO [merchant-service] 12012 --- [nio-8099-exec-3] c.q.a.c.w.m.web.DeviceChannelController  : execute method queryDeviceMonitorPage() param --> requestParame:com.qt.air.cleaner.base.dto.RequestParame@4651f7a7
+2018-12-17 14:00:44.220  INFO [merchant-service] 12012 --- [nio-8099-exec-2] c.q.a.c.w.m.web.DeviceChannelController  : execute method queryDeviceMonitorPage() param --> requestParame:com.qt.air.cleaner.base.dto.RequestParame@23a0e1ed
+2018-12-17 14:00:44.223 ERROR [merchant-service] 12012 --- [nio-8099-exec-2] c.q.a.c.w.m.web.DeviceChannelController  : system error: DeviceService#queryDeviceMonitorPage(RequestParame) failed and no fallback available.
+2018-12-17 14:01:00.948  INFO [merchant-service] 12012 --- [nio-8099-exec-1] c.q.a.c.w.m.web.DeviceChannelController  : execute method queryDeviceMonitorPage() param --> requestParame:com.qt.air.cleaner.base.dto.RequestParame@37c5cede
+2018-12-17 14:01:00.999 ERROR [merchant-service] 12012 --- [nio-8099-exec-1] c.q.a.c.w.m.web.DeviceChannelController  : system error: DeviceService#queryDeviceMonitorPage(RequestParame) failed and no fallback available.
+2018-12-17 14:01:38.174  INFO [merchant-service] 12012 --- [io-8099-exec-10] c.q.a.c.w.m.web.DeviceChannelController  : execute method queryDeviceMonitorPage() param --> requestParame:com.qt.air.cleaner.base.dto.RequestParame@2a67f0c9
+2018-12-17 14:01:38.219 ERROR [merchant-service] 12012 --- [io-8099-exec-10] c.q.a.c.w.m.web.DeviceChannelController  : system error: DeviceService#queryDeviceMonitorPage(RequestParame) failed and no fallback available.
+2018-12-17 14:01:39.647  INFO [merchant-service] 12012 --- [nio-8099-exec-9] c.q.a.c.w.m.web.DeviceChannelController  : execute method queryDeviceMonitorPage() param --> requestParame:com.qt.air.cleaner.base.dto.RequestParame@3a2d9b9f
+2018-12-17 14:01:41.809  INFO [merchant-service] 12012 --- [nio-8099-exec-7] c.q.a.c.w.m.web.DeviceChannelController  : execute method queryDeviceMonitorPage() param --> requestParame:com.qt.air.cleaner.base.dto.RequestParame@74e3d726
+2018-12-17 14:01:41.814 ERROR [merchant-service] 12012 --- [nio-8099-exec-7] c.q.a.c.w.m.web.DeviceChannelController  : system error: DeviceService#queryDeviceMonitorPage(RequestParame) failed and no fallback available.
+2018-12-17 14:01:54.883  INFO [merchant-service] 12012 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-17 14:02:12.292  INFO [merchant-service] 12012 --- [nio-8099-exec-6] c.q.a.c.w.m.web.DeviceChannelController  : execute method queryDeviceMonitorPage() param --> requestParame:com.qt.air.cleaner.base.dto.RequestParame@7d29f71a
+2018-12-17 14:02:12.332 ERROR [merchant-service] 12012 --- [nio-8099-exec-6] c.q.a.c.w.m.web.DeviceChannelController  : system error: DeviceService#queryDeviceMonitorPage(RequestParame) failed and no fallback available.
+2018-12-17 14:02:17.811  INFO [merchant-service] 12012 --- [nio-8099-exec-5] c.q.a.c.w.m.web.DeviceChannelController  : execute method queryDeviceMonitorPage() param --> requestParame:com.qt.air.cleaner.base.dto.RequestParame@305c46d
+2018-12-17 14:02:19.330 ERROR [merchant-service] 12012 --- [nio-8099-exec-5] c.q.a.c.w.m.web.DeviceChannelController  : system error: DeviceService#queryDeviceMonitorPage(RequestParame) failed and no fallback available.
+2018-12-17 14:02:23.250  INFO [merchant-service] 12012 --- [nio-8099-exec-8] c.q.a.c.w.m.web.OrderChannelController   : execute order-channel's method queryInbound()  start -> paramcom.qt.air.cleaner.base.dto.RequestParame@6c92854c
+2018-12-17 14:02:23.319 ERROR [merchant-service] 12012 --- [nio-8099-exec-8] c.q.a.c.w.m.web.OrderChannelController   : system error: OrderService#queryAccountInbound(RequestParame) failed and no fallback available.
+2018-12-17 14:02:25.057  INFO [merchant-service] 12012 --- [nio-8099-exec-4] c.q.a.c.w.m.web.OrderChannelController   : execute order-channel's method queryInbound()  start -> paramcom.qt.air.cleaner.base.dto.RequestParame@1b4c095f
+2018-12-17 14:02:26.216 ERROR [merchant-service] 12012 --- [nio-8099-exec-4] c.q.a.c.w.m.web.OrderChannelController   : system error: OrderService#queryAccountInbound(RequestParame) failed and no fallback available.
+2018-12-17 14:02:29.183  INFO [merchant-service] 12012 --- [nio-8099-exec-3] c.q.a.c.w.m.web.DeviceChannelController  : execute method DeviceTurnOn() param --> requestParame:com.qt.air.cleaner.base.dto.RequestParame@7d86420c
+2018-12-17 14:06:54.884  INFO [merchant-service] 12012 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2018-12-17 14:08:15.708  INFO [merchant-service] 12012 --- [on(2)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2018-12-17 14:08:15.709  INFO [merchant-service] 12012 --- [on(2)-127.0.0.1] ationConfigEmbeddedWebApplicationContext : Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@65e61854: startup date [Mon Dec 17 13:36:35 CST 2018]; parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@201a4587
+2018-12-17 14:08:15.710  INFO [merchant-service] 12012 --- [on(2)-127.0.0.1] c.n.e.EurekaDiscoveryClientConfiguration : Unregistering application merchant-service with eureka with status DOWN
+2018-12-17 14:08:15.710  WARN [merchant-service] 12012 --- [on(2)-127.0.0.1] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1545026895710, current=DOWN, previous=UP]
+2018-12-17 14:08:15.711  INFO [merchant-service] 12012 --- [on(2)-127.0.0.1] com.netflix.discovery.DiscoveryClient    : Shutting down DiscoveryClient ...
+2018-12-17 14:08:15.711  INFO [merchant-service] 12012 --- [on(2)-127.0.0.1] com.netflix.discovery.DiscoveryClient    : Unregistering ...
+2018-12-17 14:08:15.737  INFO [merchant-service] 12012 --- [on(2)-127.0.0.1] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_MERCHANT-SERVICE/SC-201701131050:merchant-service:8099 - deregister  status: 200
+2018-12-17 14:08:15.755  INFO [merchant-service] 12012 --- [on(2)-127.0.0.1] com.netflix.discovery.DiscoveryClient    : Completed shut down of DiscoveryClient
+2018-12-17 14:08:15.757  INFO [merchant-service] 12012 --- [on(2)-127.0.0.1] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 0
+2018-12-17 14:08:15.759  INFO [merchant-service] 12012 --- [on(2)-127.0.0.1] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
+2018-12-17 14:08:15.760  INFO [merchant-service] 12012 --- [on(2)-127.0.0.1] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans
+2018-12-17 14:08:15.761  INFO [merchant-service] 12012 --- [on(2)-127.0.0.1] s.c.a.AnnotationConfigApplicationContext : Closing org.springframework.context.annotation.AnnotationConfigApplicationContext@76682d81: startup date [Mon Dec 17 13:46:53 CST 2018]; parent: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@65e61854
+2018-12-17 14:08:15.768  WARN [merchant-service] 12012 --- [on(2)-127.0.0.1] s.c.a.AnnotationConfigApplicationContext : Exception thrown from ApplicationListener handling ContextClosedEvent
+
+org.springframework.beans.factory.BeanCreationNotAllowedException: Error creating bean with name 'org.springframework.cloud.netflix.eureka.EurekaDiscoveryClientConfiguration': Singleton bean creation not allowed while singletons of this factory are in destruction (Do not request a bean from a BeanFactory in a destroy method implementation!)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:216)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1080)
+	at org.springframework.context.event.ApplicationListenerMethodAdapter.getTargetBean(ApplicationListenerMethodAdapter.java:283)
+	at org.springframework.context.event.ApplicationListenerMethodAdapter.doInvoke(ApplicationListenerMethodAdapter.java:253)
+	at org.springframework.context.event.ApplicationListenerMethodAdapter.processEvent(ApplicationListenerMethodAdapter.java:177)
+	at org.springframework.context.event.ApplicationListenerMethodAdapter.onApplicationEvent(ApplicationListenerMethodAdapter.java:140)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:172)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:165)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:139)
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:393)
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:399)
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:347)
+	at org.springframework.context.support.AbstractApplicationContext.doClose(AbstractApplicationContext.java:991)
+	at org.springframework.context.support.AbstractApplicationContext.close(AbstractApplicationContext.java:958)
+	at org.springframework.cloud.context.named.NamedContextFactory.destroy(NamedContextFactory.java:70)
+	at org.springframework.beans.factory.support.DisposableBeanAdapter.destroy(DisposableBeanAdapter.java:272)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroyBean(DefaultSingletonBeanRegistry.java:578)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroySingleton(DefaultSingletonBeanRegistry.java:554)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.destroySingleton(DefaultListableBeanFactory.java:961)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroySingletons(DefaultSingletonBeanRegistry.java:523)
+	at org.springframework.beans.factory.support.FactoryBeanRegistrySupport.destroySingletons(FactoryBeanRegistrySupport.java:230)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.destroySingletons(DefaultListableBeanFactory.java:968)
+	at org.springframework.context.support.AbstractApplicationContext.destroyBeans(AbstractApplicationContext.java:1032)
+	at org.springframework.context.support.AbstractApplicationContext.doClose(AbstractApplicationContext.java:1008)
+	at org.springframework.context.support.AbstractApplicationContext.close(AbstractApplicationContext.java:958)
+	at org.springframework.boot.admin.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin.shutdown(SpringApplicationAdminMXBeanRegistrar.java:126)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at sun.reflect.misc.Trampoline.invoke(MethodUtil.java:71)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at sun.reflect.misc.MethodUtil.invoke(MethodUtil.java:275)
+	at com.sun.jmx.mbeanserver.ConvertingMethod.invokeWithOpenReturn(ConvertingMethod.java:193)
+	at com.sun.jmx.mbeanserver.ConvertingMethod.invokeWithOpenReturn(ConvertingMethod.java:175)
+	at com.sun.jmx.mbeanserver.MXBeanIntrospector.invokeM2(MXBeanIntrospector.java:117)
+	at com.sun.jmx.mbeanserver.MXBeanIntrospector.invokeM2(MXBeanIntrospector.java:54)
+	at com.sun.jmx.mbeanserver.MBeanIntrospector.invokeM(MBeanIntrospector.java:237)
+	at com.sun.jmx.mbeanserver.PerInterface.invoke(PerInterface.java:138)
+	at com.sun.jmx.mbeanserver.MBeanSupport.invoke(MBeanSupport.java:252)
+	at com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.invoke(DefaultMBeanServerInterceptor.java:819)
+	at com.sun.jmx.mbeanserver.JmxMBeanServer.invoke(JmxMBeanServer.java:801)
+	at javax.management.remote.rmi.RMIConnectionImpl.doOperation(RMIConnectionImpl.java:1466)
+	at javax.management.remote.rmi.RMIConnectionImpl.access$300(RMIConnectionImpl.java:76)
+	at javax.management.remote.rmi.RMIConnectionImpl$PrivilegedOperation.run(RMIConnectionImpl.java:1307)
+	at javax.management.remote.rmi.RMIConnectionImpl.doPrivilegedOperation(RMIConnectionImpl.java:1399)
+	at javax.management.remote.rmi.RMIConnectionImpl.invoke(RMIConnectionImpl.java:828)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at sun.rmi.server.UnicastServerRef.dispatch(UnicastServerRef.java:323)
+	at sun.rmi.transport.Transport$1.run(Transport.java:200)
+	at sun.rmi.transport.Transport$1.run(Transport.java:197)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at sun.rmi.transport.Transport.serviceCall(Transport.java:196)
+	at sun.rmi.transport.tcp.TCPTransport.handleMessages(TCPTransport.java:568)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(TCPTransport.java:826)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$240(TCPTransport.java:683)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler$$Lambda$8/1501550025.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(TCPTransport.java:682)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+2018-12-17 14:08:15.771  INFO [merchant-service] 12012 --- [on(2)-127.0.0.1] c.n.u.concurrent.ShutdownEnabledTimer    : Shutdown hook removed for: NFLoadBalancer-PingTimer-order-service
+2018-12-17 14:08:15.782  INFO [merchant-service] 12012 --- [on(2)-127.0.0.1] s.c.a.AnnotationConfigApplicationContext : Closing org.springframework.context.annotation.AnnotationConfigApplicationContext@557b5766: startup date [Mon Dec 17 13:46:57 CST 2018]; parent: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@65e61854
+2018-12-17 14:08:15.783  WARN [merchant-service] 12012 --- [on(2)-127.0.0.1] s.c.a.AnnotationConfigApplicationContext : Exception thrown from ApplicationListener handling ContextClosedEvent
+
+org.springframework.beans.factory.BeanCreationNotAllowedException: Error creating bean with name 'org.springframework.cloud.netflix.eureka.EurekaDiscoveryClientConfiguration': Singleton bean creation not allowed while singletons of this factory are in destruction (Do not request a bean from a BeanFactory in a destroy method implementation!)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:216)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1080)
+	at org.springframework.context.event.ApplicationListenerMethodAdapter.getTargetBean(ApplicationListenerMethodAdapter.java:283)
+	at org.springframework.context.event.ApplicationListenerMethodAdapter.doInvoke(ApplicationListenerMethodAdapter.java:253)
+	at org.springframework.context.event.ApplicationListenerMethodAdapter.processEvent(ApplicationListenerMethodAdapter.java:177)
+	at org.springframework.context.event.ApplicationListenerMethodAdapter.onApplicationEvent(ApplicationListenerMethodAdapter.java:140)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:172)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:165)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:139)
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:393)
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:399)
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:347)
+	at org.springframework.context.support.AbstractApplicationContext.doClose(AbstractApplicationContext.java:991)
+	at org.springframework.context.support.AbstractApplicationContext.close(AbstractApplicationContext.java:958)
+	at org.springframework.cloud.context.named.NamedContextFactory.destroy(NamedContextFactory.java:70)
+	at org.springframework.beans.factory.support.DisposableBeanAdapter.destroy(DisposableBeanAdapter.java:272)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroyBean(DefaultSingletonBeanRegistry.java:578)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroySingleton(DefaultSingletonBeanRegistry.java:554)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.destroySingleton(DefaultListableBeanFactory.java:961)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroySingletons(DefaultSingletonBeanRegistry.java:523)
+	at org.springframework.beans.factory.support.FactoryBeanRegistrySupport.destroySingletons(FactoryBeanRegistrySupport.java:230)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.destroySingletons(DefaultListableBeanFactory.java:968)
+	at org.springframework.context.support.AbstractApplicationContext.destroyBeans(AbstractApplicationContext.java:1032)
+	at org.springframework.context.support.AbstractApplicationContext.doClose(AbstractApplicationContext.java:1008)
+	at org.springframework.context.support.AbstractApplicationContext.close(AbstractApplicationContext.java:958)
+	at org.springframework.boot.admin.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin.shutdown(SpringApplicationAdminMXBeanRegistrar.java:126)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at sun.reflect.misc.Trampoline.invoke(MethodUtil.java:71)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at sun.reflect.misc.MethodUtil.invoke(MethodUtil.java:275)
+	at com.sun.jmx.mbeanserver.ConvertingMethod.invokeWithOpenReturn(ConvertingMethod.java:193)
+	at com.sun.jmx.mbeanserver.ConvertingMethod.invokeWithOpenReturn(ConvertingMethod.java:175)
+	at com.sun.jmx.mbeanserver.MXBeanIntrospector.invokeM2(MXBeanIntrospector.java:117)
+	at com.sun.jmx.mbeanserver.MXBeanIntrospector.invokeM2(MXBeanIntrospector.java:54)
+	at com.sun.jmx.mbeanserver.MBeanIntrospector.invokeM(MBeanIntrospector.java:237)
+	at com.sun.jmx.mbeanserver.PerInterface.invoke(PerInterface.java:138)
+	at com.sun.jmx.mbeanserver.MBeanSupport.invoke(MBeanSupport.java:252)
+	at com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.invoke(DefaultMBeanServerInterceptor.java:819)
+	at com.sun.jmx.mbeanserver.JmxMBeanServer.invoke(JmxMBeanServer.java:801)
+	at javax.management.remote.rmi.RMIConnectionImpl.doOperation(RMIConnectionImpl.java:1466)
+	at javax.management.remote.rmi.RMIConnectionImpl.access$300(RMIConnectionImpl.java:76)
+	at javax.management.remote.rmi.RMIConnectionImpl$PrivilegedOperation.run(RMIConnectionImpl.java:1307)
+	at javax.management.remote.rmi.RMIConnectionImpl.doPrivilegedOperation(RMIConnectionImpl.java:1399)
+	at javax.management.remote.rmi.RMIConnectionImpl.invoke(RMIConnectionImpl.java:828)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at sun.rmi.server.UnicastServerRef.dispatch(UnicastServerRef.java:323)
+	at sun.rmi.transport.Transport$1.run(Transport.java:200)
+	at sun.rmi.transport.Transport$1.run(Transport.java:197)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at sun.rmi.transport.Transport.serviceCall(Transport.java:196)
+	at sun.rmi.transport.tcp.TCPTransport.handleMessages(TCPTransport.java:568)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(TCPTransport.java:826)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$240(TCPTransport.java:683)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler$$Lambda$8/1501550025.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(TCPTransport.java:682)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+2018-12-17 14:08:15.786  INFO [merchant-service] 12012 --- [on(2)-127.0.0.1] c.n.u.concurrent.ShutdownEnabledTimer    : Shutdown hook removed for: NFLoadBalancer-PingTimer-device-server
+2018-12-17 14:08:15.789  INFO [merchant-service] 12012 --- [on(2)-127.0.0.1] s.c.a.AnnotationConfigApplicationContext : Closing org.springframework.context.annotation.AnnotationConfigApplicationContext@93f432e: startup date [Mon Dec 17 13:36:44 CST 2018]; parent: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@65e61854
+2018-12-17 14:08:15.791  WARN [merchant-service] 12012 --- [on(2)-127.0.0.1] s.c.a.AnnotationConfigApplicationContext : Exception thrown from ApplicationListener handling ContextClosedEvent
+
+org.springframework.beans.factory.BeanCreationNotAllowedException: Error creating bean with name 'org.springframework.cloud.netflix.eureka.EurekaDiscoveryClientConfiguration': Singleton bean creation not allowed while singletons of this factory are in destruction (Do not request a bean from a BeanFactory in a destroy method implementation!)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:216)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1080)
+	at org.springframework.context.event.ApplicationListenerMethodAdapter.getTargetBean(ApplicationListenerMethodAdapter.java:283)
+	at org.springframework.context.event.ApplicationListenerMethodAdapter.doInvoke(ApplicationListenerMethodAdapter.java:253)
+	at org.springframework.context.event.ApplicationListenerMethodAdapter.processEvent(ApplicationListenerMethodAdapter.java:177)
+	at org.springframework.context.event.ApplicationListenerMethodAdapter.onApplicationEvent(ApplicationListenerMethodAdapter.java:140)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:172)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:165)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:139)
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:393)
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:399)
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:347)
+	at org.springframework.context.support.AbstractApplicationContext.doClose(AbstractApplicationContext.java:991)
+	at org.springframework.context.support.AbstractApplicationContext.close(AbstractApplicationContext.java:958)
+	at org.springframework.cloud.context.named.NamedContextFactory.destroy(NamedContextFactory.java:70)
+	at org.springframework.beans.factory.support.DisposableBeanAdapter.destroy(DisposableBeanAdapter.java:272)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroyBean(DefaultSingletonBeanRegistry.java:578)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroySingleton(DefaultSingletonBeanRegistry.java:554)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.destroySingleton(DefaultListableBeanFactory.java:961)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroySingletons(DefaultSingletonBeanRegistry.java:523)
+	at org.springframework.beans.factory.support.FactoryBeanRegistrySupport.destroySingletons(FactoryBeanRegistrySupport.java:230)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.destroySingletons(DefaultListableBeanFactory.java:968)
+	at org.springframework.context.support.AbstractApplicationContext.destroyBeans(AbstractApplicationContext.java:1032)
+	at org.springframework.context.support.AbstractApplicationContext.doClose(AbstractApplicationContext.java:1008)
+	at org.springframework.context.support.AbstractApplicationContext.close(AbstractApplicationContext.java:958)
+	at org.springframework.boot.admin.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin.shutdown(SpringApplicationAdminMXBeanRegistrar.java:126)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at sun.reflect.misc.Trampoline.invoke(MethodUtil.java:71)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at sun.reflect.misc.MethodUtil.invoke(MethodUtil.java:275)
+	at com.sun.jmx.mbeanserver.ConvertingMethod.invokeWithOpenReturn(ConvertingMethod.java:193)
+	at com.sun.jmx.mbeanserver.ConvertingMethod.invokeWithOpenReturn(ConvertingMethod.java:175)
+	at com.sun.jmx.mbeanserver.MXBeanIntrospector.invokeM2(MXBeanIntrospector.java:117)
+	at com.sun.jmx.mbeanserver.MXBeanIntrospector.invokeM2(MXBeanIntrospector.java:54)
+	at com.sun.jmx.mbeanserver.MBeanIntrospector.invokeM(MBeanIntrospector.java:237)
+	at com.sun.jmx.mbeanserver.PerInterface.invoke(PerInterface.java:138)
+	at com.sun.jmx.mbeanserver.MBeanSupport.invoke(MBeanSupport.java:252)
+	at com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.invoke(DefaultMBeanServerInterceptor.java:819)
+	at com.sun.jmx.mbeanserver.JmxMBeanServer.invoke(JmxMBeanServer.java:801)
+	at javax.management.remote.rmi.RMIConnectionImpl.doOperation(RMIConnectionImpl.java:1466)
+	at javax.management.remote.rmi.RMIConnectionImpl.access$300(RMIConnectionImpl.java:76)
+	at javax.management.remote.rmi.RMIConnectionImpl$PrivilegedOperation.run(RMIConnectionImpl.java:1307)
+	at javax.management.remote.rmi.RMIConnectionImpl.doPrivilegedOperation(RMIConnectionImpl.java:1399)
+	at javax.management.remote.rmi.RMIConnectionImpl.invoke(RMIConnectionImpl.java:828)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at sun.rmi.server.UnicastServerRef.dispatch(UnicastServerRef.java:323)
+	at sun.rmi.transport.Transport$1.run(Transport.java:200)
+	at sun.rmi.transport.Transport$1.run(Transport.java:197)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at sun.rmi.transport.Transport.serviceCall(Transport.java:196)
+	at sun.rmi.transport.tcp.TCPTransport.handleMessages(TCPTransport.java:568)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(TCPTransport.java:826)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$240(TCPTransport.java:683)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler$$Lambda$8/1501550025.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(TCPTransport.java:682)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+2018-12-17 14:08:15.794  INFO [merchant-service] 12012 --- [on(2)-127.0.0.1] s.c.a.AnnotationConfigApplicationContext : Closing org.springframework.context.annotation.AnnotationConfigApplicationContext@3ab6678b: startup date [Mon Dec 17 13:36:43 CST 2018]; parent: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@65e61854
+2018-12-17 14:08:15.796  WARN [merchant-service] 12012 --- [on(2)-127.0.0.1] s.c.a.AnnotationConfigApplicationContext : Exception thrown from ApplicationListener handling ContextClosedEvent
+
+org.springframework.beans.factory.BeanCreationNotAllowedException: Error creating bean with name 'org.springframework.cloud.netflix.eureka.EurekaDiscoveryClientConfiguration': Singleton bean creation not allowed while singletons of this factory are in destruction (Do not request a bean from a BeanFactory in a destroy method implementation!)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:216)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1080)
+	at org.springframework.context.event.ApplicationListenerMethodAdapter.getTargetBean(ApplicationListenerMethodAdapter.java:283)
+	at org.springframework.context.event.ApplicationListenerMethodAdapter.doInvoke(ApplicationListenerMethodAdapter.java:253)
+	at org.springframework.context.event.ApplicationListenerMethodAdapter.processEvent(ApplicationListenerMethodAdapter.java:177)
+	at org.springframework.context.event.ApplicationListenerMethodAdapter.onApplicationEvent(ApplicationListenerMethodAdapter.java:140)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:172)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:165)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:139)
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:393)
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:399)
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:347)
+	at org.springframework.context.support.AbstractApplicationContext.doClose(AbstractApplicationContext.java:991)
+	at org.springframework.context.support.AbstractApplicationContext.close(AbstractApplicationContext.java:958)
+	at org.springframework.cloud.context.named.NamedContextFactory.destroy(NamedContextFactory.java:70)
+	at org.springframework.beans.factory.support.DisposableBeanAdapter.destroy(DisposableBeanAdapter.java:272)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroyBean(DefaultSingletonBeanRegistry.java:578)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroySingleton(DefaultSingletonBeanRegistry.java:554)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.destroySingleton(DefaultListableBeanFactory.java:961)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroySingletons(DefaultSingletonBeanRegistry.java:523)
+	at org.springframework.beans.factory.support.FactoryBeanRegistrySupport.destroySingletons(FactoryBeanRegistrySupport.java:230)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.destroySingletons(DefaultListableBeanFactory.java:968)
+	at org.springframework.context.support.AbstractApplicationContext.destroyBeans(AbstractApplicationContext.java:1032)
+	at org.springframework.context.support.AbstractApplicationContext.doClose(AbstractApplicationContext.java:1008)
+	at org.springframework.context.support.AbstractApplicationContext.close(AbstractApplicationContext.java:958)
+	at org.springframework.boot.admin.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin.shutdown(SpringApplicationAdminMXBeanRegistrar.java:126)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at sun.reflect.misc.Trampoline.invoke(MethodUtil.java:71)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at sun.reflect.misc.MethodUtil.invoke(MethodUtil.java:275)
+	at com.sun.jmx.mbeanserver.ConvertingMethod.invokeWithOpenReturn(ConvertingMethod.java:193)
+	at com.sun.jmx.mbeanserver.ConvertingMethod.invokeWithOpenReturn(ConvertingMethod.java:175)
+	at com.sun.jmx.mbeanserver.MXBeanIntrospector.invokeM2(MXBeanIntrospector.java:117)
+	at com.sun.jmx.mbeanserver.MXBeanIntrospector.invokeM2(MXBeanIntrospector.java:54)
+	at com.sun.jmx.mbeanserver.MBeanIntrospector.invokeM(MBeanIntrospector.java:237)
+	at com.sun.jmx.mbeanserver.PerInterface.invoke(PerInterface.java:138)
+	at com.sun.jmx.mbeanserver.MBeanSupport.invoke(MBeanSupport.java:252)
+	at com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.invoke(DefaultMBeanServerInterceptor.java:819)
+	at com.sun.jmx.mbeanserver.JmxMBeanServer.invoke(JmxMBeanServer.java:801)
+	at javax.management.remote.rmi.RMIConnectionImpl.doOperation(RMIConnectionImpl.java:1466)
+	at javax.management.remote.rmi.RMIConnectionImpl.access$300(RMIConnectionImpl.java:76)
+	at javax.management.remote.rmi.RMIConnectionImpl$PrivilegedOperation.run(RMIConnectionImpl.java:1307)
+	at javax.management.remote.rmi.RMIConnectionImpl.doPrivilegedOperation(RMIConnectionImpl.java:1399)
+	at javax.management.remote.rmi.RMIConnectionImpl.invoke(RMIConnectionImpl.java:828)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at sun.rmi.server.UnicastServerRef.dispatch(UnicastServerRef.java:323)
+	at sun.rmi.transport.Transport$1.run(Transport.java:200)
+	at sun.rmi.transport.Transport$1.run(Transport.java:197)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at sun.rmi.transport.Transport.serviceCall(Transport.java:196)
+	at sun.rmi.transport.tcp.TCPTransport.handleMessages(TCPTransport.java:568)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(TCPTransport.java:826)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$240(TCPTransport.java:683)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler$$Lambda$8/1501550025.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(TCPTransport.java:682)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+2018-12-17 14:08:15.797  INFO [merchant-service] 12012 --- [on(2)-127.0.0.1] s.c.a.AnnotationConfigApplicationContext : Closing org.springframework.context.annotation.AnnotationConfigApplicationContext@45d64d27: startup date [Mon Dec 17 13:36:41 CST 2018]; parent: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@65e61854
+2018-12-17 14:08:15.797  WARN [merchant-service] 12012 --- [on(2)-127.0.0.1] s.c.a.AnnotationConfigApplicationContext : Exception thrown from ApplicationListener handling ContextClosedEvent
+
+org.springframework.beans.factory.BeanCreationNotAllowedException: Error creating bean with name 'org.springframework.cloud.netflix.eureka.EurekaDiscoveryClientConfiguration': Singleton bean creation not allowed while singletons of this factory are in destruction (Do not request a bean from a BeanFactory in a destroy method implementation!)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:216)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1080)
+	at org.springframework.context.event.ApplicationListenerMethodAdapter.getTargetBean(ApplicationListenerMethodAdapter.java:283)
+	at org.springframework.context.event.ApplicationListenerMethodAdapter.doInvoke(ApplicationListenerMethodAdapter.java:253)
+	at org.springframework.context.event.ApplicationListenerMethodAdapter.processEvent(ApplicationListenerMethodAdapter.java:177)
+	at org.springframework.context.event.ApplicationListenerMethodAdapter.onApplicationEvent(ApplicationListenerMethodAdapter.java:140)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:172)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:165)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:139)
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:393)
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:399)
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:347)
+	at org.springframework.context.support.AbstractApplicationContext.doClose(AbstractApplicationContext.java:991)
+	at org.springframework.context.support.AbstractApplicationContext.close(AbstractApplicationContext.java:958)
+	at org.springframework.cloud.context.named.NamedContextFactory.destroy(NamedContextFactory.java:70)
+	at org.springframework.beans.factory.support.DisposableBeanAdapter.destroy(DisposableBeanAdapter.java:272)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroyBean(DefaultSingletonBeanRegistry.java:578)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroySingleton(DefaultSingletonBeanRegistry.java:554)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.destroySingleton(DefaultListableBeanFactory.java:961)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroySingletons(DefaultSingletonBeanRegistry.java:523)
+	at org.springframework.beans.factory.support.FactoryBeanRegistrySupport.destroySingletons(FactoryBeanRegistrySupport.java:230)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.destroySingletons(DefaultListableBeanFactory.java:968)
+	at org.springframework.context.support.AbstractApplicationContext.destroyBeans(AbstractApplicationContext.java:1032)
+	at org.springframework.context.support.AbstractApplicationContext.doClose(AbstractApplicationContext.java:1008)
+	at org.springframework.context.support.AbstractApplicationContext.close(AbstractApplicationContext.java:958)
+	at org.springframework.boot.admin.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin.shutdown(SpringApplicationAdminMXBeanRegistrar.java:126)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at sun.reflect.misc.Trampoline.invoke(MethodUtil.java:71)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at sun.reflect.misc.MethodUtil.invoke(MethodUtil.java:275)
+	at com.sun.jmx.mbeanserver.ConvertingMethod.invokeWithOpenReturn(ConvertingMethod.java:193)
+	at com.sun.jmx.mbeanserver.ConvertingMethod.invokeWithOpenReturn(ConvertingMethod.java:175)
+	at com.sun.jmx.mbeanserver.MXBeanIntrospector.invokeM2(MXBeanIntrospector.java:117)
+	at com.sun.jmx.mbeanserver.MXBeanIntrospector.invokeM2(MXBeanIntrospector.java:54)
+	at com.sun.jmx.mbeanserver.MBeanIntrospector.invokeM(MBeanIntrospector.java:237)
+	at com.sun.jmx.mbeanserver.PerInterface.invoke(PerInterface.java:138)
+	at com.sun.jmx.mbeanserver.MBeanSupport.invoke(MBeanSupport.java:252)
+	at com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.invoke(DefaultMBeanServerInterceptor.java:819)
+	at com.sun.jmx.mbeanserver.JmxMBeanServer.invoke(JmxMBeanServer.java:801)
+	at javax.management.remote.rmi.RMIConnectionImpl.doOperation(RMIConnectionImpl.java:1466)
+	at javax.management.remote.rmi.RMIConnectionImpl.access$300(RMIConnectionImpl.java:76)
+	at javax.management.remote.rmi.RMIConnectionImpl$PrivilegedOperation.run(RMIConnectionImpl.java:1307)
+	at javax.management.remote.rmi.RMIConnectionImpl.doPrivilegedOperation(RMIConnectionImpl.java:1399)
+	at javax.management.remote.rmi.RMIConnectionImpl.invoke(RMIConnectionImpl.java:828)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at sun.rmi.server.UnicastServerRef.dispatch(UnicastServerRef.java:323)
+	at sun.rmi.transport.Transport$1.run(Transport.java:200)
+	at sun.rmi.transport.Transport$1.run(Transport.java:197)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at sun.rmi.transport.Transport.serviceCall(Transport.java:196)
+	at sun.rmi.transport.tcp.TCPTransport.handleMessages(TCPTransport.java:568)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(TCPTransport.java:826)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$240(TCPTransport.java:683)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler$$Lambda$8/1501550025.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(TCPTransport.java:682)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+2018-12-17 14:08:16.326  INFO [merchant-service] 12012 --- [on(2)-127.0.0.1] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2018-12-17 14:08:16.339  INFO [merchant-service] 12012 --- [ost-startStop-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2018-12-17 14:08:16.350  WARN [merchant-service] 12012 --- [ost-startStop-2] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [RxScheduledExecutorPool-1] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ sun.misc.Unsafe.park(Native Method)
+ java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+ java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+ java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1093)
+ java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+ java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1067)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1127)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+ java.lang.Thread.run(Thread.java:745)
+2018-12-17 14:08:16.351  WARN [merchant-service] 12012 --- [ost-startStop-2] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [RxScheduledExecutorPool-2] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ sun.misc.Unsafe.park(Native Method)
+ java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+ java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+ java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1093)
+ java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+ java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1067)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1127)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+ java.lang.Thread.run(Thread.java:745)
+2018-12-17 14:08:16.352  WARN [merchant-service] 12012 --- [ost-startStop-2] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [RxIoScheduler-1 (Evictor)] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ sun.misc.Unsafe.park(Native Method)
+ java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+ java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+ java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1093)
+ java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+ java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1067)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1127)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+ java.lang.Thread.run(Thread.java:745)
+2018-12-17 14:08:16.356  WARN [merchant-service] 12012 --- [ost-startStop-2] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [RxComputationScheduler-1] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ sun.misc.Unsafe.park(Native Method)
+ java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+ java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+ java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1093)
+ java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+ java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1067)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1127)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+ java.lang.Thread.run(Thread.java:745)
+2018-12-17 14:08:16.357  WARN [merchant-service] 12012 --- [ost-startStop-2] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [hystrix-order-service-1] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ sun.misc.Unsafe.park(Native Method)
+ java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+ java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:458)
+ java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)
+ java.util.concurrent.SynchronousQueue.take(SynchronousQueue.java:924)
+ java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1067)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1127)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+ java.lang.Thread.run(Thread.java:745)
+2018-12-17 14:08:16.359  WARN [merchant-service] 12012 --- [ost-startStop-2] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [PollingServerListUpdater-0] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ sun.misc.Unsafe.park(Native Method)
+ java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+ java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+ java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1088)
+ java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+ java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1067)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1127)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+ java.lang.Thread.run(Thread.java:745)
+2018-12-17 14:08:16.360  WARN [merchant-service] 12012 --- [ost-startStop-2] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [DataPublisher] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ sun.misc.Unsafe.park(Native Method)
+ java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+ java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+ java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1093)
+ java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+ java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1067)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1127)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+ java.lang.Thread.run(Thread.java:745)
+2018-12-17 14:08:16.361  WARN [merchant-service] 12012 --- [ost-startStop-2] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [PollingServerListUpdater-1] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ sun.misc.Unsafe.park(Native Method)
+ java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+ java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+ java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1093)
+ java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+ java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1067)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1127)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+ java.lang.Thread.run(Thread.java:745)
+2018-12-17 14:08:16.362  WARN [merchant-service] 12012 --- [ost-startStop-2] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [RxComputationScheduler-2] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ sun.misc.Unsafe.park(Native Method)
+ java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+ java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+ java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1093)
+ java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+ java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1067)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1127)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+ java.lang.Thread.run(Thread.java:745)
+2018-12-17 14:08:16.363  WARN [merchant-service] 12012 --- [ost-startStop-2] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [hystrix-device-server-1] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ sun.misc.Unsafe.park(Native Method)
+ java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+ java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:458)
+ java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)
+ java.util.concurrent.SynchronousQueue.take(SynchronousQueue.java:924)
+ java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1067)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1127)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+ java.lang.Thread.run(Thread.java:745)
+2018-12-17 14:08:16.364  WARN [merchant-service] 12012 --- [ost-startStop-2] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [RxComputationScheduler-3] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ sun.misc.Unsafe.park(Native Method)
+ java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+ java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+ java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1093)
+ java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)
+ java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1067)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1127)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+ java.lang.Thread.run(Thread.java:745)
+2018-12-17 14:08:16.365  WARN [merchant-service] 12012 --- [ost-startStop-2] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [hystrix-device-server-2] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ sun.misc.Unsafe.park(Native Method)
+ java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+ java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:458)
+ java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)
+ java.util.concurrent.SynchronousQueue.take(SynchronousQueue.java:924)
+ java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1067)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1127)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+ java.lang.Thread.run(Thread.java:745)
+2018-12-17 14:08:16.366  WARN [merchant-service] 12012 --- [ost-startStop-2] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [hystrix-order-service-2] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ sun.misc.Unsafe.park(Native Method)
+ java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+ java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:458)
+ java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)
+ java.util.concurrent.SynchronousQueue.take(SynchronousQueue.java:924)
+ java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1067)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1127)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+ java.lang.Thread.run(Thread.java:745)
+2018-12-17 14:08:16.368  WARN [merchant-service] 12012 --- [ost-startStop-2] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [hystrix-device-server-3] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ sun.misc.Unsafe.park(Native Method)
+ java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+ java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:458)
+ java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)
+ java.util.concurrent.SynchronousQueue.take(SynchronousQueue.java:924)
+ java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1067)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1127)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+ java.lang.Thread.run(Thread.java:745)
+2018-12-17 14:08:16.369  WARN [merchant-service] 12012 --- [ost-startStop-2] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [hystrix-order-service-3] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ sun.misc.Unsafe.park(Native Method)
+ java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+ java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:458)
+ java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)
+ java.util.concurrent.SynchronousQueue.take(SynchronousQueue.java:924)
+ java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1067)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1127)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+ java.lang.Thread.run(Thread.java:745)
+2018-12-17 14:08:16.370  WARN [merchant-service] 12012 --- [ost-startStop-2] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [hystrix-device-server-4] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ sun.misc.Unsafe.park(Native Method)
+ java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+ java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:458)
+ java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)
+ java.util.concurrent.SynchronousQueue.take(SynchronousQueue.java:924)
+ java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1067)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1127)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+ java.lang.Thread.run(Thread.java:745)
+2018-12-17 14:08:16.372  WARN [merchant-service] 12012 --- [ost-startStop-2] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [hystrix-device-server-5] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ sun.misc.Unsafe.park(Native Method)
+ java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+ java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:458)
+ java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)
+ java.util.concurrent.SynchronousQueue.take(SynchronousQueue.java:924)
+ java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1067)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1127)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+ java.lang.Thread.run(Thread.java:745)
+2018-12-17 14:08:16.373  WARN [merchant-service] 12012 --- [ost-startStop-2] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [hystrix-device-server-6] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ sun.misc.Unsafe.park(Native Method)
+ java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+ java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:458)
+ java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)
+ java.util.concurrent.SynchronousQueue.take(SynchronousQueue.java:924)
+ java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1067)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1127)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+ java.lang.Thread.run(Thread.java:745)
+2018-12-17 14:08:16.375  WARN [merchant-service] 12012 --- [ost-startStop-2] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [hystrix-device-server-7] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ sun.misc.Unsafe.park(Native Method)
+ java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+ java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:458)
+ java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)
+ java.util.concurrent.SynchronousQueue.take(SynchronousQueue.java:924)
+ java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1067)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1127)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+ java.lang.Thread.run(Thread.java:745)
+2018-12-17 14:08:16.376  WARN [merchant-service] 12012 --- [ost-startStop-2] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [hystrix-device-server-8] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ sun.misc.Unsafe.park(Native Method)
+ java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+ java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:458)
+ java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)
+ java.util.concurrent.SynchronousQueue.take(SynchronousQueue.java:924)
+ java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1067)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1127)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+ java.lang.Thread.run(Thread.java:745)
+2018-12-17 14:08:16.377  WARN [merchant-service] 12012 --- [ost-startStop-2] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [hystrix-device-server-9] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ sun.misc.Unsafe.park(Native Method)
+ java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+ java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:458)
+ java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)
+ java.util.concurrent.SynchronousQueue.take(SynchronousQueue.java:924)
+ java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1067)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1127)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+ java.lang.Thread.run(Thread.java:745)
+2018-12-17 14:08:16.378  WARN [merchant-service] 12012 --- [ost-startStop-2] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [hystrix-device-server-10] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ sun.misc.Unsafe.park(Native Method)
+ java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+ java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:458)
+ java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)
+ java.util.concurrent.SynchronousQueue.take(SynchronousQueue.java:924)
+ java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1067)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1127)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+ java.lang.Thread.run(Thread.java:745)
+2018-12-17 14:08:16.379  WARN [merchant-service] 12012 --- [ost-startStop-2] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [hystrix-order-service-4] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ sun.misc.Unsafe.park(Native Method)
+ java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+ java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:458)
+ java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)
+ java.util.concurrent.SynchronousQueue.take(SynchronousQueue.java:924)
+ java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1067)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1127)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+ java.lang.Thread.run(Thread.java:745)
+2018-12-17 14:08:16.380  WARN [merchant-service] 12012 --- [ost-startStop-2] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [hystrix-order-service-5] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ sun.misc.Unsafe.park(Native Method)
+ java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+ java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:458)
+ java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)
+ java.util.concurrent.SynchronousQueue.take(SynchronousQueue.java:924)
+ java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1067)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1127)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+ java.lang.Thread.run(Thread.java:745)
+2018-12-17 14:08:16.381  WARN [merchant-service] 12012 --- [ost-startStop-2] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [hystrix-order-service-6] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ sun.misc.Unsafe.park(Native Method)
+ java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+ java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:458)
+ java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)
+ java.util.concurrent.SynchronousQueue.take(SynchronousQueue.java:924)
+ java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1067)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1127)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+ java.lang.Thread.run(Thread.java:745)
+2018-12-17 14:08:16.382  WARN [merchant-service] 12012 --- [ost-startStop-2] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [hystrix-order-service-7] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ sun.misc.Unsafe.park(Native Method)
+ java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+ java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:458)
+ java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)
+ java.util.concurrent.SynchronousQueue.take(SynchronousQueue.java:924)
+ java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1067)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1127)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+ java.lang.Thread.run(Thread.java:745)
+2018-12-17 14:08:16.383  WARN [merchant-service] 12012 --- [ost-startStop-2] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [hystrix-order-service-8] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ sun.misc.Unsafe.park(Native Method)
+ java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+ java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:458)
+ java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)
+ java.util.concurrent.SynchronousQueue.take(SynchronousQueue.java:924)
+ java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1067)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1127)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+ java.lang.Thread.run(Thread.java:745)
+2018-12-17 14:08:16.383  WARN [merchant-service] 12012 --- [ost-startStop-2] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [hystrix-order-service-9] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ sun.misc.Unsafe.park(Native Method)
+ java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+ java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:458)
+ java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)
+ java.util.concurrent.SynchronousQueue.take(SynchronousQueue.java:924)
+ java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1067)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1127)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+ java.lang.Thread.run(Thread.java:745)
+2018-12-17 14:08:16.384  WARN [merchant-service] 12012 --- [ost-startStop-2] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [hystrix-order-service-10] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ sun.misc.Unsafe.park(Native Method)
+ java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+ java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:458)
+ java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)
+ java.util.concurrent.SynchronousQueue.take(SynchronousQueue.java:924)
+ java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1067)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1127)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+ java.lang.Thread.run(Thread.java:745)
+2018-12-17 14:08:16.411  INFO [merchant-service] 12012 --- [      Thread-15] c.n.l.PollingServerListUpdater           : Shutting down the Executor Pool for PollingServerListUpdater

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>用户管理管理</title>
+    <link rel="stylesheet" href="../../../frame/layui/css/layui.css">
+    <link rel="stylesheet" href="../../../frame/static/css/style.css">
+</head>
+<body class="body">
+	<div class="layui-card-header">
+		<i class="layui-icon">  </i> <span class="layui-breadcrumb"
+			lay-separator=">" style="visibility: visible;"> <a>您现在的所在位置</a>
+		<span lay-separator="">&gt;</span> <a>系统管理</a> <span
+		lay-separator="">&gt;</span> <cite><a>用户管理</a></cite></span>
+	</div>	
+<fieldset class="layui-elem-field" style="border-color:rgb(30, 159, 255); margin-top:1em;padding-left:2em;padding-right:2em;padding-top:1em;">
+	<legend>用户信息查询</legend>
+	<form class="layui-form" id="searchForm">
+		<div style="margin-top:5px;" class="layui-row">
+			<!--账号-->
+			<div class="layui-col-md4">
+				<div class="layui-form-item">
+					<label class="layui-form-label"> 账号：</label>
+					<div class="layui-input-block">
+						<input type="text" class="layui-input" name="username" autocomplete="on" placeholder="账号">
+					</div>
+				</div>
+			</div>
+			<!--批次名称-->
+			<div class="layui-col-md4">
+				<div class="layui-form-item">
+				<label class="layui-form-label">姓名：</label>
+					<div class="layui-input-block">
+						<input type="text" class="layui-input" name="trueName" autocomplete="off" placeholder="姓名">
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--右侧功能按钮-->
+		<div style="margin-top:5px;" class="layui-row">
+			<div class="layui-col-md4" style="float: right;">
+				<div class="layui-btn-container" style="text-align:center;margin-bottom: 1em;">
+					<div class="layui-inline" style="margin-right: 0px;">
+						<button id="searchBtn" class="layui-btn layui-btn-primary" lay-submit=""   lay-filter="searchSubmit" title="查询">查询</button>
+					</div>
+					<div class="layui-inline" style="margin-right: 0px;">
+						<button class="layui-btn layui-btn-primary" lay-filter="bnt-reset" title="重置">重置</button>									
+					</div>
+					<div class="layui-inline" id="addbtn">
+						<button type="button" data-method="add" class="layui-btn layui-btn-normal layui-icon" title="新增批次信息">新增</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</fieldset>
+<!-- 表格 -->
+<table id="userList" lay-filter="userTable" lay-size="sm"></table>
+<script type="text/javascript" src="../../../frame/layui/layui.js"></script>
+<script type="text/javascript" src="../../../js/index.js"></script>
+<script type="text/javascript" src="../../../js/security/user/queryUserIndex.js"></script>
+
+<!-- 状态 -->
+<script type="text/html" id="statusTpl">
+  {{#  if(d.status == 1){ }}
+     	已启用
+  {{#  } else { }}
+       	未启用
+  {{#  } }}
+</script>
+<!-- 表格操作按钮集 -->
+<script type="text/html" id="barOption">
+	{{#  if(d.status == 1){ }}
+		<a class="layui-btn layui-btn-mini layui-btn-warm"  lay-event="udapteStatus">禁用</a>
+	{{#  } else { }}
+		<a class="layui-btn layui-btn-mini layui-btn-warm" lay-event="udapteStatus">启用</a>
+ 	{{#  } }}
+	<a class="layui-btn layui-btn-mini layui-btn-normal" lay-event="edit">编辑</a>
+	<a class="layui-btn layui-btn-mini layui-btn-danger" lay-event="del">删除</a>
+</script>
+		</body>
+		

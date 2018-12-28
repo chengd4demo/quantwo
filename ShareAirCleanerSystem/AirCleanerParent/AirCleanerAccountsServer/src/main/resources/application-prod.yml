@@ -1,0 +1,16 @@
+spring: 
+  datasource: 
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@192.168.1.100:1521:orcl
+    username: market
+    password: market2018
+  jpa:
+    show-sql: true   
+device:
+  uri: http://wlw.quantwo.cn:2007/api/v1/device/
+  query: 
+    method: get_state
+  turn-on: 
+    method: turn_on
+  turn-off: 
+    method: turn_off

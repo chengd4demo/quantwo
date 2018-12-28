@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>新增商户信息</title>
+   <link rel="stylesheet" href="../../../frame/layui/css/layui.css">
+   <link rel="stylesheet" href="../../../frame/static/css/style.css">
+</head>
+<body class="body">
+	<fieldset class="layui-elem-field" style="border-color:rgb(30, 159, 255); margin-top:1em;padding-left:1em;padding-right:2em;padding-top:1em;">
+			<legend data-th-text="${trader.legend}">商家信息维护</legend>
+		<form class="layui-form" layui-form="trader" action="" th:object="${trader}" >
+		<input type="hidden" name ="id" th:field="*{id}"/>
+		    <!--统一信用码-->
+		    <div class="layui-form-item">
+		        <label class="layui-form-label"><span style="color:red">*</span>统一信用码</label>
+		        <div class="layui-input-block">
+		            <input type="text" name="socialCreditCode" th:field="*{socialCreditCode}" lay-verify="socialCreditCode" placeholder="请输入统一信用码" autocomplete="off" class="layui-input">
+		        </div>
+		    </div>
+		    <!--商户名称-->
+		    <div class="layui-form-item">
+		        <label class="layui-form-label"><span style="color:red">*</span>商户名称</label>
+		        <div class="layui-input-block">
+		            <input type="text" name="name" th:field="*{name}" lay-verify="name" placeholder="请输入商户名称" autocomplete="off" class="layui-input">
+		        </div>
+		    </div>
+		    <!--商户地址-->
+		    <div class="layui-form-item">
+		        <label class="layui-form-label"><span style="color:red">*</span>商户地址</label>
+		        <div class="layui-input-block">
+		            <input type="text" name="address" th:field="*{address}" lay-verify="address" placeholder="请输入商户地址" autocomplete="off" class="layui-input">
+		        </div>
+		    </div>
+		    <!--联系人-->
+		    <div class="layui-form-item">
+		        <label class="layui-form-label"><span style="color:red">*</span>联系人</label>
+		        <div class="layui-input-block">
+		            <input type="text" name="legalPerson" th:field="*{legalPerson}" lay-verify="legalPerson" placeholder="请输入联系人" autocomplete="off" class="layui-input">
+		        </div>
+		    </div>
+		    <!--联系电话-->
+		    <div class="layui-form-item">
+		        <label class="layui-form-label"><span style="color:red">*</span>联系电话</label>
+		        <div class="layui-input-block">
+		            <input type="text" name="phoneNumber" th:field="*{phoneNumber}" lay-verify="phoneNumber" placeholder="请输入联系电话" autocomplete="off" class="layui-input">
+		        </div>
+		    </div>
+		     <!--电子邮箱-->
+			<div class="layui-form-item">
+		        <label class="layui-form-label">电子邮箱</label>
+		        <div class="layui-input-block">
+		            <input type="text" name="email" th:field="*{email}" lay-verify="emails" placeholder="请输入电子邮箱" autocomplete="off" class="layui-input">
+		        </div>
+		    </div>
+		    <!--加入时间-->   
+		    <div class="layui-form-item">
+		        <label class="layui-form-label">加入时间</label>
+		        <div class="layui-input-block">
+		            <input type="text" name="joinTime" id="date" th:field="*{joinTime}"  placeholder="请选择加入时间" autocomplete="off" class="layui-input">
+		        </div>
+		    </div>
+		    <!--微信号码-->
+		     <div class="layui-form-item">
+		        <label class="layui-form-label">微信号</label>
+		        <div class="layui-input-block">
+		            <input type="text" name="weixin" th:field="*{weixin}" lay-verify="weixin" placeholder="请输入微信号" autocomplete="off" class="layui-input">
+		        </div>
+		    </div>
+		    <!--底部功能按钮-->
+		    <div class="layui-form-item" style="text-align: center;">
+		        <div class="layui-input-block">		            
+		            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+		            <button class="layui-btn layui-btn layui-btn-normal" lay-submit="" lay-filter="demo1">提交</button>
+		        </div>
+		    </div>
+		</form>
+	</fieldset>
+
+<script src="../../../frame/layui/layui.js" charset="utf-8"></script>
+<script type="text/javascript" src="../../../js/market/generic/editTraderIndex.js"></script>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>奖品设置</title>
+    <link rel="stylesheet" href="../../../frame/layui/css/layui.css">
+    <link rel="stylesheet" href="../../../frame/static/css/style.css">
+    <link rel="stylesheet" href="../../../../frame/font-awesome-4.7.0/css/font-awesome.min.css">
+</head>
+<body class="body">
+	<!--奖品设置-->     
+      	<fieldset class="layui-elem-field" style="border-color:rgb(30, 159, 255); margin-top:1em;padding-right:5em;padding-top:1em;">
+			<legend>奖品设置</legend>
+			<form class="layui-form" id="searcPrizeConfighForm" th:object="${prizeConfig}">
+				<div style="margin-top:5px;" class="layui-row">
+					<!--奖项名称-->
+					<div style="margin-top:5px;" class="layui-form" >
+						<div class="layui-col-md4">
+							<div class="layui-form-item">
+					            <label class="layui-form-label">奖项名称</label>
+					            <div class="layui-input-block">
+					               <select th:field="*{prizeItemConfigId}"  lay-search="">
+					                    <option value="">直接选择或搜索选择</option>
+					                    <option th:each="prizeItemConfig:${prizeItemConfigs}" th:value="${prizeItemConfig.id}" th:text="${prizeItemConfig.name}"></option>                                        
+					                </select>
+					            </div>
+			    			</div>
+						</div>
+					</div>
+					<!--奖品名称-->
+					<div class="layui-col-md4" style="margin-right:0px;">
+						<div class="layui-form-item">
+							<label class="layui-form-label"> 奖品名称：</label>
+							<div class="layui-input-block">
+								<input type="text" class="layui-input" name="prizeName" autocomplete="on" placeholder="奖品名称">
+							</div>
+						</div>
+					</div>
+					<!--所属商家-->
+					<div style="margin-top:5px;" class="layui-form">
+						<div class="layui-col-md4">
+							<div class="layui-form-item">
+					            <label class="layui-form-label">所属商家</label>
+					            <div class="layui-input-block">
+					               <select th:field="*{traderId}" lay-verify="traderId" lay-search="">
+					                    <option value="">直接选择或搜索选择</option>
+					                    <option th:each="trader:${traders}" th:value="${trader.id}" th:text="${trader.name}"></option>                                        
+					                </select>
+					            </div>
+			    			</div>
+						</div>
+					</div>
+					<!--奖品品类-->
+					<div  class="layui-form">
+						<div class="layui-col-md4" style="margin-left:0px;">
+							<div class="layui-form-item">
+								<label class="layui-form-label">奖品品类：</label>
+								<div class="layui-input-block" id="prizeCategory">
+									<div style="height:0px;width:0px;overflow:hidden">
+										<input name="prizeCategory">
+									</div>
+									<div class="layui-input-inline" style="width:100%;"> 
+										<select id="prizeCategory" name="prizeCategory" lay-filter="investorTag">  
+											<option value="">请选择品类</option>
+			                    			<option value="0">虚拟奖</option>
+			                    			<option value="1">实物奖</option>  
+										</select>							
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--奖品类型-->
+					<div  class="layui-form">
+						<div class="layui-col-md4" style="margin-left:0px;">
+							<div class="layui-form-item">
+								<label class="layui-form-label">奖品类型：</label>
+								<div class="layui-input-block" id="prizeType">
+									<div style="height:0px;width:0px;overflow:hidden">
+										<input name="prizeType">
+									</div>
+									<div class="layui-input-inline" style="width:100%;"> 
+										<select id="prizeType" name="prizeType" lay-filter="investorTag">  
+											<option value="">请选择类型</option>
+			                    			<option value="2">兑换奖</option>
+			                    			<option value="3">打折卷</option>
+			                    			<option value="4">抵扣卷</option>
+			                    			<option value="5">满减卷</option>	    
+										</select>							
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- 有效期 -->
+					<div class="layui-col-md4">
+						<div class="layui-form-item">
+							<label class="layui-form-label" style="word-break: keep-all;"> 有效期：</label>
+							<div class="layui-input-block">
+								<input type="text" id="date" class="layui-input" name="effectiveTime" placeholder="有效期">
+							</div>
+						</div>
+					</div>
+					<!--右侧功能按钮-->
+					<div class="layui-btn-container" style="float:right;margin-bottom: 1em;">
+						<div class="layui-inline" id="binding" style="margin-right: 10px;">
+							<button class="layui-btn   layui-btn-normal layui-btn-sm" type="button" data-method="binding" title="激活">
+							<i class="fa fa-plus-square   " style=""></i>&nbsp;激活</button>
+						</div>
+						<div class="layui-inline" id="uploadExcel" style="margin-right: 20px;">
+							<button  id="importDataEvent" type="button" data-method="upload" class="layui-btn    layui-btn-sm" title="奖品导入">
+							<i class="fa fa-download   " style=""></i>&nbsp;导入</button>
+						</div>
+						<div class="layui-inline" style="margin-right: 0px;">
+							<button id="searchBtn" class="layui-btn layui-btn-primary" lay-submit   lay-filter="searchPrizeSubmit" title="查询">查询</button>
+						</div>
+						<div class="layui-inline" style="margin-right: 0px;">
+							<button class="layui-btn layui-btn-primary" lay-submit lay-filter="bnt-reset" title="重置">重置</button>									
+						</div>
+						<div class="layui-inline" id="addbtn">
+							<button type="button" data-method="add" class="layui-btn layui-btn-normal layui-icon" title="新增投资商信息">新增</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</fieldset>
+	<!-- 表格 -->
+	<table id="prizeList" lay-filter="prizeTable"></table>
+	<script type="text/javascript" src="../../../frame/layui/layui.all.js"></script>
+	<script type="text/javascript" src="../../../js/market/activity/queryPrizeIndex.js"></script>  
+	<!-- 表格操作按钮集 -->
+	<script type="text/html" id="barOption1">
+		
+		{{#  if(d.state === '6'){ }}
+			<a class="layui-btn layui-btn-mini layui-btn-warm" lay-event="prizeAffirm">激活</a>
+		{{#  } else { }}
+			<a class="layui-btn layui-btn-mini layui-btn-warm" lay-event="prizeAffirm">取消激活</a>
+  		{{#  }}}	
+		<a class="layui-btn layui-btn-mini layui-btn-normal" lay-event="edit">编辑</a>
+		<a class="layui-btn layui-btn-mini layui-btn-danger" lay-event="del">删除</a>
+	</script>
+
+	
+	<!-- 奖品品类 -->
+	<script type="textml" id="prizeCategoryTpl">
+		{{#  if (d.prizeCategory === '4') { }}
+			虚拟奖
+		{{#  } else if (d.prizeCategory === '3') { }}
+			实物奖
+  		{{#  } else { }}
+			 {{ d.prizeCategory }}
+  		{{#  } }}
+	</script>
+	<!-- 奖品类型 -->
+	<script type="textml" id="prizeTypeTpl">
+		{{#  if (d.prizeType === '2') { }}
+			兑换奖
+		{{#  } else if (d.prizeType === '3') { }}
+			打折卷
+		{{#  } else if (d.prizeType === '4') { }}
+			抵扣卷
+		{{#  } else if (d.prizeType === '5') { }}
+			满减卷
+  		{{#  } else { }}
+		
+  		{{#  } }}
+	</script>
+	<!-- 状态 -->
+	<script type="text/html" id="stateTpl">
+  		{{#  if(d.state === '6'){ }}
+			否
+  		{{#  } else if(d.state === '7') { }}
+			是
+  		{{#  } else { }}
+			{{#  d.state }}
+		{{#  } }}
+	</script>
+</body>
+</html>

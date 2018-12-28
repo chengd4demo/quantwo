@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/chengd4demo/SpringcloudConfig
+          search-paths: device-server
+          username: 
+          password: 
+      label: master
+management:
+  security:
+    enabled: false
+security:
+  user:
+    name: aircleaner
+    password: 27478eda-19de-4a9c-bbf2-4bf8ab0e4e3d
+server:
+  port: 7001

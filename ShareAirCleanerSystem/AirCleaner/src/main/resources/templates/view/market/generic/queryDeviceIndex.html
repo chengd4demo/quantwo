@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>设备信息维护</title>
+    <link rel="stylesheet" href="../../../../frame/layui/css/layui.css">
+    <link rel="stylesheet" href="../../../../frame/static/css/style.css">
+    <link rel="stylesheet" href="../../../../frame/font-awesome-4.7.0/css/font-awesome.min.css">
+    <style type="text/css">
+    	.upload {
+    		margin:0 auto;
+			width:90%;
+			height:180px;
+			text-align: center;
+			border:1px solid #1E9FFF;
+    	}
+    </style>
+</head>
+<body class="body">
+	<div class="layui-card-header">
+		<i class="layui-icon">  </i> <span class="layui-breadcrumb"
+			lay-separator=">" style="visibility: visible;"> <a>您现在的所在位置</a>
+		<span lay-separator="">&gt;</span> <a>基本要素维护</a> <span
+		lay-separator="">&gt;</span> <cite><a>设备信息维护</a></cite></span>
+	</div>	
+<fieldset class="layui-elem-field" style="border-color:rgb(30, 159, 255); margin-top:1em;padding-left:2em;padding-right:2em;padding-top:1em;">
+	<legend data-th-text="${device.legend}">设备信息查询</legend>
+	<form class="layui-form" id="searchForm" th:object="${device}">
+		<input type="hidden" id="hiddenDeviceBatchId"  th:value="*{deviceBatchId}" />
+		<div style="margin-top:5px;" class="layui-row">
+			<!--设备编号-->
+			<div class="layui-col-md4">
+				<div class="layui-form-item">
+					<label class="layui-form-label"> 设备编号：</label>
+					<div class="layui-input-block">
+						<input type="text" class="layui-input" name="machNo" autocomplete="off" placeholder="设备编号">
+					</div>
+				</div>
+			</div>
+			<!--设备批次-->
+			<div class="layui-col-md4">
+				<div class="layui-form-item">
+				<label class="layui-form-label">设备批次：</label>
+					<div class="layui-input-block">
+						<input type="text" class="layui-input" readonly="readonly" th:field="*{deviceBatchName}" name="deviceBatchName" autocomplete="off" placeholder="设备批次">
+					</div>
+				</div>
+			</div>
+			<!--设备安装地址-->
+			<div class="layui-col-md4">
+				<div class="layui-form-item">
+					<label class="layui-form-label" style="word-break: keep-all;">设备安装地址：</label>
+					<div class="layui-input-block">
+						<input type="text" class="layui-input" name="setupAddress" autocomplete="off" placeholder="设备安装地址">
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--投资商-->
+		<div style="margin-top:5px;" class="layui-form">
+			<div class="layui-col-md4">
+				<div class="layui-form-item">
+		            <label class="layui-form-label">所属投资商</label>
+		            <div class="layui-input-block">
+		               <select th:field="*{investorId}" lay-verify="investorId" lay-search="">
+		                    <option value="">直接选择或搜索选择</option>
+		                    <option th:each="investor:${investors}" th:value="${investor.id}" th:text="${investor.name}"></option>                                        
+		                </select>
+		            </div>
+    			</div>
+			</div>
+		</div>
+			<!--商户-->
+			<div class="layui-col-md4">
+				<div class="layui-form-item">
+		            <label class="layui-form-label">商家</label>
+		            <div class="layui-input-block">
+		               <select th:field="*{traderId}" lay-verify="traderId" lay-search="">
+		                    <option value="">直接选择或搜索选择</option>
+		                    <option th:each="trader:${traders}" th:value="${trader.id}" th:text="${trader.name}"></option>                                        
+		                </select>
+		            </div>
+    			</div>
+			</div>
+			<!--促销员-->
+			<div class="layui-col-md4">
+				<div class="layui-form-item">
+		            <label class="layui-form-label">促销员</label>
+		            <div class="layui-input-block">
+		               <select th:field="*{salerId}" lay-verify="salerId" lay-search="">
+		                    <option value="">直接选择或搜索选择</option>
+		                    <option th:each="saler:${salers}" th:value="${saler.id}" th:text="${saler.name}"></option>                                        
+		                </select>
+		            </div>
+    			</div>
+			</div>
+		</div>
+		<div style="margin-top:5px;" class="layui-row">	
+			<!--左侧功能按钮-->
+			<div class="layui-col-md4">
+				<div class="layui-btn-container" style="text-align:center;">
+					<div class="layui-inline" id="binding">
+						<button class="layui-btn   layui-btn-normal layui-btn-sm" type="button" data-method="binding" title="绑定投资商">
+						<i class="fa fa-plus-circle   " style=""></i>&nbsp;指定投资商</button>
+					</div>
+					<div class="layui-inline" id="binding">
+						<button class="layui-btn   layui-btn-normal layui-btn-sm" type="button" data-method="binding" title="绑定商户">
+						<i class="fa fa-plus-square-o   " style=""></i>&nbsp;指定商家</button>
+					</div>
+					<div class="layui-inline" id="binding">
+						<button class="layui-btn   layui-btn-normal layui-btn-sm" type="button" data-method="binding" title="绑定促销员">
+						<i class="fa fa-plus-square   " style=""></i>&nbsp;指定促销员</button>
+					</div>
+				</div>
+			</div>
+			<!--右侧功能按钮-->
+			<div class="layui-col-md4" style="float: right;">
+				<div class="layui-btn-container" style="text-align:center;margin-bottom: 1em;">
+					<div class="layui-col-md4">
+						<div class="layui-btn-container" style="text-align:center;">
+							<div class="layui-inline" id="uploadExcel">
+								<button  id="importDataEvent" type="button" data-method="upload" class="layui-btn    layui-btn-primary" title="批量导入设备信息">
+								<i class="fa fa-download   " style=""></i>&nbsp;批量导入</button>
+							</div>
+						</div>
+			        </div>
+					<div class="layui-inline" style="margin-right: 0px;">
+							<button id="searchBtn" class="layui-btn layui-btn-primary" lay-submit=""   lay-filter="searchSubmit" title="查询">查询</button>
+						</div>
+					<div class="layui-inline" style="margin-right: 0px;">
+						<button class="layui-btn layui-btn-primary" lay-filter="bnt-reset" title="重置">重置</button>									
+					</div>
+					<div class="layui-inline" id="addbtn">
+						<button type="button" data-method="add" class="layui-btn layui-btn-normal layui-icon" title="新增设备信息">新增</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</fieldset>
+
+    <!-- 表格 -->
+	<table id="deviceList" lay-filter="deviceTable"></table>
+	<script type="text/javascript" src="../../../../frame/layui/layui.js"></script>
+	<script type="text/javascript" src="../../../../js/index.js"></script>
+	<script type="text/javascript" src="../../../../js/market/generic/queryDeviceIndex.js"></script> 
+		<!-- 表格操作按钮集 -->
+	<script type="text/html" id="barOption">
+		<a class="layui-btn layui-btn-mini layui-btn-primary " lay-event="qrcode" title="查看二维码"> <i class="fa fa-eye " style=""></i> </a>
+		<a class="layui-btn layui-btn-mini layui-btn-normal" lay-event="edit">编辑</a>
+		<a class="layui-btn layui-btn-mini layui-btn-danger" lay-event="del">删除</a>
+	</script>
+</body>
+</html>
