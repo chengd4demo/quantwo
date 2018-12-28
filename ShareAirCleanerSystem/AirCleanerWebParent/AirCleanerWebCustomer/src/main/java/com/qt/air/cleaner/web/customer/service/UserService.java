@@ -50,12 +50,12 @@ public interface UserService {
 	/**
 	 * 更新手机号码
 	 * 
-	 * @param selfInfo
+	 * @param parames
 	 * @return
 	 * @throws BusinessRuntimeException
 	 */
 	@RequestMapping(value = "/updatePhone", method = RequestMethod.POST)
-	public ResultInfo updatePhoneNumber(@RequestBody PhoneInfo phoneInfo)  throws BusinessRuntimeException;
+	public ResultInfo updatePhoneNumber(@RequestBody Map<String,String> parames)  throws BusinessRuntimeException;
 	
 	/**
 	 * 更新交易密码

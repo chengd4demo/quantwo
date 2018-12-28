@@ -84,11 +84,11 @@ public class UserChannelController {
 	public ResultInfo updatePhoneNumber(@RequestBody PhoneInfo phoneInfo) {
 		logger.info("execute user-channel's method updatePhoneNumber()  start -> param{}",phoneInfo);
 		try {	
-			phoneInfo.setOpenId(phoneInfo.getOpenId());
-			phoneInfo.setPhoneNumber(phoneInfo.getPhoneNumber());
-			phoneInfo.setUserType(phoneInfo.getUserType());
-			phoneInfo.setVerificationCode(phoneInfo.getVerificationCode());
-			return userService.updatePhoneNumber(phoneInfo);
+			Map<String,String> parames = new HashMap<>();
+			parames.put("phoneNumber", phoneInfo.getPhoneNumber());
+			parames.put("openId", phoneInfo.getOpenId());
+			parames.put("verificationCode", phoneInfo.getVerificationCode());
+			return userService.updatePhoneNumber(parames);
 		} catch(Exception  e){
 			logger.error("system error: {}",e.getMessage());
 			return new ResultInfo(String.valueOf(ResultCode.R5001.code),e.getMessage(), null);
