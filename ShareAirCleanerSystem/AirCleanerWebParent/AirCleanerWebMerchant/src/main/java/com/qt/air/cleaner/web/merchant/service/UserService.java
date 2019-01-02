@@ -11,7 +11,6 @@ import com.qt.air.cleaner.base.dto.ResultInfo;
 import com.qt.air.cleaner.base.exception.BusinessRuntimeException;
 import com.qt.air.cleaner.web.merchant.vo.Bound;
 import com.qt.air.cleaner.web.merchant.vo.PasswordInfo;
-import com.qt.air.cleaner.web.merchant.vo.PhoneInfo;
 import com.qt.air.cleaner.web.merchant.vo.SelfInfo;
 
 
