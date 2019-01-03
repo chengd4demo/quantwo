@@ -37,7 +37,7 @@ public class UserChannelController {
 	/**注入用户服务接口**/
 	@Autowired
 	private UserService userService;
-	@PostMapping("/query")
+	@PostMapping("/query/{openId}")
 	public ResultInfo queryUserInfo(@PathVariable("openId") String openId) {
 		logger.info("execute user-channel's method queryUserInfo()  start -> param:{}",openId);	
 		try {
@@ -93,7 +93,7 @@ public class UserChannelController {
 	/**更新手机号码**/
 	@PostMapping("/updatePhone")
 	public ResultInfo updatePhoneNumber(@RequestBody PhoneInfo phoneInfo) {
-		logger.info("execute user-channel's method updatePhoneNumber()  start -> param:{}",phoneInfo);
+		logger.info("execute user-channel's method updatePhoneNumber()  start -> param:{}",phoneInfo.toString());
 		try {
 			Map<String,String> parames = new HashMap<String,String>();
 			parames.put("openId", phoneInfo.getOpenId());
@@ -109,13 +109,17 @@ public class UserChannelController {
 	
 	/** 更新交易密码 **/
 	@PostMapping("/updateTradePwd")
-	public ResultInfo updateTradePwd(@RequestBody PasswordInfo passwordInfo) {		
+	public ResultInfo updateTradePwd(@RequestBody PasswordInfo passwordInfo) {	
+		logger.info("execute user-channel's method updateTradePwd()  start -> param:{}",passwordInfo.toString());
 		try {
-			passwordInfo.setOpenId(passwordInfo.getOpenId());
-			passwordInfo.setPhoneNumber(passwordInfo.getPhoneNumber());
-			passwordInfo.setTraderPwd(passwordInfo.getTraderPwd());
-			passwordInfo.setUserType(passwordInfo.getUserType());
-			return userService.updateTradePwd(passwordInfo);
+			Map<String,String> parames = new HashMap<>();
+			parames.put("tradePwd", passwordInfo.getTradePwd());
+			parames.put("phoneNumber", passwordInfo.getPhoneNumber());
+			parames.put("oldTradePwd", passwordInfo.getOldTradePwd());
+			parames.put("verificationCode", passwordInfo.getVerificationCode());
+			parames.put("openId", passwordInfo.getOpenId());
+			parames.put("userType","MERCHANT");
+			return userService.updateTradePwd(parames);
 		} catch (Exception e) {
 			logger.error("system error: {}", e.getMessage());
 			return new ResultInfo(String.valueOf(ResultCode.R5001.code), e.getMessage(), null);
@@ -145,49 +149,4 @@ public class UserChannelController {
 		}
 
 	}
-	
-	/**
-     * 通过身份证号码获取出生日期、性别、年龄
-     * @param identificationNumber
-     * @return 返回的出生日期格式：1990-01-01   性别格式：F-女，M-男
-     */
-    public static Map<String, String> getBirAgeSex(String identificationNumber) {
-        String birthday = "";
-        String age = "";
-        String sexCode = "";
- 
-        int year = Calendar.getInstance().get(Calendar.YEAR);
-        char[] number = identificationNumber.toCharArray();
-        boolean flag = true;
-        if (number.length == 15) {
-            for (int x = 0; x < number.length; x++) {
-                if (!flag) return new HashMap<String, String>();
-                flag = Character.isDigit(number[x]);
-            }
-        } else if (number.length == 18) {
-            for (int x = 0; x < number.length - 1; x++) {
-                if (!flag) return new HashMap<String, String>();
-                flag = Character.isDigit(number[x]);
-            }
-        }
-        if (flag && identificationNumber.length() == 15) {
-            birthday = "19" + identificationNumber.substring(6, 8) + "-"
-                    + identificationNumber.substring(8, 10) + "-"
-                    + identificationNumber.substring(10, 12);
-            sexCode = Integer.parseInt(identificationNumber.substring(identificationNumber.length() - 3, identificationNumber.length())) % 2 == 0 ? "F" : "M";
-            age = (year - Integer.parseInt("19" + identificationNumber.substring(6, 8))) + "";
-        } else if (flag && identificationNumber.length() == 18) {
-            birthday = identificationNumber.substring(6, 10) + "-"
-                    + identificationNumber.substring(10, 12) + "-"
-                    + identificationNumber.substring(12, 14);
-            sexCode = Integer.parseInt(identificationNumber.substring(identificationNumber.length() - 4, identificationNumber.length() - 1)) % 2 == 0 ? "F" : "M";
-            age = (year - Integer.parseInt(identificationNumber.substring(6, 10))) + "";
-        }
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("birthday", birthday);
-        map.put("age", age);
-        map.put("sexCode", sexCode);
-        return map;
-    }
-	
 }

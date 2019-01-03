@@ -36,13 +36,6 @@ public class PasswordInfo implements Serializable{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	public PasswordInfo(String phoneNumber, String userType, String traderPwd, String openId) {
-		super();
-		this.phoneNumber = phoneNumber;
-		this.userType = userType;
-		this.traderPwd = traderPwd;
-		this.openId = openId;
-	}
 	@Override
 	public String toString() {
 		return "PasswordInfo [phoneNumber=" + phoneNumber + ", userType=" + userType + ", traderPwd=" + traderPwd

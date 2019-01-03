@@ -48,16 +48,7 @@ public class Bound implements Serializable{
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-
-	public Bound(String openId, String userType, String smsCode, String uniqueIdentifier, String phoneNumber) {
-		super();
-		this.openId = openId;
-		this.userType = userType;
-		this.smsCode = smsCode;
-		this.uniqueIdentifier = uniqueIdentifier;
-		this.phoneNumber = phoneNumber;
-	}
-
+	
 	@Override
 	public String toString() {
 		return "Bound [openId=" + openId + ", userType=" + userType + ", smsCode=" + smsCode + ", uniqueIdentifier="

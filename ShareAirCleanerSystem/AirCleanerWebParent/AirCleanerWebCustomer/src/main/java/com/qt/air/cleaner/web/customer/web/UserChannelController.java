@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.gson.Gson;
 import com.qt.air.cleaner.base.dto.ResultCode;
 import com.qt.air.cleaner.base.dto.ResultInfo;
 import com.qt.air.cleaner.web.customer.service.UserService;
@@ -32,7 +33,7 @@ public class UserChannelController {
 	private UserService userService;
 	@PostMapping("/query/{openId}")
 	public ResultInfo queryUserInfo(@PathVariable("openId") String openId) {
-		logger.info("execute user-channel's method queryUserInfo()  start -> param{}",openId);	
+		logger.info("execute user-channel's method queryUserInfo()  start -> param:{}",openId);	
 		try {
 			if (StringUtils.isNotBlank(openId)) {
 				Map<String,String> parames = new HashMap<String,String>();
@@ -51,7 +52,7 @@ public class UserChannelController {
 	/**用户绑定**/
 	@PostMapping("/bound")
 	public ResultInfo boundInfo(@RequestBody Bound bound) {
-		logger.info("execute user-channel's method bound()  start -> param{}",bound.toString());
+		logger.info("execute user-channel's method bound()  start -> param:{}",new Gson().toJson(bound));
 		try {
 			bound.setOpenId(bound.getOpenId());
 			bound.setPhoneNumber(bound.getPhoneNumber());
@@ -68,7 +69,7 @@ public class UserChannelController {
 	/**更新用户信息**/
 	@PostMapping("/updateSelfInfo")
 	public ResultInfo updateSelfInfo(@RequestBody SelfInfo selfInfo) {
-		logger.info("execute user-channel's method updateSelfInfo()  start -> param{}",selfInfo.toString());
+		logger.info("execute user-channel's method updateSelfInfo()  start -> param:{}",selfInfo.toString());
 		try {			
 			selfInfo.setUserType("CUSTOMER");
 			return userService.updateSelfInfo(selfInfo);
@@ -82,11 +83,12 @@ public class UserChannelController {
 	/**更新手机号码**/
 	@PostMapping("/updatePhone")
 	public ResultInfo updatePhoneNumber(@RequestBody PhoneInfo phoneInfo) {
-		logger.info("execute user-channel's method updatePhoneNumber()  start -> param{}",phoneInfo);
-		try {	
-			Map<String,String> parames = new HashMap<>();
-			parames.put("phoneNumber", phoneInfo.getPhoneNumber());
+		logger.info("execute user-channel's method updatePhoneNumber()  start -> param:{}",phoneInfo.toString());
+		try {
+			Map<String,String> parames = new HashMap<String,String>();
 			parames.put("openId", phoneInfo.getOpenId());
+			parames.put("phoneNumber", phoneInfo.getPhoneNumber());
+			parames.put("userType", phoneInfo.getUserType());			
 			parames.put("verificationCode", phoneInfo.getVerificationCode());
 			return userService.updatePhoneNumber(parames);
 		} catch(Exception  e){
@@ -97,7 +99,8 @@ public class UserChannelController {
 	
 	/** 更新交易密码 **/
 	@PostMapping("/updateTradePwd")
-	public ResultInfo updateTradePwd(@RequestBody PasswordInfo passwordInfo) {		
+	public ResultInfo updateTradePwd(@RequestBody PasswordInfo passwordInfo) {
+		logger.info("execute user-channel's method updateTradePwd()  start -> param:{}",passwordInfo.toString());
 		try {
 			passwordInfo.setOpenId(passwordInfo.getOpenId());
 			passwordInfo.setPhoneNumber(passwordInfo.getPhoneNumber());
@@ -113,7 +116,7 @@ public class UserChannelController {
 	/** 用户登录 **/
 	@PostMapping("/login")
 	public ResultInfo loginOrBound(@RequestBody LoginInfo loginInfo) {
-		logger.info("execute user-channel's method loginOrBound()  start -> param{}", loginInfo.toString());
+		logger.info("execute user-channel's method loginOrBound()  start -> param:{}", loginInfo.toString());
 		try {
 			Map<String,String> parames = new HashMap<String,String>();
 			parames.put("nickName", loginInfo.getNickName());

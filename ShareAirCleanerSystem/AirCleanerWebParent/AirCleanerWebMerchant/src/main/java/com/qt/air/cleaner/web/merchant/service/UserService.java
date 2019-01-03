@@ -11,6 +11,7 @@ import com.qt.air.cleaner.base.dto.ResultInfo;
 import com.qt.air.cleaner.base.exception.BusinessRuntimeException;
 import com.qt.air.cleaner.web.merchant.vo.Bound;
 import com.qt.air.cleaner.web.merchant.vo.PasswordInfo;
+import com.qt.air.cleaner.web.merchant.vo.PhoneInfo;
 import com.qt.air.cleaner.web.merchant.vo.SelfInfo;
 
 
@@ -50,7 +51,7 @@ public interface UserService {
 	/**
 	 * 更新手机号码
 	 * 
-	 * @param selfInfo
+	 * @param parames
 	 * @return
 	 * @throws BusinessRuntimeException
 	 */
@@ -60,12 +61,12 @@ public interface UserService {
 	/**
 	 * 更新交易密码
 	 * 
-	 * @param selfInfo
+	 * @param parames
 	 * @return
 	 * @throws BusinessRuntimeException
 	 */
 	@RequestMapping(value = "/updateTradePwd", method = RequestMethod.POST)
-	public ResultInfo updateTradePwd(@RequestBody PasswordInfo passwordInfo)  throws BusinessRuntimeException;
+	public ResultInfo updateTradePwd(@RequestBody Map<String,String> parames)  throws BusinessRuntimeException;
 	
 	/**
 	 * 用户登录

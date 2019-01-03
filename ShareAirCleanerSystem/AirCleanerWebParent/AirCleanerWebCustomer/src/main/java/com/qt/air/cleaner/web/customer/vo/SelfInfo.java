@@ -54,5 +54,11 @@ public class SelfInfo implements Serializable {
 	public void setUserType(String userType) {
 		this.userType = userType;
 	}
-
+	
+	@Override
+	public String toString() {
+		return "SelfInfo [identificationNumber=" + identificationNumber + ", name=" + name + ", sex=" + sex
+				+ ", headerUrl=" + headerUrl + ", nickName=" + nickName + ", weixin=" + weixin + ", userType="
+				+ userType + "]";
+	}
 }

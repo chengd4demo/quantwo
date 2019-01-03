@@ -32,14 +32,7 @@ public class PhoneInfo implements Serializable{
 	public void setVerificationCode(String verificationCode) {
 		this.verificationCode = verificationCode;
 	}
-	public PhoneInfo(String phoneNumber, String openId, String userType, String identificationNumber,
-			String verificationCode) {
-		super();
-		this.phoneNumber = phoneNumber;
-		this.openId = openId;
-		this.userType = userType;
-		this.verificationCode = verificationCode;
-	}
+	
 	@Override
 	public String toString() {
 		return "UpdatePhoneNumber [phoneNumber=" + phoneNumber + ", openId=" + openId + ", userType=" + userType

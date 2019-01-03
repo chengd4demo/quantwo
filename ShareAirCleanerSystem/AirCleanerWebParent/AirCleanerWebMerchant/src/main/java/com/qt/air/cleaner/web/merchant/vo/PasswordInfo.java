@@ -7,8 +7,10 @@ public class PasswordInfo implements Serializable{
 	
 	private String phoneNumber; 
 	private String userType;
-	private String traderPwd; 
+	private String tradePwd; 
 	private	String openId;
+	private String oldTradePwd;
+	private String verificationCode;
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
@@ -21,11 +23,11 @@ public class PasswordInfo implements Serializable{
 	public void setUserType(String userType) {
 		this.userType = userType;
 	}
-	public String getTraderPwd() {
-		return traderPwd;
+	public String getTradePwd() {
+		return tradePwd;
 	}
-	public void setTraderPwd(String traderPwd) {
-		this.traderPwd = traderPwd;
+	public void setTradePwd(String tradePwd) {
+		this.tradePwd = tradePwd;
 	}
 	public String getOpenId() {
 		return openId;
@@ -33,21 +35,23 @@ public class PasswordInfo implements Serializable{
 	public void setOpenId(String openId) {
 		this.openId = openId;
 	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public String getOldTradePwd() {
+		return oldTradePwd;
 	}
-	public PasswordInfo(String phoneNumber, String userType, String traderPwd, String openId) {
-		super();
-		this.phoneNumber = phoneNumber;
-		this.userType = userType;
-		this.traderPwd = traderPwd;
-		this.openId = openId;
+	public void setOldTradePwd(String oldTradePwd) {
+		this.oldTradePwd = oldTradePwd;
+	}
+	public String getVerificationCode() {
+		return verificationCode;
+	}
+	public void setVerificationCode(String verificationCode) {
+		this.verificationCode = verificationCode;
 	}
 	@Override
 	public String toString() {
-		return "PasswordInfo [phoneNumber=" + phoneNumber + ", userType=" + userType + ", traderPwd=" + traderPwd
-				+ ", openId=" + openId + "]";
+		return "PasswordInfo [phoneNumber=" + phoneNumber + ", userType=" + userType + ", tradePwd=" + tradePwd
+				+ ", openId=" + openId + ", oldTradePwd=" + oldTradePwd + ", verificationCode=" + verificationCode
+				+ "]";
 	}
-	
 	
 }
