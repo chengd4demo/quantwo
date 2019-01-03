@@ -7,7 +7,6 @@ import com.qt.air.cleaner.base.exception.BusinessRuntimeException;
 import com.qt.air.cleaner.web.merchant.service.UserService;
 import com.qt.air.cleaner.web.merchant.vo.Bound;
 import com.qt.air.cleaner.web.merchant.vo.PasswordInfo;
-import com.qt.air.cleaner.web.merchant.vo.PhoneInfo;
 import com.qt.air.cleaner.web.merchant.vo.SelfInfo;
 
 public class UserServiceFallBack implements UserService{
@@ -31,7 +30,7 @@ public class UserServiceFallBack implements UserService{
 	}
 
 	@Override
-	public ResultInfo updatePhoneNumber(PhoneInfo phoneInfo) throws BusinessRuntimeException {
+	public ResultInfo updatePhoneNumber(Map<String, String> parames) throws BusinessRuntimeException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -48,6 +47,5 @@ public class UserServiceFallBack implements UserService{
 		return null;
 	}
 
-	
 	
 }
