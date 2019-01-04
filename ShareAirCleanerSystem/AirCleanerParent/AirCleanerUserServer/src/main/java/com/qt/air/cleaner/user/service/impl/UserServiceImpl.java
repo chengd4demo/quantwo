@@ -313,6 +313,7 @@ public class UserServiceImpl implements UserService {
 		String phoneNumber = map.get("phoneNumber");
 		String weixin = map.get("openId");
 		String userType = map.get("userType");
+		String verificationCode = map.get("verificationCode");
 		boolean isOk = false;
 		try {
 			if (StringUtils.isNotBlank(phoneNumber) && StringUtils.isNotBlank(weixin)) {
