@@ -307,13 +307,12 @@ public class UserServiceImpl implements UserService {
 	 * @throws BusinessRuntimeException
 	 */
 	@Override
-	public ResultInfo updatePhoneNumber(Map<String, String> parames) throws BusinessRuntimeException {
-		logger.info("execute method updateSelfInfo() param --> parames:{}", parames);
-		Map<String, String> map = new HashMap<String, String>();
-		String phoneNumber = map.get("phoneNumber");
-		String weixin = map.get("openId");
-		String userType = map.get("userType");
-		String verificationCode = map.get("verificationCode");
+	public ResultInfo updatePhoneNumber(@RequestBody Map<String, String> parames) throws BusinessRuntimeException {
+		logger.info("execute method updatePhoneNumber() param --> parames:{}", parames);
+		String phoneNumber = parames.get("phoneNumber");
+		String weixin = parames.get("openId");
+		String userType = parames.get("userType");
+		String verificationCode = parames.get("verificationCode");
 		boolean isOk = false;
 		try {
 			if (StringUtils.isNotBlank(phoneNumber) && StringUtils.isNotBlank(weixin)) {
@@ -371,7 +370,8 @@ public class UserServiceImpl implements UserService {
 	 * @throws BusinessRuntimeException
 	 */
 	@Override
-	public ResultInfo updateTradePwd(Map<String, String> parames) throws BusinessRuntimeException {
+	public ResultInfo updateTradePwd(@RequestBody Map<String, String> parames) throws BusinessRuntimeException {
+		logger.info("execute method updateTradePwd() param --> parames:{}", parames);
 		String phoneNumber = parames.get("phoneNumber");
 		String userType = parames.get("userType");
 		String traderPwd = parames.get("tradePwd");
