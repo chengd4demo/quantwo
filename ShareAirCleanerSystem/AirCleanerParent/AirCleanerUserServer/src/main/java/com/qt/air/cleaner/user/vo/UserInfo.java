@@ -12,6 +12,7 @@ public class UserInfo implements Serializable {
 	private String nickName;
 	private String weixin;
 	private String userType;
+	private String phoneNumber;
 	private boolean isAlipay = false;
 	
 	public String getIdentificationNumber() {
@@ -68,10 +69,17 @@ public class UserInfo implements Serializable {
 	public void setAlipay(boolean isAlipay) {
 		this.isAlipay = isAlipay;
 	}
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
 	@Override
 	public String toString() {
 		return "UserInfo [id=" + id + ", identificationNumber=" + identificationNumber + ", name=" + name + ", sex="
 				+ sex + ", headerUrl=" + headerUrl + ", nickName=" + nickName + ", weixin=" + weixin + ", userType="
-				+ userType + ", isAlipay=" + isAlipay + "]";
+				+ userType + ", phoneNumber=" + phoneNumber + ", isAlipay=" + isAlipay + "]";
 	}
+	
 }

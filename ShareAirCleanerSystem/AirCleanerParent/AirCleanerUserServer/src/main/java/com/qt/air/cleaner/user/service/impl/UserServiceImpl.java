@@ -10,7 +10,6 @@ import javax.annotation.Resource;
 import javax.transaction.Transactional;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.codec.digest.Md5Crypt;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -98,6 +97,7 @@ public class UserServiceImpl implements UserService {
 					userInfo.setNickName(company.getLegalPerson());
 					userInfo.setWeixin(company.getWeixin());
 					userInfo.setUserType(Account.ACCOUNT_TYPE_COMPANY);
+					userInfo.setPhoneNumber(company.getPhoneNumber());
 					if (StringUtils.isNotBlank(company.getAlipay()))
 						userInfo.setAlipay(true);
 					return userInfo;
@@ -110,6 +110,7 @@ public class UserServiceImpl implements UserService {
 					userInfo.setNickName(investor.getLegalPerson());
 					userInfo.setWeixin(investor.getWeixin());
 					userInfo.setUserType(Account.ACCOUNT_TYPE_INVESTOR);
+					userInfo.setPhoneNumber(investor.getPhoneNumber());
 					if (StringUtils.isNotBlank(investor.getAlipay()))
 						userInfo.setAlipay(true);
 					return userInfo;
@@ -122,6 +123,7 @@ public class UserServiceImpl implements UserService {
 					userInfo.setNickName(trader.getLegalPerson());
 					userInfo.setWeixin(trader.getWeixin());
 					userInfo.setUserType(Account.ACCOUNT_TYPE_TRADER);
+					userInfo.setPhoneNumber(trader.getPhoneNumber());
 					if (StringUtils.isNotBlank(trader.getAlipay()))
 						userInfo.setAlipay(true);
 					return userInfo;
@@ -134,6 +136,7 @@ public class UserServiceImpl implements UserService {
 					userInfo.setNickName(saler.getName());
 					userInfo.setWeixin(saler.getWeixin());
 					userInfo.setUserType(Account.ACCOUNT_TYPE_SALER);
+					userInfo.setPhoneNumber(saler.getPhoneNumber());
 					if (StringUtils.isNotBlank(saler.getAlipay()))
 						userInfo.setAlipay(true);
 					return userInfo;
@@ -146,6 +149,7 @@ public class UserServiceImpl implements UserService {
 					BeanUtils.copyProperties(customer, userInfo);
 					userInfo.setId(customer.getId());
 					userInfo.setUserType(Account.ACCOUNT_TYPE_CUSTOMER);
+					userInfo.setPhoneNumber(customer.getPhoneNumber());
 					if (StringUtils.isNotBlank(customer.getAlipay()))
 						userInfo.setAlipay(true);
 					return userInfo;
