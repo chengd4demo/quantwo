@@ -7,6 +7,8 @@ public class AccountOutboundDto implements Serializable {
 	private String createdate;
 	private Float amount = 0.00f;
 	private String state;
+	private String id;
+	
 	public String getCreatedate() {
 		return createdate;
 	}
@@ -25,4 +27,11 @@ public class AccountOutboundDto implements Serializable {
 	public void setState(String state) {
 		this.state = state;
 	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	
 }
