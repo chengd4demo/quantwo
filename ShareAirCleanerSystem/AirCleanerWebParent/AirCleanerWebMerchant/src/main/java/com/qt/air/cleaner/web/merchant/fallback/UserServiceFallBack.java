@@ -2,6 +2,8 @@ package com.qt.air.cleaner.web.merchant.fallback;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.qt.air.cleaner.base.dto.ResultInfo;
@@ -44,6 +46,18 @@ public class UserServiceFallBack implements UserService{
 
 	@Override
 	public ResultInfo updateTradePwd(Map<String, String> parames) throws BusinessRuntimeException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ResultInfo obtainUserInfo(Map<String, Object> parame) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ResultInfo authorize(HttpServletResponse response, String userType) {
 		// TODO Auto-generated method stub
 		return null;
 	}

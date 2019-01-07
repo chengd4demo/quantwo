@@ -605,7 +605,7 @@ public static final String ROOT_ORGAN_CODE = "COMPANY";
 	public static List<String> codeTypeList = new ArrayList<String>();
 	
 	
-	public static Integer[] REQUEST_STATES = {0,-1};
+	public static Integer[] REQUEST_STATES = {0};
 	
 	
 	public static Integer[] UNCOLLECTED_STATES = {5};

@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -78,6 +80,18 @@ public class UserServiceImplTest implements UserService{
 
 	@Override
 	public ResultInfo loginOrBound(Map<String, String> parame) throws BusinessRuntimeException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ResultInfo obtainUserInfo(Map<String, Object> parame) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ResultInfo authorize(HttpServletResponse response, String userType) {
 		// TODO Auto-generated method stub
 		return null;
 	}
