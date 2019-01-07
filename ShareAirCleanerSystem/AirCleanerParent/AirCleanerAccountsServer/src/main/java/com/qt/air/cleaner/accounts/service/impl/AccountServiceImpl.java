@@ -105,9 +105,9 @@ public class AccountServiceImpl implements AccountService {
 			sql.append("	          from (select to_char(t.create_time,'yyyy-mm-dd hh24:mi:ss') createdate,");
 			sql.append("                       t.amount,");
 			sql.append("                       case");
-			sql.append("                         when （t.state = 0 or t.state = 4 or t.state = -1） and (t.removed != 'Y') then '处理中'");
-			sql.append("                         when t.state = 5 then  '未领取'");
-			sql.append("                         when t.state = 1 then  '已完成'");
+			sql.append("                         when (t.state = 0  and t.removed != 'Y') then '处理中'");
+			sql.append("                         when (t.state = 5 and t.removed != 'Y') then  '未领取'");
+			sql.append("                         when (t.state = 1 and t.removed != 'Y') then  '已完成'");
 			sql.append("                         when t.removed = 'Y' then '已取消'");
 			sql.append("                         else '其它' end state");
 			sql.append("                    from ACT_ACCOUNT_OUTBOUND t");
@@ -117,7 +117,7 @@ public class AccountServiceImpl implements AccountService {
 			} 
 			if (AccountOutBoundEnum.REQUEST.getStatus() == state || AccountOutBoundEnum.UNCOLLECTED.getStatus() == state
 					|| AccountOutBoundEnum.COMPLETED.getStatus() == state || AccountOutBoundEnum.NOTPASS.getStatus() == state) {
-				sql.append("                       and t.state in (:state)");
+				sql.append("                       and t.state in (:state) and t.removed='N'");
 			}
 			sql.append("                	order by t.create_time desc) row_");
 			sql.append("        where rownum <= :end )");
