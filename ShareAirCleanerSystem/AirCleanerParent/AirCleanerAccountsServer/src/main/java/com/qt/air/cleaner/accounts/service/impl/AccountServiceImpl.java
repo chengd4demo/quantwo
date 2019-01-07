@@ -120,7 +120,7 @@ public class AccountServiceImpl implements AccountService {
 			} 
 			if (AccountOutBoundEnum.REQUEST.getStatus() == state || AccountOutBoundEnum.UNCOLLECTED.getStatus() == state
 					|| AccountOutBoundEnum.COMPLETED.getStatus() == state || AccountOutBoundEnum.NOTPASS.getStatus() == state) {
-				sql.append("                       and t.state in (:state)");
+				sql.append("                       and t.state in (:state) and t.removed='N'");
 			}
 			sql.append("                	order by t.create_time desc) row_");
 			sql.append("        where rownum <= :end )");
