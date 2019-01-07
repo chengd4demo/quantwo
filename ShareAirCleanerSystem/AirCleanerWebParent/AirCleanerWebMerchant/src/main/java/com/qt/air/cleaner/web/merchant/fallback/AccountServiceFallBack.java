@@ -19,4 +19,10 @@ public class AccountServiceFallBack implements AccountService {
 		return null;
 	}
 
+	@Override
+	public ResultInfo cleanAccountOutbound(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
