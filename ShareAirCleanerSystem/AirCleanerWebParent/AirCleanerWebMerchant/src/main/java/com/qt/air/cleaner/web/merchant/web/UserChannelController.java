@@ -4,6 +4,8 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.gson.Gson;
 import com.qt.air.cleaner.base.dto.ResultCode;
 import com.qt.air.cleaner.base.dto.ResultInfo;
 import com.qt.air.cleaner.web.merchant.service.UserService;
@@ -29,6 +32,10 @@ import com.qt.air.cleaner.web.merchant.vo.SelfInfo;
  * @Desc: 用户客户端Api
  * @Author: Jansan.Ma
  * @Date: 2018年11月20日
+ */
+/**
+ * @author Administrator
+ *
  */
 @RestController
 @RequestMapping("/user-channel")
@@ -147,6 +154,40 @@ public class UserChannelController {
 			logger.error("system error: {}", e.getMessage());
 			return new ResultInfo(String.valueOf(ResultCode.R5001.code), e.getMessage(), null);
 		}
-
+	}
+	
+	/**
+	 * 微信授权
+	 * 
+	 * @param response
+	 * @return
+	 */
+	@PostMapping("/wx/auth")
+	public ResultInfo authorize(HttpServletResponse response) {
+		logger.info("execute user-channel's method authorize()  start");
+		try {
+			userService.authorize(response, "MERCHANT");
+		} catch (Exception e) {
+			logger.error("system error: {}", e.getMessage());
+			return new ResultInfo(String.valueOf(ResultCode.R5001.code), e.getMessage(), null);
+		}
+		return new ResultInfo(String.valueOf(ResultCode.SC_OK),"sucess",null);
+	}
+	
+	/**
+	 * 获取微信用户信息
+	 * 
+	 * @param parame
+	 * @return
+	 */
+	@PostMapping("/wx/query")
+	public ResultInfo obtainUserInfo(Map<String, Object> parame) {
+		logger.info("execute user-channel's method obtainUserInfo()  start -> param:{}",new Gson().toJson(parame));
+		try {
+			return userService.obtainUserInfo(parame);
+		} catch (Exception e) {
+			logger.error("system error: {}", e.getMessage());
+			return new ResultInfo(String.valueOf(ResultCode.R5001.code), e.getMessage(), null);
+		}
 	}
 }

@@ -1,5 +1,6 @@
 package com.qt.air.cleaner.user.service.impl;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -7,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -15,8 +17,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
@@ -39,6 +43,9 @@ import com.qt.air.cleaner.user.repository.SalerRepository;
 import com.qt.air.cleaner.user.repository.TraderRepository;
 import com.qt.air.cleaner.user.service.UserService;
 import com.qt.air.cleaner.user.vo.UserInfo;
+import com.qt.air.cleaner.user.vo.UserInfoResponse;
+import com.qt.air.cleaner.user.vo.mp.OauthTokenResponse;
+import com.qt.air.cleaner.user.wechat.core.WechatMpCore;
 
 @RestController
 @Transactional
@@ -57,6 +64,11 @@ public class UserServiceImpl implements UserService {
 	private TraderRepository traderRepository;
 	@Resource
 	private StringRedisTemplate stringRedisTemplate;
+	
+	@Value("${o2.wechat.subscription.app.secret}")
+	public String appSecret;
+	@Value("${o2.wechat.subscription.app.id}")
+	public String appId;
 
 	/**
 	 * 查询用户信息
@@ -591,6 +603,48 @@ public class UserServiceImpl implements UserService {
 			return true;
 		}
 		return false;
+	}
+
+	
+	@Override
+	public ResultInfo obtainUserInfo(@RequestBody Map<String, Object> userInfoMap) {
+		Map<String, Object> mapToken = new HashMap<String, Object>();
+		mapToken.put("appid", appId);
+        mapToken.put("secret", appSecret);
+        mapToken.put("code", mapToken.get("code"));
+        mapToken.put("grant_type", "authorization_code");
+		try {
+			OauthTokenResponse oauthTokenResponse = WechatMpCore.obtainOauthAccessToken(mapToken);
+			String accessToken = oauthTokenResponse.getAccess_token();
+			logger.info("access_token->{}",accessToken);
+			if (StringUtils.isEmpty(accessToken)) {
+				logger.info("网页授权获取ACCESS_TOKEN失败");
+				return new ResultInfo(ErrorCodeEnum.ES_1018.getErrorCode(), ErrorCodeEnum.ES_1018.getMessage(), null);
+			}
+			userInfoMap.put("access_token", accessToken);
+			userInfoMap.put("lang", "zh_CN");
+			UserInfoResponse response = WechatMpCore.obtainUserInfo(userInfoMap);
+			return new ResultInfo(String.valueOf(ResultCode.SC_OK), "success", response);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("system error method obtainUserInfo,error:{}",e.getMessage());
+		}
+		return new ResultInfo(ErrorCodeEnum.ES_1018.getErrorCode(), ErrorCodeEnum.ES_1018.getMessage(), null);
+	}
+
+	@Override
+	public ResultInfo authorize(HttpServletResponse response, @RequestParam("userType") String userType) {
+		String redirectUrl = "http://www.quantwo.cn/app.html";
+		try {
+			logger.info(WechatMpCore.generateWechatUrl(appId, "snsapi_userinfo", redirectUrl,
+					"MERCHANT".equals(userType) ? "merchant_state" : "customer_state"));
+			response.sendRedirect(WechatMpCore.generateWechatUrl(appId, "snsapi_userinfo", redirectUrl,
+					"MERCHANT".equals(userType) ? "merchant_state" : "customer_state"));
+		} catch (IOException e) {
+			e.printStackTrace();
+			logger.error("system error method authorize,error:{}", e.getMessage());
+		}
+		return null;
 	}
 
 }
