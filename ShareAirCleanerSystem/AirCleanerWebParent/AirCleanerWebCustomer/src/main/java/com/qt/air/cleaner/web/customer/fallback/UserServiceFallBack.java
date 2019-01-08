@@ -2,8 +2,6 @@ package com.qt.air.cleaner.web.customer.fallback;
 
 import java.util.Map;
 
-import javax.servlet.http.HttpServletResponse;
-
 import com.qt.air.cleaner.base.dto.ResultInfo;
 import com.qt.air.cleaner.base.exception.BusinessRuntimeException;
 import com.qt.air.cleaner.web.customer.service.UserService;
@@ -49,17 +47,4 @@ public class UserServiceFallBack implements UserService{
 		return null;
 	}
 
-	@Override
-	public ResultInfo obtainUserInfo(Map<String, Object> parame) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ResultInfo authorize(HttpServletResponse response, String userType) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
 }
