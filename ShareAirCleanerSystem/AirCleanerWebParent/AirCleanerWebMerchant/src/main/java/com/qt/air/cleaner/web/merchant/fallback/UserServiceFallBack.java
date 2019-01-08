@@ -57,7 +57,7 @@ public class UserServiceFallBack implements UserService{
 	}
 
 	@Override
-	public ResultInfo authorize(HttpServletResponse response, String userType) {
+	public ResultInfo authorize(String userType) {
 		// TODO Auto-generated method stub
 		return null;
 	}

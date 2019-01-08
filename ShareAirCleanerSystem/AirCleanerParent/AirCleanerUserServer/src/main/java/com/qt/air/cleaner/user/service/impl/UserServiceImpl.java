@@ -21,6 +21,8 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.google.gson.Gson;
 import com.qt.air.cleaner.base.dto.ResultCode;
@@ -41,6 +43,7 @@ import com.qt.air.cleaner.user.repository.InvestorRepository;
 import com.qt.air.cleaner.user.repository.SalerRepository;
 import com.qt.air.cleaner.user.repository.TraderRepository;
 import com.qt.air.cleaner.user.service.UserService;
+import com.qt.air.cleaner.user.utils.JsonUtil;
 import com.qt.air.cleaner.user.vo.UserInfo;
 import com.qt.air.cleaner.user.vo.UserInfoResponse;
 import com.qt.air.cleaner.user.vo.mp.OauthTokenResponse;
@@ -613,22 +616,39 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public ResultInfo obtainUserInfo(@RequestBody Map<String, Object> userInfoMap) {
+		logger.info("execute method obtainUserInfo() param: --> {}", JsonUtil.format(userInfoMap));
 		Map<String, Object> mapToken = new HashMap<String, Object>();
 		mapToken.put("appid", appId);
         mapToken.put("secret", appSecret);
-        mapToken.put("code", mapToken.get("code"));
+        mapToken.put("code", userInfoMap.get("code"));
         mapToken.put("grant_type", "authorization_code");
 		try {
+			//1.获取OauthToken、openId
 			OauthTokenResponse oauthTokenResponse = WechatMpCore.obtainOauthAccessToken(mapToken);
 			String accessToken = oauthTokenResponse.getAccess_token();
+			String openId = oauthTokenResponse.getOpenid();
 			logger.info("access_token->{}",accessToken);
+			logger.info("access_token->{}",openId);
+			logger.info("error code:->{}",oauthTokenResponse.getErrcode());
 			if (StringUtils.isEmpty(accessToken)) {
 				logger.info("网页授权获取ACCESS_TOKEN失败");
 				return new ResultInfo(ErrorCodeEnum.ES_1018.getErrorCode(), ErrorCodeEnum.ES_1018.getMessage(), null);
 			}
+			//2.获取用户信息
+			userInfoMap.put("openid", oauthTokenResponse.getOpenid());
 			userInfoMap.put("access_token", accessToken);
 			userInfoMap.put("lang", "zh_CN");
 			UserInfoResponse response = WechatMpCore.obtainUserInfo(userInfoMap);
+			logger.info("errorCode:->{}",response.getErrcode());
+			logger.info("desc:->{}",response.getDesc());
+			logger.info("============微信用户信息=============");
+			logger.info("openId:->{}",response.getOpenid());
+			logger.info("nickName:->{}",response.getNickname());
+			logger.info("sex:->{}",response.getSex());
+			logger.info("country:->{}",response.getCountry());
+			logger.info("city:->{}",response.getCity());
+			logger.info("headImageurl:->{}",response.getHeadimgurl());
+			logger.info("获取用户信信息:{}",new Gson().toJson(response));
 			return new ResultInfo(String.valueOf(ResultCode.SC_OK), "success", response);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -638,18 +658,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public ResultInfo authorize(HttpServletResponse response, @RequestParam("userType") String userType) {
-		String redirectUrl = "http://www.quantwo.cn/app.html";
-		try {
-			logger.info(WechatMpCore.generateWechatUrl(appId, "snsapi_userinfo", redirectUrl,
-					"MERCHANT".equals(userType) ? "merchant_state" : "customer_state"));
-			response.sendRedirect(WechatMpCore.generateWechatUrl(appId, "snsapi_userinfo", redirectUrl,
-					"MERCHANT".equals(userType) ? "merchant_state" : "customer_state"));
-		} catch (IOException e) {
-			e.printStackTrace();
-			logger.error("system error method authorize,error:{}", e.getMessage());
-		}
-		return null;
+	public ResultInfo authorize(@RequestParam("userType") String userType) {
+		logger.info("execute method authorize() param: --> {}", userType);
+		String redirectUrl = "http://quantwo.cn/app.html";
+	    String url = WechatMpCore.generateWechatUrl(appId, "snsapi_userinfo", redirectUrl,
+				"MERCHANT".equals(userType) ? "merchant" : "customere");
+		logger.info(url);
+		return new ResultInfo(String.valueOf(ResultCode.SC_OK),"success",url);
 	}
 
 }
