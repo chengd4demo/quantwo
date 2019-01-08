@@ -3,6 +3,8 @@ package com.qt.air.cleaner.web.customer.web;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -135,5 +137,38 @@ public class UserChannelController {
 
 	}
 	
+	/**
+	 * 微信授权
+	 * 
+	 * @param response
+	 * @return
+	 */
+	@PostMapping("/wx/auth")
+	public ResultInfo authorize(HttpServletResponse response) {
+		logger.info("execute user-channel's method authorize()  start");
+		try {
+			userService.authorize(response, "MERCHANT");
+		} catch (Exception e) {
+			logger.error("system error: {}", e.getMessage());
+			return new ResultInfo(String.valueOf(ResultCode.R5001.code), e.getMessage(), null);
+		}
+		return new ResultInfo(String.valueOf(ResultCode.SC_OK),"sucess",null);
+	}
 	
+	/**
+	 * 获取微信用户信息
+	 * 
+	 * @param parame
+	 * @return
+	 */
+	@PostMapping("/wx/query")
+	public ResultInfo obtainUserInfo(Map<String, Object> parame) {
+		logger.info("execute user-channel's method obtainUserInfo()  start -> param:{}",new Gson().toJson(parame));
+		try {
+			return userService.obtainUserInfo(parame);
+		} catch (Exception e) {
+			logger.error("system error: {}", e.getMessage());
+			return new ResultInfo(String.valueOf(ResultCode.R5001.code), e.getMessage(), null);
+		}
+	}
 }
