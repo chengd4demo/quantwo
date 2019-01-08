@@ -89,10 +89,9 @@ public interface UserService {
 	/**
 	 * 微信授权
 	 * 
-	 * @param response
 	 * @param userType
 	 * @return
 	 */
 	@RequestMapping(value = "/wx/authorize", method = RequestMethod.POST)
-	public ResultInfo authorize(HttpServletResponse response,@RequestParam("userType") String userType);
+	public ResultInfo authorize(@RequestParam("userType") String userType);
 }

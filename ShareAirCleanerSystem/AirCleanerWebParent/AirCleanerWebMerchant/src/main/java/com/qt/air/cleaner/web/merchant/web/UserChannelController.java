@@ -1,6 +1,5 @@
 package com.qt.air.cleaner.web.merchant.web;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.google.gson.Gson;
 import com.qt.air.cleaner.base.dto.ResultCode;
@@ -159,19 +160,17 @@ public class UserChannelController {
 	/**
 	 * 微信授权
 	 * 
-	 * @param response
 	 * @return
 	 */
 	@PostMapping("/wx/auth")
-	public ResultInfo authorize(HttpServletResponse response) {
+	public ResultInfo authorize() {
 		logger.info("execute user-channel's method authorize()  start");
 		try {
-			userService.authorize(response, "MERCHANT");
+			return userService.authorize("MERCHANT");
 		} catch (Exception e) {
 			logger.error("system error: {}", e.getMessage());
 			return new ResultInfo(String.valueOf(ResultCode.R5001.code), e.getMessage(), null);
 		}
-		return new ResultInfo(String.valueOf(ResultCode.SC_OK),"sucess",null);
 	}
 	
 	/**
@@ -181,7 +180,7 @@ public class UserChannelController {
 	 * @return
 	 */
 	@PostMapping("/wx/query")
-	public ResultInfo obtainUserInfo(Map<String, Object> parame) {
+	public ResultInfo obtainUserInfo(@RequestBody Map<String, Object> parame) {
 		logger.info("execute user-channel's method obtainUserInfo()  start -> param:{}",new Gson().toJson(parame));
 		try {
 			return userService.obtainUserInfo(parame);
