@@ -135,5 +135,36 @@ public class UserChannelController {
 
 	}
 	
+	/**
+	 * 微信授权
+	 * 
+	 * @return
+	 */
+	@PostMapping("/wx/auth")
+	public ResultInfo authorize() {
+		logger.info("execute user-channel's method authorize()  start");
+		try {
+			return userService.authorize("MERCHANT");
+		} catch (Exception e) {
+			logger.error("system error: {}", e.getMessage());
+			return new ResultInfo(String.valueOf(ResultCode.R5001.code), e.getMessage(), null);
+		}
+	}
 	
+	/**
+	 * 获取微信用户信息
+	 * 
+	 * @param parame
+	 * @return
+	 */
+	@PostMapping("/wx/query")
+	public ResultInfo obtainUserInfo(@RequestBody Map<String, Object> parame) {
+		logger.info("execute user-channel's method obtainUserInfo()  start -> param:{}",new Gson().toJson(parame));
+		try {
+			return userService.obtainUserInfo(parame);
+		} catch (Exception e) {
+			logger.error("system error: {}", e.getMessage());
+			return new ResultInfo(String.valueOf(ResultCode.R5001.code), e.getMessage(), null);
+		}
+	}
 }
