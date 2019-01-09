@@ -1,6 +1,5 @@
 package com.qt.air.cleaner.user.service.impl;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -8,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -21,8 +19,6 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.google.gson.Gson;
 import com.qt.air.cleaner.base.dto.ResultCode;
@@ -163,6 +159,8 @@ public class UserServiceImpl implements UserService {
 					userInfo = new UserInfo();
 					BeanUtils.copyProperties(customer, userInfo);
 					userInfo.setId(customer.getId());
+					userInfo.setName(customer.getName());
+					customer.setIdentificationNumber(customer.getIdentificationNumber());
 					userInfo.setUserType(Account.ACCOUNT_TYPE_CUSTOMER);
 					userInfo.setPhoneNumber(customer.getPhoneNumber());
 					if (StringUtils.isNotBlank(customer.getAlipay()))
@@ -468,6 +466,7 @@ public class UserServiceImpl implements UserService {
 		int sex = Integer.parseInt(parame.get("sex"));
 		String nickName = parame.get("nickName");
 		String headUrl = parame.get("headUrl");
+		String address = parame.get("address");
 		UserInfo userInfo = null;
 		String userType = parame.get("userType");
 		ResultInfo resultInfo = new ResultInfo();
@@ -501,7 +500,8 @@ public class UserServiceImpl implements UserService {
 					Date nowDate = Calendar.getInstance().getTime();
 					SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:ss:mm");
 					customer = new Customer();
-					customer.setAddress(customer.getWeixin());
+					customer.setAddress(address);
+					customer.setCreater(weixin);
 					customer.setCreateTime(nowDate);
 					customer.setWeixin(weixin);
 					customer.setJoinTime(sf.format(nowDate));

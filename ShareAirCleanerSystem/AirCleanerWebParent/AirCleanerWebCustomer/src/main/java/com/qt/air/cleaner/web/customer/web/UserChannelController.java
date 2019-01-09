@@ -127,6 +127,7 @@ public class UserChannelController {
 			parames.put("phoneNumber", loginInfo.getPhoneNumber());
 			parames.put("sex", String.valueOf(loginInfo.getSex()));
 			parames.put("userType", "CUSTOMER");
+			parames.put("address", loginInfo.getAddress());
 			return userService.loginOrBound(parames);			
 		} catch (Exception e) {
 			logger.error("system error: {}", e.getMessage());
@@ -144,7 +145,7 @@ public class UserChannelController {
 	public ResultInfo authorize() {
 		logger.info("execute user-channel's method authorize()  start");
 		try {
-			return userService.authorize("MERCHANT");
+			return userService.authorize("CUSTOMER");
 		} catch (Exception e) {
 			logger.error("system error: {}", e.getMessage());
 			return new ResultInfo(String.valueOf(ResultCode.R5001.code), e.getMessage(), null);
