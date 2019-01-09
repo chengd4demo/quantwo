@@ -160,7 +160,7 @@ public class UserServiceImpl implements UserService {
 					BeanUtils.copyProperties(customer, userInfo);
 					userInfo.setId(customer.getId());
 					userInfo.setName(customer.getName());
-					customer.setIdentificationNumber(customer.getIdentificationNumber());
+					userInfo.setIdentificationNumber(customer.getIdentificationNumber());
 					userInfo.setUserType(Account.ACCOUNT_TYPE_CUSTOMER);
 					userInfo.setPhoneNumber(customer.getPhoneNumber());
 					if (StringUtils.isNotBlank(customer.getAlipay()))
