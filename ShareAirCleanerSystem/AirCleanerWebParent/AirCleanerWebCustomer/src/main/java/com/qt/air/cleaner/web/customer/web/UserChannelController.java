@@ -127,6 +127,7 @@ public class UserChannelController {
 			parames.put("phoneNumber", loginInfo.getPhoneNumber());
 			parames.put("sex", String.valueOf(loginInfo.getSex()));
 			parames.put("userType", "CUSTOMER");
+			parames.put("address", loginInfo.getAddress());
 			return userService.loginOrBound(parames);			
 		} catch (Exception e) {
 			logger.error("system error: {}", e.getMessage());
@@ -135,5 +136,36 @@ public class UserChannelController {
 
 	}
 	
+	/**
+	 * 微信授权
+	 * 
+	 * @return
+	 */
+	@PostMapping("/wx/auth")
+	public ResultInfo authorize() {
+		logger.info("execute user-channel's method authorize()  start");
+		try {
+			return userService.authorize("CUSTOMER");
+		} catch (Exception e) {
+			logger.error("system error: {}", e.getMessage());
+			return new ResultInfo(String.valueOf(ResultCode.R5001.code), e.getMessage(), null);
+		}
+	}
 	
+	/**
+	 * 获取微信用户信息
+	 * 
+	 * @param parame
+	 * @return
+	 */
+	@PostMapping("/wx/query")
+	public ResultInfo obtainUserInfo(@RequestBody Map<String, Object> parame) {
+		logger.info("execute user-channel's method obtainUserInfo()  start -> param:{}",new Gson().toJson(parame));
+		try {
+			return userService.obtainUserInfo(parame);
+		} catch (Exception e) {
+			logger.error("system error: {}", e.getMessage());
+			return new ResultInfo(String.valueOf(ResultCode.R5001.code), e.getMessage(), null);
+		}
+	}
 }

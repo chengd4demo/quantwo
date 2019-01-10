@@ -47,4 +47,17 @@ public class UserServiceFallBack implements UserService{
 		return null;
 	}
 
+	@Override
+	public ResultInfo obtainUserInfo(Map<String, Object> parame) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ResultInfo authorize(String userType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+
 }

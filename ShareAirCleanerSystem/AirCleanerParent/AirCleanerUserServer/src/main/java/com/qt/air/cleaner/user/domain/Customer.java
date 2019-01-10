@@ -15,7 +15,7 @@ public class Customer extends GenericEntity {
 	private static final long serialVersionUID = 5253573435610989412L;
 	
 	@Column(name = "IDENTIFICATION_NUMBER", nullable = false, length = 40, unique = true, insertable = true,
-	        updatable = false)
+	        updatable = true)
 	private String identificationNumber;
 	
 	@Column(name = "NAME", nullable = false, length = 255)

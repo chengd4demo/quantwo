@@ -1,6 +1,5 @@
 package com.qt.air.cleaner.user.service.impl;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -8,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -41,6 +39,7 @@ import com.qt.air.cleaner.user.repository.InvestorRepository;
 import com.qt.air.cleaner.user.repository.SalerRepository;
 import com.qt.air.cleaner.user.repository.TraderRepository;
 import com.qt.air.cleaner.user.service.UserService;
+import com.qt.air.cleaner.user.utils.JsonUtil;
 import com.qt.air.cleaner.user.vo.UserInfo;
 import com.qt.air.cleaner.user.vo.UserInfoResponse;
 import com.qt.air.cleaner.user.vo.mp.OauthTokenResponse;
@@ -160,6 +159,8 @@ public class UserServiceImpl implements UserService {
 					userInfo = new UserInfo();
 					BeanUtils.copyProperties(customer, userInfo);
 					userInfo.setId(customer.getId());
+					userInfo.setName(customer.getName());
+					userInfo.setIdentificationNumber(customer.getIdentificationNumber());
 					userInfo.setUserType(Account.ACCOUNT_TYPE_CUSTOMER);
 					userInfo.setPhoneNumber(customer.getPhoneNumber());
 					if (StringUtils.isNotBlank(customer.getAlipay()))
@@ -465,6 +466,7 @@ public class UserServiceImpl implements UserService {
 		int sex = Integer.parseInt(parame.get("sex"));
 		String nickName = parame.get("nickName");
 		String headUrl = parame.get("headUrl");
+		String address = parame.get("address");
 		UserInfo userInfo = null;
 		String userType = parame.get("userType");
 		ResultInfo resultInfo = new ResultInfo();
@@ -498,7 +500,8 @@ public class UserServiceImpl implements UserService {
 					Date nowDate = Calendar.getInstance().getTime();
 					SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:ss:mm");
 					customer = new Customer();
-					customer.setAddress(customer.getWeixin());
+					customer.setAddress(address);
+					customer.setCreater(weixin);
 					customer.setCreateTime(nowDate);
 					customer.setWeixin(weixin);
 					customer.setJoinTime(sf.format(nowDate));
@@ -613,22 +616,39 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public ResultInfo obtainUserInfo(@RequestBody Map<String, Object> userInfoMap) {
+		logger.info("execute method obtainUserInfo() param: --> {}", JsonUtil.format(userInfoMap));
 		Map<String, Object> mapToken = new HashMap<String, Object>();
 		mapToken.put("appid", appId);
         mapToken.put("secret", appSecret);
-        mapToken.put("code", mapToken.get("code"));
+        mapToken.put("code", userInfoMap.get("code"));
         mapToken.put("grant_type", "authorization_code");
 		try {
+			//1.获取OauthToken、openId
 			OauthTokenResponse oauthTokenResponse = WechatMpCore.obtainOauthAccessToken(mapToken);
 			String accessToken = oauthTokenResponse.getAccess_token();
+			String openId = oauthTokenResponse.getOpenid();
 			logger.info("access_token->{}",accessToken);
+			logger.info("access_token->{}",openId);
+			logger.info("error code:->{}",oauthTokenResponse.getErrcode());
 			if (StringUtils.isEmpty(accessToken)) {
 				logger.info("网页授权获取ACCESS_TOKEN失败");
 				return new ResultInfo(ErrorCodeEnum.ES_1018.getErrorCode(), ErrorCodeEnum.ES_1018.getMessage(), null);
 			}
+			//2.获取用户信息
+			userInfoMap.put("openid", oauthTokenResponse.getOpenid());
 			userInfoMap.put("access_token", accessToken);
 			userInfoMap.put("lang", "zh_CN");
 			UserInfoResponse response = WechatMpCore.obtainUserInfo(userInfoMap);
+			logger.info("errorCode:->{}",response.getErrcode());
+			logger.info("desc:->{}",response.getDesc());
+			logger.info("============微信用户信息=============");
+			logger.info("openId:->{}",response.getOpenid());
+			logger.info("nickName:->{}",response.getNickname());
+			logger.info("sex:->{}",response.getSex());
+			logger.info("country:->{}",response.getCountry());
+			logger.info("city:->{}",response.getCity());
+			logger.info("headImageurl:->{}",response.getHeadimgurl());
+			logger.info("获取用户信信息:{}",new Gson().toJson(response));
 			return new ResultInfo(String.valueOf(ResultCode.SC_OK), "success", response);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -638,18 +658,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public ResultInfo authorize(HttpServletResponse response, @RequestParam("userType") String userType) {
-		String redirectUrl = "http://www.quantwo.cn/app.html";
-		try {
-			logger.info(WechatMpCore.generateWechatUrl(appId, "snsapi_userinfo", redirectUrl,
-					"MERCHANT".equals(userType) ? "merchant_state" : "customer_state"));
-			response.sendRedirect(WechatMpCore.generateWechatUrl(appId, "snsapi_userinfo", redirectUrl,
-					"MERCHANT".equals(userType) ? "merchant_state" : "customer_state"));
-		} catch (IOException e) {
-			e.printStackTrace();
-			logger.error("system error method authorize,error:{}", e.getMessage());
-		}
-		return null;
+	public ResultInfo authorize(@RequestParam("userType") String userType) {
+		logger.info("execute method authorize() param: --> {}", userType);
+		String redirectUrl = "http://quantwo.cn/app.html";
+	    String url = WechatMpCore.generateWechatUrl(appId, "snsapi_userinfo", redirectUrl,
+				"MERCHANT".equals(userType) ? "merchant" : "customere");
+		logger.info(url);
+		return new ResultInfo(String.valueOf(ResultCode.SC_OK),"success",url);
 	}
 
 }

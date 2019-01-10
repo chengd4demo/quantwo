@@ -5,22 +5,14 @@ import java.io.Serializable;
 public class LoginInfo implements Serializable{
 	private static final long serialVersionUID = 8206360052415163138L;
 	
-	private String name;
 	private String nickName;
 	private String headerUrl;
 	private String weixin;
-	private String identificationNumber;
 	private String verificationCode;
-	private String amount;
 	private String phoneNumber;
 	private String inVerificationCode;
 	private int sex = 1;
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
+	private String address;
 	public String getNickName() {
 		return nickName;
 	}
@@ -39,23 +31,11 @@ public class LoginInfo implements Serializable{
 	public void setWeixin(String weixin) {
 		this.weixin = weixin;
 	}
-	public String getIdentificationNumber() {
-		return identificationNumber;
-	}
-	public void setIdentificationNumber(String identificationNumber) {
-		this.identificationNumber = identificationNumber;
-	}
 	public String getVerificationCode() {
 		return verificationCode;
 	}
 	public void setVerificationCode(String verificationCode) {
 		this.verificationCode = verificationCode;
-	}
-	public String getAmount() {
-		return amount;
-	}
-	public void setAmount(String amount) {
-		this.amount = amount;
 	}
 	public String getPhoneNumber() {
 		return phoneNumber;
@@ -75,11 +55,18 @@ public class LoginInfo implements Serializable{
 	public void setSex(int sex) {
 		this.sex = sex;
 	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
 	@Override
 	public String toString() {
-		return "LoginInfo [name=" + name + ", nickName=" + nickName + ", headerUrl=" + headerUrl + ", weixin=" + weixin
-				+ ", identificationNumber=" + identificationNumber + ", verificationCode=" + verificationCode
-				+ ", amount=" + amount + ", phoneNumber=" + phoneNumber + ", inVerificationCode=" + inVerificationCode
-				+ ", sex=" + sex + "]";
+		return "LoginInfo [nickName=" + nickName + ", headerUrl=" + headerUrl + ", weixin=" + weixin
+				+ ", verificationCode=" + verificationCode + ", phoneNumber=" + phoneNumber + ", inVerificationCode="
+				+ inVerificationCode + ", sex=" + sex + ", address=" + address + "]";
 	}
+	
+	
 }

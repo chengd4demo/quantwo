@@ -6,12 +6,12 @@ import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.qt.air.cleaner.base.dto.ResultInfo;
 import com.qt.air.cleaner.base.exception.BusinessRuntimeException;
 import com.qt.air.cleaner.web.customer.vo.Bound;
 import com.qt.air.cleaner.web.customer.vo.PasswordInfo;
-import com.qt.air.cleaner.web.customer.vo.PhoneInfo;
 import com.qt.air.cleaner.web.customer.vo.SelfInfo;
 
 @FeignClient(name = "user-service")
@@ -76,4 +76,22 @@ public interface UserService {
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResultInfo loginOrBound(@RequestBody Map<String,String> parame) throws BusinessRuntimeException;
+	
+	/**
+	 * 获取微信用户信息
+	 * 
+	 * @param parame
+	 * @return
+	 */
+	@RequestMapping(value = "/wx/query", method = RequestMethod.POST)
+	public ResultInfo obtainUserInfo(@RequestBody Map<String,Object> parame);
+	
+	/**
+	 * 微信授权
+	 * 
+	 * @param userType
+	 * @return
+	 */
+	@RequestMapping(value = "/wx/authorize", method = RequestMethod.POST)
+	public ResultInfo authorize(@RequestParam("userType") String userType);
 }

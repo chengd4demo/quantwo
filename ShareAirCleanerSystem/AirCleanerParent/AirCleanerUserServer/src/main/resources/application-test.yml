@@ -1,7 +1,7 @@
 spring: 
   datasource: 
     driver-class-name: oracle.jdbc.driver.OracleDriver
-    url: jdbc:oracle:thin:@192.168.1.100:1521:orcl
+    url: jdbc:oracle:thin:@192.168.13.202:1521:orcl
     username: market
     password: market2018
   jpa:
@@ -14,3 +14,9 @@ device:
     method: turn_on
   turn-off: 
     method: turn_off
+o2: 
+  wechat:
+    subscription:  
+      app: 
+        id: wx93953fe379a2c548
+        secret: 883fcd2427e25e9c00600af8a664fb87
