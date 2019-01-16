@@ -531,6 +531,7 @@ public class UserServiceImpl implements UserService {
 				if (null != saler) {
 					if (!StringUtils.equals(saler.getWeixin(), weixin)) {
 						saler.setWeixin(weixin);
+						saler.setLastOperator(saler.getName());
 						saler = salerRepository.saveAndFlush(saler);
 					}
 					isOk = true;
@@ -541,6 +542,7 @@ public class UserServiceImpl implements UserService {
 				if (trader != null) {
 					if (!StringUtils.equals(trader.getWeixin(), weixin)) {
 						trader.setWeixin(weixin);
+						trader.setLastOperator(trader.getLegalPerson());
 						trader = traderRepository.saveAndFlush(trader);
 					}
 					isOk = true;
@@ -551,6 +553,7 @@ public class UserServiceImpl implements UserService {
 				if (investor != null) {
 					if (!StringUtils.equals(investor.getWeixin(), weixin)) {
 						investor.setWeixin(weixin);
+						investor.setLegalPerson(investor.getLegalPerson());
 						investor = investorRepository.saveAndFlush(investor);
 					}
 					isOk = true;
@@ -561,6 +564,7 @@ public class UserServiceImpl implements UserService {
 				if (company != null) {
 					if (!StringUtils.equals(company.getWeixin(), weixin)) {
 						company.setWeixin(weixin);
+						company.setLastOperator(company.getLegalPerson());
 						company = companyRepository.saveAndFlush(company);
 					}
 					isOk = true;

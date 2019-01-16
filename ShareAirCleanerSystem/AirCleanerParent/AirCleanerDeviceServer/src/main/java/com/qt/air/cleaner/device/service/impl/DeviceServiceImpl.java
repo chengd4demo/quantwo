@@ -69,6 +69,7 @@ public class DeviceServiceImpl implements DeviceService {
 		logger.info("execute method queryDeviceStatus() param --> machNo:{}", machNo);
 		DeviceStatus status = new DeviceStatus();
 		try {
+			DeviceUtil.uploadDevicePm25(machNo);
 			DeviceResult deviceResult = DeviceUtil.queryDeviceState(machNo);
 			status.setDeviceId(machNo);
 			status.setOnLine(deviceResult.getOnline());
