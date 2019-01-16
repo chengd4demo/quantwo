@@ -38,6 +38,7 @@ public class BillingServiceImpl implements BillingService {
 		gainProportion.put(Trader.class.getSimpleName(), traderGainProportion);
 		gainProportion.put(Company.class.getSimpleName(), companyGainProportion);
 	}
+	
 	@Override
 	public void openBillingAccount(Billing billing) {
 		/**投资商开账逻辑*/
