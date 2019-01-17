@@ -38,6 +38,8 @@ public class DeviceUtil {
 	public static String turnOffMethod;
 
 	public static String turnOnMethod;
+	
+	public static String pm25Method;
 
 	public static DeviceResult queryDeviceState(String deviceId) {
 
@@ -54,16 +56,38 @@ public class DeviceUtil {
 		result.setResult(object.getInt("result"));
 		return result;
 	}
+	
+	public static Integer uploadDevicePm25(String deviceId) throws Exception {
+		String url = deviceURI + pm25Method;
+		int count = 0;
+		Integer result = -1;
+		do {
+			Map<String, String> requestParams = new HashMap<String, String>();
+			requestParams.put("devid", deviceId);
+			String queryResult = queryUriResult(url, requestParams);
+			JSONObject object = JSONObject.fromObject(queryResult);
+			result = object.getInt("result");
+			count++;
+			if (result != 0) Thread.sleep(1000 * 5);
+		} while (result != 0 && count < 4);
+		return result;
+	}
 
-	public static Integer turnOnDevice(String deviceId, Integer sec) {
-
+	public static Integer turnOnDevice(String deviceId, Integer sec) throws Exception {
 		String url = deviceURI + turnOnMethod;
-		Map<String, String> requestParams = new HashMap<String, String>();
-		requestParams.put("devid", deviceId);
-		requestParams.put("sec", sec.toString());
-		String queryResult = queryUriResult(url, requestParams);
-		JSONObject object = JSONObject.fromObject(queryResult);
-		return object.getInt("result");
+		int count = 0;
+		Integer result = -1;
+		do {
+			Map<String, String> requestParams = new HashMap<String, String>();
+			requestParams.put("devid", deviceId);
+			requestParams.put("sec", sec.toString());
+			String queryResult = queryUriResult(url, requestParams);
+			JSONObject object = JSONObject.fromObject(queryResult);
+			result = object.getInt("result");
+			count++;
+			if (result != 0) Thread.sleep(1000 * 5);
+		} while (result != 0 && count < 4);
+		return result;
 	}
 
 	public static Integer turnOffDevice(String deviceId) {
@@ -96,6 +120,12 @@ public class DeviceUtil {
 	public void setTurnOnMethod(String turnOnMethod) {
 
 		DeviceUtil.turnOnMethod = turnOnMethod;
+	}
+	
+	@Value("${device.pm25.method}")
+	public void setPm25Method(String pm25Method) {
+
+		DeviceUtil.pm25Method = pm25Method;
 	}
 
 	private static String queryUriResult(String url, Map<String, String> params) {

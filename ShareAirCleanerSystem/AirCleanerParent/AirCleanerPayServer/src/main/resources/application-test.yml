@@ -1,11 +1,22 @@
 spring: 
   datasource: 
     driver-class-name: oracle.jdbc.driver.OracleDriver
-    url: jdbc:oracle:thin:@192.168.1.100:1521:orcl
+    url: jdbc:oracle:thin:@192.168.13.202:1521:orcl
     username: market
     password: market2018
   jpa:
-    show-sql: true   
+    show-sql: true
+  redis:
+    database: 2
+    host: 192.168.13.202
+    port: 6379
+    password: 
+    timeout: 2000
+    pool:
+      max-active: 8
+      max-idle: 8
+      max-wait: -1
+      min-idle: 0   
 device:
   uri: http://wlw.quantwo.cn:2007/api/v1/device/
   query: 
@@ -14,3 +25,25 @@ device:
     method: turn_on
   turn-off: 
     method: turn_off
+o2: 
+  weixin: 
+    cache:  
+      name: weixinCacheDefine
+  wechat:
+    cert: 
+      stream:
+        path: /cer/apiclient_cert.p12
+    subscription: 
+      body:
+        description: \u5708\u5154\u5708\u7F51\u7EDC-\u7A7A\u6C14\u51C0\u5316\u5668
+      notify: 
+        url: http://zf.quantwo.cn/device/billing/notify
+      mah:
+        id: 1241601202
+      app: 
+        id: wx93953fe379a2c548
+        secret: 197df6c676f312411f6f7ce6c65fbf60
+      api: 
+        secret: 883fcd2427e25e9c00600af8a664fb87
+  system:
+    domain: http://www.quantwo.cn/
