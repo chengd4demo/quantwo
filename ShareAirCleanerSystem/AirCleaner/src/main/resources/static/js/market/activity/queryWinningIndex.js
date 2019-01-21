@@ -15,7 +15,6 @@ layui.use(['table', 'form', 'layer','laydate'], function(){
 		 elem: '#winningList'
 	            ,url:'/market/queryWinning/page'
 	        	,method: 'GET' //默认：get请求
-	            ,height: 315
 	            ,page: true
 	            ,limits: [20, 30, 50, 100, 200]
 	            ,limit:20
@@ -92,7 +91,7 @@ layui.use(['table', 'form', 'layer','laydate'], function(){
 		 		,title: '发货'//显示标题栏
 		 		,closeBtn: 1 //显示关闭按钮 属性0，1，2
 		 		,skin: 'layui-layer-rim' //加上边框
-		 		,area: ['570px', '410px'] //宽高
+		 		,area: ['60%', '90%'] //宽高
 		 		,maxmin: true
 		 		,shade: 0.8
 		 		,id: 'LAY_layuipro' //设定一个id，防止重复弹出
@@ -117,15 +116,14 @@ layui.use(['table', 'form', 'layer','laydate'], function(){
 			return false;
 		})
 	},1000);
-
 });
 
 function load(obj){
-	   //重新加载table
+   //重新加载table
 	tableWinningIns.reload({
-	       where: obj.field
-	       , page: {
-	           curr: pageCurr //从当前页码开始
-	       }
-	   });
-	}
+       where: obj.field
+       , page: {
+           curr: pageCurr //从当前页码开始
+       }
+   });
+}

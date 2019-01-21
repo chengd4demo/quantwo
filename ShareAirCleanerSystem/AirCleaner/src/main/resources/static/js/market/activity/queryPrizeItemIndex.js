@@ -14,7 +14,6 @@ var pageCurr;
 			 elem: '#prizeItemList'
 		            ,url:'/market/prizeItem/page'
 		        	,method: 'GET' //默认：get请求
-		            ,height: 315
 		            ,page: true
 		            ,limits: [20, 30, 50, 100, 200]
 		            ,limit:20
@@ -34,6 +33,7 @@ var pageCurr;
 						}, {
 							field: 'probabilityLable',
 							title: '中奖几率',
+							align: 'center',
 							width: 120
 						}, {
 							field: 'remarks',
@@ -60,7 +60,7 @@ var pageCurr;
 			 		,title: '新增 '//显示标题栏
 			 		,closeBtn: 1 //显示关闭按钮 属性0，1，2
 			 		,skin: 'layui-layer-rim' //加上边框
-			 		,area: ['570px', '410px'] //宽高
+			 		,area: ['60%', '90%'] //宽高
 			 		,maxmin: true
 			 		,shade: 0.8
 			 		,id: 'LAY_layuipro' //设定一个id，防止重复弹出
@@ -87,7 +87,7 @@ var pageCurr;
 					 		,title: '编辑 '//显示标题栏
 					 		,closeBtn: 1 //显示关闭按钮 属性0，1，2
 					 		,skin: 'layui-layer-rim' //加上边框
-					 		,area: ['570px', '410px'] //宽高
+					 		,area: ['60%', '90%'] //宽高
 					 		,maxmin: true
 					 		,shade: 0.8
 					 		,id: 'LAY_layuipro' //设定一个id，防止重复弹出
@@ -119,21 +119,22 @@ var pageCurr;
 			 });
 		 
 		 },900);
+		 
 		//监听搜索框
-	setTimeout(function(){
-			 form.on('submit(searchPrizeItemSubmit)', function(data){
-					//重新加载table
-					load(data);
-					return false;
-				});
-		 },1000);
-	});
-	function load(obj){
-	   //重新加载table
-		tablePrizeItemIns.reload({
-	       where: obj.field
-	       , page: {
-	           curr: pageCurr //从当前页码开始
-	       }
-	   });
-	}
+		setTimeout(function(){
+				 form.on('submit(searchPrizeItemSubmit)', function(data){
+						//重新加载table
+						load(data);
+						return false;
+					});
+			 },1000);
+		});
+		function load(obj){
+		   //重新加载table
+			tablePrizeItemIns.reload({
+		       where: obj.field
+		       , page: {
+		           curr: pageCurr //从当前页码开始
+		       }
+		   });
+		}
