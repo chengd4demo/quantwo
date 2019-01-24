@@ -11,7 +11,7 @@ public class DeviceMonitor implements Serializable{
 	private String usedate;
 	private String address;
 	private Integer costtime = 0;
-	private Integer lasttime = 0;
+	private Float lasttime = 0.0f;
 	private Float unitprice = 0.00f;
 	private String devicesequence;
 	public String getDeviceid() {
@@ -51,10 +51,10 @@ public class DeviceMonitor implements Serializable{
 	public void setCosttime(Integer costtime) {
 		this.costtime = costtime;
 	}
-	public Integer getLasttime() {
-		return lasttime/60;
+	public Float getLasttime() {
+		return lasttime;
 	}
-	public void setLasttime(Integer lasttime) {
+	public void setLasttime(Float lasttime) {
 		this.lasttime = lasttime;
 	}
 	public Float getUnitprice() {
