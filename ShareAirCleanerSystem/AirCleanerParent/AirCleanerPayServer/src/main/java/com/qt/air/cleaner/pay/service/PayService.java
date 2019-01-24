@@ -3,13 +3,11 @@ package com.qt.air.cleaner.pay.service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.qt.air.cleaner.base.dto.RequestParame;
 import com.qt.air.cleaner.base.dto.ResultInfo;
 import com.qt.air.cleaner.base.exception.BusinessRuntimeException;
-import com.qt.air.cleaner.pay.domain.Device;
-import com.qt.air.cleaner.pay.domain.PriceValue;
-import com.qt.air.cleaner.pay.vo.CompleteBilling;
 
 @RequestMapping
 public interface PayService {
@@ -42,5 +40,26 @@ public interface PayService {
 	 */
 	@RequestMapping(value="complete/billing", method = RequestMethod.POST)
 	public ResultInfo completeBilling(@RequestBody RequestParame requestParame)  throws BusinessRuntimeException;
+	
+	/**
+	 * 微信回调通知
+	 * 
+	 * @param strXML
+	 * @return
+	 * @throws BusinessRuntimeException
+	 */
+	@RequestMapping(value="billing/notify", method = RequestMethod.POST)
+	public ResultInfo billingNotify(@RequestParam("strXML") String strXML) throws BusinessRuntimeException;
+	
+	/**
+	 * 支付信息处理
+	 * 
+	 * @param type
+	 * @param billingNumber
+	 * @return
+	 * @throws BusinessRuntimeException
+	 */
+	@RequestMapping(value="wx/msg", method = RequestMethod.POST)
+	public ResultInfo weiXinMsg(@RequestParam("type") String type,@RequestParam("billingNumber") String billingNumber) throws BusinessRuntimeException;
 	
 }

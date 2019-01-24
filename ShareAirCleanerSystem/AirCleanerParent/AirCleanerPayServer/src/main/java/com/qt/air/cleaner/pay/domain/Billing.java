@@ -19,6 +19,8 @@ public class Billing extends GenericEntity {
 	@Transient
 	public SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
+	@Transient
+	public final static Integer BILLING_STATE_CANCEL = -2;
 	
 	@Transient
 	public final static Integer BILLING_STATE_EXCEPTION = -1;

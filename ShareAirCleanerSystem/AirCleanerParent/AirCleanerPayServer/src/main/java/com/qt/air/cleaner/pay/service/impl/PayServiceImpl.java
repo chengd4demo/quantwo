@@ -4,12 +4,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.wxpay.sdk.IWXPayDomain;
@@ -48,7 +49,8 @@ import com.qt.air.cleaner.pay.repository.DeviceRepository;
 import com.qt.air.cleaner.pay.repository.PriceRepository;
 import com.qt.air.cleaner.pay.repository.WeiXinNotityRepository;
 import com.qt.air.cleaner.pay.service.PayService;
-import com.qt.air.cleaner.pay.utils.UnicodeUtils;
+import com.qt.air.cleaner.pay.utils.BankUtil;
+import com.qt.air.cleaner.pay.utils.DeviceUtil;
 import com.qt.air.cleaner.pay.utils.WeiXinCommonUtil;
 import com.qt.air.cleaner.pay.vo.CompleteBilling;
 
@@ -259,7 +261,7 @@ public class PayServiceImpl implements PayService {
 			return new ResultInfo(ErrorCodeEnum.ES_1023.getErrorCode(),msg,null);
 		}  else {
 			// 向缓存中设置CODE
-			stringRedisTemplate.opsForValue().set(WEIXIN_CACHE_NAME, code,7000L);
+			stringRedisTemplate.opsForValue().set(WEIXIN_CACHE_NAME, code,7000L,TimeUnit.SECONDS);
 		}
 		Map<String,String> signMap = new TreeMap<String,String>();
 		signMap.put("deviceId", deviceId);
@@ -323,12 +325,12 @@ public class PayServiceImpl implements PayService {
 			        && StringUtils.equals(resData.get("result_code"), WXPayConstants.SUCCESS)) {
 				String nonceStr = WXPayUtil.generateNonceStr();
 				String timestamp = String.valueOf(System.currentTimeMillis() / 1000);
-				Token token =  new Gson().fromJson(stringRedisTemplate.opsForValue().get("appToken"),Token.class);
+				Token token = stringRedisTemplate.opsForValue().get("appToken") == null ? null :  new Gson().fromJson(stringRedisTemplate.opsForValue().get("test").toString(), Token.class);
 				if (token != null) {
 					logger.debug("获取Token缓存：" + token.getAccessToken());
 				} else {
 					token = WeiXinCommonUtil.getToken(appId, appSecret);
-					stringRedisTemplate.opsForValue().set("appToken", new Gson().toJson(token),7000L);
+					stringRedisTemplate.opsForValue().set("appToken", new Gson().toJson(token),7000L,TimeUnit.SECONDS);
 					logger.debug("生成Token，并缓存：" + token.getAccessToken());
 				}
 				
@@ -339,7 +341,7 @@ public class PayServiceImpl implements PayService {
 					logger.debug("获取JSAPI凭证：" + jsapiTicket);
 				} else {
 					jsapiTicket = WeiXinCommonUtil.getJsApiTicket(token.getAccessToken());
-					stringRedisTemplate.opsForValue().set("appTicket", jsapiTicket,7000L);
+					stringRedisTemplate.opsForValue().set("appTicket", jsapiTicket,7000L,TimeUnit.SECONDS);
 					logger.debug("生成JSAPI凭证，并缓存：" + jsapiTicket);
 				}
 				Map<String, String> signature = new HashMap<String, String>();
@@ -497,8 +499,93 @@ public class PayServiceImpl implements PayService {
 		billingRepository.saveAndFlush(billing);
 	}
 	
+	/**
+	 * 微信回调通知
+	 * 
+	 * @param parame
+	 * @return
+	 * @throws BusinessRuntimeException
+	 */
+	@Override
+	public ResultInfo billingNotify(@RequestParam("strXML") String strXML) throws BusinessRuntimeException {
+		logger.info("微信回调通知,请求参数：{}",strXML);
+		if(StringUtils.isNotBlank(strXML)) {
+			try {
+				logger.info("微信回调通知内容：{}",strXML);
+				Map<String, String> xmlData = WXPayUtil.xmlToMap(strXML);
+				this.updateWeiXinNotify(xmlData);
+			} catch (Exception e) {
+				e.printStackTrace();
+				logger.error("微信回调通知处理异常：{}",e.getMessage());
+			}
+		}
+		return new ResultInfo(String.valueOf(ResultCode.SC_OK),"success",null);
+	}
 	
-	
-	
+	private void updateWeiXinNotify(Map<String, String> xmlData) {
+		try {
+			WeiXinNotity notity = WeiXinNotity.toWeiXinNotity(xmlData);
+			logger.info("微信通知内容：", notity.toString());
+			if (StringUtils.equals(notity.getResultCode(), "SUCCESS")
+			        && StringUtils.equals(notity.getReturnCode(), "SUCCESS")) {
+				logger.info("支付功能！");
+				if (WXPayUtil.isSignatureValid(xmlData, apiSecret)) {
+					logger.info("签名验证通过！");
+					notity.setState(WeiXinNotity.WEIXIN_NOTITY_NEW);
+					weiXinNotityRepository.saveAndFlush(notity);
+					Billing billing = billingRepository.findByBillingId(notity.getOutTradeNo());
+					billing.setState(Billing.BILLING_STATE_ACCOUNT_OPEN);
+					String transactionId = notity.getTransactionId();
+					if (StringUtils.isNotBlank(notity.getTransactionId())) {
+						billing.setTransactionId(transactionId);
+					}
+					billingRepository.saveAndFlush(billing);
+					DeviceUtil.turnOnDevice(billing.getMachNo(), billing.getCostTime() * 60);
+				}
+			} else {
+				logger.info("微信通知内容参数错误");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public ResultInfo weiXinMsg(@RequestParam("type") String type,@RequestParam("billingNumber") String billingNumber) throws BusinessRuntimeException {
+		logger.info("支付信息处理{}类型{}", billingNumber, type);
+		Map<String, String> reqData = new HashMap<String, String>();
+		if (StringUtils.equals("success", type)) {
+			Billing billing = billingRepository.findByBillingId(billingNumber);
+			if (billing != null) {
+				try {
+					reqData.put("transaction_id", billing.getTransactionId());
+					wxPay.fillRequestData(reqData);
+					Map<String, String> queryResult = wxPay.orderQuery(reqData);
+					queryResult.put("body", body);
+					queryResult.put("backType", BankUtil.getbankType(queryResult.get("bank_type")));
+					reqData.putAll(queryResult);
+				} catch (Exception e) {
+					e.printStackTrace();
+					reqData.put("err_code", "BILLING_NO_EXIST");
+					reqData.put("err_code_des", "获取支付结果中...");
+					reqData.put("wxMsgType", "success");
+					return new ResultInfo(String.valueOf(ResultCode.SC_OK),"success",reqData);
+				}
+			} else {
+				reqData.put("err_code", "BILLING_NO_EXIST");
+				reqData.put("err_code_des", "BILLING_NO_EXIST");
+			}
+			reqData.put("wxMsgType", "success");
+		} else if (StringUtils.equals(type, "cancel")) {
+			this.updateBilling(billingNumber, null, Billing.BILLING_STATE_CANCEL, null, null);
+			reqData.put("wxMsgType", "cancel");
+		} else if (StringUtils.equals(type, "fail")) {
+			this.updateBilling(billingNumber, null, Billing.BILLING_STATE_EXCEPTION, null, null);
+			reqData.put("wxMsgType", "fail");
+		} else {
+			reqData.put("wxMsgType", "other");
+		}
+		return new ResultInfo(String.valueOf(ResultCode.SC_OK),"success",reqData);
+	}
 
 }

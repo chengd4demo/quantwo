@@ -7,7 +7,7 @@ spring:
   jpa:
     show-sql: true
   redis:
-    database: 1
+    database: 2
     host: 192.168.13.202
     port: 6379
     password: 
@@ -18,13 +18,15 @@ spring:
       max-wait: -1
       min-idle: 0   
 device:
-  uri: http://wlw.quantwo.cn:2007/api/v1/device/
+  uri: http://192.168.1.236:2007/api/v1/device/
   query: 
     method: get_state
   turn-on: 
     method: turn_on
   turn-off: 
     method: turn_off
+  pm25:
+    method: pm25
 o2: 
   weixin: 
     cache:  
@@ -37,7 +39,7 @@ o2:
       body:
         description: 圈兔圈网络-空气净化器
       notify: 
-        url: http://zf.quantwo.cn/device/billing/notify
+        url: http://www.quantwo.cn/wxpament
       mah:
         id: 1511610321
       app: 

@@ -480,6 +480,7 @@ public class WeiXinNotity extends GenericEntity {
 		}
 		if (xmlData.containsKey("openid")) {
 			notity.setOpenId(xmlData.get("openid"));
+			notity.setCreater(xmlData.get("openid"));
 		}
 		if (xmlData.containsKey("is_subscribe")) {
 			notity.setIsSubscribe(xmlData.get("is_subscribe"));
@@ -537,6 +538,9 @@ public class WeiXinNotity extends GenericEntity {
 		}
 		if (xmlData.containsKey("attach")) {
 			notity.setAttach(xmlData.get("attach"));
+		}
+		if (xmlData.containsKey("time_end")) {
+			notity.setTimeEnd(xmlData.get("time_end"));
 		}
 		if (xmlData.containsKey("time_end")) {
 			notity.setTimeEnd(xmlData.get("time_end"));
