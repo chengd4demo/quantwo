@@ -18,33 +18,46 @@ import com.qt.air.cleaner.web.merchant.service.AccountService;
 @RestController
 @RequestMapping("/account-channel")
 public class AccountChannelController {
-	private static Logger logger = LoggerFactory.getLogger(DeviceChannelController.class);
-	/**注入设备服务接口**/
+	private static Logger logger = LoggerFactory.getLogger(AccountChannelController.class);
+	/** 注入设备服务接口 **/
 	@Autowired
 	private AccountService accountService;
-	
-	/**账务查询**/
+
+	/** 账务查询 **/
 	@PostMapping("/query/{weixin}")
 	public ResultInfo queryAccount(@PathVariable("weixin") String weixin) {
-		logger.info("execute device-channel's method queryDeviceStatus()  start -> param{}",weixin);	
+		logger.info("execute device-channel's method queryDeviceStatus()  start -> param{}", weixin);
 		try {
 			return accountService.queryAccountDetailByWeixin(weixin);
-		} catch(Exception  e){
-			logger.error("system error: {}",e.getMessage());
-			return new ResultInfo(String.valueOf(ResultCode.R5001.code),e.getMessage(), null);
+		} catch (Exception e) {
+			logger.error("system error: {}", e.getMessage());
+			return new ResultInfo(String.valueOf(ResultCode.R5001.code), e.getMessage(), null);
 		}
 	}
-	
-	/**提现记录**/
+
+	/** 提现记录 **/
 	@PostMapping("/queryAccountOutBounds")
 	public ResultInfo queryAccountOutBound(@RequestBody RequestParame requestParame) {
-		logger.info("execute method queryAccountOutBounds() param --> requestParame:{}", new Gson().toJson(requestParame));
+		logger.info("execute method queryAccountOutBounds() param --> requestParame:{}",
+				new Gson().toJson(requestParame));
 		try {
 			return accountService.queryAccountOutboundPage(requestParame);
 		} catch (Exception e) {
-			logger.error("system error: {}",e.getMessage());
-			return new ResultInfo(String.valueOf(ResultCode.R5001.code),e.getMessage(), requestParame);
+			logger.error("system error: {}", e.getMessage());
+			return new ResultInfo(String.valueOf(ResultCode.R5001.code), e.getMessage(), requestParame);
 		}
-	}		
 	}
-
+	
+	/** 取消提现**/
+	@PostMapping("/cleanAccountOutbound/{id}")
+	public ResultInfo cleanAccountOutbound(@PathVariable("id") String id) {
+		logger.info("execute method cleanAccountOutbound() param --> id:{}",id);
+		try {
+			return accountService.cleanAccountOutbound(id);
+		} catch (Exception e) {
+			logger.error("system error: {}", e.getMessage());
+			return new ResultInfo(String.valueOf(ResultCode.R5001.code), e.getMessage(), id);
+		}
+		
+	}
+}

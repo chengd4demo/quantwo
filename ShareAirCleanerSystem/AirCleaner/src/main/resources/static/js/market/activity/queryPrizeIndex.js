@@ -1,5 +1,5 @@
 var pageCurr; 
-	/*奖项设置*/
+	/*奖品设置*/
 	layui.use(['table', 'form', 'layer','laydate'], function(){
 		var table = layui.table
 		,form = layui.form
@@ -14,7 +14,6 @@ var pageCurr;
 			 elem: '#prizeList'
 		            ,url:'/market/prize/page'
 		        	,method: 'GET' //默认：get请求
-		            ,height: 315
 		            ,page: true
 		            ,limits: [20, 30, 50, 100, 200]
 		            ,limit:20
@@ -34,6 +33,7 @@ var pageCurr;
 						}, {
 							field: 'prizeNumber',
 							title: '奖品数量',
+							align: 'center',
 							width: 120
 						}, {
 							field: 'prizeCategory',
@@ -49,7 +49,7 @@ var pageCurr;
 							title: '是否激活',
 							align: 'center',
 							templet: '#stateTpl',
-							width: 80
+							width: 120
 						}, {
 							field: 'prizeType',
 							title: '奖品类型',
@@ -89,7 +89,7 @@ var pageCurr;
 			 		,title: '新增 '//显示标题栏
 			 		,closeBtn: 1 //显示关闭按钮 属性0，1，2
 			 		,skin: 'layui-layer-rim' //加上边框
-			 		,area: ['570px', '410px'] //宽高
+			 		,area: ['60%', '90%'] //宽高
 			 		,maxmin: true
 			 		,shade: 0.8
 			 		,id: 'LAY_layuipro' //设定一个id，防止重复弹出
@@ -118,7 +118,7 @@ var pageCurr;
 				 		,title: '编辑 '//显示标题栏
 				 		,closeBtn: 1 //显示关闭按钮 属性0，1，2
 				 		,skin: 'layui-layer-rim' //加上边框
-				 		,area: ['570px', '410px'] //宽高
+				 		,area: ['60%', '90%'] //宽高
 				 		,maxmin: true
 				 		,shade: 0.8
 				 		,id: 'LAY_layuipro' //设定一个id，防止重复弹出
@@ -178,6 +178,7 @@ var pageCurr;
 					});
 				}
 		 });
+		 
 		//监听搜索框
 		setTimeout(function(){
 			form.on('submit(searchPrizeSubmit)', function(data){

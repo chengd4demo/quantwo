@@ -3,9 +3,9 @@ package com.qt.air.cleaner.accounts.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.qt.air.cleaner.accounts.domain.Company;
+import com.qt.air.cleaner.accounts.domain.Trader;
 
 @Repository
-public interface CompanyService extends JpaRepository<Company, String> {
-	Company findByWeixin(String weixin);
+public interface TraderRepository extends JpaRepository<Trader, String> {
+	Trader findByWeixin(String weixin);
 }

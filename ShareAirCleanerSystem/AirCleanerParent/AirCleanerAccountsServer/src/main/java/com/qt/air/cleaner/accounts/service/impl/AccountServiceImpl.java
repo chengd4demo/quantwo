@@ -27,9 +27,10 @@ import com.google.gson.Gson;
 import com.qt.air.cleaner.accounts.domain.Company;
 import com.qt.air.cleaner.accounts.domain.Investor;
 import com.qt.air.cleaner.accounts.domain.Trader;
-import com.qt.air.cleaner.accounts.repository.CompanyService;
-import com.qt.air.cleaner.accounts.repository.InvestorService;
-import com.qt.air.cleaner.accounts.repository.TraderService;
+import com.qt.air.cleaner.accounts.repository.AccountOutboundRepository;
+import com.qt.air.cleaner.accounts.repository.CompanyRepository;
+import com.qt.air.cleaner.accounts.repository.InvestorRepository;
+import com.qt.air.cleaner.accounts.repository.TraderRepository;
 import com.qt.air.cleaner.accounts.service.AccountService;
 import com.qt.air.cleaner.accounts.vo.AccountDto;
 import com.qt.air.cleaner.accounts.vo.AccountOutboundDto;
@@ -47,11 +48,13 @@ import com.qt.air.cleaner.base.exception.BusinessRuntimeException;
 public class AccountServiceImpl implements AccountService {
 	private static Logger logger = LoggerFactory.getLogger(AccountServiceImpl.class);
 	@Resource
-	private TraderService traderService;
+	private TraderRepository traderRepository;
 	@Resource
-	private InvestorService investorService;
+	private InvestorRepository investorRepository;
 	@Resource
-	private CompanyService companyService;
+	private CompanyRepository companyRepository;
+	@Resource
+	private AccountOutboundRepository accountOutboundRepository;
 	@Autowired
     private LocalContainerEntityManagerFactoryBean entityManagerFactory;
 	@Override
@@ -59,15 +62,15 @@ public class AccountServiceImpl implements AccountService {
 		logger.info("execute method queryAccountDetailByWeixin() param --> weixin:{}", weixin);
 		Map<String,Float> result = new HashMap<String,Float>();
 		List<AccountDto> dtoes = new ArrayList<>(3);
-		Trader trader = traderService.findByWeixin(weixin);
+		Trader trader = traderRepository.findByWeixin(weixin);
 		if(trader != null) {
 			dtoes.add(new AccountDto(trader, trader.getAccount()));
 		}
-		Investor investor = investorService.findByWeixin(weixin);
+		Investor investor = investorRepository.findByWeixin(weixin);
 		if(investor != null) {
 			dtoes.add(new AccountDto(investor, investor.getAccount()));
 		}
-		Company company = companyService.findByWeixin(weixin);
+		Company company = companyRepository.findByWeixin(weixin);
 		if(company != null) {
 			dtoes.add(new AccountDto(company, company.getAccount()));
 		}
@@ -155,5 +158,17 @@ public class AccountServiceImpl implements AccountService {
 		}
 		return new ResultInfo(String.valueOf(ResultCode.SC_OK),"success",result);
 	}
-
+	
+	/**
+	 * 取消提现
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@Override
+	public ResultInfo cleanAccountOutbound(@PathVariable String id) {
+		logger.info("execute method cleanAccountOutbound() param --> id:{}", id);
+		accountOutboundRepository.cancellUpdate(id,new java.util.Date());
+		return new ResultInfo(String.valueOf(ResultCode.SC_OK),"success",id);
+	}	
 }

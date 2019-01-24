@@ -31,4 +31,17 @@ public interface AccountService {
 	 */
 	@RequestMapping(value = "/queryAccountOutbounds/", method = RequestMethod.POST)
 	ResultInfo queryAccountOutboundPage(@RequestBody RequestParame requestParame) throws BusinessRuntimeException;
+
+	
+	/**
+	 * 取消提现
+	 * 
+	 * @param id
+	 * @return
+	 * @throws BusinessRuntimeException 
+	 */
+	@RequestMapping(value = "/cleanAccountOutbound/{id}", method = RequestMethod.POST)
+	ResultInfo cleanAccountOutbound(@PathVariable String id);
+	
+	
 }
