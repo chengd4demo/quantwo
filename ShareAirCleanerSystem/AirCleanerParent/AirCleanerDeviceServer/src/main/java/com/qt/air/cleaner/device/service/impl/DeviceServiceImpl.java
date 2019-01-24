@@ -224,6 +224,7 @@ public class DeviceServiceImpl implements DeviceService {
 			} else if(StringUtils.isNotBlank(customerId)){
 				sql.append("                  and (b.creater = :customerId)");
 			}
+			sql.append("and(b.transaction_id is not Null)");
 			sql.append("                order by b.create_time desc) row_");
 			sql.append("        where rownum <= :end and row_.row_flg = '1')");
 			sql.append("where rownum_ > :start");
@@ -238,7 +239,7 @@ public class DeviceServiceImpl implements DeviceService {
 					.addScalar("machno",StandardBasicTypes.STRING)
 					.addScalar("usedate",StandardBasicTypes.STRING)
 					.addScalar("costtime",StandardBasicTypes.INTEGER)
-					.addScalar("lasttime",StandardBasicTypes.INTEGER)
+					.addScalar("lasttime",StandardBasicTypes.FLOAT)
 					.addScalar("address",StandardBasicTypes.STRING)
 					.addScalar("unitprice",StandardBasicTypes.FLOAT)
 					.addScalar("devicesequence",StandardBasicTypes.STRING);
