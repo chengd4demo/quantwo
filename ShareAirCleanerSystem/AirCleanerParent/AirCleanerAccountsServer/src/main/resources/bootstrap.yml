@@ -1,9 +1,11 @@
 spring:
   application:
     name: accounts-server
+  profiles:
+    active: test
 server:
   port: 3005
 eureka:
   client:
     service-url:
-      defaultZone: http://192.168.1.100:8888/eureka/
+      defaultZone: http://192.168.13.203:8888/eureka/

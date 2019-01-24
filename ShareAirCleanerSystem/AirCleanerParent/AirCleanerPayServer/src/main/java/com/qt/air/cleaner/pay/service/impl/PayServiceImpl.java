@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -13,7 +14,6 @@ import java.util.TreeMap;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
 import org.apache.commons.lang3.StringUtils;
@@ -44,9 +44,14 @@ import com.qt.air.cleaner.pay.domain.Token;
 import com.qt.air.cleaner.pay.domain.WeiXinNotity;
 import com.qt.air.cleaner.pay.domain.WeixinOauth2Token;
 import com.qt.air.cleaner.pay.repository.BillingRepository;
+import com.qt.air.cleaner.pay.repository.DeviceRepository;
+import com.qt.air.cleaner.pay.repository.PriceRepository;
 import com.qt.air.cleaner.pay.repository.WeiXinNotityRepository;
 import com.qt.air.cleaner.pay.service.PayService;
+import com.qt.air.cleaner.pay.utils.UnicodeUtils;
 import com.qt.air.cleaner.pay.utils.WeiXinCommonUtil;
+import com.qt.air.cleaner.pay.vo.CompleteBilling;
+
 
 @RestController
 @Transactional
@@ -54,12 +59,14 @@ public class PayServiceImpl implements PayService {
 	private final static Logger logger = LoggerFactory.getLogger(PayServiceImpl.class);
 	@Autowired
 	private HttpServletRequest request;
-	@Autowired
-	private HttpServletResponse response;
 	@Resource
 	private BillingRepository billingRepository;
 	@Resource
 	private WeiXinNotityRepository weiXinNotityRepository;
+	@Resource
+	private DeviceRepository deviceRepository;
+	@Resource
+	private PriceRepository priceRepository;
 	@Resource
 	private StringRedisTemplate stringRedisTemplate;
 	@Value("${o2.wechat.subscription.api.secret}")
@@ -152,25 +159,28 @@ public class PayServiceImpl implements PayService {
 	 */
 	@Override
 	public ResultInfo payAuth(@RequestBody RequestParame requestParame) throws BusinessRuntimeException {
+		String url = "";
+		String payPlatformType = requestParame.getData().get("payType");
+		String deviceId = requestParame.getData().get("deviceId");
+		String priceId = requestParame.getData().get("priceId");
+		String ipAddress = request.getRemoteAddr();
 		try {
-			logger.info("收费开始,请求授权IP地址:{}",request.getRemoteAddr());
-			String payPlatformType = requestParame.getData().get("payType");
-			String deviceId = this.request.getParameter("deviceId");
-			String priceId = this.request.getParameter("priceId");
-			String ipAddress = request.getRemoteAddr();
 			if (StringUtils.equals("WX", payPlatformType)){
 				Map<String,String> signMap = new TreeMap<String,String>();
+				logger.info("收费开始,请求授权IP地址:{}",ipAddress);
+				logger.info("收费开始,请求价格ID:{}",priceId);
+				logger.info("收费开始,请求设备MachNO:{}",deviceId);
 				signMap.put("deviceId", deviceId);
 				signMap.put("priceId", priceId);
 				signMap.put("ipAddress", ipAddress);
 				String sign = WXPayUtil.generateSignature(signMap, apiSecret);
 				System.out.print("签名：{}" + sign);
-				String backUri = systeDomain + "/device/billing?deviceId=" + deviceId + "&priceId=" + priceId
+				String backUri = systeDomain + "?deviceId=" + deviceId + "&priceId=" + priceId
 				        + "&ipAddress=" + ipAddress + "&sign=" + sign;
-				String url = "https://open.weixin.qq.com/connect/oauth2/authorize?" + "appid=" + appId + "&redirect_uri="
-				        + backUri + "&response_type=code&scope=snsapi_base&state=STATE&connect_redirect=1#wechat_redirect";
-				logger.debug("授权地址：" + url);
-				response.sendRedirect(url);
+				backUri = WeiXinCommonUtil.urlEncodeUTF8(backUri);
+				url = "https://open.weixin.qq.com/connect/oauth2/authorize?" + "appid=" + appId + "&redirect_uri="
+				        + backUri + "&response_type=code&scope=snsapi_base&state=deviceBilling&connect_redirect=1#wechat_redirect";
+				logger.info("授权地址：" + url);
 			} else {
 				logger.warn("非微信支付");
 				return new ResultInfo(ErrorCodeEnum.ES_1019.getErrorCode(),ErrorCodeEnum.ES_1019.getMessage(),null);
@@ -180,42 +190,42 @@ public class PayServiceImpl implements PayService {
 			logger.error("excute prePayment() system error:{}",e.getMessage()); 
 			return new ResultInfo(ErrorCodeEnum.ES_1020.getErrorCode(),ErrorCodeEnum.ES_1020.getMessage(),null);
 		}
-		return new ResultInfo(String.valueOf(ResultCode.SC_OK),"success",null);
+		return new ResultInfo(String.valueOf(ResultCode.SC_OK),"success",url);
 	}
 	
 	/**
-	 * 创建预支付订单
+	 * 创建预支付订单前签名验证
 	 * @param requestParame
 	 * @return
 	 * @throws BusinessRuntimeException
 	 */
 	@Override
-	public ResultInfo createBilling(RequestParame requestParame) throws BusinessRuntimeException {
-		logger.info("创建预支付订单");
-		String deviceId = request.getParameter("deviceId");
-		String priceId = request.getParameter("priceId");
-		String code = request.getParameter("code");
-		String sign = request.getParameter("sign");
-		String ipAddress = request.getParameter("ipAddress");
+	public ResultInfo createBilling(@RequestBody RequestParame requestParame) throws BusinessRuntimeException {
+		logger.info("创建预支付订单,请求参数:{}",new Gson().toJson(requestParame));
+		String deviceId = requestParame.getData().get("deviceId");
+		String priceId = requestParame.getData().get("priceId");
+		String code = requestParame.getData().get("code");
+		String sign = requestParame.getData().get("sign");
+		String ipAddress = requestParame.getData().get("ipAddress");
 		logger.info("微信中转请求:" + code);
 		logger.info("微信中转请求IP地址：" + ipAddress);
 		String exist = stringRedisTemplate.opsForValue().get(WEIXIN_CACHE_NAME);
-		if (StringUtils.isNotBlank(exist)) {
-			String backUri = systeDomain + "/device/complete/billing?deviceid=" + deviceId + "&priceid=" + priceId
-			        + "&ipaddress=" + ipAddress + "&code=" + code;
+		String backUri = systeDomain + "?deviceid=" + deviceId + "&priceid=" + priceId
+		        + "&ipaddress=" + ipAddress + "&code=" + code+"&state=completeBilling";
+		if (exist == null) {
 			try {
 				Map<String,String> signMap = new TreeMap<String,String>();
 				signMap.put("deviceId", deviceId);
 				signMap.put("priceId", priceId);
 				signMap.put("ipAddress", ipAddress);
 				signMap.put("sign", sign);
+				logger.info("验证签名成功后业务请求地址：" + backUri);
 				if (WXPayUtil.isSignatureValid(signMap, apiSecret)) {
-					logger.debug("中间签名通过！");
+					logger.info("中间签名通过！");
 					signMap.put("code", code);
 					backUri +="&sign=" + WXPayUtil.generateSignature(signMap, apiSecret);
-					response.sendRedirect(backUri);
 				} else {
-					logger.debug("中间签名不通过！");
+					logger.info("中间签名不通过！");
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -223,7 +233,7 @@ public class PayServiceImpl implements PayService {
 				return new ResultInfo(ErrorCodeEnum.ES_1021.getErrorCode(),ErrorCodeEnum.ES_1021.getMessage(),null);
 			}
 		}
-		return new ResultInfo(String.valueOf(ResultCode.SC_OK),"success",null);
+		return new ResultInfo(String.valueOf(ResultCode.SC_OK),"success",backUri);
 	}
 	
 	/**
@@ -234,14 +244,15 @@ public class PayServiceImpl implements PayService {
 	 * @throws BusinessRuntimeException
 	 */
 	@Override
-	public ResultInfo completeBilling(RequestParame requestParame) throws BusinessRuntimeException {
-		logger.info("发起支付请求");
-		String deviceId = request.getParameter("deviceid");
-		String priceId = request.getParameter("priceid");
-		String code = request.getParameter("code");
-		String ipAddress = request.getParameter("ipaddress");
-		String sign = request.getParameter("sign");
+	public ResultInfo completeBilling(@RequestBody RequestParame requestParame) throws BusinessRuntimeException {
+		logger.info("发起支付请求,请求参数:{}",new Gson().toJson(requestParame));
+		String deviceId = requestParame.getData().get("deviceId");
+		String priceId = requestParame.getData().get("priceId");
+		String code = requestParame.getData().get("code");
+		String ipAddress = requestParame.getData().get("ipAddress");
+		String sign = requestParame.getData().get("sign");
 		String msg =  String.format(ErrorCodeEnum.ES_1023.getMessage(), "支付失败");
+		logger.info("缓存key:{}",WEIXIN_CACHE_NAME);
 		String exist = stringRedisTemplate.opsForValue().get(WEIXIN_CACHE_NAME);
 		if (StringUtils.isNotBlank(exist)) {
 			logger.warn("授权码不可用,请求参数:{}",new Gson().toJson(requestParame));
@@ -256,35 +267,46 @@ public class PayServiceImpl implements PayService {
 		signMap.put("ipAddress", ipAddress);
 		signMap.put("code", code);
 		signMap.put("sign", sign);
+		logger.info("签名验证参数:{}" , new Gson().toJson(signMap));
+		logger.info("apiSecret签名Key:{}",apiSecret);
 		try {
 			if (!WXPayUtil.isSignatureValid(signMap, apiSecret)) {
-				logger.debug("支付签名不通过！");
+				logger.info("支付签名不通过！");
 				return new ResultInfo(ErrorCodeEnum.ES_1023.getErrorCode(),msg,null);
 			} else {
-				logger.debug("支付签名不通过！");
+				logger.info("支付签名通过！");
 			}
-			logger.debug("设备订单请求代码:" + code);
-			logger.debug("响应统一下单IP地址：" + ipAddress);
+			logger.info("设备订单请求代码:" + code);
+			logger.info("响应统一下单IP地址：" + ipAddress);
+			Device device = deviceRepository.findByDeviceSequence(deviceId);
+			if (device == null) {
+				logger.error("空气净化器【{}】未注册！",deviceId);
+			} 
+			PriceValue priceValue = priceRepository.findOne(priceId);
+			if (priceValue == null) {
+				logger.error("价格参数不可用！");
+			}
+			return this.createJsapi(new CompleteBilling(code, priceId, ipAddress, device, priceValue));
 		} catch (Exception e) {
 			logger.error("excute completeBilling() system error:{}",e.getMessage()); 
+			e.printStackTrace();
 			return new ResultInfo(ErrorCodeEnum.ES_1023.getErrorCode(),msg,null);
 		}
-		return new ResultInfo(String.valueOf(ResultCode.SC_OK),"success",deviceId);
 	}
-
 	/**
 	 * 生成或获取JSAPI凭证
 	 * 
-	 * @param code
-	 * @param priceId
-	 * @param ipAddress
-	 * @param device
-	 * @param priceValue
+	 * @param completeBilling
 	 * @return
 	 */
-	@Override
-	public ResultInfo createJsapi(String code,String priceId,String ipAddress,@RequestBody Device device,@RequestBody PriceValue priceValue) {
-		logger.debug("获取JSAPI凭证,请求参数：{}",code);
+	public ResultInfo createJsapi(CompleteBilling completeBilling) {
+		
+		logger.info("获取JSAPI凭证,请求参数：{}",new Gson().toJson(completeBilling));
+		String code = completeBilling.getCode();
+		String priceId = completeBilling.getPriceId();
+		String ipAddress = completeBilling.getIpAddress();
+		Device device= completeBilling.getDevice();
+		PriceValue priceValue = completeBilling.getPriceValue();
 		WeixinOauth2Token oauth2Token = WeiXinCommonUtil.getOauth2AccessToken(appId, appSecret, code);
 		String msg =  String.format(ErrorCodeEnum.ES_1023.getMessage(), "支付失败");
 		Map<String,Object> resultMap = new HashMap<String,Object>();
@@ -293,6 +315,7 @@ public class PayServiceImpl implements PayService {
 				logger.error("授权码已经被使用!");
 				return new ResultInfo(ErrorCodeEnum.ES_1023.getErrorCode(), msg, null);
 			}
+			device.setCreater(oauth2Token.getOpenId());
 			Map<String, String> resData = this.generateWeiXinBilling(device, priceValue,
 					oauth2Token.getOpenId(), ipAddress);
 			if (resData != null && resData.containsKey("return_code") && resData.containsKey("result_code")
@@ -367,7 +390,6 @@ public class PayServiceImpl implements PayService {
 		//跳转jspai
 		return new ResultInfo(String.valueOf(ResultCode.SC_OK),"success",resultMap);
 	}
-	
 	private Map<String,String> generateWeiXinBilling(Device device,PriceValue priceValue, String openId, String ip){
 		
 		try {
@@ -375,7 +397,7 @@ public class PayServiceImpl implements PayService {
 				Map<String, String> reqData = new HashMap<String, String>();
 				String billingNumber = this.createBilling(device, priceValue);
 				reqData.put("device_info", device.getMachNo());
-				reqData.put("body", body);
+				reqData.put("body",body);
 				reqData.put("spbill_create_ip", ip);
 				reqData.put("out_trade_no", billingNumber);
 				reqData.put("trade_type", "JSAPI");
@@ -383,13 +405,13 @@ public class PayServiceImpl implements PayService {
 					reqData.put("openid", openId);
 				}
 				reqData.put("total_fee", String.valueOf(Math.round(priceValue.getRealValue() * 100)));
-				logger.debug("微信响应参数：" + reqData.toString());
+				logger.info("微信响应参数：" + reqData.toString());
 				Map<String, String> resData = wxPay.unifiedOrder(reqData);
-				logger.debug("微信响应结果：" + resData.toString());
+				logger.info("微信响应结果：" + resData.toString());
 				if (StringUtils.equals(resData.get("result_code"), WXPayConstants.SUCCESS)) {
 					if (StringUtils.equals(resData.get("result_code"), WXPayConstants.SUCCESS)) {
 						String weixin = resData.get("prepay_id");
-						logger.debug("微信预支付ID:" + weixin);
+						logger.info("微信预支付ID:" + weixin);
 						this.updateWeiXin(billingNumber, weixin);
 					} else {
 						String errorCode = resData.get("err_code");
@@ -428,6 +450,7 @@ public class PayServiceImpl implements PayService {
 	}
 	
 	private String createBilling(Device device, PriceValue priceValue) {
+		
 		Billing billing = new Billing();
 		billing.setDeviceId(device.getId());
 		billing.setBillingId(generateBillingNumber(device));
@@ -438,7 +461,9 @@ public class PayServiceImpl implements PayService {
 		billing.setUnitPrice(priceValue.getValue());
 		billing.setDiscount(priceValue.getDiscount());
 		billing.setCreater("default");
-		billingRepository.save(billing);
+		billing.setWeixin("");
+		logger.info("微信设备消费记录预支付订单插入：{}",billing.toString());
+		billingRepository.saveAndFlush(billing);
 		return billing.getBillingId();
 	}
 	
@@ -452,6 +477,7 @@ public class PayServiceImpl implements PayService {
 		Billing billing = billingRepository.findByBillingId(billingNumber);
 		billing.setWeixin(weixin);
 		billing.setState(Billing.BILLING_STATE_PENDING_PAYMENT);
+		logger.info("设备消费记录：{}",billing.toString());
 		billingRepository.saveAndFlush(billing);
 	}
 	

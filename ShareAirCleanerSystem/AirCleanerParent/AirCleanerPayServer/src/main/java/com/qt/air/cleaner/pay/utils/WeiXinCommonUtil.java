@@ -124,11 +124,15 @@ public static JSONObject httpsRequest(String requestUrl, String requestMethod, S
 	public static WeixinOauth2Token getOauth2AccessToken(String appId, String appSecret, String code) {
 		
 		WeixinOauth2Token wat = null;
+		logger.info("appId:{}",appId);
+		logger.info("appSecret:{}",appSecret);
+		logger.info("code:{}",code);
+		
 		String requestUrl = String.format(pay_token_url, appId, appSecret, code);
-		logger.debug("获取微信网页授权地址：" + requestUrl);
+		logger.info("获取微信网页授权地址：" + requestUrl);
 		JSONObject jsonObject = httpsRequest(requestUrl, "GET", null);
-		logger.debug("获取微信网页授权结果：" + jsonObject);
-		if (null != jsonObject) {
+		logger.info("获取微信网页授权结果：" + jsonObject);
+		if (null != jsonObject) {	
 			try {
 				wat = new WeixinOauth2Token();
 				wat.setAccessToken(jsonObject.getString("access_token"));

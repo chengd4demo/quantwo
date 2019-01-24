@@ -9,6 +9,7 @@ import com.qt.air.cleaner.base.dto.ResultInfo;
 import com.qt.air.cleaner.base.exception.BusinessRuntimeException;
 import com.qt.air.cleaner.pay.domain.Device;
 import com.qt.air.cleaner.pay.domain.PriceValue;
+import com.qt.air.cleaner.pay.vo.CompleteBilling;
 
 @RequestMapping
 public interface PayService {
@@ -42,17 +43,4 @@ public interface PayService {
 	@RequestMapping(value="complete/billing", method = RequestMethod.POST)
 	public ResultInfo completeBilling(@RequestBody RequestParame requestParame)  throws BusinessRuntimeException;
 	
-	
-	/**
-	 * 生成或获取JSAPI凭证
-	 * 
-	 * @param code
-	 * @param priceId
-	 * @param ipAddress
-	 * @param device
-	 * @param priceValue
-	 * @return
-	 */
-	@RequestMapping(value="create/jsapi", method = RequestMethod.POST)
-	public ResultInfo createJsapi(String code,String priceId,String ipAddress,@RequestBody Device device,@RequestBody PriceValue priceValue);
 }

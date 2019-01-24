@@ -6,11 +6,15 @@ import java.util.Date;
 import java.util.Map;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.qt.air.cleaner.base.domain.GenericEntity;
 import com.qt.air.cleaner.pay.utils.BankUtil;
 
+@Entity
+@Table(name = "ACT_WEIXIN_NOTITY")
 public class WeiXinNotity extends GenericEntity {
 	private static final long serialVersionUID = 557861056702960269L;
 	@Transient

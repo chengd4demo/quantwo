@@ -261,4 +261,15 @@ public class Billing extends GenericEntity {
 		
 		this.createTimeStr = createTimeStr;
 	}
+
+	@Override
+	public String toString() {
+		return "Billing [dateFormat=" + dateFormat + ", version=" + version + ", billingId=" + billingId + ", machNo="
+				+ machNo + ", deviceId=" + deviceId + ", priceId=" + priceId + ", weixin=" + weixin + ", costTime="
+				+ costTime + ", unitPrice=" + unitPrice + ", discount=" + discount + ", discountStr=" + discountStr
+				+ ", amount=" + amount + ", state=" + state + ", errorCode=" + errorCode + ", errorMsg=" + errorMsg
+				+ ", transactionId=" + transactionId + ", createTimeStr=" + createTimeStr + "]";
+	}
+	
+	
 }

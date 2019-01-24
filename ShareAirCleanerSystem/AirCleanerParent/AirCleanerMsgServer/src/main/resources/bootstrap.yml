@@ -1,6 +1,8 @@
 spring:
   application:
     name: msg-service
+  profiles:
+    active: dev
 server:
   port: 3003
 eureka:

@@ -46,7 +46,8 @@ public class BillingServiceImpl implements BillingService {
 		Device device = deviceRepository.getOne(billing.getDeviceId());
 		Investor investor = device.getInvestor();
 		Integer proportion = gainProportion.get(Investor.class.getSimpleName());
-		Float investorAmount = (totalAmount * proportion / 100) - ((billing.getCostTime() / 60) * 0.09f); // 每小时扣除0.09耗材费用
+		Float investorAmount = (totalAmount * proportion / 100) >= 0.10f ? (totalAmount * proportion / 100) - ((billing.getCostTime() / 60) * 0.09f)
+				: totalAmount * proportion / 100; // 每小时扣除0.09耗材费用
 		BigDecimal bigDecimal = new BigDecimal(String.valueOf(investorAmount));
 		investorAmount = bigDecimal.setScale(2, BigDecimal.ROUND_DOWN).floatValue();
 		accountService.udpateInvestorAccount(billing, investor, investorAmount);
