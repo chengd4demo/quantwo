@@ -7,5 +7,5 @@ import com.qt.air.cleaner.scheduled.domain.Device;
 
 @Repository
 public interface DeviceRepository extends JpaRepository<Device, String> {
-
+	Device findByMachNo(String machNo);
 }

@@ -181,13 +181,13 @@ public class DeviceServiceImpl implements DeviceService {
 			String customerId = requestParame.getData().get("customerId");
 			String queryType = requestParame.getData().get("queryType");
 			StringBuffer sql = new StringBuffer();
-			sql.append("select device_id as deviceid,state as devicestate,tradername,address,mach_no as machno,to_char(create_time,'yyyy-mm-dd hh24:mi:ss') as usedate,costtime,lasttime,unitprice,devicesequence");
+			sql.append("select device_id as deviceid,state as devicestate,tradername,address,mach_no as machno,to_char(create_time,'yyyy-mm-dd hh24:mi:ss') as usedate,costtime,lasttime,unitprice,realyprice,devicesequence");
 			sql.append("  from (select row_.*, rownum rownum_");
 			sql.append("	          from (select b.create_time,");
 			sql.append("                      b.device_id,");
 			sql.append("                     b.mach_no,");
 			sql.append("                      t.name as tradername,t.address,");
-			sql.append("                     b.unit_price as unitPrice,b.cost_time as costtime,d.device_sequence as devicesequence,");
+			sql.append("                     b.unit_price as unitPrice,b.amount as realyprice,b.cost_time as costtime,d.device_sequence as devicesequence,");
 			sql.append("                      row_number() OVER(PARTITION BY b.mach_no ORDER BY b.create_time desc ) as row_flg,");
 			sql.append("                     case");
 			sql.append("                       when ceil(((sysdate -");
@@ -245,6 +245,7 @@ public class DeviceServiceImpl implements DeviceService {
 					.addScalar("lasttime",StandardBasicTypes.FLOAT)
 					.addScalar("address",StandardBasicTypes.STRING)
 					.addScalar("unitprice",StandardBasicTypes.FLOAT)
+					.addScalar("realyprice", StandardBasicTypes.FLOAT)
 					.addScalar("devicesequence",StandardBasicTypes.STRING);
 			if (StringUtils.isNotBlank(traderId)) {
 				query.setParameter("traderId", traderId);

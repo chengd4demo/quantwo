@@ -14,6 +14,7 @@ public class DeviceMonitor implements Serializable{
 	private Float lasttime = 0.0f;
 	private Float unitprice = 0.00f;
 	private String devicesequence;
+	private Float realyprice = 0.00f;
 	public String getDeviceid() {
 		return deviceid;
 	}
@@ -74,6 +75,12 @@ public class DeviceMonitor implements Serializable{
 	}
 	public void setDevicesequence(String devicesequence) {
 		this.devicesequence = devicesequence;
+	}
+	public Float getRealyprice() {
+		return realyprice;
+	}
+	public void setRealyprice(Float realyprice) {
+		this.realyprice = realyprice;
 	}
 	
 	

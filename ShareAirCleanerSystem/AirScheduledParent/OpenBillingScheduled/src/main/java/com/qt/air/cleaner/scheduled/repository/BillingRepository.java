@@ -7,5 +7,5 @@ import com.qt.air.cleaner.scheduled.domain.Billing;
 
 @Repository
 public interface BillingRepository extends JpaRepository<Billing, String> {
-
+	Billing findByBillingId(String billingId);
 }
