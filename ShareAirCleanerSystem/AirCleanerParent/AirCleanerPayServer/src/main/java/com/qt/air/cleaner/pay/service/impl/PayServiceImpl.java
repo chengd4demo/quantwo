@@ -261,7 +261,7 @@ public class PayServiceImpl implements PayService {
 			return new ResultInfo(ErrorCodeEnum.ES_1023.getErrorCode(),msg,null);
 		}  else {
 			// 向缓存中设置CODE
-			stringRedisTemplate.opsForValue().set(WEIXIN_CACHE_NAME, code,7000L,TimeUnit.SECONDS);
+			stringRedisTemplate.opsForValue().set(WEIXIN_CACHE_NAME, code,1000L,TimeUnit.MILLISECONDS);
 		}
 		Map<String,String> signMap = new TreeMap<String,String>();
 		signMap.put("deviceId", deviceId);
@@ -317,7 +317,6 @@ public class PayServiceImpl implements PayService {
 				logger.error("授权码已经被使用!");
 				return new ResultInfo(ErrorCodeEnum.ES_1023.getErrorCode(), msg, null);
 			}
-			device.setCreater(oauth2Token.getOpenId());
 			Map<String, String> resData = this.generateWeiXinBilling(device, priceValue,
 					oauth2Token.getOpenId(), ipAddress);
 			if (resData != null && resData.containsKey("return_code") && resData.containsKey("result_code")
@@ -325,7 +324,7 @@ public class PayServiceImpl implements PayService {
 			        && StringUtils.equals(resData.get("result_code"), WXPayConstants.SUCCESS)) {
 				String nonceStr = WXPayUtil.generateNonceStr();
 				String timestamp = String.valueOf(System.currentTimeMillis() / 1000);
-				Token token = stringRedisTemplate.opsForValue().get("appToken") == null ? null :  new Gson().fromJson(stringRedisTemplate.opsForValue().get("test").toString(), Token.class);
+				Token token = stringRedisTemplate.opsForValue().get("appToken") == null ? null :  new Gson().fromJson(stringRedisTemplate.opsForValue().get("appToken").toString(), Token.class);
 				if (token != null) {
 					logger.debug("获取Token缓存：" + token.getAccessToken());
 				} else {
@@ -398,7 +397,7 @@ public class PayServiceImpl implements PayService {
 			if (wxPay != null) {
 				Map<String, String> reqData = new HashMap<String, String>();
 				String billingNumber = this.createBilling(device, priceValue);
-				reqData.put("device_info", device.getMachNo());
+				reqData.put("device_info", device.getDeviceSequence());
 				reqData.put("body",body);
 				reqData.put("spbill_create_ip", ip);
 				reqData.put("out_trade_no", billingNumber);
@@ -414,7 +413,7 @@ public class PayServiceImpl implements PayService {
 					if (StringUtils.equals(resData.get("result_code"), WXPayConstants.SUCCESS)) {
 						String weixin = resData.get("prepay_id");
 						logger.info("微信预支付ID:" + weixin);
-						this.updateWeiXin(billingNumber, weixin);
+						this.updateWeiXin(billingNumber, weixin, openId);
 					} else {
 						String errorCode = resData.get("err_code");
 						String errorMsg = resData.get("err_code_des");
@@ -424,7 +423,7 @@ public class PayServiceImpl implements PayService {
 							this.updateBilling(billingNumber, null, Billing.BILLING_STATE_EXCEPTION, errorCode, errorMsg);
 						} else {
 							String weixin = resData.get("prepay_id");
-							this.updateWeiXin(billingNumber, weixin);
+							this.updateWeiXin(billingNumber, weixin, openId);
 						}
 					}
 				} else {
@@ -437,7 +436,7 @@ public class PayServiceImpl implements PayService {
 						        errorMsg);
 					} else {
 						String weixin = resData.get("prepay_id");
-						this.updateWeiXin(billingNumber, weixin);
+						this.updateWeiXin(billingNumber, weixin, openId);
 					}
 				}
 				resData.put("billingNumber", billingNumber);
@@ -475,9 +474,10 @@ public class PayServiceImpl implements PayService {
 		return billingNumber + format.format(Calendar.getInstance().getTime());
 	}
 	
-	private void updateWeiXin(String billingNumber, String weixin){
+	private void updateWeiXin(String billingNumber, String weixin,String openId){
 		Billing billing = billingRepository.findByBillingId(billingNumber);
 		billing.setWeixin(weixin);
+		billing.setCreater(openId);
 		billing.setState(Billing.BILLING_STATE_PENDING_PAYMENT);
 		logger.info("设备消费记录：{}",billing.toString());
 		billingRepository.saveAndFlush(billing);
@@ -535,6 +535,7 @@ public class PayServiceImpl implements PayService {
 					weiXinNotityRepository.saveAndFlush(notity);
 					Billing billing = billingRepository.findByBillingId(notity.getOutTradeNo());
 					billing.setState(Billing.BILLING_STATE_ACCOUNT_OPEN);
+					billing.setCreater(notity.getOpenId());
 					String transactionId = notity.getTransactionId();
 					if (StringUtils.isNotBlank(notity.getTransactionId())) {
 						billing.setTransactionId(transactionId);
@@ -564,6 +565,8 @@ public class PayServiceImpl implements PayService {
 					queryResult.put("body", body);
 					queryResult.put("backType", BankUtil.getbankType(queryResult.get("bank_type")));
 					reqData.putAll(queryResult);
+					reqData.put("cashTime", billing.getCostTime().toString());
+					reqData.put("wxMsgType", "success");
 				} catch (Exception e) {
 					e.printStackTrace();
 					reqData.put("err_code", "BILLING_NO_EXIST");

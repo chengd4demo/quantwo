@@ -26,7 +26,7 @@ public abstract class GenericEntity implements Serializable, Removable, Cloneabl
 	@Column(name = "REMOVED", nullable = false)
 	@Type(type = "yes_no")
 	private Boolean removed = Boolean.valueOf(false);
-	@Column(name = "CREATER", length = 40, nullable = false, insertable = true, updatable = false)
+	@Column(name = "CREATER", length = 40, nullable = false, insertable = true, updatable = true)
 	private String creater;
 	@Column(name = "CREATE_TIME", nullable = false, insertable = true, updatable = false)
 	@Temporal(TemporalType.TIMESTAMP)

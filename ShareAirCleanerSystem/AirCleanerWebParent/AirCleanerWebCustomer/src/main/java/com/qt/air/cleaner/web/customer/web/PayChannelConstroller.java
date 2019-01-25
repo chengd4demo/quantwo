@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
@@ -156,11 +157,9 @@ public class PayChannelConstroller {
 	}
 	
 	@PostMapping("wx/msg")
-	public ResultInfo weiXinMsg(HttpServletRequest request) {
-		logger.info("execute pay-channel's method billingNotify()  start");
+	public ResultInfo weiXinMsg(@RequestParam("type") String type,@RequestParam("billingNumber") String billingNumber) {
+		logger.info("execute pay-channel's method weiXinMsg()  start");
 		try {
-			String billingNumber = request.getParameter("billingNumber");
-			String type = request.getParameter("type");
 			logger.info("支付异常信息处理{}类型{}", billingNumber, type);
 			return payService.weiXinMsg(type, billingNumber);
 		} catch (Exception e) {

@@ -179,6 +179,7 @@ public class DeviceServiceImpl implements DeviceService {
 			String traderId = requestParame.getData().get("traderId");
 			String investorId = requestParame.getData().get("investorId");
 			String customerId = requestParame.getData().get("customerId");
+			String queryType = requestParame.getData().get("queryType");
 			StringBuffer sql = new StringBuffer();
 			sql.append("select device_id as deviceid,state as devicestate,tradername,address,mach_no as machno,to_char(create_time,'yyyy-mm-dd hh24:mi:ss') as usedate,costtime,lasttime,unitprice,devicesequence");
 			sql.append("  from (select row_.*, rownum rownum_");
@@ -226,10 +227,12 @@ public class DeviceServiceImpl implements DeviceService {
 			}
 			sql.append("and(b.transaction_id is not Null)");
 			sql.append("                order by b.create_time desc) row_");
-			sql.append("        where rownum <= :end and row_.row_flg = '1')");
+			if (!StringUtils.equals(queryType, "record")) {
+				sql.append("        where rownum <= :end and row_.row_flg = '1')");
+			} else {
+				sql.append("        where rownum <= :end )");
+			}
 			sql.append("where rownum_ > :start");
-			//消费者
-			
 			EntityManager em = entityManagerFactory.getNativeEntityManagerFactory().createEntityManager();
 			Session session = em.unwrap(Session.class);
 			Query query = session.createSQLQuery(sql.toString())
@@ -306,7 +309,7 @@ public class DeviceServiceImpl implements DeviceService {
 				.addScalar("devicestate",StandardBasicTypes.STRING)
 				.addScalar("machno",StandardBasicTypes.STRING)
 				.addScalar("costtime",StandardBasicTypes.INTEGER)
-				.addScalar("lasttime",StandardBasicTypes.INTEGER);
+				.addScalar("lasttime",StandardBasicTypes.FLOAT);
 		query.setParameter("machNo", machNo);
 		query.setResultTransformer(Transformers.aliasToBean(DeviceMonitor.class));
 		DeviceMonitor deviceMonitor = (DeviceMonitor) query.uniqueResult();
