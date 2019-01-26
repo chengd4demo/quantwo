@@ -2,7 +2,7 @@ package com.qt.air.cleaner.scheduled.service;
 
 import java.util.Date;
 
-public interface BillingService {
+public interface WeiXinNotityService {
 
 	/**
 	 * 自动下载前日微信对账单
