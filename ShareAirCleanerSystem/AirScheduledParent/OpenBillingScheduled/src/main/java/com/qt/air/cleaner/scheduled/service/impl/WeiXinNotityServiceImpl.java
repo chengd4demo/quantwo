@@ -35,10 +35,9 @@ import com.qt.air.cleaner.scheduled.domain.WeiXinNotity;
 import com.qt.air.cleaner.scheduled.repository.BillingRepository;
 import com.qt.air.cleaner.scheduled.repository.DeviceRepository;
 import com.qt.air.cleaner.scheduled.repository.WeiXinNotityCurdRepository;
-import com.qt.air.cleaner.scheduled.repository.WeiXinNotityRepository;
 import com.qt.air.cleaner.scheduled.service.AccountService;
-import com.qt.air.cleaner.scheduled.service.WeiXinNotityService;
 import com.qt.air.cleaner.scheduled.service.WeiXinDownloadService;
+import com.qt.air.cleaner.scheduled.service.WeiXinNotityService;
 
 @Service
 public class WeiXinNotityServiceImpl implements WeiXinNotityService {
@@ -46,8 +45,8 @@ public class WeiXinNotityServiceImpl implements WeiXinNotityService {
 	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	@Resource
 	DeviceRepository deviceRepository;
-	@Resource
-	WeiXinNotityRepository weiXinNotityRepository;
+	/*@Resource
+	WeiXinNotityRepository weiXinNotityRepository;*/
 	@Resource
 	WeiXinNotityCurdRepository weiXinNotityCurdRepository;
 	@Resource
@@ -246,7 +245,7 @@ public class WeiXinNotityServiceImpl implements WeiXinNotityService {
 				return cb.and(predicates.toArray(new Predicate[predicates.size()]));
 			}
 		};
-		return weiXinNotityRepository.findAll(querySpecifi);
+		return weiXinNotityCurdRepository.findAll(querySpecifi);
 	}
 
 }
