@@ -1,5 +1,7 @@
 package com.qt.air.cleaner.scheduled.service.impl;
 
+import java.util.Calendar;
+
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
@@ -35,10 +37,13 @@ public class AccountServiceImpl implements AccountService {
 		inBound.setBilling(billing);
 		inBound.setAmount(amount);
 		inBound.setAccount(account);
-		accountInBoundRepository.save(inBound);
+		inBound.setCreater("defalut");
+		inBound.setCreateTime(Calendar.getInstance().getTime());
+		accountInBoundRepository.saveAndFlush(inBound);
 		account.setTotalAmount(account.getTotalAmount() + amount);
 		account.setFreezingAmount(account.getFreezingAmount() + amount);
 		accountRepository.saveAndFlush(account);
+		
 	}
 
 	@Override
@@ -53,7 +58,9 @@ public class AccountServiceImpl implements AccountService {
 		inBound.setBilling(billing);
 		inBound.setAmount(amount);
 		inBound.setAccount(account);
-		accountInBoundRepository.save(inBound);
+		inBound.setCreater("defalut");
+		inBound.setCreateTime(Calendar.getInstance().getTime());
+		accountInBoundRepository.saveAndFlush(inBound);
 		account.setTotalAmount(account.getTotalAmount() + amount);
 		account.setFreezingAmount(account.getFreezingAmount() + amount);
 		accountRepository.saveAndFlush(account);
@@ -71,6 +78,8 @@ public class AccountServiceImpl implements AccountService {
 		inBound.setBilling(billing);
 		inBound.setAmount(amount);
 		inBound.setAccount(account);
+		inBound.setCreater("defalut");
+		inBound.setCreateTime(Calendar.getInstance().getTime());
 		accountInBoundRepository.save(inBound);
 		account.setTotalAmount(account.getTotalAmount() + amount);
 		account.setFreezingAmount(account.getFreezingAmount() + amount);

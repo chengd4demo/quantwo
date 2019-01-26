@@ -111,11 +111,12 @@ public class WeiXinNotityServiceImpl implements WeiXinNotityService {
 		List<WeiXinNotity> notities = queryAvailableWeiXinNotityInTimes(states, startTime.getTime(), endTime.getTime());
 		logger.debug("当次分账的记录数量：" + notities.size() + "条");
 		Billing billing = null;
+		Float totalFee = 0.00f;
 		for (WeiXinNotity notity : notities) {
 			billing = billingRepository.findByBillingId(notity.getOutTradeNo());
 			logger.debug("获取订单信息[" + notity.getOutTradeNo() + "]：" + billing != null ? billing.getDeviceId() : "不存在");
 			if (billing != null) {
-				Float totalFee = notity.getTotalFee();
+				totalFee = notity.getTotalFee();
 				logger.debug("金额：" + totalFee);
 				if (billing.getAmount().floatValue() == totalFee.floatValue()) {
 					if (billing.getState() == Billing.BILLING_STATE_ACCOUNT_OPEN) {
@@ -200,7 +201,7 @@ public class WeiXinNotityServiceImpl implements WeiXinNotityService {
 	private void openBillingAccount(Billing billing) {
 		/**投资商开账逻辑*/
 		Float totalAmount = billing.getAmount();
-		Device device = deviceRepository.getOne(billing.getDeviceId());
+		Device device = deviceRepository.findById(billing.getDeviceId());
 		Investor investor = device.getInvestor();
 		Integer proportion = gainProportion.get(Investor.class.getSimpleName());
 		Float investorAmount = (totalAmount * proportion / 100) >= 0.10f ? (totalAmount * proportion / 100) - ((billing.getCostTime() / 60) * 0.09f)
@@ -235,7 +236,7 @@ public class WeiXinNotityServiceImpl implements WeiXinNotityService {
 			public Predicate toPredicate(Root<WeiXinNotity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder cb) {
 				List<Predicate> predicates = new ArrayList<>();
 				predicates.add(cb.greaterThanOrEqualTo(root.get("createTime"), startTime));
-				predicates.add(cb.greaterThanOrEqualTo(root.get("createTime"), endTime));
+				predicates.add(cb.lessThanOrEqualTo(root.get("createTime"), endTime));
 				predicates.add(cb.equal(root.get("removed"), false));
 				In<Integer> in = cb.in(root.get("state"));
 				for (Integer state : states) {

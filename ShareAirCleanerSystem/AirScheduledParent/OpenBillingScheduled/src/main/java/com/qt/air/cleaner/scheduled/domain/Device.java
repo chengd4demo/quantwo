@@ -36,16 +36,16 @@ public class Device extends GenericEntity {
 	@Column(name = "STATE", nullable = false, length = 1)
 	private Integer state;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne
 	private Company company;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne
 	private Investor investor;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne
 	private Trader trader;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne
 	private Saler saler;
 	
 	@OneToOne
