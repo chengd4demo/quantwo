@@ -208,7 +208,9 @@ public class WeiXinNotityServiceImpl implements WeiXinNotityService {
 				: totalAmount * proportion / 100; // 每小时扣除0.09耗材费用
 		BigDecimal bigDecimal = new BigDecimal(String.valueOf(investorAmount));
 		investorAmount = bigDecimal.setScale(2, BigDecimal.ROUND_DOWN).floatValue();
-		accountService.udpateInvestorAccount(billing, investor, investorAmount);
+		if (investorAmount > 0.00f) {
+			accountService.udpateInvestorAccount(billing, investor, investorAmount);
+		}
 		
 		/**商家开账逻辑*/
 		Trader trader = device.getTrader();
@@ -216,20 +218,22 @@ public class WeiXinNotityServiceImpl implements WeiXinNotityService {
 		Float traderAmount = totalAmount * proportion / 100;
 		bigDecimal = new BigDecimal(String.valueOf(traderAmount));
 		traderAmount = bigDecimal.setScale(2, BigDecimal.ROUND_DOWN).floatValue();
-		accountService.updateTraderAccount(billing, trader, traderAmount);
+		if (traderAmount > 0.00f) {
+			accountService.updateTraderAccount(billing, trader, traderAmount);
+		}
 		
 		/**公司开账逻辑*/
 		Company company = device.getCompany();
 		proportion = gainProportion.get(Company.class.getSimpleName());
 		Float companyAmount = totalAmount * proportion / 100;
-		if (companyAmount < (totalAmount - investorAmount - traderAmount)) {
+		if (companyAmount < (totalAmount - investorAmount - traderAmount) && companyAmount > 0.00f) {
 			companyAmount = totalAmount - investorAmount - traderAmount;
 			bigDecimal = new BigDecimal(String.valueOf(companyAmount));
 			companyAmount = bigDecimal.setScale(2, BigDecimal.ROUND_DOWN).floatValue();
 		}
 		accountService.updateCompanyAccount(billing, company, companyAmount);
 	}
-
+	
 	private List<WeiXinNotity> queryAvailableWeiXinNotityInTimes(List<Integer> states, Date startTime, Date endTime) {
 		Specification<WeiXinNotity> querySpecifi = new Specification<WeiXinNotity>(){
 			@Override

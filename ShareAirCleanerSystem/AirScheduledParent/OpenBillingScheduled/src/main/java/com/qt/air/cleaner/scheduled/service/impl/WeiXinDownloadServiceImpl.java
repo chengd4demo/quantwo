@@ -150,7 +150,8 @@ public class WeiXinDownloadServiceImpl implements WeiXinDownloadService {
 	}
 	
 	public WeiXinDownload existWeiXinDonwloadRecord(WeiXinDownload download) {
-		return weiXinDownloadRepository.findByAppIdAndMchNoAndRemoved(download.getAppId(), download.getMchNo(), false);
+		return weiXinDownloadRepository.findByAppIdAndMchNoAndDownloadDateAndTypeAndRemoved(download.getAppId(), download.getMchNo(), 
+				download.getDownloadDate(), download.getType(), false);
 	}
 	
 	@Override
