@@ -20,8 +20,10 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.qt.air.cleaner.market.domain.account.Account;
 import com.qt.air.cleaner.market.domain.account.AccountInBound;
 import com.qt.air.cleaner.market.repository.account.AccountInBoundRepository;
+import com.qt.air.cleaner.market.repository.account.AccountRepository;
 import com.qt.air.cleaner.market.service.account.AccountInBoundService;
 import com.qt.air.cleaner.market.vo.account.AccountInBoundView;
 
@@ -31,6 +33,8 @@ import com.qt.air.cleaner.market.vo.account.AccountInBoundView;
 public class AccountInBoundServiceImpl implements AccountInBoundService {
 	@Resource
 	AccountInBoundRepository accountInBoundRepository;
+	@Resource
+	AccountRepository accountRepository;
 	
 	
 	@Override
@@ -116,7 +120,14 @@ public class AccountInBoundServiceImpl implements AccountInBoundService {
 	@Override
 	public void updateState(String id) {
 		if(StringUtils.isNoneBlank(id)) {
-			accountInBoundRepository.updateState(id);
+			AccountInBound inBound = accountInBoundRepository.findByIdAndRemoved(id,Boolean.FALSE);
+			if(inBound != null) {
+				accountInBoundRepository.updateState(id);
+				Account account = inBound.getAccount();
+				account.setFreezingAmount(account.getFreezingAmount() - inBound.getAmount());
+				account.setAvailableAmount(account.getAvailableAmount() + inBound.getAmount());
+				accountRepository.saveAndFlush(account);
+			}
 		}
 		
 	}
