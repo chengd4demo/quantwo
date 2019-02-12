@@ -112,7 +112,7 @@ public class SweepCodeReportServiceImpl implements SweepCodeReportService {
 	}
 	
 	private static Date convertStrToDate(String dateStr) throws ParseException {  
-	    return new SimpleDateFormat("yyyy-MM-DD").parse(dateStr);  
+	    return new SimpleDateFormat("yyyy-MM-dd").parse(dateStr);  
 	}
 
 	@SuppressWarnings({ "static-access", "unchecked" })
