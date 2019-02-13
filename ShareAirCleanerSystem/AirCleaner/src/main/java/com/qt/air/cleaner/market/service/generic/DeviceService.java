@@ -1,5 +1,7 @@
 package com.qt.air.cleaner.market.service.generic;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
@@ -49,4 +51,12 @@ public interface DeviceService {
 	 * @return
 	 */
 	public int batchImport(String deviceBatchId,String name, MultipartFile file);
+	
+	/**
+	 * 根据商户查询设备信息
+	 * 
+	 * @param traderId
+	 * @return
+	 */
+	public List<Device> findByTraderId(String traderId);
 }

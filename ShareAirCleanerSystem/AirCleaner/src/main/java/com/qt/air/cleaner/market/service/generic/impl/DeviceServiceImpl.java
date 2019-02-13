@@ -21,6 +21,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -298,5 +300,23 @@ public class DeviceServiceImpl implements DeviceService{
 			result.clear();
 		}
 		return true;
+	}
+
+	/**
+	 * 根据商户查询设备信息
+	 * 
+	 * @param traderId
+	 * @return
+	 */
+	@Override
+	public List<Device> findByTraderId(String traderId) {
+		Trader trader = new Trader();
+		trader.setId(traderId);
+		Device device = new Device();
+		device.setTrader(trader);
+		device.setRemoved(false);
+		ExampleMatcher matcher  = ExampleMatcher.matching();
+		Example<Device> ex = Example.of(device, matcher); 
+		return deviceRepository.findAll(ex);
 	}
 }
