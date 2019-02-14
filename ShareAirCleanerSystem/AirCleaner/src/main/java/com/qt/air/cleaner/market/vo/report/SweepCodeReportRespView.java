@@ -9,6 +9,8 @@ public class SweepCodeReportRespView implements Serializable {
 	private String[] devices;
 	private String[] dates;
 	private JSONArray series;
+	private Long total = 0L;
+	private Float rate = 0.00f;
 	public String[] getDevices() {
 		return devices;
 	}
@@ -27,6 +29,17 @@ public class SweepCodeReportRespView implements Serializable {
 	public void setSeries(JSONArray series) {
 		this.series = series;
 	}
-	
+	public Long getTotal() {
+		return total;
+	}
+	public void setTotal(Long total) {
+		this.total = total;
+	}
+	public Float getRate() {
+		return rate;
+	}
+	public void setRate(Float rate) {
+		this.rate = rate;
+	}
 	
 }

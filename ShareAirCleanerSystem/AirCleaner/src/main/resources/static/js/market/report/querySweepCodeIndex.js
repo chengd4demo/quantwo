@@ -1,6 +1,6 @@
 //扫码统计
 var pageCurr;
-layui.use(['form', 'layer', 'vip_table', 'laydate' ],function() {
+layui.use(['form', 'layer', 'laydate' ],function() {
 	var table = layui.table, form = layui.form, layer = layui.layer, vipTable = layui.vip_table, laydate = layui.laydate, $ = layui.jquery;
 	laydate.render({
 		elem : '#date1',
@@ -12,9 +12,9 @@ layui.use(['form', 'layer', 'vip_table', 'laydate' ],function() {
 		var type = data.value
 		$('#timeStartDom').empty();
 		$('#timeEndDom').empty();
-		var timeStartDom = '<div class="layui-form-item"><label class="layui-form-label" style="word-break: keep-all;">开始时间:</label><div class="layui-input-block"><input type="text" id="date1" class="layui-input" name="timeStart" lay-verify="required" placeholder="请选择时间"></div></div>';
+		var timeStartDom = '<div class="layui-form-item"><label class="layui-form-label" style="word-break: keep-all;">开始时间:</label><div class="layui-input-block"><input type="text" id="date1" class="layui-input" name="startTime" lay-verify="required" placeholder="请选择时间"></div></div>';
 		$('#timeStartDom').append(timeStartDom);
-		var timeEndDom = '<div class="layui-form-item"><label class="layui-form-label" style="word-break: keep-all;">结束时间:</label><div class="layui-input-block"><input type="text" id="date2" class="layui-input" name="timeEnd" lay-verify="required" placeholder="请选择时间"></div></div>';
+		var timeEndDom = '<div class="layui-form-item"><label class="layui-form-label" style="word-break: keep-all;">结束时间:</label><div class="layui-input-block"><input type="text" id="date2" class="layui-input" name="endTime" lay-verify="required" placeholder="请选择时间"></div></div>';
 		$('#timeEndDom').append(timeEndDom)
 		form.render(); 
 		if ("day" == data.value){
@@ -58,10 +58,7 @@ layui.use(['form', 'layer', 'vip_table', 'laydate' ],function() {
 	})
 	//监听搜索框
 	form.on('submit(searchSubmit)', function(data) {
-		//重新加载table
-		console.log(data);
-		console.log(document.getElementById('date1').value)
-		console.log(document.getElementById('date2').value)
+		//重新加载
 		var data1 = document.getElementById('date1').value
 		var date2 = document.getElementById('date2').value
 		var traderId = document.getElementById('traderId')
@@ -71,13 +68,38 @@ layui.use(['form', 'layer', 'vip_table', 'laydate' ],function() {
 		index = type.selectedIndex
 		type = type.options[index].value
 		if(count(data1,date2,traderId,type)){
-			load(data);
-			document.getElementById('lableSweeptId').style.display='block';
+			JSON.stringify(data.field)
+			getData(data.field)
 		}
 		return false;
 	});
 
 });
+
+/**
+ * 获取展示数据
+ * @param req
+ * @returns
+ */
+function getData(req) {
+	 $.ajax({
+		 type:"POST",
+		 async:false,
+		 url:"../../../market/report/sweepcode/query", 
+		 contentType: 'application/json',
+		 data : JSON.stringify(req),
+		 success:function(data){
+			 if (data) {
+				 load(data);
+				 document.getElementById('lableSweeptId').style.display='block';
+			 }
+		 },
+		 error: function(errorMsg){
+			 document.getElementById('lableSweeptId').style.display='none';
+			 alert("图表请求数据失败!");
+		 }
+	 });
+}
 
 /**
  * 计算两个日期相差月份
@@ -152,7 +174,7 @@ function count(timeStart,timeEnd,triderId,type){
     if(date1 > date2){
     	alert('开始时间不能大于结束时间');
     	return false
-    } else if (date>7 && (type=='day' || type.length==0)){
+    }  else if (date>7 && (type=='day' || type.length==0)){
     	alert('选择日期按【天】,时间范围不能大于7天');
     	return false
     } else if(date>7 && (type=='month' ||  type.length==0)){
@@ -170,6 +192,14 @@ function count(timeStart,timeEnd,triderId,type){
 }
 function load(obj) {
 	var myChart = echarts.init(document.getElementById('chartmain'));
+	$('#lableSweeptId').empty();
+	var deviceTotal = obj.devices.length
+	var total = obj.total
+	var rate = parseInt(obj.rate)
+	var lableSweeptDom = '<div style="float: left;">商家设备数量：' + deviceTotal +
+		'</div><div style="float: left; margin-left:10px;" >设备扫码次数：'+total +
+		'</div> <div style="float: left;margin-left:10px;">设备扫码率：'+rate+'%</div>';
+	$('#lableSweeptId').append(lableSweeptDom)
 	//扫码量
 	var option = {
 		title : {
@@ -187,14 +217,14 @@ function load(obj) {
 			trigger : 'axis'
 		},
 		legend : {
+			type: 'scroll',
 			icon : "line",
 			itemWidth : 9, // 设置宽度
 			itemHeight : 9, // 设置高度
 			itemGap : 10, // 设置间距
 			x : 'center', // 'center' | 'left' | {number},     
 			y : 'bottom', // 'center' | 'bottom' | {number}
-			data : [ 'service01', 'service02', 'service03', 'service04',
-					'service05' ]
+			data : obj.devices
 		},
 		grid : {
 			left : '3%',
@@ -210,8 +240,7 @@ function load(obj) {
 		xAxis : {
 			type : 'category',
 			boundaryGap : false,
-			data : [ '2018-08-01', '2018-08-02', '2018-08-03', '2018-08-04',
-					'2018-08-05', '2018-08-06', '2018-08-07' ]
+			data : obj.dates
 		},
 		yAxis : {
 			type : 'value',
@@ -229,32 +258,7 @@ function load(obj) {
 			}
 
 		},
-		series : [ {
-			name : 'service01',
-			type : 'line',
-			stack : '总量',
-			data : [ 120, 132, 101, 134, 90, 230, 210 ]
-		}, {
-			name : 'service02',
-			type : 'line',
-			stack : '总量',
-			data : [ 220, 182, 191, 234, 290, 330, 310 ]
-		}, {
-			name : 'service03',
-			type : 'line',
-			stack : '总量',
-			data : [ 150, 232, 201, 154, 190, 330, 410 ]
-		}, {
-			name : 'service04',
-			type : 'line',
-			stack : '总量',
-			data : [ 320, 332, 301, 334, 390, 330, 320 ]
-		}, {
-			name : 'service05',
-			type : 'line',
-			stack : '总量',
-			data : [ 820, 932, 901, 934, 1290, 1330, 1320 ]
-		} ]
+		series : obj.series
 	};
 
 	myChart.setOption(option);

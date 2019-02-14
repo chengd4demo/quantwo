@@ -26,9 +26,9 @@
 				<div class="layui-col-md4" style="margin-left:0px;">
 					<div class="layui-form-item">
 						<label class="layui-form-label">日期:</label>
-						<div class="layui-input-block" id="state">
+						<div class="layui-input-block">
 							<div style="height:0px;width:0px;overflow:hidden">
-								<input name="state">
+								<input name="type">
 							</div>
 							<div class="layui-input-inline" style="width:100%" ;> 
 								<select id="type" name="type" lay-verify="required"  lay-filter="type">  
@@ -48,7 +48,7 @@
 				<div class="layui-form-item">
 					<label class="layui-form-label" style="word-break: keep-all;">开始时间:</label>
 					<div class="layui-input-block">
-						<input type="text" id="date1" class="layui-input" name="timeStart" lay-verify="required" placeholder="请选择时间">
+						<input type="text" id="date1" class="layui-input" name="startTime" lay-verify="required" placeholder="请选择时间">
 					</div>
 				</div>
 			</div>
@@ -57,7 +57,7 @@
 				<div class="layui-form-item">
 					<label class="layui-form-label" style="word-break: keep-all;">结束时间:</label>
 					<div class="layui-input-block">
-						<input type="text" id="date2" class="layui-input" name="timeEnd" lay-verify="required"  placeholder="请选择时间">
+						<input type="text" id="date2" class="layui-input" name="endTime" lay-verify="required"  placeholder="请选择时间">
 					</div>
 				</div>
 			</div>
@@ -97,6 +97,7 @@
 </div>
 <script type="text/javascript" src="../../../frame/layui/layui.js"></script>
 <script type="text/javascript" src="../../../js/index.js"></script>
+<script type="text/javascript" src="../../../js/jquery-3.2.1.js"></script>
 <script type="text/javascript" src="../../../js/echarts.min.js"></script>
 <script type="text/javascript" src="../../../js/market/report/querySweepCodeIndex.js"></script>
 </body>
