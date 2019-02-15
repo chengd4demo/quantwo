@@ -1,5 +1,6 @@
 package com.qt.air.cleaner.market.service.report.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -81,14 +82,25 @@ public class SweepCodeReportServiceImpl implements SweepCodeReportService {
 			Calendar cal = Calendar.getInstance();
 			endTime += "-" +cal.getActualMaximum(Calendar.DAY_OF_MONTH) + " 23:59:59";
 			result.put("endTime", endTime);
-		} else if(StringUtils.equals("day", type)){
+		} else if(StringUtils.equals("day", type) || StringUtils.equals("week", type)){
+			result.put("startTime", startTime + " 00:00:00");
+			result.put("endTime", endTime + " 23:59:59");
+		} else {
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+			Calendar cal = Calendar.getInstance();
+			cal.clear();
+			cal.set(Calendar.YEAR, Integer.parseInt(startTime));
+			startTime = df.format(cal.getTime()) + " 00:00:00";
+			cal.clear();
+			cal.set(Calendar.YEAR, Integer.parseInt(endTime));
+			cal.roll(Calendar.DAY_OF_YEAR, -1);
+			endTime = df.format(cal.getTime()) + " 23:59:59";
 			result.put("startTime", startTime);
 			result.put("endTime", endTime);
 		}
 		return result;
 	}
-
-
+	
 	/**
 	 * 根据日期分类构建SQL查询语句
 	 * 
@@ -124,8 +136,10 @@ public class SweepCodeReportServiceImpl implements SweepCodeReportService {
 			if (StringUtils.isNotBlank(traderId)) {
 				sql.append("and t.trader_id = :traderId ");
 			}
-			sql.append("and (t.sweep_code_time between to_date(:startTime, 'yyyy/mm/dd hh24:mi:ss')  and  to_date(:endTime, 'yyyy/mm/dd hh24:mi:ss')) ");
-			sql.append("group by to_char(next_day(t.sweep_code_time + 15 / 24 - 7, 2),t.mach_no order by to_char(next_day(t.sweep_code_time + 15 / 24 - 7, 2),t.mach_no )a)");
+			if (StringUtils.isNotBlank(startTime) && StringUtils.isNotEmpty(endTime)) {
+				sql.append("and (t.sweep_code_time between to_date(:startTime, 'yyyy/mm/dd hh24:mi:ss')  and  to_date(:endTime, 'yyyy/mm/dd hh24:mi:ss')) ");
+			}
+			sql.append("group by to_char(next_day(t.sweep_code_time + 15 / 24 - 7, 2), 'YYYY-MM-DD'),t.mach_no order by to_char(next_day(t.sweep_code_time + 15 / 24 - 7, 2), 'YYYY-MM-DD'),t.mach_no )a)");
 			if (isPage) {
 				sql.append("where rn >=:start and rn <= :end");
 			}
@@ -145,7 +159,7 @@ public class SweepCodeReportServiceImpl implements SweepCodeReportService {
 		} else if (StringUtils.equals("year", type)) {
 			sql.append("select dates, total, machno from ( ");
 			sql.append("select rownum as rn, a.dates, a.total, a.machno from( ");
-			sql.append("select to_char(t.sweep_code_time, 'YYYY') as dates as dates,sum(t.total) as total, t.mach_no as machno from REP_SWEEP_CODE t ");
+			sql.append("select to_char(t.sweep_code_time, 'YYYY') as dates,sum(t.total) as total, t.mach_no as machno from REP_SWEEP_CODE t ");
 			sql.append("where t.removed = 'N' ");
 			if (StringUtils.isNotBlank(traderId)) {
 				sql.append("and t.trader_id = :traderId ");

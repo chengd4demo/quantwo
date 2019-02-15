@@ -64,6 +64,7 @@ public class ApplyReportServiceImpl implements ApplyReportService {
 		}
 		query.setResultTransformer(Transformers.aliasToBean(ApplyReportView.class));
 		List<ApplyReportView> result = query.list();
+		em.close();
 		return result;
 	}
 	

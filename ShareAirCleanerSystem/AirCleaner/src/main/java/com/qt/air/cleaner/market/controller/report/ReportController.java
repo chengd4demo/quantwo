@@ -98,7 +98,7 @@ public class ReportController {
 				jsonObject.put("name", device);
 				jsonObject.put("type", "line");
 				jsonObject.put("stack", "总量");
-				totals = getSweepCodeSeriesTotal(device,sweepCodeList,result.getDates());
+				totals = getSweepCodeSeriesTotal(device,sweepCodeList,result.getDates(),type);
 				jsonObject.put("data", totals);
 				jsonArray.add(jsonObject);
 			}
@@ -186,13 +186,19 @@ public class ReportController {
 	 * @param device
 	 * @param sweepCodeList
 	 * @param dates
+	 * @param type
 	 * @return
+	 * @throws ParseException 
 	 */
-	private Long[] getSweepCodeSeriesTotal(String device,List<SweepCodeReportView> sweepCodeList,String[] dates) {
+	private Long[] getSweepCodeSeriesTotal(String device,List<SweepCodeReportView> sweepCodeList,String[] dates,String type) throws ParseException {
 		List<Long> totals = new ArrayList<Long>();
 		String seriesTotalStr = null;
 		for (String d : dates) {
-			seriesTotalStr = getSeriesTotal(device, d, sweepCodeList);
+			if(StringUtils.equals("week", type)) {
+				seriesTotalStr = getSeriesTotal(device, d, sweepCodeList, true);
+			} else {
+				seriesTotalStr = getSeriesTotal(device, d, sweepCodeList);
+			}
 			totals.add(Long.parseLong(seriesTotalStr.split(",")[1]));
 		}
 		return totals.toArray(new Long[totals.size()]);
@@ -212,6 +218,37 @@ public class ReportController {
 		for (int i=0; i<sweepCodeList.size();i++) {
 			sweepCode = sweepCodeList.get(i);
 			if (StringUtils.equals(date, sweepCode.getDates()) && StringUtils.equals(device, sweepCode.getMachno())) {
+				result = device + "," + sweepCode.getTotal();
+				break;
+			} 
+		}
+		if (StringUtils.isEmpty(result)) {
+			result = device + "," + 0L;
+		}
+		return result;
+	}
+	
+	/**
+	 * 构造每个series数据(周统计时需要特殊处理 date+1)
+	 * 
+	 * @param device
+	 * @param date
+	 * @param sweepCodeList
+	 * @return
+	 * @throws ParseException 
+	 */
+	private String getSeriesTotal(String device, String date, List<SweepCodeReportView> sweepCodeList, boolean isweek) throws ParseException {
+		SweepCodeReportView sweepCode;
+		String result = "";
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal = Calendar.getInstance();
+		String sweepDateStr = null;
+		for (int i=0; i<sweepCodeList.size();i++) {
+			sweepCode = sweepCodeList.get(i);
+			sweepDateStr= sweepCode.getDates();
+			cal.setTime(df.parse(sweepDateStr));
+			cal.add(Calendar.DATE, 1);
+			if (StringUtils.equals(date, df.format(cal.getTime())) && StringUtils.equals(device, sweepCode.getMachno())) {
 				result = device + "," + sweepCode.getTotal();
 				break;
 			} 
