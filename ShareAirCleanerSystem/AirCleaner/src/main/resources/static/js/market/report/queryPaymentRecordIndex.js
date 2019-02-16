@@ -246,9 +246,7 @@ function load(obj) {
 	            fontWeight:'bolder',
 	            fontFamily:'serif',
 	            fontSize:20
-	           
 	         },
-	         text:'支付金额',
 	          x: 'center', 
 	    },
 	    legend: {
