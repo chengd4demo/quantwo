@@ -13,4 +13,6 @@ public interface SweepCodeReportService {
 	 * @return
 	 */
 	public List<SweepCodeReportView> findAllApplyReport(Map<String,Object> params);
+
+	public Map<String, String> convertDateFormat(String startTime, String endTime, String type);
 }

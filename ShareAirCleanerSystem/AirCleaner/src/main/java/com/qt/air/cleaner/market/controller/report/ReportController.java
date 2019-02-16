@@ -22,7 +22,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.qt.air.cleaner.market.domain.generic.Device;
 import com.qt.air.cleaner.market.service.generic.DeviceService;
 import com.qt.air.cleaner.market.service.generic.TraderService;
+import com.qt.air.cleaner.market.service.report.PaymentRecordReportService;
 import com.qt.air.cleaner.market.service.report.SweepCodeReportService;
+import com.qt.air.cleaner.market.vo.report.PaymentRecordRespView;
+import com.qt.air.cleaner.market.vo.report.PaymentRecordView;
 import com.qt.air.cleaner.market.vo.report.SweepCodeReportRespView;
 import com.qt.air.cleaner.market.vo.report.SweepCodeReportView;
 
@@ -42,6 +45,8 @@ public class ReportController {
 	DeviceService deviceService;
 	@Autowired
 	SweepCodeReportService sweepCodeReportService;
+	@Autowired
+	PaymentRecordReportService paymentRecordReportService;
 	
 	/**
 	 * 扫码统计页面入口
@@ -54,6 +59,76 @@ public class ReportController {
 		return SWEEP_CODE_REPORT_INDEX;
 	}
 	
+	/**
+	 * 支付统计
+	 * 
+	 * @param params
+	 * @return
+	 * @throws ParseException
+	 */
+	@RequestMapping("/payment/query")
+	@ResponseBody
+	public PaymentRecordRespView queryPaymentRecordReport(@RequestBody Map<String,Object> params) throws ParseException{
+		String traderId = params.get("traderId").toString();
+		PaymentRecordRespView result = new PaymentRecordRespView();
+		List<Device> deviceList = deviceService.findByTraderId(traderId);
+		//商家下面没有设备不进行报表展示
+		if (CollectionUtils.isEmpty(deviceList)) {
+			return result;
+		} 
+		String[] devices = new String[deviceList.size()];
+		for(int i=0;i<deviceList.size();i++) {
+			devices[i] = deviceList.get(i).getMachNo();
+		}
+		result.setDevices(devices);
+		//X轴日期刻度处理
+		String startTime = String.valueOf(params.get("startTime"));
+		String endTime = String.valueOf(params.get("endTime"));
+		String type = params.get("type").toString();
+		SimpleDateFormat df = null;
+		String format = null;
+		if(StringUtils.isNotBlank(startTime) 
+				&& StringUtils.isNotBlank(endTime)) {
+			if (StringUtils.equals("day", type) || StringUtils.equals("week", type)) {
+				format = "yyyy-MM-dd";
+			} else if (StringUtils.equals("month", type)) {
+				format = "yyyy-MM";
+			} else if (StringUtils.equals("year", type)) {
+				format = "yyyy";
+			}
+			df = new SimpleDateFormat(format);
+			List<String> dateList = this.getDatesBetweenTwoDate(df.parse(startTime), df.parse(endTime),df,type);
+			result.setDates(dateList.toArray(new String[dateList.size()]));
+		}
+		//Y轴
+		List<PaymentRecordView>  paymentRecordList = paymentRecordReportService.findAllPaymentRecordReport(params);
+		JSONArray jsonArray = new JSONArray();
+		if (!CollectionUtils.isEmpty(paymentRecordList)) {
+			JSONObject jsonObject = new JSONObject();
+			Float[] totals = null;
+			for (String device : devices) {
+				jsonObject.put("name", device);
+				jsonObject.put("type", "bar");
+				jsonObject.put("barWidth", 25);
+				jsonObject.put("stack", "支付统计");
+				totals = getPaymentRecordSeriesTotal(device,paymentRecordList,result.getDates(),type);
+				jsonObject.put("data", totals);
+				jsonArray.add(jsonObject);
+			}
+			result.setSeries(jsonArray);
+		}
+		return result;
+	}
+	
+	
+	
+
+	/**
+	 * 扫码统计查询
+	 * @param params
+	 * @return
+	 * @throws ParseException
+	 */
 	@RequestMapping("/sweepcode/query")
 	@ResponseBody
 	public SweepCodeReportRespView querySweepCodeReport(@RequestBody Map<String,Object> params) throws ParseException{
@@ -125,11 +200,6 @@ public class ReportController {
 		return sweepCodeRate;
 	}
 	
-	public static void main(String[] args) {
-		
-	
-		System.out.println(getIntervalDay("1988-01-01", "1988-01-01", "yyyy-MM-dd"));
-	}
 	/**
 	 * 两日期相差天数计算
 	 * 
@@ -181,7 +251,7 @@ public class ReportController {
 	}
 
 	/**
-	 * 构造series数据
+	 * 构造扫码统计series数据
 	 * 
 	 * @param device
 	 * @param sweepCodeList
@@ -202,6 +272,69 @@ public class ReportController {
 			totals.add(Long.parseLong(seriesTotalStr.split(",")[1]));
 		}
 		return totals.toArray(new Long[totals.size()]);
+	}
+	
+	/**
+	 * 构造支付统计series数据
+	 * @param device
+	 * @param paymentRecordList
+	 * @param dates
+	 * @param type
+	 * @return
+	 * @throws ParseException 
+	 */
+	private Float[] getPaymentRecordSeriesTotal(String device, List<PaymentRecordView> paymentRecordList, String[] dates,
+			String type) throws ParseException {
+		List<Float> totals = new ArrayList<Float>();
+		String seriesTotalStr = null;
+		for (String d : dates) {
+			if(StringUtils.equals("week", type)) {
+				seriesTotalStr = getPaymentRecordSeriesTotals(device, d, paymentRecordList, true);
+			} else {
+				seriesTotalStr = getPaymentRecordSeriesTotals(device, d, paymentRecordList);
+			}
+			totals.add(Float.parseFloat(seriesTotalStr.split(",")[1]));
+		}
+		return totals.toArray(new Float[totals.size()]);
+	}
+
+	private String getPaymentRecordSeriesTotals(String device, String date, List<PaymentRecordView> paymentRecordList) {
+		PaymentRecordView paymentRecord;
+		String result = "";
+		for (int i=0; i<paymentRecordList.size();i++) {
+			paymentRecord = paymentRecordList.get(i);
+			if (StringUtils.equals(date, paymentRecord.getDates()) && StringUtils.equals(device, paymentRecord.getMachno())) {
+				result = device + "," + paymentRecord.getTotal();
+				break;
+			} 
+		}
+		if (StringUtils.isEmpty(result)) {
+			result = device + "," + 0L;
+		}
+		return result;
+	}
+
+	private String getPaymentRecordSeriesTotals(String device, String date, List<PaymentRecordView> paymentRecordList,
+			boolean b) throws ParseException {
+		PaymentRecordView paymentRecord;
+		String result = "";
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal = Calendar.getInstance();
+		String paymentRecordDateStr = null;
+		for (int i=0; i<paymentRecordList.size();i++) {
+			paymentRecord = paymentRecordList.get(i);
+			paymentRecordDateStr= paymentRecord.getDates();
+			cal.setTime(df.parse(paymentRecordDateStr));
+			cal.add(Calendar.DATE, 1);
+			if (StringUtils.equals(date, df.format(cal.getTime())) && StringUtils.equals(device, paymentRecord.getMachno())) {
+				result = device + "," + paymentRecord.getTotal();
+				break;
+			} 
+		}
+		if (StringUtils.isEmpty(result)) {
+			result = device + "," + 0L;
+		}
+		return result;
 	}
 
 	/**
