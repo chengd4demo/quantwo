@@ -68,7 +68,6 @@ layui.use(['form', 'layer', 'vip_table', 'laydate' ],function() {
 		index = type.selectedIndex
 		type = type.options[index].value
 		if(count(data1,date2,traderId,type)){
-			console.log(JSON.stringify(data.field))
 			getData(data.field)
 		}
 		return false;

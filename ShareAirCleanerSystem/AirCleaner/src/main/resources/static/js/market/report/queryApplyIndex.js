@@ -12,9 +12,9 @@ layui.use(['form', 'layer', 'vip_table', 'laydate' ],function() {
 		var type = data.value
 		$('#timeStartDom').empty();
 		$('#timeEndDom').empty();
-		var timeStartDom = '<div class="layui-form-item"><label class="layui-form-label" style="word-break: keep-all;">开始时间:</label><div class="layui-input-block"><input type="text" id="date1" class="layui-input" name="timeStart" lay-verify="required" placeholder="请选择时间"></div></div>';
+		var timeStartDom = '<div class="layui-form-item"><label class="layui-form-label" style="word-break: keep-all;">开始时间:</label><div class="layui-input-block"><input type="text" id="date1" class="layui-input" name="startTime" lay-verify="required" placeholder="请选择时间"></div></div>';
 		$('#timeStartDom').append(timeStartDom);
-		var timeEndDom = '<div class="layui-form-item"><label class="layui-form-label" style="word-break: keep-all;">结束时间:</label><div class="layui-input-block"><input type="text" id="date2" class="layui-input" name="timeEnd" lay-verify="required" placeholder="请选择时间"></div></div>';
+		var timeEndDom = '<div class="layui-form-item"><label class="layui-form-label" style="word-break: keep-all;">结束时间:</label><div class="layui-input-block"><input type="text" id="date2" class="layui-input" name="endTime" lay-verify="required" placeholder="请选择时间"></div></div>';
 		$('#timeEndDom').append(timeEndDom)
 		form.render(); 
 		if ("day" == data.value){
@@ -59,9 +59,6 @@ layui.use(['form', 'layer', 'vip_table', 'laydate' ],function() {
 	//监听搜索框
 	form.on('submit(searchSubmit)', function(data) {
 		//重新加载table
-		console.log(data);
-		console.log(document.getElementById('date1').value)
-		console.log(document.getElementById('date2').value)
 		var data1 = document.getElementById('date1').value
 		var date2 = document.getElementById('date2').value
 		var traderId = document.getElementById('traderId')
@@ -71,13 +68,35 @@ layui.use(['form', 'layer', 'vip_table', 'laydate' ],function() {
 		index = type.selectedIndex
 		type = type.options[index].value
 		if(count(data1,date2,traderId,type)){
-			load(data);
-			document.getElementById('lableApplyId');
+			getData(data.field)
 		}
 		return false;
 	});
 
 });
+
+/**
+ * 获取展示数据
+ * @param req
+ * @returns
+ */
+function getData(req) {
+	 $.ajax({
+		 type:"POST",
+		 async:false,
+		 url:"../../../market/report/applay/query", 
+		 contentType: 'application/json',
+		 data : JSON.stringify(req),
+		 success:function(data){
+			 if (data) {
+				 load(data);
+			 }
+		 },
+		 error: function(errorMsg){
+			 alert("图表请求数据失败!");
+		 }
+	 });
+}
 
 /**
  * 计算两个日期相差月份
@@ -170,72 +189,103 @@ function count(timeStart,timeEnd,triderId,type){
 }
 
 function load(obj) {
+
 //使用次数
 var myChartBar = echarts.init(document.getElementById('frequency'));
-var optionBar = {
-   title:{
-        text: '使用次数',
-         textStyle:{
-            fontWeight:'normal',
-            fontFamily:'serif',
-            fontSize:20
-         },
-           x: 'center',
-   },
-    legend: {
-    	type: 'scroll',
-        icon: "rect",
-        itemWidth: 9,  // 设置宽度
-        itemHeight: 9, // 设置高度
-        itemGap: 10, // 设置间距
-        x: 'center', // 'center' | 'left' | {number},     
-        y: 'bottom', // 'center' | 'bottom' | {number}
-    },
-    tooltip: {
-      trigger: 'axis',
-    },
-    dataset: {
-        source: [
-            ['product', 'service1', 'service2', 'service3'],
-            ['10-1', 43.3, 85.8, 93.7],
-            ['10-2', 83.1, 73.4, 55.1],
-            ['10-3', 86.4, 65.2, 82.5],
-            ['10-4', 72.4, 53.9, 39.1],
-            ['10-5', 72.4, 53.9, 39.1],
-            ['10-6', 72.4, 53.9, 39.1],
-            ['10-7', 72.4, 53.9, 39.1]
-        ]
-    },
-    xAxis: {
-        axisLine: {show:false},
-        axisTick: {show:false},
-        splitLine: {
-            show: true,
-            lineStyle:{
-                type:'dashed'
-            }
-        }
-    },
-    yAxis: {
-        type: 'category',
-        axisLine:{
-            lineStyle:{
-                color:'rgba(191, 191, 191, 191)'
-            }
-        },
-        axisLabel:{
-            color:'rgba(84, 84, 84)'
-        }
-    },
-    series: [
-        {type: 'bar',barWidth:7},
-        {type: 'bar',barWidth:7},
-        {type: 'bar',barWidth:7}
-    ]
-  };
-myChartBar.setOption(optionBar);
 //使用率 
 var myChartPie = echarts.init(document.getElementById('utilizationRate'));
+if(obj.respBar == null) {
+	myChartBar.clear();
+	myChartPie.clear();
+	alert('无相关数据')
+	return
+}
+var optionBar = {
+	    title:{
+	        text: '使用次数',
+	         textStyle:{
+	            fontWeight:'normal',
+	            fontFamily:'serif',
+	            fontSize:20
+	         },
+	           x: 'center',
+	    },
+	    legend: {
+	    	type: 'scroll',
+	        icon: "rect",
+	        itemWidth: 9,  // 设置宽度
+	        itemHeight: 9, // 设置高度
+	        itemGap: 10, // 设置间距
+	        x: 'center', // 'center' | 'left' | {number},     
+	        y: 'bottom', // 'center' | 'bottom' | {number}
+	    },
+		color: ['RGB(179,231,167)'],
+	    tooltip : {
+	        trigger: 'axis',
+	        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+	            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+	        }
+	    },
+	    grid: {
+	        left: '3%',
+	        right: '4%',
+	        bottom: '10%',
+	        containLabel: true
+	    },
+	    xAxis : [
+	        {
+	            type : 'category',
+	            data : obj.respBar.date,
+	            axisLabel:{
+	            	 formatter:function(value) {
+	 	            	return value.substr(5)
+	 	            }
+	            },
+	            axisTick: {
+	                alignWithLabel: true
+	            }
+	        }
+	    ],
+	    yAxis : [
+	        {
+	            type : 'value'
+	        }
+	    ],
+	    series : [
+	        {
+	            name:'使用次数',
+	            type:'bar',
+	            barWidth: '25',
+	            data:obj.respBar.series_data,
+		        itemStyle: {
+					normal: {
+						label: {
+							show: true, //开启显示
+							position: 'top', //在上方显示
+							textStyle: { //数值样式
+								color: 'RGB(145,199,174)',
+								fontSize: 12
+							}
+						}
+					}
+				}
+	        }
+	    ]
+	};
+myChartBar.setOption(optionBar);
+function getSeries(devices) {
+	var serie = {type: 'bar',barWidth:7}
+	var seriesArray = null;
+	if(devices == null) {
+		return new Array(0);
+	} else {
+		seriesArray = new Array(devices.length);
+	}
+	for(var i in devices) {
+		seriesArray.push(serie)
+	}
+	return seriesArray;
+}
 var optionPie = {
     title : {
         text: '使用率',
@@ -258,7 +308,7 @@ var optionPie = {
         itemGap: 10, // 设置间距
         x: 'center', // 'center' | 'left' | {number},     
         y: 'bottom', // 'center' | 'bottom' | {number}
-        data: ['869300033638580','869300033639364','869300033639570','866289030052379','866289030086393','869300033631726','869300033638424']
+        data: obj.respPie.legend_date
     },
     series : [
           {
@@ -272,15 +322,7 @@ var optionPie = {
                     formatter: '{b}: {d}%'
                 }
             },
-            data:[
-                {value:"400", name:'869300033638580'},
-                {value:335, name:'869300033639364'},
-                {value:310, name:'869300033639570'},
-                {value:234, name:'866289030052379'},
-                {value:135, name:'866289030086393'},
-                {value:1548, name:'869300033631726'},
-                {value:34, name:'869300033638424'}
-            ],
+            data:obj.respPie.series_date,
             itemStyle: {
                 emphasis: {
                     shadowBlur: 10,

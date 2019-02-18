@@ -19,7 +19,7 @@
 <fieldset class="layui-elem-field" style="border-color:rgb(30, 159, 255); margin-top:1em;padding-right:5em;padding-top:1em;">
 	<legend>信息查询</legend>
 	<form class="layui-form" id="searchForm">
-		<input id = "method" type="hidden" name="method" value='audit' />
+		<input id = "method" type="hidden" name="isPage" value='false' />
 		<div style="margin-top:5px;" class="layui-row">
 			<!--日期-->
 			<div  class="layui-form">
@@ -48,7 +48,7 @@
 				<div class="layui-form-item">
 					<label class="layui-form-label" style="word-break: keep-all;">开始时间:</label>
 					<div class="layui-input-block">
-						<input type="text" id="date1" class="layui-input" name="timeStart" lay-verify="required" placeholder="请选择时间">
+						<input type="text" id="date1" class="layui-input" name="startTime" lay-verify="required" placeholder="请选择时间">
 					</div>
 				</div>
 			</div>
@@ -57,7 +57,7 @@
 				<div class="layui-form-item">
 					<label class="layui-form-label" style="word-break: keep-all;">结束时间:</label>
 					<div class="layui-input-block">
-						<input type="text" id="date2" class="layui-input" name="timeEnd" lay-verify="required"  placeholder="请选择时间">
+						<input type="text" id="date2" class="layui-input" name="endTime" lay-verify="required"  placeholder="请选择时间">
 					</div>
 				</div>
 			</div>
@@ -79,7 +79,7 @@
 			<div class="layui-col-md4">
 				<div class="layui-btn-container" style="text-align:center;margin-bottom: 1em;">
 					<div id="lableApplyId" class="layui-inline" style="margin-right: 10px;">
-						<button id="searchBtn" class="layui-btn layui-btn-primary" lay-submit=""   lay-filter="searchSubmit" title="查询">查询</button>
+						<button id="searchBtn" class="layui-btn layui-btn-primary" lay-submit=""  lay-filter="searchSubmit" title="查询">查询</button>
 					</div>
 					<div class="layui-inline">
 						<button class="layui-btn layui-btn-primary" lay-filter="bnt-reset" title="重置">重置</button>									
@@ -100,6 +100,7 @@
  </div>
 <script type="text/javascript" src="../../../frame/layui/layui.js"></script>
 <script type="text/javascript" src="../../../js/index.js"></script>
+<script type="text/javascript" src="../../../js/jquery-3.2.1.js"></script>
 <script type="text/javascript" src="../../../js/echarts.min.js"></script>
 <script type="text/javascript" src="../../../js/market/report/queryApplyIndex.js"></script>
 </body>

@@ -8,6 +8,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.qt.air.cleaner.market.domain.generic.Device;
 import com.qt.air.cleaner.market.service.generic.DeviceService;
 import com.qt.air.cleaner.market.service.generic.TraderService;
+import com.qt.air.cleaner.market.service.report.ApplyReportService;
 import com.qt.air.cleaner.market.service.report.PaymentRecordReportService;
 import com.qt.air.cleaner.market.service.report.SweepCodeReportService;
+import com.qt.air.cleaner.market.vo.report.ApplayRespView;
+import com.qt.air.cleaner.market.vo.report.ApplyReportView;
 import com.qt.air.cleaner.market.vo.report.PaymentRecordRespView;
 import com.qt.air.cleaner.market.vo.report.PaymentRecordView;
 import com.qt.air.cleaner.market.vo.report.SweepCodeReportRespView;
@@ -47,6 +51,8 @@ public class ReportController {
 	SweepCodeReportService sweepCodeReportService;
 	@Autowired
 	PaymentRecordReportService paymentRecordReportService;
+	@Autowired
+	ApplyReportService applyReportService;
 	
 	/**
 	 * 扫码统计页面入口
@@ -59,6 +65,161 @@ public class ReportController {
 		return SWEEP_CODE_REPORT_INDEX;
 	}
 	
+	@RequestMapping(method = RequestMethod.GET, path = "/apply/index")
+	public String applyIndex(Model model) {
+		model.addAttribute("traders", traderService.findAll(false));
+		return APPLY_REPORT_INDEX;
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, path = "/paymentrecord/index")
+	public String paymentRecordIndex(Model model) {
+		model.addAttribute("traders", traderService.findAll(false));
+		return PAYMENT_RECORD_REPORT_INDEX;
+	}
+	
+	@RequestMapping("/applay/query")
+	@ResponseBody
+	public ApplayRespView queryApplay(@RequestBody Map<String,Object> params) throws ParseException {
+		String traderId = params.get("traderId").toString();
+		ApplayRespView result = new ApplayRespView();
+		List<Device> deviceList = deviceService.findByTraderId(traderId);
+		//商家下面没有设备不进行报表展示
+		if (CollectionUtils.isEmpty(deviceList)) {
+			return result;
+		} 
+		String[] devices = new String[deviceList.size()];
+		for(int i=0;i<deviceList.size();i++) {
+			devices[i] = deviceList.get(i).getMachNo();
+		}
+		//时间范围处理
+		String startTime = String.valueOf(params.get("startTime"));
+		String endTime = String.valueOf(params.get("endTime"));
+		String type = params.get("type").toString();
+		SimpleDateFormat df = null;
+		String format = null;
+		List<String> dateList = null;
+		if(StringUtils.isNotBlank(startTime) 
+				&& StringUtils.isNotBlank(endTime)) {
+			if (StringUtils.equals("day", type) || StringUtils.equals("week", type)) {
+				format = "yyyy-MM-dd";
+			} else if (StringUtils.equals("month", type)) {
+				format = "yyyy-MM";
+			} else if (StringUtils.equals("year", type)) {
+				format = "yyyy";
+			}
+			df = new SimpleDateFormat(format);
+			dateList = this.getDatesBetweenTwoDate(df.parse(startTime), df.parse(endTime),df,type);
+		}
+		List<ApplyReportView> applayList = applyReportService.findAllApplyReport(params);
+		if (!CollectionUtils.isEmpty(applayList)) {
+			//柱状图显示处理逻辑
+			result.setRespBar(getBarView(dateList,applayList));
+			//拼图数据处理
+			result.setRespPie(getPieDatasView(dateList,applayList));
+		} else {
+			return new ApplayRespView();
+		}
+		return result;
+	}
+	
+	/**
+	 * 设备使用统计饼图数据处理
+	 * @param dateList 
+	 * @param applayList
+	 * @return
+	 */
+	private JSONObject getPieDatasView(List<String> dateList, List<ApplyReportView> applayList) {
+		JSONObject result = new JSONObject();
+		if (!CollectionUtils.isEmpty(dateList) && !CollectionUtils.isEmpty(applayList)) {
+			result.put("legend_date", dateList);
+			String dateStr = null;
+			JSONObject contentObj = new JSONObject();
+			JSONArray contentArray = new JSONArray();
+			for(int i=0;i<dateList.size();i++) {
+				dateStr = dateList.get(i);
+				contentObj.put("value", getPieContents(dateStr,applayList));
+				contentObj.put("name", dateStr);
+				contentArray.add(contentObj);
+			}
+			result.put("series_date", contentArray);
+		}
+		return result;
+	}
+
+	private Long getPieContents(String dateStr, List<ApplyReportView> applayList) {
+		Long total = 0L;
+		for(ApplyReportView applyReport : applayList) {
+			if(applyReport != null) {
+				if (StringUtils.equals(dateStr, applyReport.getDates())) {
+					total = applyReport.getTotal();
+					break;
+				}
+			}
+		}
+		return total;
+	}
+
+	/**
+	 * 设备使用统计柱形图数据处理
+	 * 
+	 * @param dateList
+	 * @param applayList
+	 * @return
+	 */
+	private JSONObject getBarView(List<String> dateList, List<ApplyReportView> applayList) {
+		JSONObject result = new JSONObject();
+		if (!CollectionUtils.isEmpty(dateList) && !CollectionUtils.isEmpty(applayList)) {
+			result.put("date", dateList);
+			String dateStr = null;
+			Long[] series = new Long[dateList.size()];
+			for(int i=0;i<dateList.size();i++) {
+				dateStr = dateList.get(i);
+				series[i] = getContents(dateStr,applayList);
+			}
+			result.put("series_data", series);
+		}
+		
+		return result;
+	}
+
+	
+	
+	/**
+	 * 柱形图数据处理
+	 * 
+	 * @param dateStr
+	 * @param applayList
+	 * @return
+	 */
+	private Long getContents(String dateStr, List<ApplyReportView> applayList) {
+		Long total = 0L;
+		for(ApplyReportView applyReport : applayList) {
+			if(applyReport != null) {
+				if (StringUtils.equals(dateStr, applyReport.getDates())) {
+					total = applyReport.getTotal();
+					break;
+				}
+			}
+		}
+		return total;
+	}
+
+	public static void main(String[] args) {
+		Object[] strArray = new Object[9];
+		Object[] str01Array = new Object[5];
+		Random ra =new Random();
+		for(int i=0;i<strArray.length;i++) {
+			ra =new Random();
+			str01Array[0] = "10-" + (i+1);
+			str01Array[2] = "123";
+			str01Array[1] = ra.nextFloat();
+			str01Array[3] = ra.nextFloat();
+			str01Array[4] = ra.nextFloat();
+			strArray[i] = str01Array;
+		}
+		System.out.println(JSONArray.fromObject(strArray));
+			
+	}
 	/**
 	 * 支付统计
 	 * 
@@ -185,6 +346,38 @@ public class ReportController {
 		
 		return result;
 	}
+	
+	private List<String> getDatesBetweenTwoDate(Date beginDate, Date endDate,SimpleDateFormat df,String type){
+		 List<String> lDate = new ArrayList<String>();  
+	        lDate.add(df.format(beginDate));// 把开始时间加入集合  
+	        Calendar cal = Calendar.getInstance();  
+	        // 使用给定的 Date 设置此 Calendar 的时间  
+	        cal.setTime(beginDate);  
+	        boolean bContinue = true;  
+	        String date = null;
+	        while (bContinue) {  
+	            // 根据日历的规则，为给定的日历字段添加或减去指定的时间量  
+	        	if (StringUtils.equals("day", type)){
+	        		cal.add(Calendar.DAY_OF_MONTH, 1);  
+	        	} else if(StringUtils.equals("week", type)){
+	        		cal.add(Calendar.WEDNESDAY, 1);
+	        	} else if (StringUtils.equals("month", type)) {
+	        		cal.add(Calendar.MONTH, 1); 
+	        	} else if(StringUtils.equals("year", type)) {
+	        		cal.add(Calendar.YEAR, 1);
+	        	}
+	            // 测试此日期是否在指定日期之后  
+	        	date = df.format(cal.getTime());
+	            if (endDate.after(cal.getTime())) {  
+	                lDate.add(date);  
+	            } else {  
+	                break;  
+	            }  
+	        }  
+	        if(endDate.getTime() != beginDate.getTime())
+	        lDate.add(df.format(endDate));// 把结束时间加入集合  
+	        return lDate;  
+	} 
 	
 	private Float getSweepCodeRate(long invervalDay,int deviceTotal, Long total) {
 		BigDecimal invervalDayCimal = new BigDecimal(invervalDay);
@@ -392,49 +585,4 @@ public class ReportController {
 		return result;
 	}
 
-	@RequestMapping(method = RequestMethod.GET, path = "/paymentrecord/index")
-	public String paymentRecordIndex(Model model) {
-		model.addAttribute("traders", traderService.findAll(false));
-		return PAYMENT_RECORD_REPORT_INDEX;
-	}
-	
-	
-	
-	@RequestMapping(method = RequestMethod.GET, path = "/apply/index")
-	public String applyIndex(Model model) {
-		model.addAttribute("traders", traderService.findAll(false));
-		return APPLY_REPORT_INDEX;
-	}
-	
-	private List<String> getDatesBetweenTwoDate(Date beginDate, Date endDate,SimpleDateFormat df,String type){
-		 List<String> lDate = new ArrayList<String>();  
-	        lDate.add(df.format(beginDate));// 把开始时间加入集合  
-	        Calendar cal = Calendar.getInstance();  
-	        // 使用给定的 Date 设置此 Calendar 的时间  
-	        cal.setTime(beginDate);  
-	        boolean bContinue = true;  
-	        String date = null;
-	        while (bContinue) {  
-	            // 根据日历的规则，为给定的日历字段添加或减去指定的时间量  
-	        	if (StringUtils.equals("day", type)){
-	        		cal.add(Calendar.DAY_OF_MONTH, 1);  
-	        	} else if(StringUtils.equals("week", type)){
-	        		cal.add(Calendar.WEDNESDAY, 1);
-	        	} else if (StringUtils.equals("month", type)) {
-	        		cal.add(Calendar.MONTH, 1); 
-	        	} else if(StringUtils.equals("year", type)) {
-	        		cal.add(Calendar.YEAR, 1);
-	        	}
-	            // 测试此日期是否在指定日期之后  
-	        	date = df.format(cal.getTime());
-	            if (endDate.after(cal.getTime())) {  
-	                lDate.add(date);  
-	            } else {  
-	                break;  
-	            }  
-	        }  
-	        if(endDate.getTime() != beginDate.getTime())
-	        lDate.add(df.format(endDate));// 把结束时间加入集合  
-	        return lDate;  
-	} 
 }
