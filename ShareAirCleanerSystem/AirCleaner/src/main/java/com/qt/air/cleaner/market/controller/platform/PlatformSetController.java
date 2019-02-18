@@ -22,7 +22,7 @@ import com.qt.air.cleaner.vo.common.RetResult;
 @RequestMapping("market/platform")
 public class PlatformSetController {
 	private final Logger logger = LoggerFactory.getLogger(PlatformSetController.class);
-	private final String PLATFORM_SHAREPROFIT_EDIT = "view/market/platform/editNewShareProfile";
+	private final String PLATFORM_SHAREPROFIT_EDIT = "view/market/platform/editShareProfile";
 	@Autowired
 	PlatformSetService platformSetService;
 	
