@@ -12,5 +12,7 @@ public interface SweepCodeReportService {
 	 * @param params
 	 * @return
 	 */
-	public List<SweepCodeReportView> findAllApplyReport(Map<String,String> params);
+	public List<SweepCodeReportView> findAllApplyReport(Map<String,Object> params);
+
+	public Map<String, String> convertDateFormat(String startTime, String endTime, String type);
 }

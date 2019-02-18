@@ -73,6 +73,8 @@ public class BillingServiceImpl implements BillingService {
 				}
 				Predicate p5 = cb.equal(root.get("removed"), false);
 				conditions.add(p5);
+				Predicate p6 = cb.isNotNull(root.get("transactionId"));
+				conditions.add(p6);
 				Predicate[] p = new Predicate[conditions.size()];
 				return cb.and(conditions.toArray(p));
 			}

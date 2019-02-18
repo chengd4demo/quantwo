@@ -12,9 +12,9 @@ layui.use(['form', 'layer', 'vip_table', 'laydate' ],function() {
 		var type = data.value
 		$('#timeStartDom').empty();
 		$('#timeEndDom').empty();
-		var timeStartDom = '<div class="layui-form-item"><label class="layui-form-label" style="word-break: keep-all;">开始时间:</label><div class="layui-input-block"><input type="text" id="date1" class="layui-input" name="timeStart" lay-verify="required" placeholder="请选择时间"></div></div>';
+		var timeStartDom = '<div class="layui-form-item"><label class="layui-form-label" style="word-break: keep-all;">开始时间:</label><div class="layui-input-block"><input type="text" id="date1" class="layui-input" name="startTime" lay-verify="required" placeholder="请选择时间"></div></div>';
 		$('#timeStartDom').append(timeStartDom);
-		var timeEndDom = '<div class="layui-form-item"><label class="layui-form-label" style="word-break: keep-all;">结束时间:</label><div class="layui-input-block"><input type="text" id="date2" class="layui-input" name="timeEnd" lay-verify="required" placeholder="请选择时间"></div></div>';
+		var timeEndDom = '<div class="layui-form-item"><label class="layui-form-label" style="word-break: keep-all;">结束时间:</label><div class="layui-input-block"><input type="text" id="date2" class="layui-input" name="endTime" lay-verify="required" placeholder="请选择时间"></div></div>';
 		$('#timeEndDom').append(timeEndDom)
 		form.render(); 
 		if ("day" == data.value){
@@ -58,10 +58,7 @@ layui.use(['form', 'layer', 'vip_table', 'laydate' ],function() {
 	})
 	//监听搜索框
 	form.on('submit(searchSubmit)', function(data) {
-		//重新加载table
-		console.log(data);
-		console.log(document.getElementById('date1').value)
-		console.log(document.getElementById('date2').value)
+		//重新加载
 		var data1 = document.getElementById('date1').value
 		var date2 = document.getElementById('date2').value
 		var traderId = document.getElementById('traderId')
@@ -71,13 +68,38 @@ layui.use(['form', 'layer', 'vip_table', 'laydate' ],function() {
 		index = type.selectedIndex
 		type = type.options[index].value
 		if(count(data1,date2,traderId,type)){
-			load(data);
-			document.getElementById('lablePamentId');
+			console.log(JSON.stringify(data.field))
+			getData(data.field)
 		}
 		return false;
 	});
 
 });
+
+/**
+ * 获取展示数据
+ * @param req
+ * @returns
+ */
+function getData(req) {
+	$.ajax({
+		 type:"POST",
+		 async:false,
+		 url:"../../../market/report/payment/query", 
+		 contentType: 'application/json',
+		 data : JSON.stringify(req),
+		 success:function(data){
+			 console.log(JSON.stringify(data))
+			 if (data) {
+				 load(data);
+			 }
+		 },
+		 error: function(errorMsg){
+			 document.getElementById('lablePamentId').style.display='none';
+			 alert("图表请求数据失败!");
+		 }
+	 });
+}
 
 /**
  * 计算两个日期相差月份
@@ -175,9 +197,9 @@ function load(obj) {
 	    tooltip : {
 	        trigger: 'axis',
 	        //透明层显示超出方法1
-	        position:function(p){
-	        	return [p[0] + 10, p[1] - 350];
-	        },
+//	        position:function(p){
+//	        	return [p[0] + 10, p[1] - 350];
+//	        },
 	        //透明层显示超出方法2
 	        /*position: function (point, params, dom, rect, size) {
 	        	  // 鼠标坐标和提示框位置的参考坐标系是：以外层div的左上角那一点为原点，x轴向右，y轴向下
@@ -224,16 +246,14 @@ function load(obj) {
 	            fontWeight:'bolder',
 	            fontFamily:'serif',
 	            fontSize:20
-	           
 	         },
-	         text:'支付金额',
 	          x: 'center', 
 	    },
 	    legend: {
 	       type: 'scroll',
 	       x: 'center', // 'center' | 'left' | {number},     
 	       y: 'bottom', // 'center' | 'bottom' | {number}
-	       data:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎','百度','谷歌','必应','其他','其他1','其他2','其他3','其他4','其他5','其他6','其他7','其他8','其他9','其他10','其他11']
+	       data:obj.devices
 	    },
 	    grid: {
 	        left: '3%',
@@ -252,7 +272,7 @@ function load(obj) {
 	                color:'rgba(84, 84, 84)'
 	            },
 	            type : 'category',
-	            data : ['周一','周二','周三','周四','周五','周六','周日']
+	            data : obj.dates
 	        }
 	    ],
 	    yAxis : [
@@ -268,136 +288,7 @@ function load(obj) {
 	            type : 'value'
 	        }
 	    ],
-	    series : [
-	        {
-	            name:'直接访问',
-	            type:'bar',
-	             stack: '搜索引擎',
-	            data:[320, 332, 301, 334, 390, 330, 320,320, 332, 301, 334, 390, 330, 320]
-	        },
-	        {
-	            name:'邮件营销',
-	            type:'bar',
-	            stack: '搜索引擎',
-	            data:[120, 132, 101, 134, 90, 230, 210, 332, 301, 334, 390, 330, 320]
-	        },
-	        {
-	            name:'联盟广告',
-	            type:'bar',
-	            stack: '搜索引擎',
-	            data:[220, 182, 191, 234, 290, 330, 310, 332, 301, 334, 390, 330, 320]
-	        },
-	        {
-	            name:'视频广告',
-	            type:'bar',
-	            stack: '搜索引擎',
-	            data:[150, 232, 201, 154, 190, 330, 410, 332, 301, 334, 390, 330, 320]
-	        },
-	        {
-	            name:'搜索引擎',
-	            type:'bar',
-	             stack: '搜索引擎',
-	            data:[862, 1018, 964, 1026, 1679, 1600, 1570, 332, 301, 334, 390, 330, 320],
-	            markLine : {
-	                lineStyle: {
-	                    normal: {
-	                        type: 'dashed'
-	                    }
-	                }
-	            }
-	        },
-	        {
-	            name:'百度',
-	            type:'bar',
-	            barWidth : 30,
-	            stack: '搜索引擎',
-	            data:[620, 732, 701, 734, 1090, 1130, 1120, 332, 301, 334, 390, 330, 320]
-	        },
-	        {
-	            name:'谷歌',
-	            type:'bar',
-	            stack: '搜索引擎',
-	            data:[120, 132, 101, 134, 290, 230, 220, 332, 301, 334, 390, 330, 320]
-	        },
-	        {
-	            name:'必应',
-	            type:'bar',
-	            stack: '搜索引擎',
-	            data:[60, 72, 71, 74, 190, 130, 110, 332, 301, 334, 390, 330, 320]
-	        },
-	        {
-	            name:'其他',
-	            type:'bar',
-	            stack: '搜索引擎',
-	            data:[62, 82, 91, 84, 109, 110, 120, 332, 301, 334, 390, 330, 320]
-	        },
-	        {
-	            name:'其他1',
-	            type:'bar',
-	            stack: '搜索引擎',
-	            data:[62, 82, 91, 84, 109, 110, 120, 332, 301, 334, 390, 330, 320]
-	        },
-	        {
-	            name:'其他2',
-	            type:'bar',
-	            stack: '搜索引擎',
-	            data:[62, 82, 91, 84, 109, 110, 120, 332, 301, 334, 390, 330, 320]
-	        },
-	        {
-	            name:'其他3',
-	            type:'bar',
-	            stack: '搜索引擎',
-	            data:[62, 82, 91, 84, 109, 110, 120, 332, 301, 334, 390, 330, 320]
-	        },
-	        {
-	            name:'其他4',
-	            type:'bar',
-	            stack: '搜索引擎',
-	            data:[62, 82, 91, 84, 109, 110, 120, 332, 301, 334, 390, 330, 320]
-	        },
-	        {
-	            name:'其他5',
-	            type:'bar',
-	            stack: '搜索引擎',
-	            data:[62, 82, 91, 84, 109, 110, 120, 332, 301, 334, 390, 330, 320]
-	        },
-	        {
-	            name:'其他6',
-	            type:'bar',
-	            stack: '搜索引擎',
-	            data:[62, 82, 91, 84, 109, 110, 120, 332, 301, 334, 390, 330, 320]
-	        },
-	        {
-	            name:'其他7',
-	            type:'bar',
-	            stack: '搜索引擎',
-	            data:[62, 82, 91, 84, 109, 110, 120, 332, 301, 334, 390, 330, 320]
-	        },
-	        {
-	            name:'其他8',
-	            type:'bar',
-	            stack: '搜索引擎',
-	            data:[62, 82, 91, 84, 109, 110, 120, 332, 301, 334, 390, 330, 320]
-	        },
-	        {
-	            name:'其他9',
-	            type:'bar',
-	            stack: '搜索引擎',
-	            data:[62, 82, 91, 84, 109, 110, 120, 332, 301, 334, 390, 330, 320]
-	        },
-	        {
-	            name:'其他10',
-	            type:'bar',
-	            stack: '搜索引擎',
-	            data:[62, 82, 91, 84, 109, 110, 120, 332, 301, 334, 390, 330, 320]
-	        },
-	        {
-	            name:'其他11',
-	            type:'bar',
-	            stack: '搜索引擎',
-	            data:[62, 82, 91, 84, 109, 110, 120, 332, 301, 334, 390, 330, 320]
-	        }
-	    ]
+	    series : obj.series
 	}; 
 	myChart.setOption(option);
 }
