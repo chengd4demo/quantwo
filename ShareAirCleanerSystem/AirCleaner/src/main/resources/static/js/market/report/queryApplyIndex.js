@@ -238,7 +238,7 @@ var optionBar = {
 	            data : obj.respBar.date,
 	            axisLabel:{
 	            	 formatter:function(value) {
-	 	            	return value.substr(5)
+	 	            	return value.length ==4 ? value : value.substr(5)
 	 	            }
 	            },
 	            axisTick: {
