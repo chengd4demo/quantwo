@@ -541,7 +541,10 @@ public class PayServiceImpl implements PayService {
 						billing.setTransactionId(transactionId);
 					}
 					billingRepository.saveAndFlush(billing);
-					DeviceUtil.turnOnDevice(billing.getMachNo(), billing.getCostTime() * 60);
+					int costTimeSecond = billing.getCostTime() * 60;
+					int surplusConstTimeSecond = billingRepository.getSurplusConstTime(billing.getMachNo()) * 60;
+					costTimeSecond += surplusConstTimeSecond; //追加时间
+					DeviceUtil.turnOnDevice(billing.getMachNo(), costTimeSecond);
 				}
 			} else {
 				logger.info("微信通知内容参数错误");
@@ -551,6 +554,11 @@ public class PayServiceImpl implements PayService {
 		}
 	}
 
+	public static void main(String[] args) {
+		int c = 123;
+		int d = 5;
+		System.out.println(c+=d);
+	}
 	@Override
 	public ResultInfo weiXinMsg(@RequestParam("type") String type,@RequestParam("billingNumber") String billingNumber) throws BusinessRuntimeException {
 		logger.info("支付信息处理{}类型{}", billingNumber, type);
@@ -589,6 +597,11 @@ public class PayServiceImpl implements PayService {
 			reqData.put("wxMsgType", "other");
 		}
 		return new ResultInfo(String.valueOf(ResultCode.SC_OK),"success",reqData);
+	}
+
+	@Override
+	public int getSurplusConstTime(String machNo) {
+		return billingRepository.getSurplusConstTime(machNo);
 	}
 
 }
