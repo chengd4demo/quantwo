@@ -14,3 +14,8 @@ device:
     method: turn_on
   turn-off: 
     method: turn_off
+o2: 
+  wechat:
+    subscription: 
+      mah:
+        id: 1511610321

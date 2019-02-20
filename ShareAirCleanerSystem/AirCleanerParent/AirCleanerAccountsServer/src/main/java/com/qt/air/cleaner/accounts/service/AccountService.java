@@ -1,5 +1,7 @@
 package com.qt.air.cleaner.accounts.service;
 
+import java.util.Map;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,6 +44,16 @@ public interface AccountService {
 	 */
 	@RequestMapping(value = "/cleanAccountOutbound/{id}", method = RequestMethod.POST)
 	ResultInfo cleanAccountOutbound(@PathVariable String id);
-	
+
+
+	/**
+	 * 申请提现 
+	 * 
+	 * @param requestParame
+	 * @return
+	 * @throws BusinessRuntimeException
+	 */
+	@RequestMapping(value = "/applyForAccountOutbound", method = RequestMethod.POST)
+	ResultInfo applyForAccountOutbound(Map<String, String> parames) throws BusinessRuntimeException;
 	
 }
