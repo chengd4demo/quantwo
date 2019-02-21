@@ -1,6 +1,8 @@
 package com.qt.air.cleaner.accounts.service.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +11,7 @@ import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -17,6 +20,7 @@ import org.hibernate.type.StandardBasicTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,10 +28,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
+import com.qt.air.cleaner.accounts.domain.Account;
+import com.qt.air.cleaner.accounts.domain.AccountOutBound;
 import com.qt.air.cleaner.accounts.domain.Company;
 import com.qt.air.cleaner.accounts.domain.Investor;
 import com.qt.air.cleaner.accounts.domain.Trader;
 import com.qt.air.cleaner.accounts.repository.AccountOutboundRepository;
+import com.qt.air.cleaner.accounts.repository.AccountRepository;
 import com.qt.air.cleaner.accounts.repository.CompanyRepository;
 import com.qt.air.cleaner.accounts.repository.InvestorRepository;
 import com.qt.air.cleaner.accounts.repository.TraderRepository;
@@ -39,6 +46,7 @@ import com.qt.air.cleaner.base.dto.RequestParame;
 import com.qt.air.cleaner.base.dto.ResultCode;
 import com.qt.air.cleaner.base.dto.ResultInfo;
 import com.qt.air.cleaner.base.enums.AccountOutBoundEnum;
+import com.qt.air.cleaner.base.enums.ErrorCodeEnum;
 import com.qt.air.cleaner.base.exception.BusinessRuntimeException;
 
 
@@ -46,7 +54,10 @@ import com.qt.air.cleaner.base.exception.BusinessRuntimeException;
 @RestController
 @Transactional
 public class AccountServiceImpl implements AccountService {
+	@Value("${o2.wechat.subscription.mah.id}")
+	public String mahId;
 	private static Logger logger = LoggerFactory.getLogger(AccountServiceImpl.class);
+	SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmssSSSS"); 
 	@Resource
 	private TraderRepository traderRepository;
 	@Resource
@@ -55,6 +66,9 @@ public class AccountServiceImpl implements AccountService {
 	private CompanyRepository companyRepository;
 	@Resource
 	private AccountOutboundRepository accountOutboundRepository;
+	@Resource
+	private AccountRepository accountRepository;
+	
 	@Autowired
     private LocalContainerEntityManagerFactoryBean entityManagerFactory;
 	@Override
@@ -170,5 +184,126 @@ public class AccountServiceImpl implements AccountService {
 		logger.info("execute method cleanAccountOutbound() param --> id:{}", id);
 		accountOutboundRepository.cancellUpdate(id,new java.util.Date());
 		return new ResultInfo(String.valueOf(ResultCode.SC_OK),"success",id);
-	}	
+	}
+	
+	/**
+	 * 申请提现 
+	 * 
+	 * @param parames
+	 * @return
+	 * @throws BusinessRuntimeException
+	 */
+	@Override
+	public ResultInfo applyForAccountOutbound(@RequestBody Map<String, String> parames)throws BusinessRuntimeException {
+		logger.info("execute method applyForAccountOutbound() param --> parames:{}", parames);
+		String weixin = parames.get("weixin");
+		boolean  applayIsOk = checkApplayPassword(parames.get("password"),parames.get("userType"),weixin);
+		/**
+		 * TODO 判断提现金额是否大于可用余额
+		 */
+		if(applayIsOk) {
+			AccountOutBound outBound = saveOutBound(parames);
+			//个人总账逻辑处理 amount - 提现金额
+			if(outBound != null) {
+				updateAmount(outBound);
+			} else {
+				return new ResultInfo(ErrorCodeEnum.ES_1027.getErrorCode(),ErrorCodeEnum.ES_1027.getMessage(),null);
+			}
+		} else {
+			return new ResultInfo(ErrorCodeEnum.ES_1026.getErrorCode(),ErrorCodeEnum.ES_1026.getMessage(),null);
+		}
+	
+		return new ResultInfo(String.valueOf(ResultCode.SC_OK),"success",parames);
+	}
+
+	private void updateAmount(AccountOutBound outBound) {
+		String weixin = outBound.getWeixin();
+		String type = outBound.getType();
+		Account account = null;
+		if(StringUtils.equals(Account.ACCOUNT_TYPE_TRADER, type)) {
+			Trader trader = traderRepository.findByWeixin(weixin);
+			if (trader != null) {
+				account = trader.getAccount();
+			} 
+		} else if(StringUtils.equals(Account.ACCOUNT_TYPE_COMPANY, type)) {
+			Company company = companyRepository.findByWeixin(weixin);
+			if (company != null) {
+				account = company.getAccount();
+			} 
+		} else if(StringUtils.equals(Account.ACCOUNT_TYPE_INVESTOR, type)) {
+			Investor investor = investorRepository.findByWeixin(weixin);
+			if (investor != null) {
+				account = investor.getAccount();
+			} 
+		}
+		/**
+		 * TODO 可能出现业务问题
+		 */
+		Float beforFreeAmount = account.getFreezingAmount();
+		Float freeAmount = beforFreeAmount + outBound.getAmount();
+		Float availableAmount = account.getAvailableAmount() - outBound.getAmount();
+		Float totalAmount = account.getTotalAmount() - outBound.getAmount();
+		account.setFreezingAmount(freeAmount);
+		account.setAvailableAmount(availableAmount);
+		account.setTotalAmount(totalAmount);
+		accountRepository.saveAndFlush(account);
+	}
+
+	/**
+	 * 插入出账记录表
+	 * 
+	 * @param parames
+	 * @return
+	 */
+	private AccountOutBound saveOutBound(Map<String, String> parames) {
+		AccountOutBound accountOutBound = new AccountOutBound();
+		accountOutBound.setWeixin(parames.get("weixin"));
+		accountOutBound.setAmount(Float.valueOf(parames.get("amount")));
+		accountOutBound.setName(parames.get("name"));
+		accountOutBound.setType(parames.get("userType"));
+		accountOutBound.setState(accountOutBound.getState());
+		accountOutBound.setCode(parames.get("identificationNumber"));
+		String billingNumber = mahId + format.format(Calendar.getInstance().getTime());
+		accountOutBound.setBillingNumber(billingNumber);
+		accountOutBound.setCreater(parames.get("weixin"));
+		accountOutBound.setRemoved(false);
+		accountOutBound.setCashMode(AccountOutBound.ACCOUNT_OUT_BOUND_MODE_REDPACK);
+		try {
+			accountOutboundRepository.saveAndFlush(accountOutBound);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		return accountOutBound;
+	}
+
+	private boolean checkApplayPassword(String password,String userType,String weixin) {
+		String tempPassword = getUserPassword(userType,weixin);
+		password = DigestUtils.md5Hex(password);
+		if (StringUtils.isEmpty(password) || !StringUtils.equals(password, tempPassword)) {
+			return false;
+		}
+		return true;
+	}
+
+	private String getUserPassword(String userType,String weixin) {
+		String password = null;
+		if(StringUtils.equals(Account.ACCOUNT_TYPE_TRADER, userType)) {
+			Trader trader = traderRepository.findByWeixin(weixin);
+			if (trader != null) {
+				password = trader.getAlipay();
+			} 
+		} else if(StringUtils.equals(Account.ACCOUNT_TYPE_COMPANY, userType)) {
+			Company company = companyRepository.findByWeixin(weixin);
+			if (company != null) {
+				password = company.getAlipay();
+			} 
+		} else if(StringUtils.equals(Account.ACCOUNT_TYPE_INVESTOR, userType)) {
+			Investor investor = investorRepository.findByWeixin(weixin);
+			if (investor != null) {
+				password = investor.getAlipay();
+			} 
+		}
+		return password;
+	}
 }

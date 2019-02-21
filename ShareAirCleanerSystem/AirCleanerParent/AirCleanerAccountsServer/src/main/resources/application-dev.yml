@@ -5,4 +5,9 @@ spring:
     username: market
     password: market2018
   jpa:
-    show-sql: true   
+    show-sql: true  
+o2: 
+  wechat:
+    subscription: 
+      mah:
+        id: 1511610321

@@ -20,5 +20,5 @@ public interface PrizeItemConfigRepository extends JpaRepository<PrizeItemConfig
 	@Modifying
 	@Query("update PrizeItemConfig I set I.removed = true where I.id = :id")
 	void deletePrizeItemConfig(@Param("id") String id);
-	List<PrizeItemConfig> findByRemoved(boolean b);
+	List<PrizeItemConfig> findByRemoved(Boolean b);
 }
