@@ -1,5 +1,8 @@
 package com.qt.air.cleaner.web.merchant.web;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,7 @@ import com.qt.air.cleaner.base.dto.RequestParame;
 import com.qt.air.cleaner.base.dto.ResultCode;
 import com.qt.air.cleaner.base.dto.ResultInfo;
 import com.qt.air.cleaner.web.merchant.service.AccountService;
+import com.qt.air.cleaner.web.merchant.vo.AccountOutBound;
 
 @RestController
 @RequestMapping("/account-channel")
@@ -57,6 +61,26 @@ public class AccountChannelController {
 		} catch (Exception e) {
 			logger.error("system error: {}", e.getMessage());
 			return new ResultInfo(String.valueOf(ResultCode.R5001.code), e.getMessage(), id);
+		}
+		
+	}
+	
+	/**申请提现 **/
+	@PostMapping(value = "/applyForAccountOutbound")
+	public ResultInfo applyForAccountOutbound(@RequestBody AccountOutBound accountOutBound) {
+		logger.info("execute method applyForAccountOutbound() start --> parame:{}", accountOutBound.toString());
+		try {
+			Map<String,String> parames = new HashMap<>();
+			parames.put("password", accountOutBound.getPassword());
+			parames.put("amount", accountOutBound.getAmount().toString());
+			parames.put("weixin", accountOutBound.getWeixin());
+			parames.put("userType", accountOutBound.getUserType());
+			parames.put("identificationNumber", accountOutBound.getIdentificationNumber());
+			parames.put("name", accountOutBound.getName());
+			return accountService.applyForAccountOutbound(parames);
+		} catch (Exception e) {
+			logger.error("system error: {}", e.getMessage());
+			return new ResultInfo(String.valueOf(ResultCode.R5001.code), e.getMessage(), accountOutBound);
 		}
 		
 	}
