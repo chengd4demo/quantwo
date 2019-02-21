@@ -38,7 +38,8 @@ layui.use(['table', 'form', 'layer', 'vip_table','laydate'], function(){
 						},  {
 							field: '',
 							title: '年龄',							
-							width: 100
+							width: 100,
+							templet:'#age'
 						},{
 							field: 'sex',
 							title: '性别',

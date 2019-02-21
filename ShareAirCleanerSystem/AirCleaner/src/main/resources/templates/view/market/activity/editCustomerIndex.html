@@ -99,19 +99,44 @@
 <script src="../../../frame/layui/layui.js" charset="utf-8"></script>
 <script type="text/javascript" src="../../../js/market/activity/editCustomerIndex.js"></script>
 <script type="text/javascript">
-var x="";
-var time = document.getElementById("hiddenSex").value;
-if (time == 1)
-  {
-  x="男";
-  }
-
-else
-  {
-  x="女";
-  }
-document.getElementById("demo").innerHTML=x;
-
+		var x="";
+		var time = document.getElementById("hiddenSex").value;
+		if (time == 1)
+		  {
+		  x="男";
+		  }
+		
+		else
+		  {
+		  x="女";
+		  }
+		document.getElementById("demo").innerHTML=x;
+		var age = '';
+		var identityCard = document.getElementById('hiddenAge').value
+		if(identityCard.length!=''){ 
+			var len = (identityCard + "").length;
+    		if (len == 0) {
+    			age = '-';
+    		} else {
+        		if ((len != 15) && (len != 18)){
+        			age = '-';
+        		}
+    		}
+    		var strBirthday = "";
+    		if (len == 18){
+        		strBirthday = identityCard.substr(6, 4) + "/" + identityCard.substr(10, 2) + "/" + identityCard.substr(12, 2);
+    		}
+	    	if (len == 15) {
+	        	strBirthday = "19" + identityCard.substr(6, 2) + "/" + identityCard.substr(8, 2) + "/" + identityCard.substr(10, 2);
+	    	}
+	    	var birthDate = new Date(strBirthday);
+	    	var nowDateTime = new Date();
+	    	var age = nowDateTime.getFullYear() - birthDate.getFullYear();
+	    	if (nowDateTime.getMonth() < birthDate.getMonth() || (nowDateTime.getMonth() == birthDate.getMonth() && nowDateTime.getDate() < birthDate.getDate())) {
+	        	age--;
+	    	}
+    		document.getElementById("identityCard").innerHTML=age
+		}
 </script>
 </body>
 </html>

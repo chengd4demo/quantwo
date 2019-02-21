@@ -78,6 +78,37 @@
 <script type="text/html" id="barOption">
 	<a class="layui-btn layui-btn-mini layui-btn-normal" lay-event="detail">详情</a>			
 </script>
+	<!-- 状态 -->
+		<script type="text/html" id="age">
+  		{{# 
+			var age = ''; 
+			if(d.identificationNumber != null){ 
+				var identityCard = d.identificationNumber;
+				var len = (identityCard + "").length;
+        		if (len == 0) {
+            		return 0;
+        		} else {
+            		if ((len != 15) && (len != 18)){
+                		return 0;
+            		}
+        		}
+        		var strBirthday = "";
+        		if (len == 18){
+            	strBirthday = identityCard.substr(6, 4) + "/" + identityCard.substr(10, 2) + "/" + identityCard.substr(12, 2);
+        	}
+        	if (len == 15) {
+            	strBirthday = "19" + identityCard.substr(6, 2) + "/" + identityCard.substr(8, 2) + "/" + identityCard.substr(10, 2);
+        	}
+        	var birthDate = new Date(strBirthday);
+        	var nowDateTime = new Date();
+        	var age = nowDateTime.getFullYear() - birthDate.getFullYear();
+        	if (nowDateTime.getMonth() < birthDate.getMonth() || (nowDateTime.getMonth() == birthDate.getMonth() && nowDateTime.getDate() < birthDate.getDate())) {
+            	age--;
+        	}
+			return age;
+		}}
+		{{#  } }}
+	</script>
 
 </body>
 </html>		
