@@ -30,20 +30,17 @@ public class AccountOutBound extends GenericEntity {
 	// 出账记录状态 -- 错误状态，无效的出账记录
 	public static final Integer ACCOUNT_OUT_BOUND_STATE_ERROR = -1;
 	
-	// 出账记录状态 -- 初始化状态，正在执行出账工作
+	// 出账记录状态 -- 初始化状态，正在执行出账工作 |出账记录状态-- 未审核
 	public static final Integer ACCOUNT_OUT_BOUND_STATE_INIT = 0;
 	
 	// 出账记录状态 -- 完成状态，已完成的出账记录
 	public static final Integer ACCOUNT_OUT_BOUND_STATE_COMPLETE = 1;
 	
-	//出账记录状态-- 未审核
+	//出账记录状态-- 已审核
 	public static final Integer ACCOUNT_OUT_BOUND_STATE_AUDIT = 2;
 	
-	//出账记录状态-- 已审核
-	public static final Integer ACCOUNT_OUT_BOUND_STATE_AUDITED = 3;
-	
 	//出账记录状态-- 未通过
-	public static final Integer ACCOUNT_OUT_BOUND_STATE_REJECT = 4;
+	public static final Integer ACCOUNT_OUT_BOUND_STATE_AUDITED = 3;
 	
 	// 提现方式--红包
 	public static final Integer ACCOUNT_OUT_BOUND_MODE_REDPACK = 0;
