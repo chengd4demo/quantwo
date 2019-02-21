@@ -3,37 +3,41 @@ layui.config({
     base: '../../../frame/echarts/',
 })
 layui.use(['treetable','form','table','laypage', 'layer'],function(){
-    var data=[{"id":1,"pid":0,"title":"成都圈兔公司"},{"id":2,"pid":0,"title":"1-2"},{"id":3,"pid":0,"title":"1-3"},{"id":4,"pid":1,"title":"郑州分公司"},{"id":5,"pid":1,"title":"重庆分公司"},{"id":6,"pid":2,"title":"1-2-1"},{"id":7,"pid":2,"title":"1-2-3"},{"id":8,"pid":3,"title":"1-3-1"},{"id":9,"pid":3,"title":"1-3-2"},{"id":10,"pid":4,"title":"郑州客务中心"},{"id":11,"pid":4,"title":"1-1-1-2"}];
-    var o = layui.$,treetable = layui.treetable;
+	var data=[{"id":1,"pid":"0","title":"成都圈兔公司"}];
+	var o = layui.$,treetable = layui.treetable;
     var form = layui.form,layer = layui.layer;
     var laypage = layui.laypage,
     layer = layui.layer,
     table = layui.table,layer = layui.layer,
     vipTable = layui.vip_table,
-		$ = layui.jquery;
+	$ = layui.jquery;
+    var req = {page:1,limit:20};
+    var pageCount = 0
+    function load(parame) {
+    	  $.ajax({
+    			 type:"POST",
+    			 async:false,
+    			 url:"../../../market/platform/query?page="+parame.page+"&limit="+parame.limit+"", 
+    			 contentType: 'application/json',
+    			 data : JSON.stringify(parame),
+    			 success:function(res){
+    				 if (res) {
+    					data = res.data
+    					pageCount = res.pageCount
+    				 }
+    			 },
+    			 error: function(errorMsg){
+    				return new Array();
+    			 }
+    		 });
+    }
+    load(req)
     tableIns=treetable.render({
         elem: '#test-tree-table',
         data: data,
         field: 'title',
         is_checkbox: true,
         checked:[1,2,3,4],
-        
-        /*url:''
-    	,method: 'GET' //默认：get请求
-
-        ,page: true
-        ,limits: [20, 30, 50, 100, 200]
-        ,limit:20
-        ,request: {
-            pageName: 'page' //页码的参数名称，默认：page
-            ,limitName: 'limit' //每页数据量的参数名，默认：limit
-        },*/
-        
-        /*icon_val: {
-            open: "&#xe619;",
-            close: "&#xe61a;"
-        },
-        space: 4,*/
         cols: [
             {
                 field: 'title',
@@ -54,22 +58,36 @@ layui.use(['treetable','form','table','laypage', 'layer'],function(){
                 title: '名称',
                 width: '20%'
             },
-            /*{
-                title: '状态',
-                width: '20%',
-                template: function(item){
-                    return '<input type="checkbox" lay-skin="switch" lay-filter="status" lay-text="开启|关闭">';
-                }
-            },*/
             {
                 field: 'type',
                 title: '类型',
                 width: '20%',
+                template:function(item) {
+                	if(item.type =='TR') {
+                		return '商家';
+                	} else if(item.type =='IR') {
+                		return '投资商';
+                	} else if(item.type =='CY') {
+                		return '公司';
+                	} else if(item.type =='SR') {
+                		return '促销员';
+                	} else if(item.type =='ZD') {
+                		return '区域总代';
+                	} else if(item.type =='DL') {
+                		return '代理';
+                	} else {
+                		return '其它'
+                	}
+                }
+                
             },
             {
-                field: 'distributionRatio',
+                field: 'scale',
                 title: '分润比例',
                 width: '10%',
+                template:function(item) {
+                	return item.scale + '%'
+                }
             },
             {
                 field: 'actions',
@@ -126,22 +144,21 @@ layui.use(['treetable','form','table','laypage', 'layer'],function(){
     
     //分页
     laypage.render({
-      elem: 'demo7'
-      ,count: data.length
-      ,layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip']
-      /*,jump: function(obj){
-    	//渲染
-          document.getElementById('test-tree-table').innerHTML = function(){
-            var arr = []
-            ,thisData = data.concat().splice(obj.curr*obj.limit - obj.limit, obj.limit);
-            layui.each(thisData, function(index, item){
-              arr.push('<li>'+ item +'</li>');
-            });
-            return arr.join('');
-          }();
-        console.log(obj)
-      }*/
-    });
+        elem: 'demo7'
+       ,count: pageCount
+       ,limit:20
+       ,first: '首页'
+       ,last: '尾页'
+       ,prev: '<em>←</em>'
+       ,next: '<em>→</em>'
+       ,jump: function(obj, first){
+               start = 1 + obj.limit * (obj.curr-1);
+               end = obj.curr*obj.limit;
+               if(!first){
+            	   queryDeviceUsedData(dateType,traderIds,start,end);
+               }
+           }
+     });
 })
 
 /**
@@ -157,11 +174,5 @@ layui.use(['form'], function(){
 	});
 });
 function load(obj){
-    //重新加载table
-    tableIns.reload({
-        where: obj.field
-        , page: {
-            curr: pageCurr //从当前页码开始
-        }
-    });
+	
 }

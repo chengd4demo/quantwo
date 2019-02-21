@@ -1,5 +1,8 @@
 package com.qt.air.cleaner.market.repository.platform;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -14,4 +17,5 @@ public interface ShareProfitRepository extends JpaRepository<ShareProfit, String
 	@Modifying
 	@Query(value="update ShareProfit s set s.free=:free")
 	void updateAllFree(@Param("free") Float free);
+	Page<ShareProfit> findAll(Specification<ShareProfit> specification, Pageable pageable);
 }

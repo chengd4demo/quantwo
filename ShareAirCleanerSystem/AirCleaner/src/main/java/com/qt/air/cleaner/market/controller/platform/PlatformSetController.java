@@ -5,18 +5,22 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.druid.util.StringUtils;
 import com.qt.air.cleaner.market.domain.platform.ShareProfit;
 import com.qt.air.cleaner.market.service.platform.PlatformSetService;
-import com.qt.air.cleaner.vo.common.RetResponse;
-import com.qt.air.cleaner.vo.common.RetResult;
+import com.qt.air.cleaner.market.vo.platform.PlatformSetView;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 @Controller
 @RequestMapping("market/platform")
@@ -26,27 +30,47 @@ public class PlatformSetController {
 	@Autowired
 	PlatformSetService platformSetService;
 	
-	@RequestMapping(method = RequestMethod.GET, path = "/shareprofit/edit")
-	public String index(Model model) {
-		List<ShareProfit> shareProfits = platformSetService.findAll();
-		model.addAttribute("shareProfits", shareProfits);
-		if(!CollectionUtils.isEmpty(shareProfits)) {
-			model.addAttribute("free", shareProfits.get(0).getFree());
-		}
-		
+	@RequestMapping(method = RequestMethod.GET, path = "/index")
+	public String index() {
 		return PLATFORM_SHAREPROFIT_EDIT;
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, path = "/shareprofit/edit/save")
+	@RequestMapping(method = RequestMethod.POST, path = "/query")
 	@ResponseBody
-	public RetResult<Object>  saveEdit(@RequestBody List<ShareProfit> shareProfit){
-		logger.debug("平台设定信息更新请求参数对象：{}",shareProfit.toString());
+	public JSONObject page(Integer page,Integer limit,@RequestBody PlatformSetView platformSetView){
+		logger.debug("平台设定插叙求参数对象：{}",platformSetView.toString());
+		JSONArray resultJSONArray = new JSONArray();
+		JSONObject result = new JSONObject();
 		try {
-			platformSetService.save(shareProfit);
+			long tatal = platformSetService.findCount(platformSetView);
+			Page<ShareProfit> resultPage = platformSetService.findAllSet(platformSetView, new PageRequest(page-1, limit));
+			if(result != null) {
+				List<ShareProfit> content = resultPage.getContent();
+				if(!CollectionUtils.isEmpty(resultPage.getContent())) {
+					JSONObject obj = new JSONObject();
+					String type = null;
+					for(ShareProfit profit : content) {
+						obj.put("id", profit.getId());
+						obj.put("pid", profit.getPid());
+						if(StringUtils.equals("0", profit.getPid())) {
+							obj.put("title","成都公司");
+							obj.put("name",  profit.getName());
+						} else {
+							obj.put("title",profit.getName());
+							obj.put("name","客户");
+						}
+						obj.put("type", profit.getType());
+						obj.put("scale", profit.getScale());
+						resultJSONArray.add(obj);
+					}
+				}
+				result.put("data", resultJSONArray);
+				result.put("pageCount", tatal);
+			}
+			
 		} catch (Exception e) {
 			logger.error("投资商信息更新报错异常:{}", e.getMessage());
-			return RetResponse.makeErrRsp(e.getMessage());
 		}
-		return RetResponse.makeOKRsp();
+		return result;
 	}
 }

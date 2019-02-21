@@ -27,18 +27,30 @@ public class ShareProfit implements Serializable{
 		@Id
 		@GeneratedValue(generator = "guid")
 		@GenericGenerator(name = "guid", strategy = "guid")
-		private String id = null;
+		private String id;
 		/**
 		 * 分润比例
 		 */
 		@Column(name = "SCALE", precision = 2, nullable = true, insertable = true)
-		private Float scale = 0.00f;
+		private Float scale = null;
 		
 		/**
 		 * 手续费
 		 */
 		@Column(name = "FREE", precision = 2, nullable = true, insertable = true)
-		private Float free = 0.00f;
+		private Float free = null;
+		
+		/**
+		 * 名称
+		 */
+		@Column(name = "NAME",  length = 32, nullable = true, insertable = true)
+		private String name ;
+		
+		/**
+		 * 所属上级
+		 */
+		@Column(name = "PID",  length = 32, nullable = true, insertable = true)
+		private String pid ;
 		
 		/**
 		 * 分润对象
@@ -50,31 +62,50 @@ public class ShareProfit implements Serializable{
 			return id;
 		}
 
-		public Float getScale() {
-			return scale;
-		}
-
-		public Float getFree() {
-			return free;
-		}
-
-		public String getType() {
-			return type;
-		}
-
 		public void setId(String id) {
 			this.id = id;
+		}
+
+		public Float getScale() {
+			return scale;
 		}
 
 		public void setScale(Float scale) {
 			this.scale = scale;
 		}
 
+		public Float getFree() {
+			return free;
+		}
+
 		public void setFree(Float free) {
 			this.free = free;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		public String getPid() {
+			return pid;
+		}
+
+		public void setPid(String pid) {
+			this.pid = pid;
+		}
+
+		public String getType() {
+			return type;
 		}
 
 		public void setType(String type) {
 			this.type = type;
 		}
+		
+		
+
 }

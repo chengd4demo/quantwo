@@ -12,18 +12,7 @@ public interface BillingService {
 	/**
 	 * 设备消费记录分页查询
 	 * 
-	 * @param billingId
-	 * @param machNo
-	 * @param deviceId
-	 * @param priceId
-	 * @param costTime
-	 * @param unitPrice
-	 * @param discountStr
-	 * @param state
-	 * @param errorCode
-	 * @param errorMsg
-	 * @param transactionId
-	 * @param createTimeStr
+	 * @param billingView
 	 * @return
 	 */
 	public Page<Billing> findAllBilling(BillingView billingView, Pageable pageable);
