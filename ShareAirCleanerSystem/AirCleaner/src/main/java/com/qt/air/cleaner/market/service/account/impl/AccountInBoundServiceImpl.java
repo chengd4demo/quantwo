@@ -26,6 +26,7 @@ import com.qt.air.cleaner.market.repository.account.AccountInBoundRepository;
 import com.qt.air.cleaner.market.repository.account.AccountRepository;
 import com.qt.air.cleaner.market.service.account.AccountInBoundService;
 import com.qt.air.cleaner.market.vo.account.AccountInBoundView;
+import com.qt.air.cleaner.utils.CalculateUtils;
 
 
 @Service
@@ -124,8 +125,8 @@ public class AccountInBoundServiceImpl implements AccountInBoundService {
 			if(inBound != null) {
 				accountInBoundRepository.updateState(id);
 				Account account = inBound.getAccount();
-				account.setFreezingAmount(account.getFreezingAmount() - inBound.getAmount());
-				account.setAvailableAmount(account.getAvailableAmount() + inBound.getAmount());
+				account.setFreezingAmount(CalculateUtils.sub(account.getFreezingAmount(), inBound.getAmount()));
+				account.setAvailableAmount(CalculateUtils.add(account.getAvailableAmount(), inBound.getAmount()));
 				accountRepository.saveAndFlush(account);
 			}
 		}
