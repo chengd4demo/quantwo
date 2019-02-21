@@ -36,21 +36,21 @@
             <pattern>${CONSOLE_LOG_PATTERN}</pattern>
         </encoder>
     </appender>
-   <!--  <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+   <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
     	<param name="Encoding" value="UTF-8"/>
-        <destination>192.168.1.100:4560</destination>
+        <destination>192.168.13.204:4560</destination>
         encoder is required
         <encoder class="net.logstash.logback.encoder.LogstashEncoder" >
         	<customFields>{"applicationName":"${applicationName}","env":"${env}"}</customFields>
         </encoder>
         <keepAliveDuration>5 minutes</keepAliveDuration>
-    </appender> -->
-    <logger name="com.qt.air.cleaner.zuul" level="DEBUG" additivity="false">
+    </appender>
+    <logger name="com.qt.air.cleaner.device" level="DEBUG" additivity="false">
 		<appender-ref ref="FILE" />
 	</logger>
     <root level="INFO">
         <appender-ref ref="FILE" />
-        <!-- <appender-ref ref="LOGSTASH" /> -->
+        <appender-ref ref="LOGSTASH" />
         <appender-ref ref="CONSOLE" />
     </root>
     <!--<!–日志异步到数据库 –> -->
