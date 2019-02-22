@@ -1,5 +1,7 @@
 package com.qt.air.cleaner.web.merchant.service;
 
+import java.util.Map;
+
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,5 +43,15 @@ public interface AccountService {
 	 */
 	@RequestMapping(value = "/cleanAccountOutbound/{id}", method = RequestMethod.POST)
 	ResultInfo cleanAccountOutbound(@PathVariable("id") String id);
+	
+	/**
+	 * 申请提现 
+	 * 
+	 * @param requestParame
+	 * @return
+	 * @throws BusinessRuntimeException
+	 */
+	@RequestMapping(value = "/applyForAccountOutbound", method = RequestMethod.POST)
+	ResultInfo applyForAccountOutbound( Map<String, String> parames) throws BusinessRuntimeException;
 	
 }

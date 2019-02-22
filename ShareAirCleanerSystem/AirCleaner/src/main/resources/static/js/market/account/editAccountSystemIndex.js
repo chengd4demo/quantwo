@@ -15,7 +15,7 @@ layui.use(['form', 'layedit', 'laydate', 'layer'], function() {
     
     //按键取消监听
     form.on('radio(state)', function(data){
-    	if (data.value==3) {
+    	if (data.value==2) {
     		$("#reason").hide();
     	} else {
     		$("#reason").show();
@@ -24,7 +24,7 @@ layui.use(['form', 'layedit', 'laydate', 'layer'], function() {
     });
     //表单提交
 	form.on('submit(demo1)',function(data){
-		if ($('#state input[name="state"]:checked ').val() == 4 && $("#reason textarea").val().trim().length==0) {
+		if ($('#state input[name="state"]:checked ').val() == 3 && $("#reason textarea").val().trim().length==0) {
 			layer.msg('请输入驳回原因', {
 				 time: 1000
 				,icon : 5

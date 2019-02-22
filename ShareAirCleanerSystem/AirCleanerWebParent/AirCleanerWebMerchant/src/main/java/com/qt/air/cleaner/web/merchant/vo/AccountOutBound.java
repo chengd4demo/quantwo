@@ -7,39 +7,34 @@ public class AccountOutBound implements Serializable{
 	
 	private static final long serialVersionUID = -3686180255048571876L;
 	
-	private String createdate;
+	private String password;
 	
 	private Float amount;
 	
-	private String state;
-	
 	private String weixin;
+	
+	private String userType;
+	
+	private String identificationNumber;
+	
+	private String name;
 
-	public String getCreatedate() {
-		return createdate;
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public Float getAmount() {
 		return amount;
 	}
 
-	public String getState() {
-		return state;
-	}
-
-	public void setCreatedate(String createdate) {
-		this.createdate = createdate;
-	}
-
 	public void setAmount(Float amount) {
 		this.amount = amount;
 	}
 
-	public void setState(String state) {
-		this.state = state;
-	}
-	
-	
 	public String getWeixin() {
 		return weixin;
 	}
@@ -48,10 +43,35 @@ public class AccountOutBound implements Serializable{
 		this.weixin = weixin;
 	}
 
-	@Override
-	public String toString() {
-		return "AccountOutBound [createdate=" + createdate + ", amount=" + amount + ", state=" + state + ", weixin="
-				+ weixin + "]";
+	public String getUserType() {
+		return userType;
 	}
 
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
+
+	public String getIdentificationNumber() {
+		return identificationNumber;
+	}
+
+	public void setIdentificationNumber(String identificationNumber) {
+		this.identificationNumber = identificationNumber;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	@Override
+	public String toString() {
+		return "AccountOutBound [password=" + password + ", amount=" + amount + ", weixin=" + weixin + ", userType="
+				+ userType + ", identificationNumber=" + identificationNumber + ", name=" + name + "]";
+	}
+
+	
 }
