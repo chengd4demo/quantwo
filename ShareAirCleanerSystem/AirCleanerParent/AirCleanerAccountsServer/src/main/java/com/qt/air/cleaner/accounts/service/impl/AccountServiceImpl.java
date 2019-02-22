@@ -197,22 +197,25 @@ public class AccountServiceImpl implements AccountService {
 	public ResultInfo applyForAccountOutbound(@RequestBody Map<String, String> parames)throws BusinessRuntimeException {
 		logger.info("execute method applyForAccountOutbound() param --> parames:{}", parames);
 		String weixin = parames.get("weixin");
+		Float amount = Float.valueOf(parames.get("amount"));
+		Account account = new Account();
 		boolean  applayIsOk = checkApplayPassword(parames.get("password"),parames.get("userType"),weixin);
-		/**
-		 * TODO 判断提现金额是否大于可用余额
-		 */
-		if(applayIsOk) {
-			AccountOutBound outBound = saveOutBound(parames);
-			//个人总账逻辑处理 amount - 提现金额
-			if(outBound != null) {
-				updateAmount(outBound);
+		 //判断提现金额是否大于可用余额
+		if(amount<=account.getAvailableAmount()) {
+			if(applayIsOk) {
+				AccountOutBound outBound = saveOutBound(parames);
+				//个人总账逻辑处理 amount - 提现金额
+				if(outBound != null) {
+					updateAmount(outBound);
+				} else {
+					return new ResultInfo(ErrorCodeEnum.ES_1027.getErrorCode(),ErrorCodeEnum.ES_1027.getMessage(),null);
+				}
 			} else {
-				return new ResultInfo(ErrorCodeEnum.ES_1027.getErrorCode(),ErrorCodeEnum.ES_1027.getMessage(),null);
+				return new ResultInfo(ErrorCodeEnum.ES_1026.getErrorCode(),ErrorCodeEnum.ES_1026.getMessage(),null);
 			}
-		} else {
-			return new ResultInfo(ErrorCodeEnum.ES_1026.getErrorCode(),ErrorCodeEnum.ES_1026.getMessage(),null);
+		}else {
+			return new ResultInfo(ErrorCodeEnum.ES_1028.getErrorCode(),ErrorCodeEnum.ES_1028.getMessage(),null);
 		}
-	
 		return new ResultInfo(String.valueOf(ResultCode.SC_OK),"success",parames);
 	}
 
