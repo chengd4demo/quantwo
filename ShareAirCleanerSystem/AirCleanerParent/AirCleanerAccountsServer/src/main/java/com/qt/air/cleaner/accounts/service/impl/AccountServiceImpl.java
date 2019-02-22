@@ -48,6 +48,7 @@ import com.qt.air.cleaner.base.dto.ResultInfo;
 import com.qt.air.cleaner.base.enums.AccountOutBoundEnum;
 import com.qt.air.cleaner.base.enums.ErrorCodeEnum;
 import com.qt.air.cleaner.base.exception.BusinessRuntimeException;
+import com.qt.air.cleaner.base.utils.CalculateUtils;
 
 
 
@@ -243,9 +244,9 @@ public class AccountServiceImpl implements AccountService {
 		 * TODO 可能出现业务问题
 		 */
 		Float beforFreeAmount = account.getFreezingAmount();
-		Float freeAmount = beforFreeAmount + outBound.getAmount();
-		Float availableAmount = account.getAvailableAmount() - outBound.getAmount();
-		Float totalAmount = account.getTotalAmount() - outBound.getAmount();
+		Float freeAmount = CalculateUtils.add(beforFreeAmount, outBound.getAmount());
+		Float availableAmount = CalculateUtils.sub(account.getAvailableAmount(), outBound.getAmount());
+		Float totalAmount = CalculateUtils.sub(account.getTotalAmount(), outBound.getAmount());
 		account.setFreezingAmount(freeAmount);
 		account.setAvailableAmount(availableAmount);
 		account.setTotalAmount(totalAmount);
