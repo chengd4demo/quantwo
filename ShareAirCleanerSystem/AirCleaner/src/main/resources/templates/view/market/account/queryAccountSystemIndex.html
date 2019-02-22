@@ -69,9 +69,9 @@
 							<div class="layui-input-inline" style="width:100%" ;> 
 								<select id="state" name="state" lay-filter="investorTag">  
 									<option value="">请选择状态</option>
-	                    			<option value="4">未通过</option>
-	                    			<option value="3">已通过</option>
-	                    			<option value="2">未审核</option>	                    			   
+	                    			<option value="0">未审核</option>
+	                    			<option value="2">已通过</option>
+	                    			<option value="3">未通过</option>	                    			   
 								</select>							
 							</div>
 						</div>
@@ -98,18 +98,18 @@
 <script type="text/javascript" src="../../../js/index.js"></script>
 <!-- 表格操作按钮集 -->
 	<script type="text/html" id="barOption">
-			{{#  if (d.state === 2) { }}
+			{{#  if (d.state === 0) { }}
 			<a class="layui-btn layui-btn-mini layui-btn-normal" lay-event="accountSystemAudit">审核</a>
 	{{#  } }}
 	
 	</script>
 <!-- 状态 -->
 <script type="textml" id="stateTpl">
-		{{#  if (d.state === 2) { }}
+		{{#  if (d.state === 0) { }}
 			未审核
-		{{#  } else if (d.state === 3) { }}
+		{{#  } else if (d.state === 2) { }}
 			已通过
-		{{#  } else if (d.state === 4) { }}
+		{{#  } else if (d.state === 3) { }}
 			未通过
   		{{#  } else { }}
 			 {{ d.state }}
