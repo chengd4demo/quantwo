@@ -74,6 +74,11 @@ public class PlatformSetServiceImpl implements PlatformSetService {
 					Predicate p2 = cb.equal(root.get("pid"), pid);
 					conditions.add(p2);
 				}
+				String type = platformSetView.getType();
+				if(StringUtils.isNotBlank( type)) {
+					Predicate p3 = cb.like(root.get("type"), "%" + StringUtils.trim(type) + "%");
+					conditions.add(p3);
+				}
 				Predicate[] p = new Predicate[conditions.size()];
 				return cb.and(conditions.toArray(p));
 			}
