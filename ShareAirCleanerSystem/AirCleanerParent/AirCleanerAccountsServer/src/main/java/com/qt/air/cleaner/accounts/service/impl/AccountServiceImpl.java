@@ -48,6 +48,7 @@ import com.qt.air.cleaner.base.dto.ResultInfo;
 import com.qt.air.cleaner.base.enums.AccountOutBoundEnum;
 import com.qt.air.cleaner.base.enums.ErrorCodeEnum;
 import com.qt.air.cleaner.base.exception.BusinessRuntimeException;
+import com.qt.air.cleaner.base.utils.CalculateUtils;
 
 
 
@@ -197,22 +198,25 @@ public class AccountServiceImpl implements AccountService {
 	public ResultInfo applyForAccountOutbound(@RequestBody Map<String, String> parames)throws BusinessRuntimeException {
 		logger.info("execute method applyForAccountOutbound() param --> parames:{}", parames);
 		String weixin = parames.get("weixin");
+		Float amount = Float.valueOf(parames.get("amount"));
+		Account account = new Account();
 		boolean  applayIsOk = checkApplayPassword(parames.get("password"),parames.get("userType"),weixin);
-		/**
-		 * TODO 判断提现金额是否大于可用余额
-		 */
-		if(applayIsOk) {
-			AccountOutBound outBound = saveOutBound(parames);
-			//个人总账逻辑处理 amount - 提现金额
-			if(outBound != null) {
-				updateAmount(outBound);
+		 //判断提现金额是否大于可用余额
+		if(amount<=account.getAvailableAmount()) {
+			if(applayIsOk) {
+				AccountOutBound outBound = saveOutBound(parames);
+				//个人总账逻辑处理 amount - 提现金额
+				if(outBound != null) {
+					updateAmount(outBound);
+				} else {
+					return new ResultInfo(ErrorCodeEnum.ES_1027.getErrorCode(),ErrorCodeEnum.ES_1027.getMessage(),null);
+				}
 			} else {
-				return new ResultInfo(ErrorCodeEnum.ES_1027.getErrorCode(),ErrorCodeEnum.ES_1027.getMessage(),null);
+				return new ResultInfo(ErrorCodeEnum.ES_1026.getErrorCode(),ErrorCodeEnum.ES_1026.getMessage(),null);
 			}
-		} else {
-			return new ResultInfo(ErrorCodeEnum.ES_1026.getErrorCode(),ErrorCodeEnum.ES_1026.getMessage(),null);
+		}else {
+			return new ResultInfo(ErrorCodeEnum.ES_1028.getErrorCode(),ErrorCodeEnum.ES_1028.getMessage(),null);
 		}
-	
 		return new ResultInfo(String.valueOf(ResultCode.SC_OK),"success",parames);
 	}
 
@@ -240,9 +244,9 @@ public class AccountServiceImpl implements AccountService {
 		 * TODO 可能出现业务问题
 		 */
 		Float beforFreeAmount = account.getFreezingAmount();
-		Float freeAmount = beforFreeAmount + outBound.getAmount();
-		Float availableAmount = account.getAvailableAmount() - outBound.getAmount();
-		Float totalAmount = account.getTotalAmount() - outBound.getAmount();
+		Float freeAmount = CalculateUtils.add(beforFreeAmount, outBound.getAmount());
+		Float availableAmount = CalculateUtils.sub(account.getAvailableAmount(), outBound.getAmount());
+		Float totalAmount = CalculateUtils.sub(account.getTotalAmount(), outBound.getAmount());
 		account.setFreezingAmount(freeAmount);
 		account.setAvailableAmount(availableAmount);
 		account.setTotalAmount(totalAmount);
