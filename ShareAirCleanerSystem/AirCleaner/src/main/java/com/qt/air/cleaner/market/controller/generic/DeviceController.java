@@ -43,7 +43,7 @@ public class DeviceController {
 	private final String GENERIC_DEVICES_DEVICE_INDEX = "view/market/generic/queryDeviceIndex",
 			GENERIC_DEVICES_DEVICE_EDIT = "view/market/generic/editDeviceIndex",
 			GENERIC_DEVICE_QRCODE = "view/market/generic/viewDeviceQRcodeIndex",
-			GENERIC_SHARE_PROFILE = "view/market/generic/editNewShareProfile";
+			GENERIC_SHARE_PROFILE = "view/market/generic/editNewShareProfile"; 
 	@Autowired
 	DeviceService deviceService;
 	@Autowired

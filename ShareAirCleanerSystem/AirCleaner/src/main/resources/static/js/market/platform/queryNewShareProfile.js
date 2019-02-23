@@ -30,7 +30,7 @@ layui.use(['treetable','form','table','laypage', 'layer'],function(){
     				return new Array();
     			 }
     		 });
-    }
+    } 
     load(req)
     tableIns=treetable.render({
         elem: '#test-tree-table',

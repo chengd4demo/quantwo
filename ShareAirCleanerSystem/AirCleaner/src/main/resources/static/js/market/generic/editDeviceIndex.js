@@ -36,8 +36,7 @@ layui.use(['form', 'layedit', 'laydate', 'layer'], function() {
 		});
 	    return false;
 	});    
-    
-    
+       
     //表单提交
     form.on('submit(demo1)', function(data) {
 		// 询问框

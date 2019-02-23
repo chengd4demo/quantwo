@@ -29,7 +29,7 @@ public class PlatformSetController {
 	private final String PLATFORM_SHAREPROFIT_INDEX = "view/market/platform/queryNewShareProfile",
 						 PLATFORM_SHAREPROFIT_EDIT = "view/market/platform/editNewShareProfile";
 	@Autowired
-	PlatformSetService platformSetService;
+	PlatformSetService platformSetService; 
 	
 	@RequestMapping(method = RequestMethod.GET, path = "/index")
 	public String index() {

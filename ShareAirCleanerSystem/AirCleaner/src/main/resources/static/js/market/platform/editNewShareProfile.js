@@ -5,8 +5,7 @@ layui.use(['form', 'layedit', 'laydate', 'layer'], function() {
 	   //分润比例（1-100整数）
 		name:function(value){
 			
-		}
-		
+		}		
 	});*/
 	form.on('submit(demo1)',function(data){
 		//询问框
