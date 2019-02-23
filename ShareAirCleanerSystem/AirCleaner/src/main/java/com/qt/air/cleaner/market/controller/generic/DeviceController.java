@@ -42,7 +42,8 @@ public class DeviceController {
 	private final Logger logger = LoggerFactory.getLogger(DeviceController.class);
 	private final String GENERIC_DEVICES_DEVICE_INDEX = "view/market/generic/queryDeviceIndex",
 			GENERIC_DEVICES_DEVICE_EDIT = "view/market/generic/editDeviceIndex",
-			GENERIC_DEVICE_QRCODE = "view/market/generic/viewDeviceQRcodeIndex";
+			GENERIC_DEVICE_QRCODE = "view/market/generic/viewDeviceQRcodeIndex",
+			GENERIC_SHARE_PROFILE = "view/market/generic/editNewShareProfile";
 	@Autowired
 	DeviceService deviceService;
 	@Autowired
@@ -59,6 +60,11 @@ public class DeviceController {
 	@Value("${file.uploadFolder.qrcode}")
 	public String DEVICE_QRCODE_CREATE_PATH;
 	
+	@RequestMapping (method = RequestMethod.GET,path = "/add")
+	public String add() {
+		
+		return GENERIC_SHARE_PROFILE;
+	}
 
 	@RequestMapping(method = RequestMethod.GET, path = "/index/{id}/{deviceBatchName}")
 	public String index(Model model, @PathVariable("id") String deviceBatchId,@PathVariable("deviceBatchName") String deviceBatchName) {

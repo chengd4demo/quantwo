@@ -26,12 +26,19 @@ import net.sf.json.JSONObject;
 @RequestMapping("market/platform")
 public class PlatformSetController {
 	private final Logger logger = LoggerFactory.getLogger(PlatformSetController.class);
-	private final String PLATFORM_SHAREPROFIT_EDIT = "view/market/platform/editNewShareProfile";
+	private final String PLATFORM_SHAREPROFIT_INDEX = "view/market/platform/queryNewShareProfile",
+						 PLATFORM_SHAREPROFIT_EDIT = "view/market/platform/editNewShareProfile";
 	@Autowired
 	PlatformSetService platformSetService;
 	
 	@RequestMapping(method = RequestMethod.GET, path = "/index")
 	public String index() {
+		return PLATFORM_SHAREPROFIT_INDEX;
+	}
+	
+	@RequestMapping (method = RequestMethod.GET,path = "/edit")
+	public String edit() {
+		
 		return PLATFORM_SHAREPROFIT_EDIT;
 	}
 	
