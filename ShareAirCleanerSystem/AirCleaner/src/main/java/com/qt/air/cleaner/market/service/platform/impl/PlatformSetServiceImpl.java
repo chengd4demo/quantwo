@@ -18,7 +18,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import com.qt.air.cleaner.market.domain.account.Account;
+import com.qt.air.cleaner.market.domain.generic.Device;
 import com.qt.air.cleaner.market.domain.platform.ShareProfit;
+import com.qt.air.cleaner.market.repository.generic.DeviceRepository;
 import com.qt.air.cleaner.market.repository.platform.ShareProfitRepository;
 import com.qt.air.cleaner.market.service.platform.PlatformSetService;
 import com.qt.air.cleaner.market.vo.platform.PlatformSetView;
@@ -28,6 +31,8 @@ import com.qt.air.cleaner.market.vo.platform.PlatformSetView;
 public class PlatformSetServiceImpl implements PlatformSetService {
 	@Resource
 	ShareProfitRepository shareProfitRepository;
+	@Resource
+	DeviceRepository deviceRepository;
 
 	@Override
 	public List<ShareProfit> findAll() {
@@ -101,6 +106,72 @@ public class PlatformSetServiceImpl implements PlatformSetService {
 		}
 		Example<ShareProfit> example = Example.of(platform);
 		return shareProfitRepository.count(example);
+	}
+
+	/**
+	 * 分润信息查询
+	 * 
+	 * @param id
+	 */
+	@Override
+	public ShareProfit findById(String id) {
+		return shareProfitRepository.findById(id);
+	}
+
+	/**
+	 * 分润信息删除
+	 * 
+	 * @param id
+	 */
+	@Override
+	public boolean delete(String id) {
+		Device device = deviceRepository.findByDistributionRatioAndRemoved(id, Boolean.FALSE);
+		if(device == null) {
+			List<ShareProfit> platformSetFiledList = shareProfitRepository.findByPlatformSet(id);
+			if(!CollectionUtils.isEmpty(platformSetFiledList) && platformSetFiledList.size()>1) {
+				//删除下面所有子数据
+				shareProfitRepository.deleteInBatch(platformSetFiledList);
+			} else {
+				shareProfitRepository.delete(id);
+			}
+			return true;
+		} 
+		return false;
+		
+	}
+
+	@Override
+	public String findByPlatformId(String distributionRatio) {
+		List<ShareProfit> platformSetFiledList = shareProfitRepository.findByPlatformSet(distributionRatio);
+		String result = "";
+		if(CollectionUtils.isEmpty(platformSetFiledList)) {
+			return result;
+		} else {
+			String name = "";
+			String type = "";
+			Float scale = 0.00f;
+			Float free = 0.00f;
+			for(ShareProfit platformSet: platformSetFiledList) {
+				name = platformSet.getName();
+				type = platformSet.getType();
+				scale = platformSet.getScale();
+				free = platformSet.getFree();
+				if(StringUtils.equals(Account.ACCOUNT_TYPE_COMPANY, type)) {
+					result += name + ":" + scale + "% ";
+				} else if(StringUtils.equals(Account.ACCOUNT_TYPE_AGENT_ZD, type)) {
+					result += name + ":" + scale + "% ";
+				}  else if(StringUtils.equals(Account.ACCOUNT_TYPE_AGENT_DL, type)) {
+					result += name + ":" + scale + "% ";
+				} else if(StringUtils.equals(Account.ACCOUNT_TYPE_INVESTOR, type)) {
+					result += name + ":" + scale + "% (耗材费："+ free +"元/h) ";
+				} else if(StringUtils.equals(Account.ACCOUNT_TYPE_TRADER, type)) {
+					result += name + ":" + scale + "% ";
+				}  else if(StringUtils.equals(Account.ACCOUNT_TYPE_SALER, type)) {
+					result += name + ":" + scale + "% ";
+				}
+			}
+		}
+		return result;
 	}
 
 }

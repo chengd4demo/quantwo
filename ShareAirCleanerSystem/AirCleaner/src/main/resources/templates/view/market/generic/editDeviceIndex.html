@@ -14,7 +14,8 @@
 			<legend data-th-text="${device.legend}">维护批次信息</legend>
 		<form class="layui-form" layui-form="device" action="" th:object="${device}" >
 		<input type="hidden" name ="id" th:field="*{id}"/>	
-		<input type="hidden" name ="deviceBatchId" th:field="*{deviceBatchId}"/>			
+		<input type="hidden" name ="deviceBatchId" th:field="*{deviceBatchId}"/>	
+		<input id="distributionRatioId" type="hidden" name ="distributionRatio" th:field="*{distributionRatio}"/>		
 		     <!--设备序列号-->
 		    <div class="layui-form-item" th:if="${device.id != null}">
 		        <label class="layui-form-label">设备序列号</label>
@@ -93,13 +94,16 @@
 	                </select>
 	            </div>
     		</div>
-    		<!-- 添加分润 -->
-    		<div class="layui-form-item">
-	            <label class="layui-form-label">分润比例</label>
-	            <div class="layui-inline" id="appendBtn">
-					<button type="button" data-method="add" lay-submit=""  lay-filter="addFenRun" class="layui-btn layui-btn-sm layui-btn-normal layui-icon" title="添加分润比例">&#xe654;</button>
-				</div>
-    		</div>     		
+    		<!--分润比例-->
+    		 <div class="layui-form-item">
+		        <label class="layui-form-label">分润比例</label>
+		        <div class="layui-inline" style="width: 64%">
+		            <input id = "ratioId" type="text"  placeholder="分润比例" th:value="ratio" th:field="*{ratio}" autocomplete="off" class="layui-input"  >
+		        </div>
+		        <div class="layui-inline" style="margin-left: -2em;float:right">
+		        	<button class="layui-btn layui-btn-normal" lay-submit="" lay-filter="addIcon">+选择</button>
+		        </div>
+		    </div>
 		    <!--底部提交按钮-->
 		    <div class="layui-form-item" style="text-align: center;">
 		        <div class="layui-input-block">

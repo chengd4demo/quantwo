@@ -16,4 +16,10 @@ public interface PlatformSetService {
 	Page<ShareProfit> findAllSet(PlatformSetView platformSetView, Pageable pageable);
 
 	long findCount(PlatformSetView platformSetView);
+
+	ShareProfit findById(String id);
+
+	boolean delete(String id);
+
+	String findByPlatformId(String distributionRatio);
 }

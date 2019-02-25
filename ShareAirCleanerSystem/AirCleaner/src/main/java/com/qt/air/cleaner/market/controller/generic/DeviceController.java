@@ -28,6 +28,7 @@ import com.qt.air.cleaner.market.service.generic.DeviceService;
 import com.qt.air.cleaner.market.service.generic.InvestorService;
 import com.qt.air.cleaner.market.service.generic.SalerService;
 import com.qt.air.cleaner.market.service.generic.TraderService;
+import com.qt.air.cleaner.market.service.platform.PlatformSetService;
 import com.qt.air.cleaner.market.service.price.PriceSystemService;
 import com.qt.air.cleaner.market.vo.generic.DeviceView;
 import com.qt.air.cleaner.vo.common.ErrorCodeEnum;
@@ -56,6 +57,8 @@ public class DeviceController {
 	SalerService salerService;
 	@Autowired
 	PriceSystemService priceSystemService;
+	@Autowired
+	PlatformSetService platformSetService;
 	
 	@Value("${file.uploadFolder.qrcode}")
 	public String DEVICE_QRCODE_CREATE_PATH;
@@ -104,7 +107,9 @@ public class DeviceController {
 		if (StringUtils.isNotBlank(id)) {
 			Device device = deviceService.findById(id);
 			if(device != null) {
+				String ratio = platformSetService.findByPlatformId(device.getDistributionRatio());
 				deviceView = new DeviceView(device);
+				deviceView.setRatio(ratio);
 				deviceView.setLegend(Constants.DEVICE_EDIT_LEGEND);
 			}
 		} else {

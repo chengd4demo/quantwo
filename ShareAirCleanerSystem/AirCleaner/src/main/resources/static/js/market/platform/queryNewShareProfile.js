@@ -117,7 +117,16 @@ layui.use(['treetable','form','table','laypage', 'layer'],function(){
     })
 
     o('.get-checked').click(function(){
-        console.dir(treetable.all('checked'));
+    	var obj = treetable.all('checked');
+    	if (checkParent(obj)) {
+    		var id = obj.data[0].id;
+    		parent.parent.layui.$.find('iframe')[2].contentWindow.layui.$.find('iframe')[0].contentWindow.document.getElementById('distributionRatioId').value = id
+    		var index = parent.parent.parent.layer.getFrameIndex(window.name);
+    		var showRatioValue = getShowRatioValue(obj.data)
+    		parent.parent.layui.$.find('iframe')[2].contentWindow.layui.$.find('iframe')[0].contentWindow.document.getElementById('ratioId').value = showRatioValue
+    		parent.parent.parent.layer.close(index)
+    	} 
+//        console.dir(treetable.all('checked'));
     })
 
     form.on('switch(status)',function(data){
@@ -209,21 +218,22 @@ layui.use(['treetable','form','table','laypage', 'layer'],function(){
     })
     
     //删除
-    treetable.on('treetable(del)',function(data){
+    treetable.on('tree(del)',function(data){
+        layer.msg('删除操作');
         layer.confirm('确定删除', function(index) {
+        	console.dir(data);
 			//请求
 			$.ajax({
-				url:"/market/platform/"+data.id,
+				url:"/market/platform/"+data.item.id,
 				async:false,
 				success:function(data){
 					if(data.code==200){
 						layer.msg('删除成功！',{time:500},function(){
 							layer.close(index);
-							obj.del();
-							$(".layui-laypage-btn").click();
+							return false;
 	            		 });
 					}else {
-						layer.msg('删除失败！');
+						layer.msg(data.msg);
 						layer.close(index);
 					}
 				}
@@ -243,6 +253,86 @@ layui.use(['treetable','form','table','laypage', 'layer'],function(){
 		load(data);
 		return false;
 	});
+	function checkParent(obj){
+    	var pidArray = new Array();
+    	if (obj.data.length == 0) {
+    		 layer.msg('请选择分润比例');
+    		 return false;
+    	} else {
+    		var data = obj.data;
+    		$.each(data,function(){
+    			if(this.pid == '0')
+    			pidArray.push(this.pid);
+    		})
+    		return checkPidMultiple(pidArray);
+    	}
+    }
+    
+    function checkPidMultiple(parame){
+    	if(parame.length >1) {
+    		 layer.msg('最多只能选择1条数类型为【公司】的数据');
+    		 return false;
+    	} else if(parame.length == 0) {
+    		 layer.msg('至少选择1条数类型为【公司】的数据');
+    		 return false;
+    	}
+    	return true;
+    }
+    function research(){
+    	load(req);
+		tableIns.data.push(research())
+		treetable.render(tableIns)
+    }
+    
+    function getShowRatioValue(parame) {
+    	console.log(parame)
+    	//公司：30%，代理：10%，投资商：30% (耗材费：0.09/h)，商家：50%
+    	var result='',cyName='',dlName='',irName='',zdName='',trName='',srName='',otherName=''
+    	$.each(parame,function(){
+    		if(this.type =='CY') {
+        		cyName = this.title;
+        		cyName += ':' + this.scale + '% '
+        	} else if(this.type =='ZD') {
+        		zdName = this.title;
+        		zdName += ':' + this.scale + '% '
+        	} else if(this.type =='DL') {
+        		dlName = this.title;
+        		dlName += ':' + this.scale + '% '
+        	}  else if(this.type =='IR') {
+        		irName = this.title;
+        		irName += ':' + this.scale + '% '
+        	} else if(this.type =='TR') {
+    			trName = this.title;
+    			trName += ':' + this.scale + '% '
+        	} else if(this.type =='SR') {
+        		srName = this.title;
+        		srName += ':' + this.scale + '% '
+        	} else {
+        		otherName = this.title;
+        		otherName + ':' + this.scale + '%'
+        	}
+		})
+		if(cyName != undefined) {
+			result += cyName
+		}
+    	if(zdName != undefined) {
+			result += zdName
+		}
+    	if(dlName != undefined) {
+			result += dlName
+		}
+    	if(irName != undefined) {
+			result += irName
+		}
+    	if(trName != undefined) {
+			result += trName
+		}
+    	if(srName != undefined) {
+			result += srName
+		}
+		console.log(result)
+		return result;
+    }
 	 	 	    
 })
 

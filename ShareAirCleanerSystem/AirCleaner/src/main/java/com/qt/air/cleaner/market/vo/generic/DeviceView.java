@@ -26,6 +26,8 @@ public class DeviceView implements Serializable{
 	private String priceSystemName;
 	private String legend;
 	private String deviceSequence;
+	private String distributionRatio;
+	private String ratio;
 	@JsonIgnore
 	public SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
@@ -41,6 +43,7 @@ public class DeviceView implements Serializable{
 		this.setSetupAddress(device.getSetupAddress());
 		this.setDeviceSequence(device.getDeviceSequence());
 		this.setCreateTime(dateFormat.format(device.getCreateTime()));
+		this.setDistributionRatio(device.getDistributionRatio());
 		if (device.getInvestor() != null) {
 			this.setInvestorId(device.getInvestor().getId());
 			this.setInvestorName(device.getInvestor().getName());
@@ -144,6 +147,18 @@ public class DeviceView implements Serializable{
 	}
 	public void setDeviceBatchName(String deviceBatchName) {
 		this.deviceBatchName = deviceBatchName;
+	}
+	public String getRatio() {
+		return ratio;
+	}
+	public void setRatio(String ratio) {
+		this.ratio = ratio;
+	}
+	public String getDistributionRatio() {
+		return distributionRatio;
+	}
+	public void setDistributionRatio(String distributionRatio) {
+		this.distributionRatio = distributionRatio;
 	}
 	public String getDeviceSequence() {
 		return deviceSequence;

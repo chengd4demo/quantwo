@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +33,8 @@ public class PlatformSetController {
 	PlatformSetService platformSetService; 
 	
 	@RequestMapping(method = RequestMethod.GET, path = "/index")
-	public String index() {
+	public String index(String referrer,Model model) {
+		model.addAttribute("deviceDit", referrer);
 		return PLATFORM_SHAREPROFIT_INDEX;
 	}
 	

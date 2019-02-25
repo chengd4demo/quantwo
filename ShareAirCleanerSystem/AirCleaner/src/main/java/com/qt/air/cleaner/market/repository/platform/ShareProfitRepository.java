@@ -1,5 +1,7 @@
 package com.qt.air.cleaner.market.repository.platform;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -18,4 +20,8 @@ public interface ShareProfitRepository extends JpaRepository<ShareProfit, String
 	@Query(value="update ShareProfit s set s.free=:free")
 	void updateAllFree(@Param("free") Float free);
 	Page<ShareProfit> findAll(Specification<ShareProfit> specification, Pageable pageable);
+	ShareProfit findById(String id);
+	@Query(value="select t.id,t.free,t.scale,t.pid,t.name,t.type from ps_share_profit t start with id = :distributionRatio "+
+			"connect by prior t.id = t.pid",nativeQuery = true)
+	List<ShareProfit> findByPlatformSet(@Param("distributionRatio") String distribution);
 }

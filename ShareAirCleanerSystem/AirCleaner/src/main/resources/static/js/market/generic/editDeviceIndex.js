@@ -1,8 +1,10 @@
+var test = 222;
 layui.use(['form', 'layedit', 'laydate', 'layer'], function() {
 	var form = layui.form
 		,$=layui.jquery
 		,laydate = layui.laydate
 		,layer = layui.layer;
+	
 	//日期
     laydate.render({
         elem: '#date'
@@ -24,19 +26,16 @@ layui.use(['form', 'layedit', 'laydate', 'layer'], function() {
 	    	}
 	    }
     });
-    
-    //添加
-    form.on('submit(addFenRun)',function(data){
+    form.on('submit(addIcon)',function(data){
 		parent.parent.layer.open({
 		  type: 2,
-		  title: '分润',
+		  title: '分润比例设定',
 		  skin: 'layui-layer-rim', //加上边框
-		  area: ['1024px', '520px'], //宽高
-		  content: '../../../market/devices/add'
+		  area: ['1024px', '600px'], //宽高
+		  content: '/market/platform/index?referrer=deviceDit'
 		});
 	    return false;
-	});    
-       
+	});
     //表单提交
     form.on('submit(demo1)', function(data) {
 		// 询问框
@@ -76,5 +75,4 @@ layui.use(['form', 'layedit', 'laydate', 'layer'], function() {
 		});
 		return false;
 	});
-	
 });

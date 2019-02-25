@@ -10,6 +10,7 @@
 	<link rel="stylesheet" href="../../../frame/static/css/style.css">	
 	<link rel="stylesheet" href="../../../css/frame.css">
 	<link rel="stylesheet" href="../../../css/globle.css">	
+	<link rel="stylesheet" href="../../../frame/font-awesome-4.7.0/css/font-awesome.min.css">
 </head>
 	<body class="body" style="overflow:scroll;">
 		<div class="layui-card-header">
@@ -83,9 +84,9 @@
 		</fieldset>
 
 		<!--表格控制按钮--> 
-		<button class="layui-btn layui-btn-primary up-all">全部收起</button>
-		<button class="layui-btn layui-btn-primary down-all">全部展开</button>
-		<button class="layui-btn layui-btn-primary get-checked">获取选中</button>
+		<button class="layui-btn layui-btn-normal layui-btn-sm  up-all"><li class="fa fa-minus-circle">全部收起</li></button>
+		<button class="layui-btn layui-btn-normal layui-btn-sm down-all"><li class="fa fa-plus-circle">全部展开</li></button>
+		<button class="layui-btn layui-btn-normal layui-btn-sm get-checked" th:if="${deviceDit != null}"><li class="fa fa-cog">分润比例设定</li></button>
 
 		<!--表格-->
 		<div class="main" style="width:100%; height:300px;margin-top:10px; overflow:scroll;">

@@ -15,6 +15,9 @@ import com.singalrain.framework.core.bo.GenericEntity;
 })
 public class Account extends GenericEntity {
 	
+	//代理
+	public final static String ACCOUNT_TYPE_AGENT_DL = "DL";
+	public final static String ACCOUNT_TYPE_AGENT_ZD = "ZD";
 	//商家
 	public final static String ACCOUNT_TYPE_TRADER = "TR";
 	//投资商
