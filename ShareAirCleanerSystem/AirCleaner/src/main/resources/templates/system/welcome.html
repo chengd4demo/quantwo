@@ -84,10 +84,15 @@
                 , vipTab = layui.vip_tab
                 , element = layui.element
                 , $ = layui.jquery;
-
+        var index = layer.load(2, {content:'数据分析中...',success: function (layero){
+       	 layero.find('.layui-layer-content').css({
+       	            'padding-left': '39px',
+       	            'padding-top': '5px',
+       	            'width': '100px'
+       	        });
+       	} }); 
         $.ajax({
       		 type:"POST",
-      		 async:false,
       		 url:"../../../current/report", 
       		 contentType: 'application/json',
       		 data : {},
@@ -105,8 +110,10 @@
           				 element.progress('volumeRateId', data.volumeRate)
       				 },1000)
       			 }
+      			layer.close(index);  
       		 },
       		 error: function(errorMsg){
+      			 layer.close(index);  
       			 alert("数据统计失败!");
       		 }
       	 });
