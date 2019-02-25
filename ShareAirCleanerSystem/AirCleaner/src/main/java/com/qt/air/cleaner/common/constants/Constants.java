@@ -92,6 +92,10 @@ public class Constants {
     public static final String PRIZE_ADD_LEGEND ="新增奖品";
     public static final String PRIZE_EDIT_LEGEND ="修改奖品";
     
+   //分润比例信息维护页面显示文本
+    public static final String SCALE_ADD_LEGEND ="新增分润比例";
+    public static final String SCALE_EDIT_LEGEND ="修改分润比例";
+    
     //活动设置配置项业务ID
     public static final String ACTIVITY_CONFIG_BUSSINESSID = "B0000001";
     

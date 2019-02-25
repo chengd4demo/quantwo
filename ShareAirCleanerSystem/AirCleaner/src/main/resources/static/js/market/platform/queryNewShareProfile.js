@@ -2,17 +2,20 @@ var pageCurr;
 layui.config({
     base: '../../../frame/echarts/',
 })
-layui.use(['treetable','form','table','laypage', 'layer'],function(){
+layui.use(['treetable','form','table','laypage', 'layer','element'],function(){
 	var data=[{"id":1,"pid":"0","title":"成都圈兔公司"}];
-	var o = layui.$,treetable = layui.treetable;
-    var form = layui.form,layer = layui.layer;
-    var laypage = layui.laypage,
+	var o = layui.$,
+	treetable = layui.treetable,
+    form = layui.form,
+    layer = layui.layer,
+    laypage = layui.laypage,
     layer = layui.layer,
     table = layui.table,layer = layui.layer,
-    vipTable = layui.vip_table,
+    element = layui.element,
 	$ = layui.jquery;
-    var req = {page:1,limit:20};
+    var req = {page:1,limit:20,type:'',name:'',pid:''};
     var pageCount = 0
+    var loading = true
     function load(parame) {
     	  $.ajax({
     			 type:"POST",
@@ -23,7 +26,8 @@ layui.use(['treetable','form','table','laypage', 'layer'],function(){
     			 success:function(res){
     				 if (res) {
     					data = res.data
-    					pageCount = res.pageCount
+    					//pageCount = res.pageCount
+    					$('#pageCount').val(res.pageCount);
     				 }
     			 },
     			 error: function(errorMsg){
@@ -31,82 +35,93 @@ layui.use(['treetable','form','table','laypage', 'layer'],function(){
     			 }
     		 });
     } 
-    load(req)
-    tableIns=treetable.render({
-        elem: '#test-tree-table',
-        data: data,
-        field: 'title',
-        is_checkbox: true,
-        checked:[1,2,3,4],
-        cols: [
-            {
-                field: 'title',
-                title: '上级',
-                width: '30%',
-                template: function(item){
-                    if(item.level == 1){
-                        return '<span style="color:red;">'+item.title+'</span>';
-                    }
-                    if(item.level == 2){
-                        return '<span style="color:green;">'+item.title+'</span>';
-                    }
-                    return item.title;
-                }
-            },
-            {
-                field: 'name',
-                title: '名称',
-                width: '20%'
-            },
-            {
-                field: 'type',
-                title: '类型',
-                width: '20%',
-                template:function(item) {
-                	if(item.type =='TR') {
-                		return '商家';
-                	} else if(item.type =='IR') {
-                		return '投资商';
-                	} else if(item.type =='CY') {
-                		return '公司';
-                	} else if(item.type =='SR') {
-                		return '促销员';
-                	} else if(item.type =='ZD') {
-                		return '区域总代';
-                	} else if(item.type =='DL') {
-                		return '代理';
-                	} else {
-                		return '其它'
-                	}
-                }
-                
-            },
-            {
-                field: 'scale',
-                title: '分润比例',
-                width: '10%',
-                template:function(item) {
-                	return item.scale + '%'
-                }
-            },
-            {
-                field: 'actions',
-                title: '操作',
-                width: '30%',
-                template: function(item){
-                    var tem = [];
-                    //if(item.pid == 0){
-                        tem.push('<a class="layui-icon layui-btn layui-btn-mini layui-btn-normal" lay-filter="add" lay-event="detail">&#xe654;</a>');
-                    //}   
-                    tem.push('<a class="layui-btn layui-btn-mini layui-btn-normal" lay-filter="edit">编辑</a>');                  
-                    //if(item.pid > 0){
-                        tem.push('<a class="layui-btn layui-btn-mini layui-btn-danger" lay-filter="del">删除</a>');
-                    //}  
-                    return tem.join(' <font></font> ')
-                },
-            },
-        ]
-    });
+    form.on('select(type)',function(data){
+    	req.type = data.value
+    })
+    form.on('select(pid)',function(data){
+    	req.pid = data.value
+    }) 
+    var renderTable = function () {
+    	 load(req)
+    	 treetable.render({
+    	        elem: '#test-tree-table',
+    	        data: data,
+    	        field: 'title',
+    	        is_checkbox: true,
+    	        cols: [
+    	            {
+    	                field: 'title',
+    	                title: '上级',
+    	                width: '30%',
+    	                template: function(item){
+    	                    if(item.level == 1){
+    	                        return '<span style="color:red;">'+item.title+'</span>';
+    	                    }
+    	                    if(item.level == 2){
+    	                        return '<span style="color:green;">'+item.title+'</span>';
+    	                    }
+    	                    return item.title;
+    	                }
+    	            },
+    	            {
+    	                field: 'name',
+    	                title: '名称',
+    	                width: '20%'
+    	            },
+    	            {
+    	                field: 'type',
+    	                title: '类型',
+    	                width: '20%',
+    	                template:function(item) {
+    	                	if(item.type =='TR') {
+    	                		return '商家';
+    	                	} else if(item.type =='IR') {
+    	                		return '投资商';
+    	                	} else if(item.type =='CY') {
+    	                		return '公司';
+    	                	} else if(item.type =='SR') {
+    	                		return '促销员';
+    	                	} else if(item.type =='ZD') {
+    	                		return '区域总代理';
+    	                	} else if(item.type =='DL') {
+    	                		return '代理';
+    	                	} else {
+    	                		return '其它'
+    	                	}
+    	                }
+    	                
+    	            },
+    	            {
+    	                field: 'scale',
+    	                title: '分润比例',
+    	                width: '10%',
+    	                template:function(item) {
+    	                	return item.scale + '%'
+    	                }
+    	            },
+    	            {
+    	                field: 'actions',
+    	                title: '操作',
+    	                width: '30%',
+    	                template: function(item){
+    	                    var tem = [];
+    	                    //if(item.pid == 0){
+    	                        tem.push('<a class="layui-icon layui-btn layui-btn-mini layui-btn-normal" lay-filter="add" lay-event="detail">&#xe654;</a>');
+    	                    //}   
+    	                    tem.push('<a class="layui-btn layui-btn-mini layui-btn-normal" lay-filter="edit">编辑</a>');                  
+    	                    //if(item.pid > 0){
+    	                        tem.push('<a class="layui-btn layui-btn-mini layui-btn-danger" lay-filter="del">删除</a>');
+    	                    //}  
+    	                    return tem.join(' <font></font> ')
+    	                },
+    	            },
+    	        ]
+    	    });
+    }
+    if(loading) {
+    	loading = false;
+    	renderTable()
+    } 
         
     o('.up-all').click(function(){
         treetable.all('up');
@@ -126,31 +141,14 @@ layui.use(['treetable','form','table','laypage', 'layer'],function(){
     		parent.parent.layui.$.find('iframe')[2].contentWindow.layui.$.find('iframe')[0].contentWindow.document.getElementById('ratioId').value = showRatioValue
     		parent.parent.parent.layer.close(index)
     	} 
-//        console.dir(treetable.all('checked'));
     })
 
     form.on('switch(status)',function(data){
         layer.msg('监听状态操作');
         console.dir(data);
     })
-    
     //分页
-    laypage.render({
-        elem: 'demo7'
-       ,count: pageCount
-       ,limit:20
-       ,first: '首页'
-       ,last: '尾页'
-       ,prev: '<em>←</em>'
-       ,next: '<em>→</em>'
-       ,jump: function(obj, first){
-               start = 1 + obj.limit * (obj.curr-1);
-               end = obj.curr*obj.limit;
-               if(!first){
-            	   queryDeviceUsedData(dateType,traderIds,start,end);
-               }
-           }
-     });
+	resetPageInfo();
     
     //新增
     var active = {
@@ -166,7 +164,7 @@ layui.use(['treetable','form','table','laypage', 'layer'],function(){
 	 		,id: 'LAY_layuipro' //设定一个id，防止重复弹出
 	 		,btnAlign: 'c'
 	 		,moveType: 1 //拖拽模式，0或者1
-	 		,content: '../../../market/platform/edit'
+	 		,content: '../../../market/platform/edit?level=0'
 	 		,success: function(layero){
 	 			var btn = layero.find('.layui-layer-btn');
 	 			btn.find('.layui-layer-btn0').attr({href: '',target: '_blank'});
@@ -177,7 +175,7 @@ layui.use(['treetable','form','table','laypage', 'layer'],function(){
     
     //添加
     treetable.on('treetable(add)',function(data){
-        layer.open({
+    	layer.open({
 	 		type: 2
 	 		,title: '添加 '//显示标题栏
 	 		,closeBtn: 1 //显示关闭按钮 属性0，1，2
@@ -188,7 +186,7 @@ layui.use(['treetable','form','table','laypage', 'layer'],function(){
 	 		,id: 'LAY_layuipro' //设定一个id，防止重复弹出
 	 		,btnAlign: 'c'
 	 		,moveType: 1 //拖拽模式，0或者1
-	 		,content: '../../../market/platform/edit'
+	 		,content: '../../../market/platform/edit?pid=' + data.item.id
 	 		,success: function(layero){
 	 			var btn = layero.find('.layui-layer-btn');
 	 			btn.find('.layui-layer-btn0').attr({href: '',target: '_blank'});
@@ -209,7 +207,7 @@ layui.use(['treetable','form','table','laypage', 'layer'],function(){
 	 		,id: 'LAY_layuipro' //设定一个id，防止重复弹出
 	 		,btnAlign: 'c'
 	 		,moveType: 1 //拖拽模式，0或者1
-	 		,content: '../../../market/platform/edit'
+	 		,content: '../../../market/platform/edit?id=' + data.item.id
 	 		,success: function(layero){
 	 			var btn = layero.find('.layui-layer-btn');
 	 			btn.find('.layui-layer-btn0').attr({href: '',target: '_blank'});
@@ -218,7 +216,8 @@ layui.use(['treetable','form','table','laypage', 'layer'],function(){
     })
     
     //删除
-    treetable.on('tree(del)',function(data){
+    treetable.on('treetable(del)',function(data){
+    	 console.dir(data);
         layer.msg('删除操作');
         layer.confirm('确定删除', function(index) {
         	console.dir(data);
@@ -230,7 +229,7 @@ layui.use(['treetable','form','table','laypage', 'layer'],function(){
 					if(data.code==200){
 						layer.msg('删除成功！',{time:500},function(){
 							layer.close(index);
-							return false;
+							$(".layui-laypage-btn").click();
 	            		 });
 					}else {
 						layer.msg(data.msg);
@@ -250,7 +249,10 @@ layui.use(['treetable','form','table','laypage', 'layer'],function(){
 	//监听搜索框
 	form.on('submit(searchSubmit)', function(data){
 		//重新加载table
-		load(data);
+		var name = $('#name').val()
+		req.name = name
+		renderTable()
+		resetPageInfo()
 		return false;
 	});
 	function checkParent(obj){
@@ -277,13 +279,7 @@ layui.use(['treetable','form','table','laypage', 'layer'],function(){
     		 return false;
     	}
     	return true;
-    }
-    function research(){
-    	load(req);
-		tableIns.data.push(research())
-		treetable.render(tableIns)
-    }
-    
+    }    
     function getShowRatioValue(parame) {
     	console.log(parame)
     	//公司：30%，代理：10%，投资商：30% (耗材费：0.09/h)，商家：50%
@@ -333,6 +329,22 @@ layui.use(['treetable','form','table','laypage', 'layer'],function(){
 		console.log(result)
 		return result;
     }
-	 	 	    
+    
+    function resetPageInfo(){
+    	laypage.render({
+		      elem: 'demo7'
+		      ,count: $('#pageCount').val()
+		      ,limit:20
+		      ,prev: '<em><i class="layui-icon"></i></em>'
+		      ,next: '<em><i class="layui-icon"></i></em>'
+		      ,layout: ['prev', 'page', 'next', 'skip' , 'count', 'limit'  , 'refresh']
+		      ,jump: function(obj){
+		    	  req.page = obj.curr
+		    	  req.limit = obj.limit
+		    	  renderTable()
+		      }
+		 });
+    }
+    
 })
 

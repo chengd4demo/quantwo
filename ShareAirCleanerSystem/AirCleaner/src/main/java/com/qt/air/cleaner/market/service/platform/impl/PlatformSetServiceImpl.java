@@ -10,6 +10,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import com.qt.air.cleaner.common.exception.BusinessException;
 import com.qt.air.cleaner.market.domain.account.Account;
 import com.qt.air.cleaner.market.domain.generic.Device;
 import com.qt.air.cleaner.market.domain.platform.ShareProfit;
@@ -25,6 +27,7 @@ import com.qt.air.cleaner.market.repository.generic.DeviceRepository;
 import com.qt.air.cleaner.market.repository.platform.ShareProfitRepository;
 import com.qt.air.cleaner.market.service.platform.PlatformSetService;
 import com.qt.air.cleaner.market.vo.platform.PlatformSetView;
+import com.qt.air.cleaner.vo.common.ErrorCodeEnum;
 
 @Service
 @Transactional
@@ -76,12 +79,12 @@ public class PlatformSetServiceImpl implements PlatformSetService {
 				}
 				String pid = platformSetView.getPid();
 				if(StringUtils.isNotBlank( pid)) {
-					Predicate p2 = cb.equal(root.get("pid"), pid);
+					Predicate p2 = cb.equal(root.get("id"), pid);
 					conditions.add(p2);
 				}
 				String type = platformSetView.getType();
 				if(StringUtils.isNotBlank( type)) {
-					Predicate p3 = cb.like(root.get("type"), "%" + StringUtils.trim(type) + "%");
+					Predicate p3 = cb.equal(root.get("type"), StringUtils.trim(type));
 					conditions.add(p3);
 				}
 				Predicate[] p = new Predicate[conditions.size()];
@@ -99,7 +102,7 @@ public class PlatformSetServiceImpl implements PlatformSetService {
 			platform.setName(platformSetView.getName());
 		}
 		if(StringUtils.isNotBlank(platformSetView.getPid())) {
-			platform.setPid(platformSetView.getPid());
+			platform.setId(platformSetView.getPid());
 		}
 		if(StringUtils.isNotBlank(platformSetView.getType())) {
 			platform.setType(platformSetView.getType());
@@ -172,6 +175,28 @@ public class PlatformSetServiceImpl implements PlatformSetService {
 			}
 		}
 		return result;
+	}
+
+	@Override
+	public void saveOrUpdate(PlatformSetView platformSetView) {
+		if (platformSetView != null) {
+			ShareProfit shareProfit = null;
+			String id = platformSetView.getId();
+			if (StringUtils.isNotBlank(id)) {
+				shareProfit = shareProfitRepository.findOne(id);
+				BeanUtils.copyProperties(platformSetView, shareProfit);
+			} else {
+				shareProfit = new ShareProfit();
+				BeanUtils.copyProperties(platformSetView, shareProfit);
+			}
+			if(platformSetView.getPid() == null) {
+				shareProfit.setPid("0");
+			}
+			shareProfitRepository.saveAndFlush(shareProfit);
+		} else {
+			throw new BusinessException(ErrorCodeEnum.ES_1001.getErrorCode(), ErrorCodeEnum.ES_1001.getMessage());
+		}
+		
 	}
 
 }

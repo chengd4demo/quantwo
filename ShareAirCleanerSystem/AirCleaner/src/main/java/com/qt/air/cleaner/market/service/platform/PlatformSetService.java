@@ -22,4 +22,6 @@ public interface PlatformSetService {
 	boolean delete(String id);
 
 	String findByPlatformId(String distributionRatio);
+
+	void saveOrUpdate(PlatformSetView platformSetView);
 }

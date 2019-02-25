@@ -11,6 +11,30 @@
 	<link rel="stylesheet" href="../../../css/frame.css">
 	<link rel="stylesheet" href="../../../css/globle.css">	
 	<link rel="stylesheet" href="../../../frame/font-awesome-4.7.0/css/font-awesome.min.css">
+	<style type="text/css">
+		a.layui-laypage-prev{			
+    	    border: none;
+    	    background: 0 0;
+		}
+		a.layui-laypage-next{			
+    	    border: none;
+    	    background: 0 0;
+		}
+		a.layui-laypage-prev.layui-disabled{			
+    	    border: none;
+    	    background: 0 0;
+		}
+		a.layui-laypage-next.layui-disabled{			
+    	    border: none;
+    	    background: 0 0;
+		}
+		span.layui-laypage-skip{
+			background:#F2F2F2;
+		}
+		span.layui-laypage-count{
+			background:#F2F2F2;
+		} 		
+	</style>
 </head>
 	<body class="body" style="overflow:scroll;">
 		<div class="layui-card-header">
@@ -30,16 +54,15 @@
 							<div class="layui-form-item">
 								<label class="layui-form-label">类型：</label>
 								<div class="layui-input-block" id="state">
-									<div style="height:0px;width:0px;overflow:hidden">
-										<input name="typeState">
-									</div>
 									<div class="layui-input-inline" style="width:100%" ;>
-										<select id="state" name="typeState" lay-filter="investorTag">
+										<select name="type" lay-filter="type">
 											<option value="">请选择类型</option>
 											<option value="CY">公司</option>
+											<option value="ZD">区域总代理</option>
+											<option value="DL">代理</option>
 											<option value="IR">投资商</option>
 											<option value="TR">商家</option>
-											<option value="SR">促销员</option>
+											<option value="SR">促销员</option>          
 											
 										</select>
 									</div>
@@ -52,7 +75,7 @@
 						<div class="layui-form-item">
 							<label class="layui-form-label"> 名称：</label>
 							<div class="layui-input-block">
-								<input type="text" class="layui-input" name="name" autocomplete="on" placeholder="请输入名称">
+								<input id="name" type="text" class="layui-input"  name="name" autocomplete="off" placeholder="请输入名称">
 							</div>
 						</div>
 					</div>
@@ -61,7 +84,10 @@
 						<div class="layui-form-item">
 							<label class="layui-form-label"> 上级：</label>
 							<div class="layui-input-block">
-								<input type="text" class="layui-input" name="level" autocomplete="on" placeholder="请输入上级">
+								 <select lay-filter="pid">
+				                    <option value="">请选择所属上级</option>
+				                   	<option th:each="pid:${pids}" th:value="${pid.id}" th:text="${pid.name}+' (分润比例：'+${pid.scale} + '%)'"></option>       
+				                </select>
 							</div>
 						</div>
 					</div>							
@@ -75,7 +101,7 @@
 								<button  class="layui-btn layui-btn-primary" title="重置" lay-filter="btn-reset">重置</button>									
 							</div>
 							<div class="layui-inline" id="addbtn">
-								<button type="button" data-method="add" class="layui-btn layui-btn-normal layui-icon" title="新增公司信息">新增</button>
+								<button type="button" data-method="add" class="layui-btn layui-btn-normal layui-icon" title="新增公司信息" th:if="${deviceDit == null}">新增</button>
 							</div>
 						</div>
 					</div>
@@ -90,11 +116,11 @@
 
 		<!--表格-->
 		<div class="main" style="width:100%; height:300px;margin-top:10px; overflow:scroll;">
-    		<table class="layui-table layui-form" id="test-tree-table"></table>
+    		<table class="layui-table layui-form" id="test-tree-table" lay-filter="table1"></table>
 		</div>
 		<!--分页-->
 		<div id="demo7"></div>
-				
+		<input type="hidden" id="pageCount" />
 		<!--底部引入-->
 		<script type="text/javascript" src="../../../js/jquery-3.2.1.js"></script>
 		<script type="text/javascript" src="../../../frame/layui/layui.js"></script>
