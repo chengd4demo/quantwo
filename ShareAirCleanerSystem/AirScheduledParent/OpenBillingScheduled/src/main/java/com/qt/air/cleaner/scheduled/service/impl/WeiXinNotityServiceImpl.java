@@ -211,7 +211,7 @@ public class WeiXinNotityServiceImpl implements WeiXinNotityService {
 		Float totalAmount = billing.getAmount();
 		Device device = deviceRepository.findById(billing.getDeviceId());
 		//获取设定的分润比例
-		Map<String,Integer> shareProfit = getDistributionRatio(device);
+		Map<String,Integer> shareProfit = getDistributionRatio(device.getDistributionRatio());
 		Investor investor = device.getInvestor();
 		Integer proportion = shareProfit.get(Investor.class.getSimpleName());
 		Float investorAmount = (totalAmount * proportion / 100) >= 0.10f ? (totalAmount * proportion / 100) - ((billing.getCostTime() / 60) * 0.09f)
@@ -298,9 +298,40 @@ public class WeiXinNotityServiceImpl implements WeiXinNotityService {
 		return null;
 	}
 
-	private Map<String, Integer> getDistributionRatio(Device device) {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+	 * 获取设定的分润比例
+	 * 
+	 * @param distributionRatio
+	 * @return
+	 */
+	private Map<String, Integer> getDistributionRatio(String distributionRatio) {
+		List<ShareProfit> shareProfits = shareProfitRepository.findByPlatformSet(distributionRatio);
+		if (CollectionUtils.isEmpty(shareProfits)) {
+			return gainProportion;
+		} 
+		//分润比例数据小于最低配置条数使用默认配置比例 352（商户|投资方|公司）
+		if(shareProfits.size()<3) {
+			return gainProportion;
+		}
+		Map<String,Integer>  result = new HashMap<>();
+		shareProfits.stream().forEach(s -> {
+			String type = s.getType();
+			if (StringUtils.equals(ShareProfit.ACCOUNT_TYPE_COMPANY, type)) {
+				result.put(Company.class.getName(), s.getScale().intValue());
+			}  else if (StringUtils.equals(ShareProfit.ACCOUNT_TYPE_AGENT_ZD, type)) {
+				result.put(Agent.class.getName() + ShareProfit.ACCOUNT_TYPE_AGENT_ZD, s.getScale().intValue());
+			} else if(StringUtils.equals(ShareProfit.ACCOUNT_TYPE_AGENT_DL, type)){
+				result.put(Agent.class.getName(),s.getScale().intValue());
+			} else if(StringUtils.equals(ShareProfit.ACCOUNT_TYPE_TRADER, type)) {
+				result.put(Trader.class.getName(), s.getScale().intValue());
+			}  else if(StringUtils.equals(ShareProfit.ACCOUNT_TYPE_INVESTOR, type)) {
+				result.put(Investor.class.getName(), s.getScale().intValue());
+			}
+		});
+		if(result.isEmpty()) {
+			return gainProportion;
+		}
+		return result;
 	}
 
 	private List<WeiXinNotity> queryAvailableWeiXinNotityInTimes(List<Integer> states, Date startTime, Date endTime) {
