@@ -240,6 +240,7 @@ public class WeiXinNotityServiceImpl implements WeiXinNotityService {
 		if (agentIds.size() > 0 ) {
 			String agentId = null;
 			for(int i=0;i<agentIds.size();i++) {
+				agentId = agentIds.get(i);
 				beforOpenAmount = openAgent(agentId,shareProfit,totalAmount,billing,beforOpenAmount);
 			}
 		}
