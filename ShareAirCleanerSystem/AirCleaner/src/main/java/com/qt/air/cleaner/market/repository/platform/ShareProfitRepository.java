@@ -21,7 +21,7 @@ public interface ShareProfitRepository extends JpaRepository<ShareProfit, String
 	void updateAllFree(@Param("free") Float free);
 	Page<ShareProfit> findAll(Specification<ShareProfit> specification, Pageable pageable);
 	ShareProfit findById(String id);
-	@Query(value="select t.id,t.free,t.scale,t.pid,t.name,t.type from ps_share_profit t start with id = :distributionRatio "+
+	@Query(value="select t.id,t.free,t.scale,t.pid,t.name,t.type,t.agent_id from ps_share_profit t start with id = :distributionRatio "+
 			"connect by prior t.id = t.pid",nativeQuery = true)
 	List<ShareProfit> findByPlatformSet(@Param("distributionRatio") String distribution);
 }

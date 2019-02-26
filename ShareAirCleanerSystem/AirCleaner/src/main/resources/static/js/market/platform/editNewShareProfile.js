@@ -15,10 +15,15 @@ layui.use(['form', 'layedit', 'laydate', 'layer'], function() {
 	form.on('radio(is)',function(data){
 		if(data.value == 1 || data.value == 2) {
 			document.getElementById('isIdText').style.display='none';
+			document.getElementById('textNameId').removeAttribute('lay-verify')
 			document.getElementById('isIdSelect').style.display='block';
+			document.getElementById('agentId').setAttribute('lay-verify','required')
 		} else {
 			document.getElementById('isIdText').style.display='block';
+			document.getElementById('textNameId').setAttribute('lay-verify','required')
 			document.getElementById('isIdSelect').style.display='none';
+			document.getElementById('agentId').removeAttribute('lay-verify')
+			
 		}
 		form.render();
 	})
@@ -34,9 +39,28 @@ layui.use(['form', 'layedit', 'laydate', 'layer'], function() {
 		} else {
 			removeFree();
 		}
+		if(data.value == 'ZD' || data.value == 'DL') {
+			document.getElementById('isIdText').style.display='none';
+			document.getElementById('isIdSelect').style.display='block';
+			document.getElementById('textNameId').removeAttribute('lay-verify')
+			document.getElementById('agentId').setAttribute('lay-verify','required')
+		} else {
+			document.getElementById('isIdText').style.display='block';
+			document.getElementById('isIdSelect').style.display='none';
+			document.getElementById('agentId').removeAttribute('lay-verify')
+			document.getElementById('textNameId').setAttribute('lay-verify','required')
+		}
 		form.render(); 	
 	})
 	form.on('submit(demo1)',function(data){
+		var type = data.field.type
+		if(type == 'ZD' || type == 'DL') {
+			var selectAgent = document.getElementById('agentId')
+			var index = selectAgent.selectedIndex
+			var agentName = selectAgent.options[index].text
+			data.field.name = agentName
+		}
+		alert(JSON.stringify(data.field))
 		//询问框
 		layer.confirm('是否提交保存？',{
 		  title:"提示",

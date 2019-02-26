@@ -41,20 +41,11 @@
 	                </select>
 	            </div>
     		</div>
-    		<!-- 客户类型  -->
-    		<div class="layui-form-item" th:if="${platform.type != 'CY'}">
-	            <label class="layui-form-label"><span style="color:red">*</span>客户类型</label>
-	             <div class="layui-input-block">
-	             	<input type="radio" name="is" value="0" lay-filter="is" title="商家投/资商" checked>
-		            <input type="radio" name="is" value="1" lay-filter="is" title="代理" >
-			        <input type="radio" name="is" value="2" lay-filter="is" title="区域总代" >
-		        </div>
-    		</div>
 		    <!--公司名称/客户-->
 		    <div id = "isIdText" class="layui-form-item">
 	            <label class="layui-form-label"><span style="color:red">*</span>公司名称/客户</label>
 	             <div class="layui-input-block">
-		            <input type="text"  placeholder="请输入公司名称/客户名称" lay-verify="name" th:field="*{name}" autocomplete="off" class="layui-input" >
+		            <input id="textNameId" type="text"  placeholder="请输入公司名称/客户名称" lay-verify="name" th:field="*{name}" autocomplete="off" class="layui-input" >
 		        </div>
     		</div>
     		<!--公司名称/客户 下拉列表-->
