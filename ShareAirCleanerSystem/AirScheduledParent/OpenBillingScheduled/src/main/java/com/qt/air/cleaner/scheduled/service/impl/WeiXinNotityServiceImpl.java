@@ -248,11 +248,12 @@ public class WeiXinNotityServiceImpl implements WeiXinNotityService {
 		Company company = device.getCompany();
 		proportion = shareProfit.get(Company.class.getSimpleName());
 		Float companyAmount = totalAmount * proportion / 100;
-		if (companyAmount < (beforOpenAmount) && companyAmount > 0.00f) {
-			companyAmount = totalAmount - investorAmount - traderAmount;
+		if (companyAmount < (beforOpenAmount)) {
+			companyAmount = beforOpenAmount;
 			bigDecimal = new BigDecimal(String.valueOf(companyAmount));
 			companyAmount = bigDecimal.setScale(2, BigDecimal.ROUND_DOWN).floatValue();
 		}
+		if (companyAmount > 0.00f)
 		accountService.updateCompanyAccount(billing, company, companyAmount);
 	}
 	
