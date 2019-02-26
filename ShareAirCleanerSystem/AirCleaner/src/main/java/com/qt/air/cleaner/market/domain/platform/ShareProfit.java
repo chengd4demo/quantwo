@@ -14,6 +14,10 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "PS_SHARE_PROFIT")
 public class ShareProfit implements Serializable{
 		private static final long serialVersionUID = 5670288974528865542L;
+		//代理
+		public final static String ACCOUNT_TYPE_AGENT_DL = "DL";
+		//区域总代
+		public final static String ACCOUNT_TYPE_AGENT_ZD = "ZD";
 		//商家
 		public final static String ACCOUNT_TYPE_TRADER = "TR";
 		//投资商
@@ -51,6 +55,12 @@ public class ShareProfit implements Serializable{
 		 */
 		@Column(name = "PID",  length = 32, nullable = true, insertable = true)
 		private String pid ;
+		
+		/**
+		 * 代理商ID
+		 */
+		@Column(name = "AGENT_ID",  length = 32, nullable = true, insertable = true)
+		private String agentId ;
 		
 		/**
 		 * 分润对象
@@ -104,6 +114,14 @@ public class ShareProfit implements Serializable{
 
 		public void setType(String type) {
 			this.type = type;
+		}
+
+		public String getAgentId() {
+			return agentId;
+		}
+
+		public void setAgentId(String agentId) {
+			this.agentId = agentId;
 		}
 		
 		
