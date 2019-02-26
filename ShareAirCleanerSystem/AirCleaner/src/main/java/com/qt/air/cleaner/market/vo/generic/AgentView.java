@@ -19,6 +19,7 @@ public class AgentView implements Serializable {
 	private String legalPerson;
 	private String joinTime;
 	private String email;
+	private String type;
 	private String legend;
 	
 	@JsonIgnore
@@ -37,6 +38,7 @@ public class AgentView implements Serializable {
 		this.setLegalPerson(agent.getLegalPerson());
 		this.setJoinTime(agent.getJoinTime());
 		this.setEmail(agent.getEmail());
+		this.setType(agent.getType());
 	}
 	public String getId() {
 		return id;
@@ -98,11 +100,11 @@ public class AgentView implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public SimpleDateFormat getDateFormat() {
-		return dateFormat;
+	public String getType() {
+		return type;
 	}
-	public void setDateFormat(SimpleDateFormat dateFormat) {
-		this.dateFormat = dateFormat;
+	public void setType(String type) {
+		this.type = type;
 	}
 	public String getLegend() {
 		return legend;
@@ -110,12 +112,19 @@ public class AgentView implements Serializable {
 	public void setLegend(String legend) {
 		this.legend = legend;
 	}
+	public SimpleDateFormat getDateFormat() {
+		return dateFormat;
+	}
+	public void setDateFormat(SimpleDateFormat dateFormat) {
+		this.dateFormat = dateFormat;
+	}
 	@Override
 	public String toString() {
 		return "AgentView [id=" + id + ", name=" + name + ", identificationNumber=" + identificationNumber
 				+ ", phoneNumber=" + phoneNumber + ", weixin=" + weixin + ", alipay=" + alipay + ", address=" + address
-				+ ", legalPerson=" + legalPerson + ", joinTime=" + joinTime + ", email=" + email + ", dateFormat="
-				+ dateFormat + "]";
+				+ ", legalPerson=" + legalPerson + ", joinTime=" + joinTime + ", email=" + email + ", type=" + type
+				+ ", legend=" + legend + ", dateFormat=" + dateFormat + "]";
 	}
+	
 	
 }

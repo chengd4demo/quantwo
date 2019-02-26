@@ -14,7 +14,18 @@
 		<legend data-th-text="${agent.legend}"></legend>
 		<form class="layui-form" action="" th:object="${agent}" >
 		<input type="hidden" name ="id" th:field="*{id}"/>
-		    <!-- 代理商名称 -->
+			<!--类型-->
+			<div class="layui-form-item">
+	            <label class="layui-form-label"><span style="color:red">*</span>类型</label>
+	            <div class="layui-input-block">
+	                <select th:field="*{type}">
+	                    <option value="">请选择类型</option>							
+							<option value="ZD">区域总代理</option>
+							<option value="DL">代理</option>           
+	                </select>
+	            </div>
+    		</div>
+		    <!-- 代理商身份证号码 -->
 		    <div class="layui-form-item">
 		        <label class="layui-form-label"><span style="color:red">*</span>身份证号码</label>
 			    <div class="layui-input-block">

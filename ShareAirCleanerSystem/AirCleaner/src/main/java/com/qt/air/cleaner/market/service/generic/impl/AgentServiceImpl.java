@@ -66,8 +66,13 @@ public class AgentServiceImpl implements AgentService {
 					Predicate p2 = cb.like(root.get("phoneNumber"), "%" + StringUtils.trim(phoneNumber) + "%");
 					conditions.add(p2);
 				}
-				Predicate p3 = cb.equal(root.get("removed"), false);
-				conditions.add(p3);
+				String type = agentView.getType();
+				if(StringUtils.isNotBlank( type)) { //类型
+					Predicate p3 = cb.equal(root.get("type"), StringUtils.trim(type));
+					conditions.add(p3);
+				}
+				Predicate p4 = cb.equal(root.get("removed"), false);
+				conditions.add(p4);
 				Predicate[] p = new Predicate[conditions.size()];
 				return cb.and(conditions.toArray(p));
 			}			

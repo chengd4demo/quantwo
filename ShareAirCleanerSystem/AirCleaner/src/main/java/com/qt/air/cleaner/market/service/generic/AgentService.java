@@ -11,7 +11,7 @@ import com.qt.air.cleaner.market.vo.generic.AgentView;
 public interface AgentService {
 
 	/**
-	 * 查询投资商信息下拉列表
+	 * 查询代理商信息下拉列表
 	 * 
 	 * @param removed
 	 * @return
@@ -19,7 +19,7 @@ public interface AgentService {
 	List<Agent> findAll(boolean removed);
 	
 	/**
-	 * 投资商分页模糊查询
+	 * 代理商分页模糊查询
 	 * 
 	 * @param params
 	 * @param pageable
@@ -28,21 +28,21 @@ public interface AgentService {
 	Page<Agent> findAllAgent(AgentView params, Pageable pageable);
 	
 	/**
-	 * 投资商查询
+	 * 代理商查询
 	 * @param id
 	 * @return
 	 */
 	Agent findById(String id);
 	
 	/**
-	 * 投资商新增或修改
+	 * 代理商新增或修改
 	 * 
 	 * @param agentView
 	 */
 	void saveOrUpdate(AgentView agentView);
 	
 	/**
-	 * 投资商信息删除
+	 * 代理商信息删除
 	 * 
 	 * @param id
 	 */

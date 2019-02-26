@@ -1,6 +1,6 @@
 //扫码统计
 var pageCurr;
-layui.use(['form', 'layer', 'laydate' ],function() {
+layui.use(['form', 'layer', 'vip_table', 'laydate' ],function() {
 	var table = layui.table, form = layui.form, layer = layui.layer, vipTable = layui.vip_table, laydate = layui.laydate, $ = layui.jquery;
 	laydate.render({
 		elem : '#date1',

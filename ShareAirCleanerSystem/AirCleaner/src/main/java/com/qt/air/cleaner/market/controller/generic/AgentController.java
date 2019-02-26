@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -79,5 +80,28 @@ public class AgentController {
 			return RetResponse.makeErrRsp(e.getMessage());
 		}
 		return RetResponse.makeOKRsp();
+	}
+	
+	@RequestMapping(method = RequestMethod.GET,path = "/{id}")
+	@ResponseBody
+	public RetResult<Object>  delete(@PathVariable("id") String id){
+		logger.debug("代理商信息删除请求参数{}" + id);
+		try {
+			agentService.delete(id);
+		} catch (Exception e) {
+			return RetResponse.makeErrRsp(e.getMessage());
+		}
+		return RetResponse.makeOKRsp();
+	}
+		
+	@RequestMapping(method = RequestMethod.GET, path = "/list")
+	@ResponseBody
+	public List<AgentView> list() {
+		List<Agent> agentList = agentService.findAll(false);
+		List<AgentView> result = new ArrayList<>();
+		for(Agent agent : agentList){
+			result.add(new AgentView(agent));
+		}
+		return result;
 	}
 }

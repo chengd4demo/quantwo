@@ -19,46 +19,53 @@
 	<fieldset class="layui-elem-field" style="border-color:rgb(30, 159, 255); margin-top:1em;padding-left:2em;padding-right:2em;padding-top:1em;">
 	<legend>代理商管理信息查询</legend>
 		<form class="layui-form" id="searchForm">
-			<div style="margin-top:5px;" class="layui-row">
-				<!--手机号码-->
-				<div class="layui-col-md4">
-					<div class="layui-form-item">
-						<label class="layui-form-label" style="word-break: keep-all;">手机号码：</label>
-						<div class="layui-input-block">
-							<input type="text" class="layui-input" autocomplete="on" placeholder="手机号码">
+			<div style="margin-top:5px;" class="layui-row">			
+				<!--类型-->
+				<div  class="layui-form">
+					<div class="layui-col-md4" style="margin-left:0px;">
+						<div class="layui-form-item">
+							<label class="layui-form-label">类型：</label>
+							<div class="layui-input-block" id="state">
+								<div class="layui-input-inline" style="width:100%" ;>
+									<select name="type" lay-filter="type">
+										<option value="">请选择类型</option>									
+										<option value="ZD">区域总代理</option>
+										<option value="DL">代理</option>									          									
+									</select>
+								</div>
+							</div>
 						</div>
 					</div>
-				</div>						
-				<!-- 注册时间 -->
+				</div>			
+				<!--账号-->
 				<div class="layui-col-md4">
 					<div class="layui-form-item">
-						<label class="layui-form-label"> 注册时间：</label>
+						<label class="layui-form-label" style="word-break: keep-all;"> 代理商名称：</label>
 						<div class="layui-input-block">
-							<input type="text" id="date" class="layui-input" placeholder="请选择时间">
+							<input type="text" class="layui-input" name="name" autocomplete="on" placeholder="代理商名称">
 						</div>
 					</div>
 				</div>
-				<!-- 微信昵称 -->
 				<div class="layui-col-md4">
 					<div class="layui-form-item">
-						<label class="layui-form-label">微信昵称：</label>
+						<label class="layui-form-label"> 联系电话：</label>
 						<div class="layui-input-block">
-							<input type="text"  class="layui-input" autocomplete="on" placeholder="微信昵称">
+							<input type="text" class="layui-input" name="phoneNumber" autocomplete="on" placeholder="联系电话">
 						</div>
 					</div>
 				</div>
-			</div>
-			<!--右侧功能按钮-->
-			<div class="layui-col-md4" style="float: right;">
-				<div class="layui-btn-container" style="text-align:center;margin-bottom: 1em;">
-					<div class="layui-inline" style="margin-right: 0px;">
-						<button id="searchBtn" class="layui-btn layui-btn-primary" lay-submit=""   lay-filter="searchSubmit" title="查询">查询</button>
-					</div>
-					<div class="layui-inline" style="margin-right: 0px;">
-						<button  class="layui-btn layui-btn-primary" title="重置" lay-filter="btn-reset">重置</button>									
-					</div>
-					<div class="layui-inline" id="addbtn">
-						<button type="button" data-method="add" class="layui-btn layui-btn-normal layui-icon" title="新增公司信息">新增</button>
+				<!--右侧功能按钮-->
+				<div class="layui-col-md4" style="float: right;">
+					<div class="layui-btn-container" style="text-align:center;margin-bottom: 1em;">
+						<div class="layui-inline" style="margin-right: 0px;">
+							<button id="searchBtn" class="layui-btn layui-btn-primary" lay-submit=""   lay-filter="searchSubmit" title="查询">查询</button>
+						</div>
+						<div class="layui-inline" style="margin-right: 0px;">
+							<button  class="layui-btn layui-btn-primary" title="重置" lay-filter="btn-reset">重置</button>									
+						</div>
+						<div class="layui-inline" id="addbtn">
+							<button type="button" data-method="add" class="layui-btn layui-btn-normal layui-icon" title="新增公司信息">新增</button>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -73,6 +80,16 @@
 	<script type="text/html" id="barOption">
 		<a class="layui-btn layui-btn-mini layui-btn-normal" lay-event="edit">编辑</a>
 		<a class="layui-btn layui-btn-mini layui-btn-danger" lay-event="del">删除</a>
+	</script>
+	<!-- 状态 -->
+	<script type="textml" id="typeTpl">
+		{{#  if (d.type === 'ZD') { }}
+			区域总代理
+		{{#  } else if (d.type === 'DL') { }}
+			代理		
+  		{{#  } else { }}
+			 {{ d.type }}
+  		{{#  } }}
 	</script>
 </body>
 </html>		

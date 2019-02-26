@@ -7,9 +7,10 @@ layui.use(['table', 'form', 'layer', 'vip_table'], function(){
 	    ,$ = layui.jquery;
 	 tableIns=table.render({
 		 elem: '#agentList'
+			 	,id:"id"
 	            ,url:'/market/agent/page'
 	        	,method: 'GET' //默认：get请求
-	            ,height: 315
+	            ,height: vipTable.getFullHeight()
 	            ,page: true
 	            ,limits: [20, 30, 50, 100, 200]
 	            ,limit:20
@@ -17,24 +18,29 @@ layui.use(['table', 'form', 'layer', 'vip_table'], function(){
 	                pageName: 'page' //页码的参数名称，默认：page
 	                ,limitName: 'limit' //每页数据量的参数名，默认：limit
 	            }
-	            ,cols: [[ 
-	            	 {
+	            ,cols: [[
+	                 {
 							field: 'identificationNumber',
 							title: '身份证号码',
 							width: 180
 						}, {
 							field: 'name',
-							title: '投资商名称',
+							title: '代理商名称',
 							width: 180
 						}, {
 							field: 'address',
-							title: '投资商地址',
+							title: '代理商地址',
 							width: 300
 						}, {
 							field: 'legalPerson',
 							title: '负责人',
 							width: 120
-						}, {
+						},{
+							field: 'type',
+							title: '类型',
+							templet: '#typeTpl',
+							width: 120 													
+						},{
 							field: 'phoneNumber',
 							title: '联系电话',
 							width: 210
@@ -62,42 +68,33 @@ layui.use(['table', 'form', 'layer', 'vip_table'], function(){
 	            ]]
 		,  done: function(res, curr, count){
 			 pageCurr=curr;
+			 numbers=count;
 		}
 	 });
- var active = {
-	 add: function(){
-	 	layer.open({
-	 		type: 2
-	 		,title: '新增 '//显示标题栏
-	 		,closeBtn: 1 //显示关闭按钮 属性0，1，2
-	 		,skin: 'layui-layer-rim' //加上边框
-	 		,area: ['570px', '410px'] //宽高
-	 		,maxmin: true
-	 		,shade: 0.8
-	 		,id: 'LAY_layuipro' //设定一个id，防止重复弹出
-	 		,btnAlign: 'c'
-	 		,moveType: 1 //拖拽模式，0或者1
-	 		,content: '../../../market/agent/edit'
-	 		,success: function(layero){
-	 			var btn = layero.find('.layui-layer-btn');
-	 			btn.find('.layui-layer-btn0').attr({href: '',target: '_blank'});
-	 			}
-	 		});
-	 	}
- };
+	 var active = {
+		 add: function(){
+		 	layer.open({
+		 		 type: 2
+		 		,title: '新增 '//显示标题栏
+		 		,closeBtn: 1 //显示关闭按钮 属性0，1，2
+		 		,skin: 'layui-layer-rim' //加上边框
+		 		,area: ['570px', '410px'] //宽高
+		 		,maxmin: true
+		 		,shade: 0.8
+		 		,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+		 		,btnAlign: 'c'
+		 		,moveType: 1 //拖拽模式，0或者1
+		 		,content: '../../../market/agent/edit'
+		 	});
+	 	 }
+	 };
 	 layui.jquery('#addbtn .layui-btn').on('click', function(){
 	 	var othis = $(this), method = othis.data('method');
 	 	active[method] ? active[method].call(this, othis) : '';
 	 });
-	 layui.jquery('#resetbtn .layui-btn').on('click', function(){
-		 	var othis = $(this), method = othis.data('method');
-		 	active[method] ? active[method].call(this, othis) : '';
-	 });
 	 table.on('tool(agentTable)',function(obj){
 		 var data = obj.data,layEvent = obj.event;
-		 if(layEvent === 'detail') {
-				layer.msg('查看操作');
-			} else if(layEvent === 'edit') {
+		if(layEvent === 'edit') {
 				layer.open({
 			 		 type: 2
 			 		,title: '编辑 '//显示标题栏
@@ -109,13 +106,13 @@ layui.use(['table', 'form', 'layer', 'vip_table'], function(){
 			 		,id: 'LAY_layuipro' //设定一个id，防止重复弹出
 			 		,btnAlign: 'c'
 			 		,moveType: 1 //拖拽模式，0或者1
-			 		,content: '../../../market/agent/edit'
+			 		,content: '../../../market/agent/edit?id='+data.id
 			 	});
 			} else if(layEvent === 'del') {
 				layer.confirm('确定删除', function(index) {
 					//请求
 					$.ajax({
-						url:"/market/companys/"+data.id,
+						url:"/market/agent/"+data.id,
 						async:false,
 						success:function(data){
 							if(data.code==200){
@@ -133,8 +130,7 @@ layui.use(['table', 'form', 'layer', 'vip_table'], function(){
 				});
 			}
 	 });
-});
-
+});	
 
 /**
  *查询 

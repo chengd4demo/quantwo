@@ -1,8 +1,10 @@
 var pageCurr;
-layui.use('table', function(){
-	var form = layui.form,table = layui.table,
-		layer = layui.layer,vipTable = layui.vip_table,
-		$ = layui.jquery;
+layui.use(['table', 'form', 'layer', 'vip_table'], function(){
+	 var table = layui.table
+		,form = layui.form
+	    ,layer = layui.layer
+	    ,vipTable = layui.vip_table
+	    ,$ = layui.jquery;
 	function getInvestorList(){
 		//请求
 		$.ajax({
