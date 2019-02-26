@@ -1,5 +1,6 @@
 package com.qt.air.cleaner.scheduled.service;
 
+import com.qt.air.cleaner.scheduled.domain.Agent;
 import com.qt.air.cleaner.scheduled.domain.Billing;
 import com.qt.air.cleaner.scheduled.domain.Company;
 import com.qt.air.cleaner.scheduled.domain.Investor;
@@ -9,4 +10,5 @@ public interface AccountService {
 	void udpateInvestorAccount(Billing billing,Investor investor,Float amount);
 	void updateCompanyAccount(Billing billing,Company company,Float amount);
 	void updateTraderAccount(Billing billing,Trader trader,Float amount);
+	void updateAgentAccount(Billing billing,Agent trader,Float amount);
 }

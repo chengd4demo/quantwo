@@ -4,15 +4,18 @@ import java.util.Calendar;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.qt.air.cleaner.scheduled.domain.Account;
 import com.qt.air.cleaner.scheduled.domain.AccountInBound;
+import com.qt.air.cleaner.scheduled.domain.Agent;
 import com.qt.air.cleaner.scheduled.domain.Billing;
 import com.qt.air.cleaner.scheduled.domain.Company;
 import com.qt.air.cleaner.scheduled.domain.Investor;
+import com.qt.air.cleaner.scheduled.domain.ShareProfit;
 import com.qt.air.cleaner.scheduled.domain.Trader;
 import com.qt.air.cleaner.scheduled.repository.AccountInBoundRepository;
 import com.qt.air.cleaner.scheduled.repository.AccountRepository;
@@ -84,6 +87,23 @@ public class AccountServiceImpl implements AccountService {
 		account.setTotalAmount(account.getTotalAmount() + amount);
 		account.setFreezingAmount(account.getFreezingAmount() + amount);
 		accountRepository.saveAndFlush(account);
+	}
+
+	@Override
+	public void updateAgentAccount(Billing billing,Agent agent, Float amount) {
+		logger.debug("账单[" + billing.getBillingId() + "]代理商[" + agent.getName() + "]分得金额:" + amount);
+		Account account = agent.getAccount();
+		AccountInBound inBound = new AccountInBound();
+		String type = StringUtils.equals(ShareProfit.ACCOUNT_TYPE_AGENT_DL, agent.getType()) ? "代理" : "区域总代理";
+		inBound.setType(type);
+		inBound.setCode(agent.getIdentificationNumber());
+		inBound.setName(agent.getName());
+		inBound.setWeixin(agent.getWeixin());
+		inBound.setBilling(billing);
+		inBound.setAmount(amount);
+		inBound.setAccount(account);
+		inBound.setCreater("defalut");
+		
 	}
 
 }

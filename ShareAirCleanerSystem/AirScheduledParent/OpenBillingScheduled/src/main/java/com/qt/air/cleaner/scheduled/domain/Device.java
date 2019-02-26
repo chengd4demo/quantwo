@@ -35,6 +35,8 @@ public class Device extends GenericEntity {
 	
 	@Column(name = "STATE", nullable = false, length = 1)
 	private Integer state;
+	@Column(name = "DISTRIBUTION_RATIO", nullable = true, length = 255)
+	private String distributionRatio;
 	
 	@OneToOne
 	private Company company;
@@ -149,5 +151,13 @@ public class Device extends GenericEntity {
 	public void setPriceSystem(PriceSystem priceSystem) {
 		
 		this.priceSystem = priceSystem;
+	}
+	
+	public String getDistributionRatio() {
+		return distributionRatio;
+	}
+
+	public void setDistributionRatio(String distributionRatio) {
+		this.distributionRatio = distributionRatio;
 	}
 }

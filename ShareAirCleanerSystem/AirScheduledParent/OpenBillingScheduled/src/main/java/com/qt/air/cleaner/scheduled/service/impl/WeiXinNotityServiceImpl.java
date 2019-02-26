@@ -24,16 +24,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import com.qt.air.cleaner.base.utils.CalculateUtils;
+import com.qt.air.cleaner.scheduled.domain.Agent;
 import com.qt.air.cleaner.scheduled.domain.Billing;
 import com.qt.air.cleaner.scheduled.domain.BillingSuccess;
 import com.qt.air.cleaner.scheduled.domain.Company;
 import com.qt.air.cleaner.scheduled.domain.Device;
 import com.qt.air.cleaner.scheduled.domain.Investor;
+import com.qt.air.cleaner.scheduled.domain.ShareProfit;
 import com.qt.air.cleaner.scheduled.domain.Trader;
 import com.qt.air.cleaner.scheduled.domain.WeiXinNotity;
+import com.qt.air.cleaner.scheduled.repository.AgentRepository;
 import com.qt.air.cleaner.scheduled.repository.BillingRepository;
 import com.qt.air.cleaner.scheduled.repository.DeviceRepository;
+import com.qt.air.cleaner.scheduled.repository.ShareProfitRepository;
 import com.qt.air.cleaner.scheduled.repository.WeiXinNotityCurdRepository;
 import com.qt.air.cleaner.scheduled.service.AccountService;
 import com.qt.air.cleaner.scheduled.service.WeiXinDownloadService;
@@ -45,14 +51,16 @@ public class WeiXinNotityServiceImpl implements WeiXinNotityService {
 	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	@Resource
 	DeviceRepository deviceRepository;
-	/*@Resource
-	WeiXinNotityRepository weiXinNotityRepository;*/
 	@Resource
 	WeiXinNotityCurdRepository weiXinNotityCurdRepository;
 	@Resource
 	BillingRepository billingRepository;
 	@Autowired
 	WeiXinDownloadService weiXinDownloadService;
+	@Autowired
+	ShareProfitRepository shareProfitRepository;
+	@Autowired
+	AgentRepository agentRepository;
 	@Autowired
 	AccountService accountService;
 	private Map<String, Integer> gainProportion = new HashMap<String, Integer>();
@@ -202,8 +210,10 @@ public class WeiXinNotityServiceImpl implements WeiXinNotityService {
 		/**投资商开账逻辑*/
 		Float totalAmount = billing.getAmount();
 		Device device = deviceRepository.findById(billing.getDeviceId());
+		//获取设定的分润比例
+		Map<String,Integer> shareProfit = getDistributionRatio(device);
 		Investor investor = device.getInvestor();
-		Integer proportion = gainProportion.get(Investor.class.getSimpleName());
+		Integer proportion = shareProfit.get(Investor.class.getSimpleName());
 		Float investorAmount = (totalAmount * proportion / 100) >= 0.10f ? (totalAmount * proportion / 100) - ((billing.getCostTime() / 60) * 0.09f)
 				: totalAmount * proportion / 100; // 每小时扣除0.09耗材费用
 		BigDecimal bigDecimal = new BigDecimal(String.valueOf(investorAmount));
@@ -214,7 +224,7 @@ public class WeiXinNotityServiceImpl implements WeiXinNotityService {
 		
 		/**商家开账逻辑*/
 		Trader trader = device.getTrader();
-		proportion = gainProportion.get(Trader.class.getSimpleName());
+		proportion = shareProfit.get(Trader.class.getSimpleName());
 		Float traderAmount = totalAmount * proportion / 100;
 		bigDecimal = new BigDecimal(String.valueOf(traderAmount));
 		traderAmount = bigDecimal.setScale(2, BigDecimal.ROUND_DOWN).floatValue();
@@ -222,11 +232,22 @@ public class WeiXinNotityServiceImpl implements WeiXinNotityService {
 			accountService.updateTraderAccount(billing, trader, traderAmount);
 		}
 		
+		/**代理开账逻辑*/
+		//获取代理商id
+		List<String> agentIds = getAgentIds(device.getDistributionRatio());
+		Float beforOpenAmount = totalAmount - investorAmount - traderAmount;
+		//执行代理商开账业务
+		if (agentIds.size() > 0 ) {
+			String agentId = null;
+			for(int i=0;i<agentIds.size();i++) {
+				beforOpenAmount = openAgent(agentId,shareProfit,totalAmount,billing,beforOpenAmount);
+			}
+		}
 		/**公司开账逻辑*/
 		Company company = device.getCompany();
-		proportion = gainProportion.get(Company.class.getSimpleName());
+		proportion = shareProfit.get(Company.class.getSimpleName());
 		Float companyAmount = totalAmount * proportion / 100;
-		if (companyAmount < (totalAmount - investorAmount - traderAmount) && companyAmount > 0.00f) {
+		if (companyAmount < (beforOpenAmount) && companyAmount > 0.00f) {
 			companyAmount = totalAmount - investorAmount - traderAmount;
 			bigDecimal = new BigDecimal(String.valueOf(companyAmount));
 			companyAmount = bigDecimal.setScale(2, BigDecimal.ROUND_DOWN).floatValue();
@@ -234,6 +255,54 @@ public class WeiXinNotityServiceImpl implements WeiXinNotityService {
 		accountService.updateCompanyAccount(billing, company, companyAmount);
 	}
 	
+	/**
+	 * 代理商开张逻辑处理
+	 * 
+	 * @param agentId
+	 * @param shareProfit
+	 * @param totalAmount
+	 * @param billingId
+	 * @param beforOpenAmount
+	 */
+	private Float openAgent(String agentId,Map<String,Integer> shareProfit,Float totalAmount,Billing billing,Float beforOpenAmount) {
+		Agent agent = agentRepository.findByIdAndRemoved(agentId, Boolean.FALSE);
+		String type = agent.getType();
+		Integer proportion  = StringUtils.equals(ShareProfit.ACCOUNT_TYPE_AGENT_DL, type) ? shareProfit.get(Agent.class.getSimpleName()) 
+				: shareProfit.get(Agent.class.getSimpleName() + ShareProfit.ACCOUNT_TYPE_AGENT_ZD);
+		Float agentAmount = totalAmount * proportion / 100;
+		BigDecimal bigDecimal = new BigDecimal(String.valueOf(agentAmount));
+		agentAmount = bigDecimal.setScale(2, BigDecimal.ROUND_DOWN).floatValue();
+		if (agentAmount > 0.00f) {
+			accountService.updateAgentAccount(billing,agent, agentAmount);
+		}
+		return CalculateUtils.sub(beforOpenAmount, agentAmount);
+	}
+
+	/**
+	 * 后去分润设置的代理商ID
+	 * 
+	 * @param distributionRatio
+	 * @return
+	 */
+	private List<String> getAgentIds(String distributionRatio) {
+		List<ShareProfit> shareProfits = shareProfitRepository.findByPlatformSet(distributionRatio);
+		if (CollectionUtils.isEmpty(shareProfits)) {
+			return new ArrayList<>();
+		}
+		List<String> result = new ArrayList<>();
+		shareProfits.stream().forEach(p -> {
+			if (StringUtils.equals(ShareProfit.ACCOUNT_TYPE_AGENT_ZD, p.getType()) || StringUtils.equals(ShareProfit.ACCOUNT_TYPE_AGENT_DL, p.getType())) {
+				result.add(p.getAgentId());
+			} 
+		});
+		return null;
+	}
+
+	private Map<String, Integer> getDistributionRatio(Device device) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	private List<WeiXinNotity> queryAvailableWeiXinNotityInTimes(List<Integer> states, Date startTime, Date endTime) {
 		Specification<WeiXinNotity> querySpecifi = new Specification<WeiXinNotity>(){
 			@Override
