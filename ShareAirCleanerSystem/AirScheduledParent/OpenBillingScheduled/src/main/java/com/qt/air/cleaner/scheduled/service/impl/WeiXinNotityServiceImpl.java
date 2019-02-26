@@ -297,7 +297,7 @@ public class WeiXinNotityServiceImpl implements WeiXinNotityService {
 				result.add(p.getAgentId());
 			} 
 		});
-		return null;
+		return result;
 	}
 
 	/**
