@@ -42,14 +42,14 @@
 	            </div>
     		</div>
 		    <!--公司名称/客户-->
-		    <div id = "isIdText" class="layui-form-item">
+		    <div id = "isIdText" class="layui-form-item" th:style="'display:' + @{(!${platform.nameDisplay} ? 'none' : 'block')} + ''">
 	            <label class="layui-form-label"><span style="color:red">*</span>公司名称/客户</label>
 	             <div class="layui-input-block">
 		            <input id="textNameId" type="text"  placeholder="请输入公司名称/客户名称" lay-verify="name" th:field="*{name}" autocomplete="off" class="layui-input" >
 		        </div>
     		</div>
     		<!--公司名称/客户 下拉列表-->
-		    <div id="isIdSelect" class="layui-form-item" style = "display:none">
+		    <div id="isIdSelect" class="layui-form-item" >
 	            <label class="layui-form-label"><span style="color:red">*</span>公司名称/客户</label>
 	             <div class="layui-input-block">
 	                <select th:field="*{agentId}"  id="agentId">

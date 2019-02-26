@@ -121,7 +121,11 @@ public class PlatformSetController {
 			if(shareProfit != null) {
 				platform = new PlatformSetView(shareProfit);
 				platform.setLegend(Constants.SCALE_EDIT_LEGEND);
+				if(StringUtils.isEmpty(platform.getAgentId())) {
+					platform.setNameDisplay(true);
+				} 
 			}
+			model.addAttribute("agents",agentService.findAll(platform.getType()));
 		} else {
 			platform = new PlatformSetView();
 			if(StringUtils.isNotEmpty(level)) {
@@ -132,12 +136,12 @@ public class PlatformSetController {
 				platform.setPid(pid);
 				platform.setPidDisabled(true);
 			}
+			platform.setNameDisplay(true);
 			platform.setLegend(Constants.SCALE_ADD_LEGEND);
 		}
 		model.addAttribute("platform", platform);
 		//编辑页面所属上级下拉列表
 		model.addAttribute("pids", platformSetService.findAll());
-		model.addAttribute("agents",agentService.findAll(Boolean.FALSE));
 		return PLATFORM_SHAREPROFIT_EDIT;
 	}
 	
@@ -179,7 +183,7 @@ public class PlatformSetController {
 		if(isOk) {
 			return RetResponse.makeOKRsp();
 		} else {
-			return RetResponse.makeErrRsp("该比例已被绑定使用，无法删除,若确定需要删除，请先将所有绑定该比例的设备取消。");
+			return RetResponse.makeErrRsp(ErrorCodeEnum.ES_9015.getMessage());
 		}
 		
 	}

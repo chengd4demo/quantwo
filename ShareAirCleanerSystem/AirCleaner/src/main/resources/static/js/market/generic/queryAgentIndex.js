@@ -122,7 +122,7 @@ layui.use(['table', 'form', 'layer', 'vip_table'], function(){
 									$(".layui-laypage-btn").click();
 			            		 });
 							}else {
-								layer.msg('删除失败！');
+								layer.msg(data.msg,{time:2000});
 								layer.close(index);
 							}
 						}

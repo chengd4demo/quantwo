@@ -12,21 +12,7 @@ layui.use(['form', 'layedit', 'laydate', 'layer'], function() {
 			}
 	   }
     });
-	form.on('radio(is)',function(data){
-		if(data.value == 1 || data.value == 2) {
-			document.getElementById('isIdText').style.display='none';
-			document.getElementById('textNameId').removeAttribute('lay-verify')
-			document.getElementById('isIdSelect').style.display='block';
-			document.getElementById('agentId').setAttribute('lay-verify','required')
-		} else {
-			document.getElementById('isIdText').style.display='block';
-			document.getElementById('textNameId').setAttribute('lay-verify','required')
-			document.getElementById('isIdSelect').style.display='none';
-			document.getElementById('agentId').removeAttribute('lay-verify')
-			
-		}
-		form.render();
-	})
+	
 	form.on('select(type)',function(data){
 		if(data.value == 'CY') {
 			data.elem.disabled = true
@@ -40,6 +26,7 @@ layui.use(['form', 'layedit', 'laydate', 'layer'], function() {
 			removeFree();
 		}
 		if(data.value == 'ZD' || data.value == 'DL') {
+			getAgentsList(data.value)
 			document.getElementById('isIdText').style.display='none';
 			document.getElementById('isIdSelect').style.display='block';
 			document.getElementById('textNameId').removeAttribute('lay-verify')
@@ -51,14 +38,21 @@ layui.use(['form', 'layedit', 'laydate', 'layer'], function() {
 			document.getElementById('textNameId').setAttribute('lay-verify','required')
 		}
 		form.render(); 	
-	})
+	});
 	form.on('submit(demo1)',function(data){
 		var type = data.field.type
 		if(type == 'ZD' || type == 'DL') {
 			var selectAgent = document.getElementById('agentId')
 			var index = selectAgent.selectedIndex
-			var agentName = selectAgent.options[index].text
-			data.field.name = agentName
+			var agentName = selectAgent.options[index]
+			if(agentName.value){
+				data.field.name = agentName.text
+			} else {
+				data.field.name = ''
+			}
+			
+		} else {
+			data.field.agentId = ''
 		}
 		alert(JSON.stringify(data.field))
 		//询问框
@@ -92,14 +86,24 @@ layui.use(['form', 'layedit', 'laydate', 'layer'], function() {
 		});
 		return false;
 	});
-//	function init(){
-//		var level = document.getElementById('level').value
-//		if(level=='0') {
-//			document.getElementById('pid').style.display='block';
-//			document.getElementById('select1').style.disabled = false;
-//		}
-//	}
-	
+	function getAgentsList(type){
+		//请求
+		$.ajax({
+			url:"/market/agent/list?type="+type,
+			async:false,
+			success:function(data){
+				$('#agentId').empty()
+				var agent,t='<option value="">请选择公司名称/客户</option>';
+				if(data != undefined && data.length != 0) {
+					for ( var i = 0; i <data.length; i++){
+						agent = data[i];
+						t+='<option value="'+agent.id+'">'+agent.name+'</option>'
+					}
+					$('#agentId').append(t);
+				}
+			}
+		});
+	}
 	function removeFree() {
 		document.getElementById('shouhou1').style.display='none';
 		document.getElementById('freeId').removeAttribute('lay-verify')

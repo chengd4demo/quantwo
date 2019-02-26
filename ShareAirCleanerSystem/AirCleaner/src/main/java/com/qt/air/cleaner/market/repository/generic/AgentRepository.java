@@ -15,7 +15,7 @@ import com.qt.air.cleaner.market.domain.generic.Agent;
 
 @Repository
 public interface AgentRepository extends JpaRepository<Agent, String> {
-	List<Agent> findByRemoved(Boolean removed);
+	List<Agent> findByTypeAndRemoved(String type,Boolean removed);
 	Page<Agent> findAll(Specification<Agent> specification, Pageable pageable);
 	Agent findByIdAndRemoved(String id,Boolean removed);
 	@Modifying

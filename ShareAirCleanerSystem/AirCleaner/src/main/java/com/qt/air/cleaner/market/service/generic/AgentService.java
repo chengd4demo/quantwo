@@ -13,10 +13,10 @@ public interface AgentService {
 	/**
 	 * 查询代理商信息下拉列表
 	 * 
-	 * @param removed
+	 * @param type
 	 * @return
 	 */
-	List<Agent> findAll(boolean removed);
+	List<Agent> findAll(String type);
 	
 	/**
 	 * 代理商分页模糊查询
@@ -46,5 +46,5 @@ public interface AgentService {
 	 * 
 	 * @param id
 	 */
-	void delete(String id);
+	boolean delete(String id);
 }

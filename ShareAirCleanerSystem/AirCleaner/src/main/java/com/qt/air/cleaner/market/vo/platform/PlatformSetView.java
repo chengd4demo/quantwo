@@ -16,6 +16,7 @@ public class PlatformSetView implements Serializable {
 	private Float free = null;
 	private boolean pidDisabled = false;
 	private boolean typeDisabled = false;
+	private boolean nameDisplay = false;
 	public PlatformSetView(){
 	}
 	public PlatformSetView(ShareProfit shareProfit) {
@@ -87,6 +88,12 @@ public class PlatformSetView implements Serializable {
 	}
 	public void setAgentId(String agentId) {
 		this.agentId = agentId;
+	}
+	public boolean isNameDisplay() {
+		return nameDisplay;
+	}
+	public void setNameDisplay(boolean nameDisplay) {
+		this.nameDisplay = nameDisplay;
 	}
 	@Override
 	public String toString() {

@@ -21,6 +21,7 @@ import com.qt.air.cleaner.common.constants.Constants;
 import com.qt.air.cleaner.market.domain.generic.Agent;
 import com.qt.air.cleaner.market.service.generic.AgentService;
 import com.qt.air.cleaner.market.vo.generic.AgentView;
+import com.qt.air.cleaner.vo.common.ErrorCodeEnum;
 import com.qt.air.cleaner.vo.common.PageInfo;
 import com.qt.air.cleaner.vo.common.RetResponse;
 import com.qt.air.cleaner.vo.common.RetResult;
@@ -86,22 +87,28 @@ public class AgentController {
 	@ResponseBody
 	public RetResult<Object>  delete(@PathVariable("id") String id){
 		logger.debug("代理商信息删除请求参数{}" + id);
+		boolean isOk = false;
 		try {
-			agentService.delete(id);
+			isOk = agentService.delete(id);
 		} catch (Exception e) {
-			return RetResponse.makeErrRsp(e.getMessage());
+			return RetResponse.makeErrRsp(ErrorCodeEnum.ES_0000.getMessage());
 		}
-		return RetResponse.makeOKRsp();
+		if(isOk) {
+			return RetResponse.makeOKRsp();
+		} else {
+			return RetResponse.makeErrRsp(ErrorCodeEnum.ES_9014.getMessage());
+		}
 	}
 		
 	@RequestMapping(method = RequestMethod.GET, path = "/list")
 	@ResponseBody
-	public List<AgentView> list() {
-		List<Agent> agentList = agentService.findAll(false);
+	public List<AgentView> list(String type) {
+		List<Agent> agentList = agentService.findAll(type);
 		List<AgentView> result = new ArrayList<>();
 		for(Agent agent : agentList){
 			result.add(new AgentView(agent));
 		}
 		return result;
 	}
+
 }

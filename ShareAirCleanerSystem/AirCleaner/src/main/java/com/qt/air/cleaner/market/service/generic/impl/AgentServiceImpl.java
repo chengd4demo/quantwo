@@ -14,6 +14,7 @@ import javax.persistence.criteria.Root;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -24,8 +25,10 @@ import com.qt.air.cleaner.common.exception.BusinessException;
 import com.qt.air.cleaner.config.shiro.vo.Principal;
 import com.qt.air.cleaner.market.domain.account.Account;
 import com.qt.air.cleaner.market.domain.generic.Agent;
+import com.qt.air.cleaner.market.domain.platform.ShareProfit;
 import com.qt.air.cleaner.market.repository.account.AccountRepository;
 import com.qt.air.cleaner.market.repository.generic.AgentRepository;
+import com.qt.air.cleaner.market.repository.platform.ShareProfitRepository;
 import com.qt.air.cleaner.market.service.generic.AgentService;
 import com.qt.air.cleaner.market.vo.generic.AgentView;
 import com.qt.air.cleaner.vo.common.ErrorCodeEnum;
@@ -37,10 +40,12 @@ public class AgentServiceImpl implements AgentService {
 	AgentRepository agentRepository;
 	@Resource
 	AccountRepository accountRepository;
+	@Resource
+	ShareProfitRepository shareProfitRepository;
 
 	@Override
-	public List<Agent> findAll(boolean removed) {
-		return agentRepository.findByRemoved(false);
+	public List<Agent> findAll(String type) {
+		return agentRepository.findByTypeAndRemoved(type,false);
 	}
 	
 	/**
@@ -138,11 +143,18 @@ public class AgentServiceImpl implements AgentService {
 	 * @param id
 	 */
 	@Override
-	public void delete(String id) {
-		Agent agent = agentRepository.findByIdAndRemoved(id, false);
-		agentRepository.deleteAgent(id);
-		accountRepository.deleteAccount(agent.getAccount().getId());
-		
+	public boolean delete(String id) {
+		ShareProfit shareProfit = new ShareProfit();
+		shareProfit.setAgentId(id);
+		Example<ShareProfit> example = Example.of(shareProfit);
+		if(shareProfitRepository.exists(example)){
+			return false;
+		} else {
+			Agent agent = agentRepository.findByIdAndRemoved(id, false);
+			agentRepository.deleteAgent(id);
+			accountRepository.deleteAccount(agent.getAccount().getId());
+			return true;
+		}
 	}
 
 }
