@@ -43,6 +43,9 @@ public class Agent extends GenericEntity {
 	@Column(name = "ALIPAY", nullable = true, length = 40)
 	private String alipay;
 	
+	@Column(name = "TYPE", nullable = true, length = 10)
+	private String type;
+	
 	@OneToOne(optional = false)
 	private Account account;
 		
@@ -143,6 +146,14 @@ public class Agent extends GenericEntity {
 	}
 
 	
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	public void setAccount(Account account) {
 		
 		this.account = account;

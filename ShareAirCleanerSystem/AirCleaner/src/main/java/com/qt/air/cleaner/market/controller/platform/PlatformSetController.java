@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.qt.air.cleaner.common.constants.Constants;
 import com.qt.air.cleaner.market.domain.platform.ShareProfit;
+import com.qt.air.cleaner.market.service.generic.AgentService;
 import com.qt.air.cleaner.market.service.platform.PlatformSetService;
 import com.qt.air.cleaner.market.vo.platform.PlatformSetView;
 import com.qt.air.cleaner.vo.common.ErrorCodeEnum;
@@ -36,6 +37,8 @@ public class PlatformSetController {
 						 PLATFORM_SHAREPROFIT_EDIT = "view/market/platform/editNewShareProfile";
 	@Autowired
 	PlatformSetService platformSetService; 
+	@Autowired
+	AgentService agentService;
 	
 	/**
 	 * 分润信息
@@ -134,6 +137,7 @@ public class PlatformSetController {
 		model.addAttribute("platform", platform);
 		//编辑页面所属上级下拉列表
 		model.addAttribute("pids", platformSetService.findAll());
+		model.addAttribute("agents",agentService.findAll(Boolean.FALSE));
 		return PLATFORM_SHAREPROFIT_EDIT;
 	}
 	

@@ -11,6 +11,7 @@ public class PlatformSetView implements Serializable {
 	private String name;
 	private String pid;
 	private String legend;
+	private String agentId;
 	private Float scale = null;
 	private Float free = null;
 	private boolean pidDisabled = false;
@@ -24,6 +25,7 @@ public class PlatformSetView implements Serializable {
 		this.setPid(shareProfit.getPid());
 		this.setScale(shareProfit.getScale());
 		this.setFree(shareProfit.getFree());
+		this.setAgentId(shareProfit.getAgentId());
 	}
 	public boolean isPidDisabled() {
 		return pidDisabled;
@@ -79,6 +81,12 @@ public class PlatformSetView implements Serializable {
 	}
 	public void setTypeDisabled(boolean typeDisabled) {
 		this.typeDisabled = typeDisabled;
+	}
+	public String getAgentId() {
+		return agentId;
+	}
+	public void setAgentId(String agentId) {
+		this.agentId = agentId;
 	}
 	@Override
 	public String toString() {
