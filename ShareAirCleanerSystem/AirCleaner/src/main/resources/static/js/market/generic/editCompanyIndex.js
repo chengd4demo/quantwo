@@ -18,7 +18,7 @@ layui.use(['form', 'layedit', 'laydate', 'layer'], function() {
 	    }
 	    ,address: function(value){
 	    	if (value.length==0) {
-	    		return "请输入投资商地址";
+	    		return "请输入公司地址";
 	    	} else if(value.length >50) {
 	    		return "公司地址不能大于50个字符";
 	    	}
@@ -30,11 +30,11 @@ layui.use(['form', 'layedit', 'laydate', 'layer'], function() {
 	    		return "联系人不能大于10个字符";
 	    	}
 	    }
-	    ,phoneNumber: [/^1\d{10}$/, "请输入正确的手机号"]
+	    ,phoneNumber: [/^1(3|4|5|7|8)\d{9}$/, "请输入正确的手机号"]
 	    ,emails: function(value) {
 	    	if(value.length != 0) {
-	    		if (value.length>50) {
-	    			return "邮箱不能大于50个字符";
+	    		if (value.length>30) {
+	    			return "邮箱不能大于30个字符";
 	    		} else if(! /^[\w\-\.]+@[\w\-\.]+(\.\w+)+$/.test(value)){
 	    			return "邮箱格式不正确";
 	    		}
@@ -46,8 +46,14 @@ layui.use(['form', 'layedit', 'laydate', 'layer'], function() {
 	    	}
 	    }
 	    ,socialCreditCode: function(value){
-	    	if (value.length>0 && value.length>30) {
-	    		return "统一社会信用码不能大于30个字符";
+	    	if(!/^[0-9a-zA-Z]+$/.test(value)){
+	    		return "统一社会信用码不合法,只能使用字母数字组合";
+	    	}else if(value.length == 0){
+	    		return "请输入统一社会征信码";
+	    	}else if (value.length<15 ){
+	    		return "统一社会信用码不能小于15个字符";
+	    	}else if(value.length>18) {
+	    		return "统一社会信用码不能大于18个字符";
 	    	}
 	    }
     });

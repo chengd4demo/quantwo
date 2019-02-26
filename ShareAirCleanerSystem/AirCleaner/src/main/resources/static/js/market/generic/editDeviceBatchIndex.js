@@ -3,7 +3,7 @@ layui.use(['form', 'layedit', 'laydate', 'layer'], function() {
 	form.verify({
 		name:function(value){
 			if (value.length == 0) {
-				return '请输入商户名称';
+				return '请输入批次名称';
 			} else if (value.length > 20) {
 				return '设备批次名称不能大于20个字符';
 			}

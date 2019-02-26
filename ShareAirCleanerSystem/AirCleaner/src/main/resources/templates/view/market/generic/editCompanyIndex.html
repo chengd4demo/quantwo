@@ -18,7 +18,7 @@
 		    <div class="layui-form-item">
 		        <label class="layui-form-label"><span style="color:red">*</span>统一信用码</label>
 		        <div class="layui-input-block">
-		            <input type="text" name="socialCreditCode" th:field="*{socialCreditCode}" lay-verify="socialCreditCode" placeholder="请输入统一信用码" autocomplete="off" class="layui-input">
+		            <input type="text" name="socialCreditCode" th:field="*{socialCreditCode}" lay-verify="socialCreditCode" onKeyUp="value=value.replace(/[\W]/g,'')" placeholder="请输入统一信用码" autocomplete="off" class="layui-input">
 		        </div>
 		    </div>
 		    <!--商户名称-->

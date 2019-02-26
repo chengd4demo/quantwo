@@ -18,11 +18,11 @@ layui.use(['form','upload', 'layedit', 'laydate', 'layer'], function() {
 				return '奖项名称不能大于20个字符';
 			}
 		}
-		,probability:function(value){
+		,probabilityLable:function(value){
 			if (value.length == 0) {
 				return '请输入中奖几率';
 			} else if (100<max && n>0) {
-				return '0~100';
+				return '请输入0~100数字';
 			}
 		}
 		,remarks:function(value){

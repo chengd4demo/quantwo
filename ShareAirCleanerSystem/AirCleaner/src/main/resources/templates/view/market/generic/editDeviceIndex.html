@@ -27,7 +27,7 @@
 		    <div class="layui-form-item">
 		        <label class="layui-form-label"><span style="color:red">*</span>设备编码</label>
 		        <div class="layui-input-block">
-		            <input type="number" name="machNo" oninput="if(value.length>11)value=value.slice(0,15)"  th:field="*{machNo}" lay-verify="required|machNo" placeholder="请输入设备编码" autocomplete="off" class="layui-input">
+		            <input type="text" name="machNo" oninput="if(value.length>11)value=value.slice(0,15)"  th:field="*{machNo}" lay-verify="required|machNo" onKeyUp="value=value.replace(/[\W]/g,'')" placeholder="请输入设备编码" autocomplete="off" class="layui-input">
 		        </div>
 		    </div>
 		    <!--安装地址-->
@@ -97,11 +97,11 @@
     		<!--分润比例-->
     		 <div class="layui-form-item">
 		        <label class="layui-form-label">分润比例</label>
-		        <div class="layui-inline" style="width: 64%">
-		            <input id = "ratioId" type="text"  placeholder="分润比例" th:value="ratio" th:field="*{ratio}" autocomplete="off" class="layui-input"  >
+		        <div class="layui-inline" style="width: 64.5%">
+		            <input id = "ratioId" type="text"  placeholder="分润比例" th:value="ratio" th:field="*{ratio}" onkeyup="celarRatio(this.value)" onautocomplete="off" class="layui-input"  >
 		        </div>
-		        <div class="layui-inline" style="margin-left: -2em;float:right">
-		        	<button class="layui-btn layui-btn-normal" lay-submit="" lay-filter="addIcon">+选择</button>
+		        <div class="layui-inline" style="margin-left: -2em;margin-right: -1px; float:right">
+		        	<button class="layui-btn layui-btn-normal" lay-submit="" lay-filter="addIcon"><li class="fa fa-plus-circle">选择</li></button>
 		        </div>
 		    </div>
 		    <!--底部提交按钮-->

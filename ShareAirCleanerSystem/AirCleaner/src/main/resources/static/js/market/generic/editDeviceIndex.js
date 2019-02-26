@@ -76,3 +76,8 @@ layui.use(['form', 'layedit', 'laydate', 'layer'], function() {
 		return false;
 	});
 });
+function celarRatio(value){
+	if(value.length==0){
+		document.getElementById('distributionRatioId').value = '';
+	}
+}

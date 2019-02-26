@@ -9,16 +9,27 @@ layui.use(['form', 'layedit', 'laydate', 'layer'], function() {
     });
     //自定义验证规则
     form.verify({
-	    name: function(value) {
+    	socialCreditCode: function(value){
+    		if(!/^[0-9a-zA-Z]+$/.test(value)){
+	    		return "统一社会信用码不合法,只能使用字母数字组合";
+	    	}else if(value.length == 0){
+	    		return "请输入统一社会征信码";
+	    	}else if (value.length<15 ){
+	    		return "统一社会信用码不能小于15个字符";
+	    	}else if(value.length>18) {
+	    		return "统一社会信用码不能大于18个字符";
+	    	}
+	    }
+	    ,name: function(value) {
 	    	if (value.length==0) {
-	    		return "请输入投资商名称";
+	    		return "请输入商户名称";
 	    	} else if(value.length >20) {
 	    		return "商户名称不能大于20个字符";
 	    	}
 	    }
 	    ,address: function(value){
 	    	if (value.length==0) {
-	    		return "请输入投资商地址";
+	    		return "请输入商户地址";
 	    	} else if(value.length >50) {
 	    		return "商户地址不能大于50个字符";
 	    	}
@@ -30,11 +41,11 @@ layui.use(['form', 'layedit', 'laydate', 'layer'], function() {
 	    		return "联系人不能大于10个字符";
 	    	}
 	    }
-	    ,phoneNumber: [/^1\d{10}$/, "请输入正确的手机号"]
+	    ,phoneNumber: [/^1(3|4|5|7|8)\d{9}$/, "请输入正确的手机号"]
 	    ,emails: function(value) {
 	    	if(value.length != 0) {
-	    		if (value.length>50) {
-	    			return "邮箱不能大于50个字符";
+	    		if (value.length>30) {
+	    			return "邮箱不能大于30个字符";
 	    		} else if(! /^[\w\-\.]+@[\w\-\.]+(\.\w+)+$/.test(value)){
 	    			return "邮箱格式不正确";
 	    		}
@@ -45,11 +56,7 @@ layui.use(['form', 'layedit', 'laydate', 'layer'], function() {
 	    		return "微信号不能大于30个字符";
 	    	}
 	    }
-	    ,socialCreditCode: function(value){
-	    	if (value.length>0 && value.length>30) {
-	    		return "统一社会信用码不能大于30个字符";
-	    	}
-	    }
+	    
     });
     
     //表单提交

@@ -26,7 +26,7 @@
 		    <div class="layui-form-item">
 		    	<label class="layui-form-label"><span style="color:red">*</span>中奖几率</label>
 		        <div class="layui-input-block">
-		            <input type="text" name="probabilityLable" th:field="*{probabilityLable}"  placeholder="请输入中奖几率" autocomplete="off" class="layui-input" >
+		            <input type="text" name="probabilityLable" lay-verify="probabilityLable" th:field="*{probabilityLable}" onkeyup="value=value.replace(/[^\d.]/g,'')" placeholder="请输入中奖几率" autocomplete="off" class="layui-input" >
 		        </div>
 		    </div>
 		    <!-- 奖项图片 -->

@@ -46,7 +46,7 @@
 							<button id="searchBtn" class="layui-btn layui-btn-primary" lay-submit=""   lay-filter="searchSubmit" title="查询">查询</button>
 						</div>
 						<div class="layui-inline" style="margin-right: 0px;">
-							<button type="reset"  class="layui-btn layui-btn-primary" title="重置">重置</button>									
+							<button  class="layui-btn layui-btn-primary" title="重置" lay-filter="btn-reset">重置</button>								
 						</div>
 						<div class="layui-inline" id="addbtn">
 							<button type="button" data-method="add" class="layui-btn layui-btn-normal layui-icon" title="新增商家信息">新增</button>
@@ -61,11 +61,10 @@
 	<script type="text/javascript" src="../../frame/layui/layui.js"></script>
 	<script type="text/javascript" src="../../js/index.js"></script>
 	<script type="text/javascript" src="../../js/market/generic/queryTraderIndex.js"></script>
-	<!-- 序号 -->
-		<!-- 表格操作按钮集 -->
-		<script type="text/html" id="barOption">
-			<a class="layui-btn layui-btn-mini layui-btn-normal" lay-event="edit">编辑</a>
-			<a class="layui-btn layui-btn-mini layui-btn-danger" lay-event="del">删除</a>
-		</script>
+	<!-- 表格操作按钮集 -->
+	<script type="text/html" id="barOption">
+		<a class="layui-btn layui-btn-mini layui-btn-normal" lay-event="edit">编辑</a>
+		<a class="layui-btn layui-btn-mini layui-btn-danger" lay-event="del">删除</a>
+	</script>
 </body>
 </html>
