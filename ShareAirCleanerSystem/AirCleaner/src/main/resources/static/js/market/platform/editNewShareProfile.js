@@ -12,6 +12,16 @@ layui.use(['form', 'layedit', 'laydate', 'layer'], function() {
 			}
 	   }
     });
+	form.on('radio(is)',function(data){
+		if(data.value == 1 || data.value == 2) {
+			document.getElementById('isIdText').style.display='none';
+			document.getElementById('isIdSelect').style.display='block';
+		} else {
+			document.getElementById('isIdText').style.display='block';
+			document.getElementById('isIdSelect').style.display='none';
+		}
+		form.render();
+	})
 	form.on('select(type)',function(data){
 		if(data.value == 'CY') {
 			data.elem.disabled = true

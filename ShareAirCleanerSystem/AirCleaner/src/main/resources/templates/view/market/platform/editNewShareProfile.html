@@ -41,12 +41,36 @@
 	                </select>
 	            </div>
     		</div>
+    		<!-- 客户类型  -->
+    		<div class="layui-form-item" th:if="${platform.type != 'CY'}">
+	            <label class="layui-form-label"><span style="color:red">*</span>客户类型</label>
+	             <div class="layui-input-block">
+	             	<input type="radio" name="is" value="0" lay-filter="is" title="商家投/资商" checked>
+		            <input type="radio" name="is" value="1" lay-filter="is" title="代理" >
+			        <input type="radio" name="is" value="2" lay-filter="is" title="区域总代" >
+		        </div>
+    		</div>
 		    <!--公司名称/客户-->
-		    <div class="layui-form-item">
+		    <div id = "isIdText" class="layui-form-item">
 	            <label class="layui-form-label"><span style="color:red">*</span>公司名称/客户</label>
 	             <div class="layui-input-block">
 		            <input type="text"  placeholder="请输入公司名称/客户名称" lay-verify="name" th:field="*{name}" autocomplete="off" class="layui-input" >
 		        </div>
+    		</div>
+    		<!--公司名称/客户 下拉列表-->
+		    <div id="isIdSelect" class="layui-form-item" style = "display:none">
+	            <label class="layui-form-label"><span style="color:red">*</span>公司名称/客户</label>
+	             <div class="layui-input-block">
+	                <select th:field="*{type}"  lay-filter="type" id="select1">
+	                    <option value="">请选择公司名称/客户</option>
+							<option value="CY">公司</option>
+							<option value="ZD">区域总代理</option>
+							<option value="DL">代理</option>
+							<option value="IR">投资商</option>
+							<option value="TR">商家</option>
+							<option value="SR">促销员</option>              
+	                </select>
+	            </div>
     		</div>
 	    	<!-- 耗材费 -->
     		<div class="layui-form-item" id="shouhou1" style="display:none">
