@@ -80,6 +80,10 @@ public class Constants {
     public static final String INVESTOR_ADD_LEGEND = "新增投资商信息";
     public static final String INVESTOR_EDIT_LEGEND ="修改投资商信息";
     
+    //代理商信息维护页面显示文本
+    public static final String AGENT_ADD_LEGEND = "新增代理商信息";
+    public static final String AGENT_EDIT_LEGEND ="修改代理商信息";
+    
     //促销员信息维护页面显示文本
     public static final String SALER_ADD_LEGEND ="新增促销员信息";
     public static final String SALER_EDIT_LEGEND ="修改促销员信息";
