@@ -17,17 +17,29 @@ layui.use(['form','upload', 'layedit', 'laydate', 'layer'], function() {
 
 	form.verify({
 		prizeName:function(value){
-			if (value.length > 20) {
+			if(value.length==0){
+				return '请输入奖品名称';		
+			}else if (value.length > 20) {
 				return '奖品名称不能大于20个字符';
 			}
 		}
-	});
-	form.verify({
-		address:function(value){
+		,address:function(value){
 			if (value.length > 20) {
 				return '使用地址不能大于20个字符';
 			}
 		}
+		,prizeItemConfigId:function(value){
+			if (value.length == 0) {
+				return '请选择奖项';
+			}
+		}
+		,prizeNumber:[/^[+]{0,1}(\d+)$/, "请输入整数"]
+		,traderName:function(value){
+			if (value.length == 0) {
+				return '请选择商家';
+			}
+		}
+		,denomination:[/^((0{1}\.\d+)|([1-9]\d*\.{1}\d+)|([1-9]+\d*)|0)$/, "请输入整数或小数"]
 	});
 	//按键取消监听
     form.on('submit(closeAudit)', function(data){
@@ -35,7 +47,7 @@ layui.use(['form','upload', 'layedit', 'laydate', 'layer'], function() {
 		parent.layer.close(index);
     });
     
-  //监听指定开关
+    //监听指定开关
     form.on('switch(prizeCategory)', function(data){
       layer.msg('开关checked：'+ (this.checked ? 'true' : 'false'), {
         offset: '6px'

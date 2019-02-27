@@ -18,9 +18,9 @@
 		<input type="hidden" name ="id" th:field="*{id}"/>		
 			<!--奖项名称-->
 			<div class="layui-form-item">
-	            <label class="layui-form-label">奖项名称</label>
+	            <label class="layui-form-label"><span style="color:red">*</span>奖项名称</label>
 	            <div class="layui-input-block">
-	                <select th:field="*{prizeItemConfigId}" lay-verify="prizeItemConfigId" lay-search="">
+	                <select th:field="*{prizeItemConfigId}" name="prizeItemConfigId" lay-verify="prizeItemConfigId" lay-search="">
 	                    <option value="">请选择奖项</option>
 	                   	<option th:each="prizeItemConfig:${prizeItemConfigs}" th:value="${prizeItemConfig.id}" th:text="${prizeItemConfig.name}"></option>              
 	                </select>
@@ -28,23 +28,23 @@
     		</div>
 		    <!--奖品名称-->
 		    <div class="layui-form-item">
-		        <label class="layui-form-label">奖品名称</label>
+		        <label class="layui-form-label"><span style="color:red">*</span>奖品名称</label>
 		        <div class="layui-input-block">
 		            <input type="text" name="prizeName" th:field="*{prizeName}" lay-verify="prizeName" placeholder="请输入奖品名称" autocomplete="off" class="layui-input" >
 		        </div>
 		    </div>
 		    <!--奖品数量-->
 		    <div class="layui-form-item">
-		    	<label class="layui-form-label">奖品数量</label>
+		    	<label class="layui-form-label"><span style="color:red">*</span>奖品数量</label>
 		        <div class="layui-input-block">
-		            <input type="text" name="prizeNumber" th:field="*{prizeNumber}"  placeholder="请输入奖品数量" autocomplete="off" class="layui-input" >
+		            <input type="text" name="prizeNumber" lay-verify="prizeNumber" th:field="*{prizeNumber}" placeholder="请输入奖品数量" autocomplete="off" class="layui-input" >
 		        </div>
 		    </div>
 		    <!--所属商家-->
 			<div class="layui-form-item">
-	            <label class="layui-form-label">所属商家</label>
+	            <label class="layui-form-label"><span style="color:red">*</span>所属商家</label>
 	            <div class="layui-input-block">
-	                <select th:field="*{traderId}" lay-verify="traderName lay-search="">
+	                <select th:field="*{traderId}" name="traderName" lay-verify="traderName" lay-search="">
 	                    <option value="">请选择商家</option>
 	                   	<option th:each="trader:${traders}" th:value="${trader.id}" th:text="${trader.name}"></option>              
 	                </select>
@@ -110,7 +110,6 @@
 		    </div>
 		</form>
 	</fieldset>
-
 <script src="../../../frame/layui/layui.js" charset="utf-8"></script>
 <script type="text/javascript" src="../../../js/market/activity/editPrizeIndex.js"></script>
 </body>
