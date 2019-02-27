@@ -28,7 +28,7 @@ public class AccountOutBoundView {
 	private String rejectReasonId;	//驳回原因Id
 
 	@JsonIgnore
-	private SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:ss:mm");
+	private SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	public AccountOutBoundView(AccountOutBound accountOutBound) {
 		super();
 		this.setId(accountOutBound.getId());
