@@ -10,7 +10,7 @@ var pageCurr;
 	    laydate.render({
 	        elem: '#date'
 	    });
-		 tableIns=table.render({
+	    tablePrizeIns=table.render({
 			 elem: '#prizeList'
 		            ,url:'/market/prize/page'
 		        	,method: 'GET' //默认：get请求
@@ -179,27 +179,23 @@ var pageCurr;
 				}
 		 });
 		 
-		//监听搜索框
+		//监听搜索框 
 		setTimeout(function(){
-			form.on('submit(searchPrizeSubmit)', function(data){
-				//重新加载table
-				load(data);
-				return false;
-			});
-			form.on('submit(bnt-reset)',function(data){
-				document.getElementById("searcPrizeConfighForm").reset();
-				//重新加载table
-				$(".layui-laypage-btn").click();
-				return false;
-			})
-		},600);
-	});
+			 form.on('submit(searchPrizeSubmit)', function(data){
+					//重新加载table
+					load(data);
+					return false;
+			 });
+		});
+		
+	}); 
+	
 	function load(obj){
-	   //重新加载table
-	   tableIns.reload({
-	       where: obj.field
-	       , page: {
-	           curr: pageCurr //从当前页码开始
-	       }
-	   });
+	    //重新加载table
+		tablePrizeIns.reload({
+	        where: obj.field
+	        , page: {
+	            curr: pageCurr //从当前页码开始
+	        }
+	    });
 	}

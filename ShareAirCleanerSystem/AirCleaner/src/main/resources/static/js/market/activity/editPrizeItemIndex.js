@@ -19,10 +19,10 @@ layui.use(['form','upload', 'layedit', 'laydate', 'layer'], function() {
 			}
 		}
 		,probabilityLable:function(value){
-			if (value.length == 0) {
+			if(value.length == 0){
 				return '请输入中奖几率';
-			} else if (100<max && n>0) {
-				return '请输入0~100数字';
+			}else if(!/^([0-9]\d?|100)$/.test(value)){
+				return '请输入0~100的整数'
 			}
 		}
 		,remarks:function(value){
@@ -31,7 +31,7 @@ layui.use(['form','upload', 'layedit', 'laydate', 'layer'], function() {
 			}
 		}
 	});
-	<!-- 图片上传 -->
+	//图片上传
 	var uploadInst = upload.render({
 	    elem: '#test1'
 	    ,url: '/upload/'
@@ -57,8 +57,8 @@ layui.use(['form','upload', 'layedit', 'laydate', 'layer'], function() {
 	      });
 	    }
   });
-  	<!-- 表单提交 -->	
-	form.on('submit(demo1)',function(data){
+  	//表单提交	
+	form.on('submit(demo2)',function(data){
 		//询问框
 		layer.confirm('是否提交保存？',{
 		  title:"提示",

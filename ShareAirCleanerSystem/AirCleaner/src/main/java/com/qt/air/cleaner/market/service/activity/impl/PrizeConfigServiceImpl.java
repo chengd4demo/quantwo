@@ -4,13 +4,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
 import javax.annotation.Resource;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.BeanUtils;
@@ -19,7 +17,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.qt.air.cleaner.common.exception.BusinessException;
 import com.qt.air.cleaner.config.shiro.vo.Principal;
 import com.qt.air.cleaner.market.domain.activity.PrizeConfig;
@@ -53,9 +50,9 @@ public class PrizeConfigServiceImpl implements PrizeConfigService{
 					Predicate p1 = cb.equal(root.get("prizeItemConfig").get("id"),prizeConfigView.getPrizeItemConfigId());
 					conditions.add(p1);
 				}
-				String prizeName = prizeConfigView.getPrizeCategory();
+				String prizeName = prizeConfigView.getPrizeName();
 				if (StringUtils.isNotBlank(prizeName)) { //奖品名称
-					Predicate p2 = cb.like(root.get("prizeName"), "%" + prizeName + "%");
+					Predicate p2 = cb.like(root.get("prizeName"), "%" + StringUtils.trim(prizeName) + "%");
 					conditions.add(p2);
 				}
 				if(!StringUtils.isEmpty(prizeConfigView.getTraderId())) {//所属商家	
@@ -67,14 +64,14 @@ public class PrizeConfigServiceImpl implements PrizeConfigService{
 					Predicate p4 = cb.equal(root.get("prizeCategory"), prizeCategory);
 					conditions.add(p4);
 				}
-				String state = prizeConfigView.getState();
-				if(StringUtils.isNotBlank(state)) {//奖品类型
-					Predicate p5 = cb.equal(root.get("state"), state);
+				String prizeType = prizeConfigView.getPrizeType();
+				if(StringUtils.isNotBlank(prizeType)) {//奖品类型
+					Predicate p5 = cb.equal(root.get("prizeType"), prizeType);
 					conditions.add(p5);
 				}
 				String effectiveTime = prizeConfigView.getEffectiveTime();
 				if (StringUtils.isNotBlank(effectiveTime)) { // 有效期
-					Predicate p6 = cb.like(root.get("effectiveTime"), StringUtils.trim(effectiveTime.replaceAll("-", "")) + "%");
+					Predicate p6 = cb.like(root.get("effectiveTime"),StringUtils.trim(effectiveTime) +"%");
 					conditions.add(p6);
 				}
 				Predicate p7 = cb.equal(root.get("removed"), false);
@@ -173,6 +170,5 @@ public class PrizeConfigServiceImpl implements PrizeConfigService{
 		}
 		
 	}
-
 	
 }
