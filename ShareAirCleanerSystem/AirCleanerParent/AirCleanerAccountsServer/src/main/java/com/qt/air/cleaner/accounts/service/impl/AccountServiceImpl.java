@@ -55,9 +55,9 @@ import com.qt.air.cleaner.base.utils.CalculateUtils;
 @RestController
 @Transactional
 public class AccountServiceImpl implements AccountService {
+	private static Logger logger = LoggerFactory.getLogger(AccountServiceImpl.class);
 	@Value("${o2.wechat.subscription.mah.id}")
 	public String mahId;
-	private static Logger logger = LoggerFactory.getLogger(AccountServiceImpl.class);
 	SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmssSSSS"); 
 	@Resource
 	private TraderRepository traderRepository;
@@ -199,30 +199,56 @@ public class AccountServiceImpl implements AccountService {
 		logger.info("execute method applyForAccountOutbound() param --> parames:{}", parames);
 		String weixin = parames.get("weixin");
 		Float amount = Float.valueOf(parames.get("amount"));
-		Account account = new Account();
-		boolean  applayIsOk = checkApplayPassword(parames.get("password"),parames.get("userType"),weixin);
-		 //判断提现金额是否大于可用余额
-		if(amount<=account.getAvailableAmount()) {
-			if(applayIsOk) {
-				AccountOutBound outBound = saveOutBound(parames);
-				//个人总账逻辑处理 amount - 提现金额
-				if(outBound != null) {
-					updateAmount(outBound);
-				} else {
-					return new ResultInfo(ErrorCodeEnum.ES_1027.getErrorCode(),ErrorCodeEnum.ES_1027.getMessage(),null);
-				}
-			} else {
-				return new ResultInfo(ErrorCodeEnum.ES_1026.getErrorCode(),ErrorCodeEnum.ES_1026.getMessage(),null);
+		String type = parames.get("userType");
+		boolean  applayIsOk = checkApplayPassword(parames.get("password"),type,weixin);
+		if(applayIsOk) {
+			Account account = this.getUserInfo(type, weixin);
+			 //判断提现金额是否大于可用余额
+			if(amount<=account.getAvailableAmount() && amount<=account.getTotalAmount()) {
+				 saveOutBound(parames);
+			}else {
+				return new ResultInfo(ErrorCodeEnum.ES_1028.getErrorCode(),ErrorCodeEnum.ES_1028.getMessage(),null);
 			}
-		}else {
-			return new ResultInfo(ErrorCodeEnum.ES_1028.getErrorCode(),ErrorCodeEnum.ES_1028.getMessage(),null);
+		} else {
+			return new ResultInfo(ErrorCodeEnum.ES_1026.getErrorCode(),ErrorCodeEnum.ES_1026.getMessage(),null);
 		}
 		return new ResultInfo(String.valueOf(ResultCode.SC_OK),"success",parames);
 	}
 
-	private void updateAmount(AccountOutBound outBound) {
+	private Account updateAmount(AccountOutBound outBound) {
+		Account account = null;
 		String weixin = outBound.getWeixin();
 		String type = outBound.getType();
+		if(StringUtils.equals(Account.ACCOUNT_TYPE_TRADER, type)) {
+			Trader trader = traderRepository.findByWeixin(weixin);
+			if (trader != null) {
+				account = trader.getAccount();
+			} 
+		} else if(StringUtils.equals(Account.ACCOUNT_TYPE_COMPANY, type)) {
+			Company company = companyRepository.findByWeixin(weixin);
+			if (company != null) {
+				account = company.getAccount();
+			} 
+		} else if(StringUtils.equals(Account.ACCOUNT_TYPE_INVESTOR, type)) {
+			Investor investor = investorRepository.findByWeixin(weixin);
+			if (investor != null) {
+				account = investor.getAccount();
+			} 
+		}
+		
+		/**
+		 * TODO 可能出现业务问题
+		 */
+		Float freeAmount = CalculateUtils.add(account.getFreezingAmount(), outBound.getAmount());
+		Float availableAmount = CalculateUtils.sub(account.getAvailableAmount(), outBound.getAmount());
+		Float totalAmount = CalculateUtils.sub(account.getTotalAmount(), outBound.getAmount());
+		account.setFreezingAmount(freeAmount);
+		account.setAvailableAmount(availableAmount);
+		account.setTotalAmount(totalAmount);
+		return account;
+	}
+	
+	private Account getUserInfo (String type,String weixin) {
 		Account account = null;
 		if(StringUtils.equals(Account.ACCOUNT_TYPE_TRADER, type)) {
 			Trader trader = traderRepository.findByWeixin(weixin);
@@ -240,17 +266,7 @@ public class AccountServiceImpl implements AccountService {
 				account = investor.getAccount();
 			} 
 		}
-		/**
-		 * TODO 可能出现业务问题
-		 */
-		Float beforFreeAmount = account.getFreezingAmount();
-		Float freeAmount = CalculateUtils.add(beforFreeAmount, outBound.getAmount());
-		Float availableAmount = CalculateUtils.sub(account.getAvailableAmount(), outBound.getAmount());
-		Float totalAmount = CalculateUtils.sub(account.getTotalAmount(), outBound.getAmount());
-		account.setFreezingAmount(freeAmount);
-		account.setAvailableAmount(availableAmount);
-		account.setTotalAmount(totalAmount);
-		accountRepository.saveAndFlush(account);
+		return account;
 	}
 
 	/**
@@ -272,10 +288,14 @@ public class AccountServiceImpl implements AccountService {
 		accountOutBound.setCreater(parames.get("weixin"));
 		accountOutBound.setRemoved(false);
 		accountOutBound.setCashMode(AccountOutBound.ACCOUNT_OUT_BOUND_MODE_REDPACK);
+		//个人总账逻辑处理 可用余额 - 提现金额
+		Account account = updateAmount(accountOutBound);
+		accountOutBound.setAccount(account);
 		try {
 			accountOutboundRepository.saveAndFlush(accountOutBound);
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error("提现业务异常：",e.getMessage());
 			return null;
 		}
 		return accountOutBound;
