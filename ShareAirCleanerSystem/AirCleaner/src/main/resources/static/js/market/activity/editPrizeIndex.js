@@ -71,7 +71,8 @@ layui.use(['form','upload', 'layedit', 'laydate', 'layer'], function() {
     	}
     	form.render();
     });
-  	<!-- 表单提交 -->	
+    
+  	//表单提交
 	form.on('submit(demo1)',function(data){
 		//询问框
 		layer.confirm('是否提交保存？',{

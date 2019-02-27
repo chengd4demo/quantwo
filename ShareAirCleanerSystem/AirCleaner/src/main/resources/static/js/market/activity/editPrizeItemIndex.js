@@ -31,7 +31,7 @@ layui.use(['form','upload', 'layedit', 'laydate', 'layer'], function() {
 			}
 		}
 	});
-	<!-- 图片上传 -->
+	//图片上传
 	var uploadInst = upload.render({
 	    elem: '#test1'
 	    ,url: '/upload/'
@@ -57,7 +57,7 @@ layui.use(['form','upload', 'layedit', 'laydate', 'layer'], function() {
 	      });
 	    }
   });
-  	<!-- 表单提交 --> 	
+  	//表单提交	
 	form.on('submit(demo2)',function(data){
 		//询问框
 		layer.confirm('是否提交保存？',{

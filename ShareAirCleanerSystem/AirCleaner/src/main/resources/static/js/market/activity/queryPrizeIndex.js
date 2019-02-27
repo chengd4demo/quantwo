@@ -179,7 +179,7 @@ var pageCurr;
 				}
 		 });
 		 
-		//监听搜索框
+		//监听搜索框 
 		setTimeout(function(){
 			 form.on('submit(searchPrizeSubmit)', function(data){
 					//重新加载table
