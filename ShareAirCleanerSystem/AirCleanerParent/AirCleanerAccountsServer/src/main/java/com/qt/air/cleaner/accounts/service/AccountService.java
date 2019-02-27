@@ -54,6 +54,6 @@ public interface AccountService {
 	 * @throws BusinessRuntimeException
 	 */
 	@RequestMapping(value = "/applyForAccountOutbound", method = RequestMethod.POST)
-	ResultInfo applyForAccountOutbound(Map<String, String> parames) throws BusinessRuntimeException;
+	ResultInfo applyForAccountOutbound(@RequestBody Map<String, String> parames) throws BusinessRuntimeException;
 	
 }
