@@ -1,7 +1,8 @@
 var pageCurr;
-layui.use('table', function(){
+layui.use(['table','element'], function(){
 	var form = layui.form,table = layui.table,
-		layer = layui.layer,vipTable = layui.vip_table,
+	layer = layui.layer,
+	$ = layui.jquery,
 		$ = layui.jquery,deviceBatchId = $("#hiddenDeviceBatchId").val();
 	 tableIns=table.render({
 		 		elem: '#deviceList'
