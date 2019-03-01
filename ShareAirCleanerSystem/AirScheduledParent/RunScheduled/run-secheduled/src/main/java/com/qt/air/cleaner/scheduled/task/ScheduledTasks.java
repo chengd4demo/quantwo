@@ -8,12 +8,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import com.qt.air.cleaner.scheduled.service.CashWithdrawalService;
+import com.qt.air.cleaner.scheduled.service.ReportBillingService;
 import com.qt.air.cleaner.scheduled.service.WeiXinNotityService;
 
 @Component
 public class ScheduledTasks {
 	@Autowired
 	WeiXinNotityService billingService;
+	@Autowired
+	ReportBillingService reportBillingService;
+	@Autowired
+	CashWithdrawalService cashWithdrawalService;
 	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
 	/**
@@ -22,15 +28,23 @@ public class ScheduledTasks {
 	@Scheduled(fixedRate = 5000)
 	public void reportCurrentTime() {
 		System.out.println("当前时间：" + dateFormat.format(new Date()));
-
+		reportBillingService.startReportBilling(Calendar.getInstance().getTime());
 	}
 
 	/**
-	 * 红包
+	 * 红包发送
 	 */
 	@Scheduled(fixedRate = 5000)
-	public void cashCurrentTime() {
-
+	public void sendCashCurrentTime() {
+		cashWithdrawalService.sendRedWithdrawal();
+	}
+	
+	/**
+	 * 红包状态更新
+	 */
+	@Scheduled(cron = "0 0 6 * * ?")
+	public void updateRedWithdrawalState() {
+		cashWithdrawalService.updateRedWithdrawalState();
 	}
 
 	/**
