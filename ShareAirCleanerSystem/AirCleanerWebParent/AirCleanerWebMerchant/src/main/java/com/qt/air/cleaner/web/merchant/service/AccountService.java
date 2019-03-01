@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.qt.air.cleaner.base.dto.RequestParame;
 import com.qt.air.cleaner.base.dto.ResultInfo;
 import com.qt.air.cleaner.base.exception.BusinessRuntimeException;
+import com.qt.air.cleaner.web.merchant.fallback.AccountServiceFallBack;
 
-@FeignClient(name = "accounts-server")
+@FeignClient(name = "accounts-server",fallback=AccountServiceFallBack.class)
 public interface AccountService {
 	
 	/**

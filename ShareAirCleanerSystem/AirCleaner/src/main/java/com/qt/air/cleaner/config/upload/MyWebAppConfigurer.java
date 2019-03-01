@@ -12,5 +12,5 @@ public class MyWebAppConfigurer extends WebMvcConfigurerAdapter {
 	@Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/qrcode/**").addResourceLocations("file:" + DEVICE_QRCODE_CREATE_PATH);
-    }
+	}
 }
