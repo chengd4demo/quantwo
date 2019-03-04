@@ -32,6 +32,7 @@ import com.qt.air.cleaner.accounts.domain.Account;
 import com.qt.air.cleaner.accounts.domain.AccountOutBound;
 import com.qt.air.cleaner.accounts.domain.Company;
 import com.qt.air.cleaner.accounts.domain.Investor;
+import com.qt.air.cleaner.accounts.domain.OutBoundRejectReason;
 import com.qt.air.cleaner.accounts.domain.Trader;
 import com.qt.air.cleaner.accounts.repository.AccountOutboundRepository;
 import com.qt.air.cleaner.accounts.repository.AccountRepository;
@@ -288,6 +289,8 @@ public class AccountServiceImpl implements AccountService {
 		accountOutBound.setCreater(parames.get("weixin"));
 		accountOutBound.setRemoved(false);
 		accountOutBound.setCashMode(AccountOutBound.ACCOUNT_OUT_BOUND_MODE_REDPACK);
+		OutBoundRejectReason outBoundReject = new OutBoundRejectReason();
+		accountOutBound.setOutBoundRejectReason(outBoundReject);
 		//个人总账逻辑处理 可用余额 - 提现金额
 		Account account = updateAmount(accountOutBound);
 		accountOutBound.setAccount(account);
