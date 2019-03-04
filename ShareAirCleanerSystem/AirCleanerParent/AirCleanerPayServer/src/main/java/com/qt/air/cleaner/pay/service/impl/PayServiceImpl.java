@@ -542,8 +542,13 @@ public class PayServiceImpl implements PayService {
 					}
 					billingRepository.saveAndFlush(billing);
 					int costTimeSecond = billing.getCostTime() * 60;
-					int surplusConstTimeSecond = billingRepository.getSurplusConstTime(billing.getMachNo()) * 60;
+					logger.info("当前开启设备时长为：{}",costTimeSecond);
+					int surplusConstTimeSecond = billingRepository.getSurplusConstTime(billing.getMachNo(),notity.getOutTradeNo()) * 60;
+					logger.info("当前设备剩余时长为：{}",surplusConstTimeSecond);
 					costTimeSecond += surplusConstTimeSecond; //追加时间
+					logger.info("实际开启时长为：{}",costTimeSecond);
+					
+					logger.info("");
 					DeviceUtil.turnOnDevice(billing.getMachNo(), costTimeSecond);
 				}
 			} else {
@@ -553,12 +558,7 @@ public class PayServiceImpl implements PayService {
 			e.printStackTrace();
 		}
 	}
-
-	public static void main(String[] args) {
-		int c = 123;
-		int d = 5;
-		System.out.println(c+=d);
-	}
+	
 	@Override
 	public ResultInfo weiXinMsg(@RequestParam("type") String type,@RequestParam("billingNumber") String billingNumber) throws BusinessRuntimeException {
 		logger.info("支付信息处理{}类型{}", billingNumber, type);
@@ -600,8 +600,8 @@ public class PayServiceImpl implements PayService {
 	}
 
 	@Override
-	public int getSurplusConstTime(String machNo) {
-		return billingRepository.getSurplusConstTime(machNo);
+	public int getSurplusConstTime(String machNo,String outTradeNo) {
+		return billingRepository.getSurplusConstTime(machNo,outTradeNo);
 	}
 
 }

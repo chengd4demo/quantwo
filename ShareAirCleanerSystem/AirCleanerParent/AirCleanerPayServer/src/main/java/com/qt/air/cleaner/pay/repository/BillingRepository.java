@@ -14,6 +14,6 @@ public interface BillingRepository extends JpaRepository<Billing, String>{
 	@Query(value="select coalesce(sum((t.cost_time - floor((((sysdate-to_date(to_char(t.operate_time,'yyyy/mm/dd hh24:mi:ss'),'yyyy/mm/dd hh24:mi:ss'))) * 24 * 60)))),0) as surplusconsttime" +
 			" from act_billing t, mk_device d where d.mach_no = t.mach_no  and t.transaction_id is not null  and t.removed = 'N'" +
 			" and (((sysdate-to_date(to_char(t.operate_time,'yyyy/mm/dd hh24:mi:ss'),'yyyy/mm/dd hh24:mi:ss'))) * 24 * 60) < t.cost_time" +
-			" and t.mach_no = :machNo",nativeQuery = true)
-	int getSurplusConstTime(@Param("machNo") String machNo);
+			" and t.mach_no = :machNo and t.billing_id!= :billingId",nativeQuery = true)
+	int getSurplusConstTime(@Param("machNo") String machNo,@Param("billingId") String billingId);
 }

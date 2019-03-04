@@ -62,6 +62,6 @@ public interface PayService {
 	@RequestMapping(value="wx/msg", method = RequestMethod.POST)
 	public ResultInfo weiXinMsg(@RequestParam("type") String type,@RequestParam("billingNumber") String billingNumber) throws BusinessRuntimeException;
 	
-	public int getSurplusConstTime(String machNo);
+	public int getSurplusConstTime(String machNo,String outTradeNo);
 	
 }
