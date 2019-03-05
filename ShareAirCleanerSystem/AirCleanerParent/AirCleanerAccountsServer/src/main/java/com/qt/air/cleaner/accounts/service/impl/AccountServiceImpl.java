@@ -38,6 +38,7 @@ import com.qt.air.cleaner.accounts.repository.AccountOutboundRepository;
 import com.qt.air.cleaner.accounts.repository.AccountRepository;
 import com.qt.air.cleaner.accounts.repository.CompanyRepository;
 import com.qt.air.cleaner.accounts.repository.InvestorRepository;
+import com.qt.air.cleaner.accounts.repository.OutBoundRejectReasonRepository;
 import com.qt.air.cleaner.accounts.repository.TraderRepository;
 import com.qt.air.cleaner.accounts.service.AccountService;
 import com.qt.air.cleaner.accounts.vo.AccountDto;
@@ -70,6 +71,8 @@ public class AccountServiceImpl implements AccountService {
 	private AccountOutboundRepository accountOutboundRepository;
 	@Resource
 	private AccountRepository accountRepository;
+	@Resource
+	private OutBoundRejectReasonRepository outBoundRejectReasonRepository;
 	
 	@Autowired
     private LocalContainerEntityManagerFactoryBean entityManagerFactory;
@@ -290,6 +293,7 @@ public class AccountServiceImpl implements AccountService {
 		accountOutBound.setRemoved(false);
 		accountOutBound.setCashMode(AccountOutBound.ACCOUNT_OUT_BOUND_MODE_REDPACK);
 		OutBoundRejectReason outBoundReject = new OutBoundRejectReason();
+		outBoundReject = outBoundRejectReasonRepository.save(outBoundReject);
 		accountOutBound.setOutBoundRejectReason(outBoundReject);
 		//个人总账逻辑处理 可用余额 - 提现金额
 		Account account = updateAmount(accountOutBound);
