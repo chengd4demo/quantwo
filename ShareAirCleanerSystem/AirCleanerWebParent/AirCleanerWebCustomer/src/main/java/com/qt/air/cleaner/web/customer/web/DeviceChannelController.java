@@ -17,6 +17,7 @@ import com.google.gson.Gson;
 import com.qt.air.cleaner.base.dto.RequestParame;
 import com.qt.air.cleaner.base.dto.ResultCode;
 import com.qt.air.cleaner.base.dto.ResultInfo;
+import com.qt.air.cleaner.base.enums.ErrorCodeEnum;
 import com.qt.air.cleaner.web.customer.service.DeviceService;
 import com.qt.air.cleaner.web.customer.vo.DeviceMonitor;
 
@@ -38,7 +39,11 @@ public class DeviceChannelController {
 		logger.info("execute device-channel's method queryDeviceStatus()  start -> param:{}",deviceSequence);	
 		try {
 			String machNo = deviceService.queryDevice(deviceSequence);
-			return deviceService.queryDeviceStatus(machNo);
+			if(StringUtils.isEmpty(machNo)) {
+				return new ResultInfo(ErrorCodeEnum.ES_1013.getErrorCode(),ErrorCodeEnum.ES_1013.getMessage(), null);
+			} else {
+				return deviceService.queryDeviceStatus(machNo);
+			}
 		} catch(Exception  e){
 			logger.error("system error: {}",e.getMessage());
 			return new ResultInfo(String.valueOf(ResultCode.R5001.code),e.getMessage(), null);

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.qt.air.cleaner.base.dto.RequestParame;
 import com.qt.air.cleaner.base.dto.ResultInfo;
+import com.qt.air.cleaner.web.customer.fallback.DeviceServiceFallBack;
 
 /**
  * @ClassName: DeviceService
@@ -18,7 +19,7 @@ import com.qt.air.cleaner.base.dto.ResultInfo;
  * @Author: Jansan.Ma
  * @Date: 2018年11月21日
  */
-@FeignClient(name = "device-server")
+@FeignClient(name = "device-server",fallback=DeviceServiceFallBack.class)
 public interface DeviceService {
 	
 	/**
