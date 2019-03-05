@@ -64,6 +64,7 @@ public class WeiXinNotityServiceImpl implements WeiXinNotityService {
 	@Autowired
 	AccountService accountService;
 	private Map<String, Integer> gainProportion = new HashMap<String, Integer>();
+	private Float free = 0.09f;
 	@Value("${o2.billing.investor.gain.proportion}")
 	public Integer investorGainProportion;
 	@Value("${o2.billing.trader.gain.proportion}")
@@ -214,7 +215,7 @@ public class WeiXinNotityServiceImpl implements WeiXinNotityService {
 		Map<String,Integer> shareProfit = getDistributionRatio(device.getDistributionRatio());
 		Investor investor = device.getInvestor();
 		Integer proportion = shareProfit.get(Investor.class.getSimpleName());
-		Float investorAmount = (totalAmount * proportion / 100) >= 0.10f ? (totalAmount * proportion / 100) - ((billing.getCostTime() / 60) * 0.09f)
+		Float investorAmount = (totalAmount * proportion / 100) >= 0.10f ? (totalAmount * proportion / 100) - ((billing.getCostTime() / 60) * this.free == 0.00f ? 0.09f : this.free)
 				: totalAmount * proportion / 100; // 每小时扣除0.09耗材费用
 		BigDecimal bigDecimal = new BigDecimal(String.valueOf(investorAmount));
 		investorAmount = bigDecimal.setScale(2, BigDecimal.ROUND_DOWN).floatValue();
@@ -328,6 +329,7 @@ public class WeiXinNotityServiceImpl implements WeiXinNotityService {
 				result.put(Trader.class.getName(), s.getScale().intValue());
 			}  else if(StringUtils.equals(ShareProfit.ACCOUNT_TYPE_INVESTOR, type)) {
 				result.put(Investor.class.getName(), s.getScale().intValue());
+				this.free = s.getFree();
 			}
 		});
 		if(result.isEmpty()) {
