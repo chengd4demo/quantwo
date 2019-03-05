@@ -608,10 +608,10 @@ public static final String ROOT_ORGAN_CODE = "COMPANY";
 	public static Integer[] REQUEST_STATES = {0};
 	
 	
-	public static Integer[] UNCOLLECTED_STATES = {5};
+	public static Integer[] UNCOLLECTED_STATES = {6};
 	
 	
-	public static Integer[]  COMPLETED_STATES = {1};
+	public static Integer[]  COMPLETED_STATES = {4};
 	
 	
 	public static Integer[] NOPASS_STATES = {4};
