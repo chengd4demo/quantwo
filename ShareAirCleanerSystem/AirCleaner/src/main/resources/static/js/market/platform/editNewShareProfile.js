@@ -54,7 +54,6 @@ layui.use(['form', 'layedit', 'laydate', 'layer'], function() {
 		} else {
 			data.field.agentId = ''
 		}
-		alert(JSON.stringify(data.field))
 		//询问框
 		layer.confirm('是否提交保存？',{
 		  title:"提示",
