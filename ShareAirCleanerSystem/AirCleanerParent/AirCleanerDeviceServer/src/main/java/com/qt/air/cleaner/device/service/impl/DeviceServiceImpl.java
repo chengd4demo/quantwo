@@ -219,7 +219,7 @@ public class DeviceServiceImpl implements DeviceService {
 			sql.append("                  and d.trader_id = t.id");
 			sql.append("                  and d.investor_id = i.id");
 			if(StringUtils.isNotBlank(traderId)) {
-				sql.append("                  and (t.id = :traderId)");
+				sql.append("                  and (t.id = :traderId and i.id = :investorId)");
 			} else if(StringUtils.isNotBlank(investorId)){
 				sql.append("                  and (i.id = :investorId)");
 			} else if(StringUtils.isNotBlank(customerId)){
@@ -249,6 +249,7 @@ public class DeviceServiceImpl implements DeviceService {
 					.addScalar("devicesequence",StandardBasicTypes.STRING);
 			if (StringUtils.isNotBlank(traderId)) {
 				query.setParameter("traderId", traderId);
+				query.setParameter("investorId", investorId);
 			} else if (StringUtils.isNotBlank(investorId)) {
 				query.setParameter("investorId", investorId);
 			} else if (StringUtils.isNotBlank(customerId)) {
