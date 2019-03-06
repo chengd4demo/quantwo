@@ -23,12 +23,14 @@ import org.springframework.stereotype.Service;
 
 import com.qt.air.cleaner.common.constants.Constants;
 import com.qt.air.cleaner.common.exception.BusinessException;
+import com.qt.air.cleaner.market.domain.account.Account;
 import com.qt.air.cleaner.market.domain.account.AccountOutBound;
 import com.qt.air.cleaner.market.domain.account.OutBoundRejectReason;
 import com.qt.air.cleaner.market.repository.account.AccountOutBoundRepository;
 import com.qt.air.cleaner.market.repository.account.OutBoundRejectReasonRepository;
 import com.qt.air.cleaner.market.service.account.AccountOutBoundService;
 import com.qt.air.cleaner.market.vo.account.AccountOutBoundView;
+import com.qt.air.cleaner.utils.CalculateUtils;
 import com.qt.air.cleaner.vo.common.ErrorCodeEnum;
 
 @Service
@@ -143,6 +145,12 @@ public class AccountOutBoundServiceImpl implements AccountOutBoundService{
 					outBoundRejectReason.setRejectReason(accountOutBoundView.getRejectReason());
 					accountOutBound.setOutBoundRejectReason(outBoundRejectReason);
 				}
+				//审核拒绝,回滚冻结金额、可用余额、总额
+				Account account = accountOutBound.getAccount();
+				account.setFreezingAmount(CalculateUtils.sub(account.getFreezingAmount(), accountOutBound.getAmount()));
+				account.setAvailableAmount(CalculateUtils.add(account.getAvailableAmount(), accountOutBound.getAmount()));
+				account.setTotalAmount(CalculateUtils.add(account.getTotalAmount(), accountOutBound.getAmount()));
+				accountOutBound.setAccount(account);
 				accountOutBoundRepository.saveAndFlush(accountOutBound);
 			} else {
 				throw new BusinessException(ErrorCodeEnum.ES_9011.getErrorCode(), ErrorCodeEnum.ES_9011.getMessage());
