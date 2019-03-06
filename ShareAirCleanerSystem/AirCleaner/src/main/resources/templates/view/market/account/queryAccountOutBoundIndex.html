@@ -42,17 +42,17 @@
 							</div>
 							<div class="layui-input-inline" style="width:100%" ;> 
 								<select id="state" name="state" lay-filter="investorTag">  
-									<option value="">请选择状态</option>
-	                    			<option value="-1">业务平台处理-发送失败</option>
-	                    			<option value="0">未审核</option>
-	                    			<option value="1">已出账</option>
-	                    			<option value="2">已审核</option>
+									<option value="">请选择状态</option>	                    			
+	                    			<option value="0">未审核</option>	                    			
+	                    			<option value="2">已通过</option>
 	                    			<option value="3">未通过</option>
-	                    			<option value="4">已领取</option>
-	                    			<option value="5">微信平台处理-发送失败</option>
+	                    			<option value="1">已出账</option>
+	                    			<option value="4">已领取</option>	                    			
 	                    			<option value="6">未领取</option>
 	                    			<option value="7">等待领取</option>
-	                    			<option value="8">发放中</option>	    
+	                    			<option value="8">发放中</option>
+	                    			<option value="-1">业务平台处理-发送失败</option>
+	                    			<option value="5">微信平台处理-发送失败</option>	    
 								</select>							
 							</div>
 						</div>
@@ -122,7 +122,7 @@
 		{{#  } else if (d.state === 1) { }}
 			已出账
         {{#  } else if (d.state === 2) { }}
-			已审核
+			已通过
 		{{#  } else if (d.state === 3) { }}
 			未通过
 		{{#  } else if (d.state === 4) { }}
