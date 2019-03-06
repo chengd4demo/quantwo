@@ -42,7 +42,7 @@ public class ScheduledTasks {
 	/**
 	 * 红包状态更新
 	 */
-	@Scheduled(cron = "0 0 6 * * ?")
+	@Scheduled(cron = "0 0/10 * * * ?")
 	public void updateRedWithdrawalState() {
 		cashWithdrawalService.updateRedWithdrawalState();
 	}
