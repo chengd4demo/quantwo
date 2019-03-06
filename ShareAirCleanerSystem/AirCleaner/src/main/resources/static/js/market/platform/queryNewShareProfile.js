@@ -118,10 +118,10 @@ layui.use(['treetable','form','table','laypage', 'layer','element'],function(){
     	        ]
     	    });
     }
-    if(loading) {
+    /*if(loading) {
     	loading = false;
     	renderTable()
-    } 
+    }*/ 
         
     o('.up-all').click(function(){
         treetable.all('up');
