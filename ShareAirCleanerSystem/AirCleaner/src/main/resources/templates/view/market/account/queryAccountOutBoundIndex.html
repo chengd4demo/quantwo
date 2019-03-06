@@ -43,10 +43,16 @@
 							<div class="layui-input-inline" style="width:100%" ;> 
 								<select id="state" name="state" lay-filter="investorTag">  
 									<option value="">请选择状态</option>
-	                    			<option value="1">成功</option>
-	                    			<option value="0">已领取</option>
-	                    			<option value="-1">未领取</option>
-	                    			<option value="-2">失败</option>	    
+	                    			<option value="-1">业务平台处理-发送失败</option>
+	                    			<option value="0">未审核</option>
+	                    			<option value="1">已出账</option>
+	                    			<option value="2">已审核</option>
+	                    			<option value="3">未通过</option>
+	                    			<option value="4">已领取</option>
+	                    			<option value="5">微信平台处理-发送失败</option>
+	                    			<option value="6">未领取</option>
+	                    			<option value="7">等待领取</option>
+	                    			<option value="8">发放中</option>	    
 								</select>							
 							</div>
 						</div>
@@ -89,17 +95,7 @@
 <table id="accountOutBoundList" lay-filter="accountOutBoundTable"></table>
 <script type="text/javascript" src="../../../frame/layui/layui.js"></script>
 <script type="text/javascript" src="../../../js/index.js"></script>
-<script type="textml" id="stateTpl">
-		{{#  if (d.state === -1) { }}
-			无效的出账记录
-		{{#  } else if (d.state === 0) { }}
-			正在执行出账工作
-		{{#  } else if (d.state === 1) { }}
-			已完成的出账记录
-  		{{#  } else { }}
-			 {{ d.state }}
-  		{{#  } }}
-	</script>
+	
 	<!-- 用户类型 -->
 	<script type="text/html" id="typeTag">
   		{{#  if(d.type === 'TR'){ }}
@@ -116,6 +112,51 @@
 			{{#  d.state }}
 		{{#  } }}
 	</script>
+	
+	<!-- 出账状态 -->
+	<script type="textml" id="stateTpl">
+		{{#  if (d.state === -1) { }}
+			业务平台处理-发送失败
+		{{#  } else if (d.state === 0) { }}
+			未审核
+		{{#  } else if (d.state === 1) { }}
+			已出账
+        {{#  } else if (d.state === 2) { }}
+			已审核
+		{{#  } else if (d.state === 3) { }}
+			未通过
+		{{#  } else if (d.state === 4) { }}
+			已领取
+		{{#  } else if (d.state === 5) { }}
+			微信平台处理-发送失败
+		{{#  } else if (d.state === 6) { }}
+			未领取
+		{{#  } else if (d.state === 7) { }}
+			等待领取
+		{{#  } else if (d.state === 8) { }}
+			发放中
+  		{{#  } else { }}
+			 {{ d.state }}
+  		{{#  } }}
+	</script>
+	
+	<!-- 业务结果 -->
+	<script type="textml" id="stateTpls">
+		{{#  if (d.state === -1) { }}
+			无效的出账记录			
+		{{#  } else if (d.state === 0 || d.state === 2  || d.state === 8) { }}
+			正在执行出账工作
+		{{#  } else if (d.state === 1 || d.state === 4 || d.state === 6 ||  d.state === 7) { }}
+			已完成的出账记录
+		{{#  } else if (d.state === 3) { }}
+			不满足出账条件
+  		{{#  } else if (d.state === 5) { }}
+			异常出账记录
+		{{#  } else { }}
+			 {{ d.state }}
+  		{{#  } }}
+	</script>
+	
 <script type="text/javascript" src="../../../js/market/account/queryAccountOutBoundIndex.js"></script>
 </body>
 		

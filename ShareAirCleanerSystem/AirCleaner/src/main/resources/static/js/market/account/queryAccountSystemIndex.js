@@ -37,7 +37,7 @@ layui.use(['table', 'form', 'layer', 'vip_table','laydate'], function(){
 						title: '微信号',
 						width: 120
 					}, {
-						field: 'timeEnd',
+						field: 'applyTime',
 						title: '申请时间',
 						sort: true,
 						width: 180						

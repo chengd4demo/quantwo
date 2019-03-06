@@ -49,6 +49,7 @@ layui.use(['table', 'form', 'layer', 'vip_table'], function(){
 						}, {
 							field: 'joinTime',
 							title: '成立时间',
+							sort: true,
 							width: 120 							
 						}, {
 							fixed: 'right',

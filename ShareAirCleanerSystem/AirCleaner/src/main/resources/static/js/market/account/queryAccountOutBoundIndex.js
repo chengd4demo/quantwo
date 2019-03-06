@@ -62,11 +62,12 @@ layui.use(['table', 'form', 'layer', 'vip_table','laydate'], function(){
 						}, {
 							field: 'outBoundStatus',
 							title: '状态',
+							templet: '#stateTpl',
 							width: 120 							
 						}, {
 							field: 'returnCode',
 							title: '业务结果',
-							templet: '#stateTpl',
+							templet: '#stateTpls',
 							width: 120
 						}, {
 							field: 'errCode',

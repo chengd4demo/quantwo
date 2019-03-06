@@ -21,7 +21,7 @@
 			     <div class="layui-form-item" style="width:100px">
 			        <label class="layui-form-label">姓名:</label>
 				    <div class="layui-input-block">	
-				    	<div class="layui-form-label" data-th-text="*{name}" style="width:100px;margin-left:-90px;"></div>
+				    	<div class="layui-form-label" data-th-text="*{name}" style="width:100px;text-align: left;"></div>
 					</div>
 			    </div>
 		 	</div>
@@ -30,7 +30,7 @@
 			     <div class="layui-form-item" style="width:100px">
 			        <label class="layui-form-label">昵称:</label>
 				    <div class="layui-input-block">	
-				    	<div class="layui-form-label" data-th-text="*{nickName}" style="width:200px;margin-left:-120px;"></div>
+				    	<div class="layui-form-label" data-th-text="*{nickName}" style="width:200px;text-align: left;"></div>
 					</div>
 			    </div>
 		 	</div>
@@ -43,7 +43,7 @@
 			     <input type="hidden" id="hiddenAge" th:value="*{identificationNumber}"/>
 			        <label class="layui-form-label">年龄:</label>
 				    <div class="layui-input-block">	
-				    	<div id="identityCard" class="layui-form-label" style="margin-left:-90px;"></div>
+				    	<div id="identityCard" class="layui-form-label" style="text-align: left;"></div>
 					</div>
 			    </div>
 		 	</div>
@@ -53,7 +53,7 @@
 			     <input type="hidden" id="hiddenSex" th:value="*{sex}"/>
 			        <label class="layui-form-label">性别:</label>
 				    <div class="layui-input-block">	
-				    	<div id="demo" class="layui-form-label" style="margin-left:-90px;"></div>
+				    	<div id="demo" class="layui-form-label" style="text-align: left;"></div>
 					</div>
 			    </div>
 		 	</div>
@@ -66,7 +66,7 @@
 			     <div class="layui-form-item" style="width:300px">
 			        <label class="layui-form-label" style="word-break: keep-all;">手机号码:</label>
 				    <div class="layui-input-block">	
-				    	<div class="layui-form-label" data-th-text="*{phoneNumber}" style="margin-left:-10px;"></div>
+				    	<div class="layui-form-label" data-th-text="*{phoneNumber}" style="text-align: left;"></div>
 					</div>
 			    </div>
 		 	</div>
@@ -75,7 +75,7 @@
 			     <div class="layui-form-item" style="width:100px">
 			        <label class="layui-form-label">地区:</label>
 				    <div class="layui-input-block">	
-				    	<div class="layui-form-label" data-th-text="*{address}" style="width:200px;margin-left:-120px;"></div>
+				    	<div class="layui-form-label" data-th-text="*{address}" style="width:200px;text-align: left;"></div>
 					</div>
 			    </div>
 		 	</div>
@@ -85,11 +85,11 @@
 	     <div class="layui-form-item" style="width:100px">
 	        <label class="layui-form-label">注册时间:</label>
 		    <div class="layui-input-block">	
-		    	<div class="layui-form-label" data-th-text="*{joinTime}"  style="width:200px;margin-left:-80px;"></div>
+		    	<div class="layui-form-label" data-th-text="*{joinTime}"  style="width:200px;text-align: left;"></div>
 			</div>
 	    </div>		    	
 	    <!--底部功能按钮-->
-	    <div class="layui-form-item" style="text-align: center;">
+	    <div class="layui-form-item" style="text-align: center;margin-top: 50px;margin-left: -10%;">
 	        <div class="layui-input-block">		            
 	            <button lay-submit="" lay-filter="closeCustomer" class="layui-btn layui-btn-primary">取消</button>
 	            <button lay-submit="" lay-filter="closeCustomer" class="layui-btn layui-btn-normal layui-icon">确定</button>
