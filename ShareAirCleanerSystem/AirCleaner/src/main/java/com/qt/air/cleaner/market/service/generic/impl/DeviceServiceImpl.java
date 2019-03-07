@@ -93,7 +93,7 @@ public class DeviceServiceImpl implements DeviceService{
 			public Predicate toPredicate(Root<Device> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 				List<Predicate> conditions = new ArrayList<>();
 				if(!StringUtils.isEmpty(deviceView.getMachNo())) {//设备编号
-					Predicate p1 = cb.like(root.get("machNo"),"%"+deviceView.getMachNo()+"%");
+					Predicate p1 = cb.like(root.get("machNo"),"%"+deviceView.getMachNo());
 					conditions.add(p1);
 				}
 				if(!StringUtils.isEmpty(deviceView.getSetupAddress())) {//设备安装地址	

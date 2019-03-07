@@ -1,20 +1,32 @@
 var pageCurr;
-layui.use(['table', 'form', 'layer', 'vip_table','laydate'], function(){
-	 var table = layui.table
-		,form = layui.form
-	    ,layer = layui.layer
-	    ,vipTable = layui.vip_table
-	    ,laydate = layui.laydate
-	    ,$ = layui.jquery;
-	 	//日期
-	    laydate.render({
-	        elem: '#date'
-	    });
+layui.use(['table','form','layer','element','vip_tab','laydate'], function(){
+	var form = layui.form,
+	    table = layui.table,
+		layer = layui.layer,
+		vip_tab = layui.vip_tab,
+		element = layui.element,
+		laydate = layui.laydate,
+		$ = layui.jquery;
+	 
+ 	 //日期
+     laydate.render({
+        elem: '#date'
+     });
+	    
+	 //跳转  
+     table.on('tool(accountingTable)',function(obj){
+		 var data = obj.data,layEvent = obj.event;
+		 if(layEvent === 'detail') {
+			 vip_tab.add(parent.layer.element, "差异明细 | "+data.orderNumber, "/market/difference/index/"+data.id+"/"+data.orderNumber);
+		 }
+	 });
+	    
+	 //列表
 	 tableIns=table.render({
 		 elem: '#accountingList'
 	            ,url:'/market/accounting/page'
 	        	,method: 'GET' //默认：get请求
-	            ,height: vipTable.getFullHeight()
+	            ,height: 315
 	            ,page: true
 	            ,limits: [20, 30, 50, 100, 200]
 	            ,limit:20
@@ -23,7 +35,7 @@ layui.use(['table', 'form', 'layer', 'vip_table','laydate'], function(){
 	                ,limitName: 'limit' //每页数据量的参数名，默认：limit
 	            }
 	            ,cols: [[
-	                 {
+	                    {
 							field: '',
 							title: '商户订单号',
 							width: 160
@@ -59,8 +71,8 @@ layui.use(['table', 'form', 'layer', 'vip_table','laydate'], function(){
 							width: 150,
 							align: 'center',
 							toolbar: '#barOption'
-							}
-						]]
+						}
+					]]
 		,  done: function(res, curr, count){
 			 pageCurr=curr;
 			 numbers=count;
@@ -76,8 +88,8 @@ layui.use(['table', 'form', 'layer', 'vip_table','laydate'], function(){
 		 
 });
 
-function load(obj){
-   //重新加载table
+//重新加载table
+function load(obj){   
    tableIns.reload({
        where: obj.field
        , page: {

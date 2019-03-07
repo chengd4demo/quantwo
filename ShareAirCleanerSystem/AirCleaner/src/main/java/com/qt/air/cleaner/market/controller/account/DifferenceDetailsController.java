@@ -13,7 +13,7 @@ public class DifferenceDetailsController {
 	private final Logger logger = LoggerFactory.getLogger(AccountInBoundController.class);
 	private final String  DIFFERENCE_INDEX = "view/market/account/queryDifferenceDetailsIndex";
 
-	@RequestMapping(method = RequestMethod.GET,path = "/index")
+	@RequestMapping(method = RequestMethod.GET,path = "/index/{id}/{orderNumber}")
 	public String index() {	
 		return DIFFERENCE_INDEX;
 	}

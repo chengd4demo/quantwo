@@ -1,5 +1,5 @@
 var pageCurr;
-layui.use('table', function(){
+layui.use(['table','element'], function(){
 	var form = layui.form,table = layui.table,
 		layer = layui.layer,vipTable = layui.vip_table,
 		$ = layui.jquery,deviceBatchId = $("#hiddenDeviceBatchId").val();
@@ -202,6 +202,10 @@ layui.use('table', function(){
 		 	active[method] ? active[method].call(this, othis) : '';
 	 });
 	 layui.jquery('#uploadExcel .layui-btn').on('click', function(){
+		 	var othis = $(this), method = othis.data('method');
+		 	active[method] ? active[method].call(this, othis) : '';
+	 });
+	 layui.jquery('#resetbtn .layui-btn').on('click', function(){
 		 	var othis = $(this), method = othis.data('method');
 		 	active[method] ? active[method].call(this, othis) : '';
 	 });

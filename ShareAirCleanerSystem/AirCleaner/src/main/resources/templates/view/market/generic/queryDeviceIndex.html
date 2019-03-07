@@ -22,12 +22,13 @@
 <body class="body">
 	<div class="layui-card-header">
 		<i class="layui-icon">  </i> <span class="layui-breadcrumb"
-			lay-separator=">" style="visibility: visible;"> <a>您现在的所在位置</a>
+		lay-separator=">" style="visibility: visible;"> <a>您现在的所在位置</a>
 		<span lay-separator="">&gt;</span> <a>基本要素维护</a> <span
+		lay-separator="">&gt;</span><span lay-separator="">&gt;</span> <a>设备批次管理</a> <span
 		lay-separator="">&gt;</span> <cite><a>设备信息维护</a></cite></span>
 	</div>	
 <fieldset class="layui-elem-field" style="border-color:rgb(30, 159, 255); margin-top:1em;padding-left:2em;padding-right:2em;padding-top:1em;">
-	<legend data-th-text="${device.legend}">设备信息查询</legend>
+	<legend>设备信息查询</legend>
 	<form class="layui-form" id="searchForm" th:object="${device}">
 		<input type="hidden" id="hiddenDeviceBatchId"  th:value="*{deviceBatchId}" />
 		<div style="margin-top:5px;" class="layui-row">

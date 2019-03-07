@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>差异明细</title>
-    <link rel="stylesheet" href="../../../frame/layui/css/layui.css">
-    <link rel="stylesheet" href="../../../frame/static/css/style.css">
+    <link rel="stylesheet" href="../../../../frame/layui/css/layui.css">
+    <link rel="stylesheet" href="../../../../frame/static/css/style.css">
 </head>
 <body class="body">
     <div class="layui-card-header">
@@ -17,19 +17,81 @@
 		lay-separator="">&gt;</span><span lay-separator="">&gt;</span> <a>账务管理</a> <span
 		lay-separator="">&gt;</span> <cite><a>差异明细</a></cite></span>
 	</div>
+	<!-- 本地交易数据 -->
 	<div style="width: 100%;height: 40px;margin-top: 20px;">
 		<div style="float: left;margin-top: inherit;">本地交易数据</div>
 		<div class="layui-inline" style="float: right;margin-right: 10%;">
 			<button class="layui-btn layui-btn layui-btn-normal" lay-submit="" lay-filter="demo-1" title="平账">平账</button>
 		</div>
-	</div>	
-<!-- 本地交易数据 -->
-<table id="localTransactionList" lay-filter="localTransactionTable"></table>
-<!-- 渠道交易数据 -->
-<div>渠道交易数据</div>
-<table id="channelTradingList" lay-filter="channelTradingTable"></table>
-<script type="text/javascript" src="../../../frame/layui/layui.js"></script>
-<script type="text/javascript" src="../../../js/index.js"></script>
-<script type="text/javascript" src="../../../js/market/account/queryDifferenceDetailsIndex.js"></script>
+	</div>
+	<div class="layui-form">
+	  <table class="layui-table">
+	    <colgroup>
+	      <col width="150">
+	      <col width="150">
+	      <col width="200">
+	      <col>
+	    </colgroup>
+	    <thead>
+	      <tr>
+	        <th>用户ID</th>
+	        <th>支付订单号</th>
+	        <th>支付完成时间</th>
+	        <th>支付类型</th>
+	        <th>对账类型</th>
+	        <th>金额</th>
+	        <th>对账状态</th>
+	      </tr> 
+	    </thead>
+	    <tbody>
+	      <tr>
+	        <td>1</td>
+	        <td>323243254324</td>
+	        <td>1989-10-14</td>
+	        <td>中国银行</td>
+	        <td>交易</td>
+	        <td>6</td>
+	        <td>长款</td>
+	      </tr>		      
+	    </tbody>
+	  </table>
+	</div>
+	<!-- 渠道交易数据 -->
+	<div>渠道交易数据</div>
+	<div class="layui-form">
+	  <table class="layui-table">
+	    <colgroup>
+	      <col width="150">
+	      <col width="150">
+	      <col width="200">
+	      <col>
+	    </colgroup>
+	    <thead>
+	      <tr>
+	        <th>用户ID</th>
+	        <th>支付订单号</th>
+	        <th>支付完成时间</th>
+	        <th>支付类型</th>
+	        <th>对账类型</th>
+	        <th>金额</th>
+	        <th>对账状态</th>
+	      </tr> 
+	    </thead>
+	    <tbody>
+	      <tr>
+	        <td>1</td>
+	        <td>323243254324</td>
+	        <td>1989-10-14</td>
+	        <td>中国银行</td>
+	        <td>交易</td>
+	        <td>6</td>
+	        <td>长款</td>
+	      </tr>		      
+	    </tbody>
+	  </table>
+	</div>
+<script type="text/javascript" src="../../../../frame/layui/layui.js"></script>
+<script type="text/javascript" src="../../../../js/index.js"></script>
+<script type="text/javascript" src="../../../../js/market/account/queryDifferenceDetailsIndex.js"></script>
 </body>
 </html>		
