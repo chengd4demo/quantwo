@@ -187,8 +187,22 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public ResultInfo cleanAccountOutbound(@PathVariable String id) {
 		logger.info("execute method cleanAccountOutbound() param --> id:{}", id);
-		accountOutboundRepository.cancellUpdate(id,new java.util.Date());
-		return new ResultInfo(String.valueOf(ResultCode.SC_OK),"success",id);
+		AccountOutBound accountOutBound = null;
+		accountOutBound = accountOutboundRepository.findByIdAndRemoved(id, false);
+		Integer state = accountOutBound.getState();
+		//用户取消,回滚冻结金额、可用余额、总额
+		if(state == 0 && StringUtils.isNotBlank(id)) {
+				Account account = accountOutBound.getAccount();
+				account.setFreezingAmount(CalculateUtils.sub(account.getFreezingAmount(), accountOutBound.getAmount()));
+				account.setAvailableAmount(CalculateUtils.add(account.getAvailableAmount(), accountOutBound.getAmount()));
+				account.setTotalAmount(CalculateUtils.add(account.getTotalAmount(), accountOutBound.getAmount()));
+				accountOutBound.setAccount(account);
+				accountOutboundRepository.saveAndFlush(accountOutBound);
+				accountOutboundRepository.cancellUpdate(id, new java.util.Date());
+				return new ResultInfo(String.valueOf(ResultCode.SC_OK), "success", id);
+		} else {
+			return new ResultInfo(ErrorCodeEnum.ES_1029.getErrorCode(),ErrorCodeEnum.ES_1029.getMessage(),null);
+		}
 	}
 	
 	/**
