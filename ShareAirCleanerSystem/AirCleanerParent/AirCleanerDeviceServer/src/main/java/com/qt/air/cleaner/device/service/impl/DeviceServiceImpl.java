@@ -278,7 +278,18 @@ public class DeviceServiceImpl implements DeviceService {
 	@Override
 	public ResultInfo queryDeviceMonitor(@PathVariable("deviceId") String machNo) {
 		logger.info("execute method queryDeviceMonitor() param --> machNo:{}", machNo);
-		DeviceMonitor monitor =this.findDeviceMonitor(machNo);		
+		DeviceMonitor monitor =this.findDeviceMonitor(machNo);	
+		int pm25=300;
+		try {
+			//获取pm25值
+			DeviceUtil.uploadDevicePm25(machNo);
+			DeviceResult deviceResult = DeviceUtil.queryDeviceState(machNo);
+			pm25 = deviceResult.getPm25();
+			monitor.setPm25(pm25);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("物联网调接口调用异常：{}", e.getMessage());
+		}
 		return new ResultInfo(String.valueOf(ResultCode.SC_OK), "success", monitor);
 	}
 	
