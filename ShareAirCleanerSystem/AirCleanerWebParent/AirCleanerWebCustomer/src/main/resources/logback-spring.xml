@@ -45,7 +45,7 @@
         </encoder>
         <keepAliveDuration>5 minutes</keepAliveDuration>
     </appender>
-    <logger name="com.qt.air.cleaner.zuul" level="DEBUG" additivity="false">
+    <logger name="com.qt.air.cleaner.web.customer" level="DEBUG" additivity="false">
 		<appender-ref ref="FILE" />
 	</logger>
     <root level="INFO">

@@ -67,6 +67,7 @@ public class DeviceChannelController {
 					deviceMonitor.setDeviceState(result.get("devicestate").toString());
 					deviceMonitor.setCostTime(result.get("costtime") + "小时");
 					deviceMonitor.setLastTime(result.get("lasttime") + "小时");
+					deviceMonitor.setPm25(Integer.parseInt((result.get("pm25").toString().replaceAll(".0", ""))));
 				}
 				
 			}

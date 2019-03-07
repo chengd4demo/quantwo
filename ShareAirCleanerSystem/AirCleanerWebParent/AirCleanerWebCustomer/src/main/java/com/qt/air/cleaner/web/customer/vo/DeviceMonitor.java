@@ -8,6 +8,7 @@ public class DeviceMonitor implements Serializable {
 	private String machNo;
 	private String costTime;
 	private String lastTime;
+	private int pm25;
 	public String getDeviceState() {
 		return deviceState;
 	}
@@ -31,5 +32,11 @@ public class DeviceMonitor implements Serializable {
 	}
 	public void setLastTime(String lastTime) {
 		this.lastTime = lastTime;
+	}
+	public int getPm25() {
+		return pm25;
+	}
+	public void setPm25(int pm25) {
+		this.pm25 = pm25;
 	}
 }
