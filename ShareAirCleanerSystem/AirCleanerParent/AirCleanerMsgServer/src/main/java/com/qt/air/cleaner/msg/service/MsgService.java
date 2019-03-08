@@ -15,5 +15,5 @@ public interface MsgService {
 	 * @return
 	 */
 	@RequestMapping("sendSms/{phoneNumber}")
-	ResultInfo sendSms(@PathVariable("phoneNumber") String phoneNumber);
+	ResultInfo sendSms(@PathVariable("phoneNumber") String phoneNumber,String templateCode);
 }

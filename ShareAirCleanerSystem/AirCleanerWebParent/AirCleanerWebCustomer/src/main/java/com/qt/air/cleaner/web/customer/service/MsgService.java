@@ -19,8 +19,9 @@ public interface MsgService {
 	 * 短信验证码发送
 	 * 
 	 * @param phoneNumber
+	 * @param templateCode 
 	 * @return
 	 */
 	@RequestMapping("sendSms/{phoneNumber}")
-	ResultInfo sendSms(@PathVariable("phoneNumber") String phoneNumber);
+	ResultInfo sendSms(@PathVariable("phoneNumber") String phoneNumber,String templateCode);
 }

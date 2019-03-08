@@ -472,15 +472,17 @@ public class UserServiceImpl implements UserService {
 		ResultInfo resultInfo = new ResultInfo();
 		if (StringUtils.isNotBlank(phoneNumber)) {
 			/** 输入验证码验证逻辑 */
-			/*
-			 * if(!this.checkedInvalidVerificationCode(phoneNumber)) { //检查验证码是否超时
-			 * resultInfo.setStatus(ErrorCodeEnum.ES_1015.getErrorCode());
-			 * resultInfo.setDescription(ErrorCodeEnum.ES_1015.getMessage()); return
-			 * resultInfo; } if (!this.checkedEqVerificationCode(parame)) { // 是否一致
-			 * resultInfo.setStatus(ErrorCodeEnum.ES_1014.getErrorCode());
-			 * resultInfo.setDescription(ErrorCodeEnum.ES_1014.getMessage()); return
-			 * resultInfo; }
-			 */
+			if (!this.checkedInvalidVerificationCode(phoneNumber)) { // 检查验证码是否超时
+				resultInfo.setStatus(ErrorCodeEnum.ES_1015.getErrorCode());
+				resultInfo.setDescription(ErrorCodeEnum.ES_1015.getMessage());
+				return resultInfo;
+			}
+			if (!this.checkedEqVerificationCode(parame)) { // 是否一致
+				resultInfo.setStatus(ErrorCodeEnum.ES_1014.getErrorCode());
+				resultInfo.setDescription(ErrorCodeEnum.ES_1014.getMessage());
+				return resultInfo;
+			}
+			 
 			if (StringUtils.equals("CUSTOMER", userType)) {
 				Customer customer = customerRepository.findByWeixinAndRemoved(weixin, false);
 				if (customer != null) {

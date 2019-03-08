@@ -28,13 +28,13 @@ public class MsgServiceImpl implements MsgService {
 	private StringRedisTemplate stringRedisTemplate;
 	
 	@Override
-	public ResultInfo sendSms(@PathVariable("phoneNumber") String phoneNumber) {
+	public ResultInfo sendSms(@PathVariable("phoneNumber") String phoneNumber,String templateCode) {
 		String smsCode = null;
 		logger.info("execute method sendSms() param --> phoneNumber:{}", phoneNumber);
 		if(StringUtils.isNotBlank(phoneNumber)) {
 			smsCode = generateNumber(5);
 			try {
-				SendSmsResponse sendSmsResponse = SmsUtils.sendSms(phoneNumber, smsCode);
+				SendSmsResponse sendSmsResponse = SmsUtils.sendSms(phoneNumber, smsCode,templateCode);
 				logger.debug("短信接口返回的数据----------------");
 				logger.debug("Code=" + sendSmsResponse.getCode());
 		        logger.debug("Message=" + sendSmsResponse.getMessage());

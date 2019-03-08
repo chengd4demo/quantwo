@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang.StringUtils;
 
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.IAcsClient;
@@ -14,6 +15,8 @@ import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
+
+import net.sf.json.util.JSONUtils;
 
 /**
  * Created on 17/6/7.
@@ -34,8 +37,8 @@ public class SmsUtils {
     static final String domain = "dysmsapi.aliyuncs.com";
 
     // TODO 此处需要替换成开发者自己的AK(在阿里云访问控制台寻找)
-    static final String accessKeyId = "LTAIU4i5IMv4GmyM";
-    static final String accessKeySecret = "elKVQhIn7slxJGUMXqSODp1eFUQP2O";
+    static final String accessKeyId = "LTAIS7kNY7CWvr6B";
+    static final String accessKeySecret = "RhE9VFAeUByvi4ZbiRDGbZkENZYQBD";
 
     public static SendSmsResponse sendSms() throws ClientException {
 
@@ -71,7 +74,7 @@ public class SmsUtils {
         return sendSmsResponse;
     }
     
-    public static SendSmsResponse sendSms(String phoneNumber,String smsCode) throws ClientException {
+    public static SendSmsResponse sendSms(String phoneNumber,String smsCode,String templateCode) throws ClientException {
 
         //可自助调整超时时间
         System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
@@ -89,7 +92,11 @@ public class SmsUtils {
         //必填:短信签名-可在短信控制台中找到
         request.setSignName("圈兔科技");
         //必填:短信模板-可在短信控制台中找到
-        request.setTemplateCode("SMS_152207829");
+        if(StringUtils.isNotBlank(templateCode)) {
+        	request.setTemplateCode(templateCode);
+        } else {
+        	request.setTemplateCode("SMS_159771253");
+        }
         //可选:模板中的变量替换JSON串,如模板内容为"亲爱的${name},您的验证码为${code}"时,此处的值为
         request.setTemplateParam("{ \"code\":\""+smsCode+"\"}");
 
@@ -104,6 +111,7 @@ public class SmsUtils {
 
         return sendSmsResponse;
     }
+    
 
     public static QuerySendDetailsResponse querySendDetails(String bizId) throws ClientException {
 

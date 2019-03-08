@@ -6,7 +6,7 @@ import com.qt.air.cleaner.web.customer.service.MsgService;
 public class MsgServiceFallBack implements MsgService{
 
 	@Override
-	public ResultInfo sendSms(String phoneNumber) {
+	public ResultInfo sendSms(String phoneNumber,String templateCode) {
 		// TODO Auto-generated method stub
 		return null;
 	}
