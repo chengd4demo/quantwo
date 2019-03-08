@@ -42,12 +42,12 @@ public class CommonController {
 	}
 	
 	@GetMapping("/sendSms/{phoneNumber}")
-	public ResultInfo sendSms(@PathVariable("phoneNumber") String phoneNumber) {
+	public ResultInfo sendSms(@PathVariable("phoneNumber") String phoneNumber,String smsType) {
 		logger.info("execute common-channel's method sendSms()  start -> param:",phoneNumber);
 		ResultInfo resultInfo = new ResultInfo(ErrorCodeEnum.ES_1011.getErrorCode(),ErrorCodeEnum.ES_1011.getMessage(),null);
 		try {
 			if(StringUtils.isNotBlank(phoneNumber)) {
-				resultInfo = msgService.sendSms(phoneNumber);
+				resultInfo = msgService.sendSms(phoneNumber,smsType);
 			} else {
 				resultInfo.setStatus(ResultCode.R2001.code);
 				resultInfo.setDescription(ResultCode.R2001.info);
