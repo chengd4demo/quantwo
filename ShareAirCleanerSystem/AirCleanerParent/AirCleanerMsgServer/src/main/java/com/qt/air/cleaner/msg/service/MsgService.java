@@ -12,6 +12,7 @@ public interface MsgService {
 	 * 短信验证码发送
 	 * 
 	 * @param phoneNumber
+	 * @param templateCode
 	 * @return
 	 */
 	@RequestMapping("sendSms/{phoneNumber}")
