@@ -315,7 +315,7 @@ public class DeviceServiceImpl implements DeviceService {
 		sql.append(" ELSE 0");
 		sql.append(" END AS lasttime");
 		sql.append(" FROM act_billing b");
-		sql.append(" WHERE b.mach_no = :machNo");
+		sql.append(" WHERE b.mach_no = :machNo and b.transaction_id is not null");
 		sql.append(" ORDER BY b.create_time DESC");
 		sql.append(")");
 		sql.append(" WHERE ROWNUM = 1");
