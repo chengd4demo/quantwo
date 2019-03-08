@@ -3,8 +3,6 @@ package com.qt.air.cleaner.web.merchant.web;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,8 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.google.gson.Gson;
 import com.qt.air.cleaner.base.dto.ResultCode;
@@ -146,6 +142,7 @@ public class UserChannelController {
 			parames.put("identificationNumber", loginInfo.getIdentificationNumber());
 			parames.put("openId", loginInfo.getWeixin());
 			parames.put("verificationCode", loginInfo.getVerificationCode());
+			parames.put("inVerificationCode", loginInfo.getInVerificationCode());
 			parames.put("amount", loginInfo.getAmount());
 			parames.put("phoneNumber", loginInfo.getPhoneNumber());
 			parames.put("sex", String.valueOf(loginInfo.getSex()));
