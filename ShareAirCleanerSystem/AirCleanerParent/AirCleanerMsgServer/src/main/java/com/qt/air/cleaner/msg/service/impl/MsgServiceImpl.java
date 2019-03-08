@@ -50,6 +50,7 @@ public class MsgServiceImpl implements MsgService {
 			} catch (ClientException e) {
 				logger.error("execute method sendSms error --> {}", e.getErrMsg());
 				e.printStackTrace();
+				return new ResultInfo(String.valueOf(ResultCode.SC_OK), "success",null);
 			}
 		} else {
 			logger.warn("execute method sendSms parameter error --> {}", ResultCode.R2001.info);

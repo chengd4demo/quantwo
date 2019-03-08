@@ -475,11 +475,13 @@ public class UserServiceImpl implements UserService {
 			if (!this.checkedInvalidVerificationCode(phoneNumber)) { // 检查验证码是否超时
 				resultInfo.setStatus(ErrorCodeEnum.ES_1015.getErrorCode());
 				resultInfo.setDescription(ErrorCodeEnum.ES_1015.getMessage());
+				logger.info("验证码是否超时");
 				return resultInfo;
 			}
 			if (!this.checkedEqVerificationCode(parame)) { // 是否一致
 				resultInfo.setStatus(ErrorCodeEnum.ES_1014.getErrorCode());
 				resultInfo.setDescription(ErrorCodeEnum.ES_1014.getMessage());
+				logger.info("验证码不一致");
 				return resultInfo;
 			}
 			 
