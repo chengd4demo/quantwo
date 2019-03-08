@@ -122,10 +122,10 @@ public class AccountServiceImpl implements AccountService {
 		List<AccountOutboundDto>  result = new ArrayList<>(30);
 		if(StringUtils.isNotBlank(weixin)) {
 			StringBuffer sql = new StringBuffer();
-			sql.append("select createdate,amount,state,id");
+			sql.append("select createdate,amount,state,id,showbutton");
 			sql.append(" from (select row_.*, rownum rownum_");
 			sql.append("	          from (select to_char(t.create_time,'yyyy-mm-dd hh24:mi:ss') createdate,");
-			sql.append("                       t.amount,t.id,");
+			sql.append("                       t.amount,t.id, case when(t.state = 0) then 1 else 0 end showbutton,");
 			sql.append("                       case");
 			sql.append("                         when ((t.state = 0 or t.state = 1 or t.state = 2) and t.removed != 'Y') then '处理中'");
 			sql.append("                         when (t.state = 6 and t.removed != 'Y') then  '未领取'");
@@ -150,7 +150,8 @@ public class AccountServiceImpl implements AccountService {
 					.addScalar("createdate",StandardBasicTypes.STRING)
 					.addScalar("amount",StandardBasicTypes.FLOAT)
 					.addScalar("state",StandardBasicTypes.STRING)
-					.addScalar("id",StandardBasicTypes.STRING);
+					.addScalar("id",StandardBasicTypes.STRING)
+					.addScalar("showbutton",StandardBasicTypes.BOOLEAN);
 			query.setParameter("weixin", weixin);
 			
 			if (AccountOutBoundEnum.UNCOLLECTED.getStatus() == state) {

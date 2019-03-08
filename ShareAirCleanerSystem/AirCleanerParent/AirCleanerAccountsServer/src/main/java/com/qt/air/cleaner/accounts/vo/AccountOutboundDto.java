@@ -8,6 +8,7 @@ public class AccountOutboundDto implements Serializable {
 	private Float amount = 0.00f;
 	private String state;
 	private String id;
+	private boolean showbutton = false;
 	
 	public String getCreatedate() {
 		return createdate;
@@ -32,6 +33,12 @@ public class AccountOutboundDto implements Serializable {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public boolean isShowbutton() {
+		return showbutton;
+	}
+	public void setShowbutton(boolean showbutton) {
+		this.showbutton = showbutton;
 	}
 	
 }
