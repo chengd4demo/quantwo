@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
@@ -28,9 +29,9 @@ public class MsgServiceImpl implements MsgService {
 	private StringRedisTemplate stringRedisTemplate;
 	
 	@Override
-	public ResultInfo sendSms(@PathVariable("phoneNumber") String phoneNumber,String templateCode) {
+	public ResultInfo sendSms(@PathVariable("phoneNumber") String phoneNumber,@RequestParam("templateCode") String templateCode) {
 		String smsCode = null;
-		logger.info("execute method sendSms() param --> phoneNumber:{}", phoneNumber);
+		logger.info("execute method sendSms() param --> phoneNumber: " + phoneNumber + ",templateCode: " + templateCode);
 		if(StringUtils.isNotBlank(phoneNumber)) {
 			smsCode = generateNumber(5);
 			try {

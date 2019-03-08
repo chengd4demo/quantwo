@@ -3,6 +3,8 @@ package com.qt.air.cleaner.web.customer.service;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.qt.air.cleaner.base.dto.ResultInfo;
 
@@ -22,6 +24,6 @@ public interface MsgService {
 	 * @param templateCode 
 	 * @return
 	 */
-	@RequestMapping("sendSms/{phoneNumber}")
-	ResultInfo sendSms(@PathVariable("phoneNumber") String phoneNumber,String templateCode);
+	@RequestMapping(value="sendSms/{phoneNumber}", method = RequestMethod.GET)
+	ResultInfo sendSms(@PathVariable("phoneNumber") String phoneNumber, @RequestParam("templateCode") String templateCode);
 }

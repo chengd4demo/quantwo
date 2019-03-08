@@ -6,6 +6,17 @@ spring:
     password: market2018
   jpa:
     show-sql: true   
+  redis:
+    database: 1
+    host: 192.168.13.202
+    port: 6379
+    password: 
+    timeout: 2000
+    pool:
+      max-active: 8
+      max-idle: 8
+      max-wait: -1
+      min-idle: 0
 device:
   uri: http://wlw.quantwo.cn:2007/api/v1/device/
   query: 
