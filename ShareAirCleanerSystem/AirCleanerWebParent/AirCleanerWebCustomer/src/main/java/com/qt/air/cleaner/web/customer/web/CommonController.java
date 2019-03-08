@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.qt.air.cleaner.base.dto.ResultCode;
 import com.qt.air.cleaner.base.dto.ResultInfo;
 import com.qt.air.cleaner.base.enums.ErrorCodeEnum;
+import com.qt.air.cleaner.base.enums.TemplateCodeEnum;
 import com.qt.air.cleaner.web.customer.service.MsgService;
 import com.qt.air.cleaner.web.customer.service.TokenService;
 
@@ -46,8 +47,17 @@ public class CommonController {
 		logger.info("execute common-channel's method sendSms()  start -> param:",phoneNumber);
 		ResultInfo resultInfo = new ResultInfo(ErrorCodeEnum.ES_1011.getErrorCode(),ErrorCodeEnum.ES_1011.getMessage(),null);
 		try {
-			if(StringUtils.isNotBlank(phoneNumber)) {
-				resultInfo = msgService.sendSms(phoneNumber,smsType);
+			if(StringUtils.isNotBlank(phoneNumber) && StringUtils.isNotBlank(smsType)) {
+				String templateCode = TemplateCodeEnum.TEMP_DEFAULT.getTemplateCode();
+				//获取短信模板类型
+				if (StringUtils.equals(TemplateCodeEnum.TEMP_SIGN.getType(), smsType)) {
+					templateCode = TemplateCodeEnum.TEMP_SIGN.getTemplateCode();
+				} else if (StringUtils.equals(TemplateCodeEnum.TEMP_CHANGE_PHONE.getType(), smsType)) {
+					templateCode = TemplateCodeEnum.TEMP_CHANGE_PHONE.getTemplateCode();
+				} else if (StringUtils.equals(TemplateCodeEnum.TEMP_CHANGE_APPLY.getType(), smsType)) {
+					templateCode = TemplateCodeEnum.TEMP_CHANGE_APPLY.getTemplateCode();
+				}
+				resultInfo = msgService.sendSms(phoneNumber,templateCode);
 			} else {
 				resultInfo.setStatus(ResultCode.R2001.code);
 				resultInfo.setDescription(ResultCode.R2001.info);

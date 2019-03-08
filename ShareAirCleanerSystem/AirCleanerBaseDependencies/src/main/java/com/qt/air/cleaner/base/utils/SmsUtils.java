@@ -16,8 +16,6 @@ import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
 
-import net.sf.json.util.JSONUtils;
-
 /**
  * Created on 17/6/7.
  * 短信API产品的DEMO程序,工程中包含了一个SmsDemo类，直接通过
