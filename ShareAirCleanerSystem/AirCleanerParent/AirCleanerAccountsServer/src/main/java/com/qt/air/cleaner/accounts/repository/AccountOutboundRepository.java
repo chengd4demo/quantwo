@@ -10,6 +10,7 @@ import com.qt.air.cleaner.accounts.domain.AccountOutBound;
 
 @Repository
 public interface AccountOutboundRepository extends JpaRepository<AccountOutBound, String> {
+	AccountOutBound findByIdAndRemoved(String id, Boolean removed);
 	@Modifying
 	@Query(value="update AccountOutBound set removed=true,lastOperateTime=:updateTime where id=:id ")
 	void cancellUpdate(@Param("id") String id,@Param("updateTime") java.util.Date updateTime);
