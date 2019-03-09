@@ -4,10 +4,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,14 +24,12 @@ import javax.persistence.criteria.CriteriaBuilder.In;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Example;
 import org.springframework.data.jpa.domain.Specification;
@@ -56,23 +59,19 @@ public class CashWithdrawalServiceImpl implements CashWithdrawalService {
 	public String appId;
 	@Value("${o2.wechat.subscription.api.secret}")
 	public String apiSecret;
-	@Value("#{system['o2.wechat.cert.stream.path']}")
+	@Value("${o2.wechat.cert.stream.path}")
 	public String certStreamPath;
-	@Value("#{system['o2.wechat.subscription.notify.url']}")
+	@Value("${o2.wechat.subscription.notify.url}")
 	public String notifyUrl;
-	@Value("#{system['o2.wechat.red.pack.wishing']}")
+	@Value("${o2.wechat.red.pack.wishing}")
 	public String redPackWishing;
-	@Value("#{system['o2.wechat.red.pack.remark']}")
+	@Value("${o2.wechat.red.pack.act.name}")
 	public String redPackActName;
-	@Value("#{system['\u5708\u5154\u5708\u7F51\u7EDC-\u7A7A\u6C14\u51C0\u5316\u5668']}")
+	@Value("${o2.wechat.red.pack.remark}")
 	public String redPackMark;
 	@Resource
 	AccountOutboundRepository accountOutboundRepository;
-	
-	 
-	
-	@Autowired
-	HttpServletRequest request;
+	protected  String ip;
 	
 	WXPay wxPay = null;
 	@PostConstruct
@@ -133,6 +132,26 @@ public class CashWithdrawalServiceImpl implements CashWithdrawalService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		Enumeration allNetInterfaces = null;
+		try {
+			allNetInterfaces = NetworkInterface.getNetworkInterfaces();
+		} catch (SocketException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		InetAddress ip = null;
+		while (allNetInterfaces.hasMoreElements()) {
+			NetworkInterface netInterface = (NetworkInterface) allNetInterfaces.nextElement();
+			System.out.println(netInterface.getName());
+			Enumeration addresses = netInterface.getInetAddresses();
+			while (addresses.hasMoreElements()) {
+				ip = (InetAddress) addresses.nextElement();
+				if (ip != null && ip instanceof Inet4Address) {
+					System.out.println("本机的IP = " + ip.getHostAddress());
+				}
+			}
+		}
 	}
 	
 	@Override
@@ -142,7 +161,7 @@ public class CashWithdrawalServiceImpl implements CashWithdrawalService {
 			Map<String, String> sendRedPakMap = null;
 			try {
 				for(AccountOutBound outBound : outBoundList) {
-					sendRedPakMap = sendRedPack(outBound.getAmount(), outBound.getCreater(), request.getRemoteAddr(), outBound.getBillingNumber());
+					sendRedPakMap = sendRedPack(outBound.getAmount(), outBound.getCreater(), ip, outBound.getBillingNumber());
 					updateAccountOutBound(sendRedPakMap,outBound,true);
 				}
 			} catch (Exception e) {
@@ -340,7 +359,7 @@ public class CashWithdrawalServiceImpl implements CashWithdrawalService {
 			Map<String,String> getbinfoMap = null;
 			try {
 				for(AccountOutBound outBound : outBoundList) {
-					getbinfoMap = gethbinfo(request.getRemoteAddr(),outBound.getBillingNumber());
+					getbinfoMap = gethbinfo(ip,outBound.getBillingNumber());
 					updateAccountOutBound(getbinfoMap,outBound,false);
 				}
 			} catch (Exception e) {
