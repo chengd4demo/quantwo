@@ -33,7 +33,7 @@ public class MsgServiceImpl implements MsgService {
 		String smsCode = null;
 		logger.info("execute method sendSms() param --> phoneNumber: " + phoneNumber + ",templateCode: " + templateCode);
 		if(StringUtils.isNotBlank(phoneNumber)) {
-			smsCode = generateNumber(5);
+			smsCode = generateNumber(6);
 			try {
 				SendSmsResponse sendSmsResponse = SmsUtils.sendSms(phoneNumber, smsCode,templateCode);
 				logger.debug("短信接口返回的数据----------------");

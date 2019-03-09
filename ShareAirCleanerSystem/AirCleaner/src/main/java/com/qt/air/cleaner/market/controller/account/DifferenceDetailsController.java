@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("market/difference")
 public class DifferenceDetailsController {
 
-	private final Logger logger = LoggerFactory.getLogger(AccountInBoundController.class);
+	private final Logger logger = LoggerFactory.getLogger(DifferenceDetailsController.class);
 	private final String  DIFFERENCE_INDEX = "view/market/account/queryDifferenceDetailsIndex";
 
 	@RequestMapping(method = RequestMethod.GET,path = "/index/{id}/{orderNumber}")
