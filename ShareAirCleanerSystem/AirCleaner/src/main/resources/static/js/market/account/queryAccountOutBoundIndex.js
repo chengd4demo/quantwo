@@ -49,6 +49,7 @@ layui.use(['table', 'form', 'layer', 'vip_table','laydate'], function(){
 						}, {
 							field: 'types',
 							title: '出账类型',
+							templet: '#typesTag',
 							width: 120 							
 						}, {
 							field: 'cashMode',
