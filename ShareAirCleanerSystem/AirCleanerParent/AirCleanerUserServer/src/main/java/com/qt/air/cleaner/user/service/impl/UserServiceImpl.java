@@ -614,13 +614,12 @@ public class UserServiceImpl implements UserService {
 	 */
 	private boolean checkedEqVerificationCode(Map<String, String> parame) {
 		String inVerificationCode = parame.get("inVerificationCode");
-		String verificationCodeer = parame.get("verificationCodeer");
-		if (StringUtils.equals(inVerificationCode, verificationCodeer)) {
+		String verificationCode  = parame.get("verificationCode");
+		if (StringUtils.equals(inVerificationCode, verificationCode)) {
 			return true;
 		}
 		return false;
 	}
-
 	
 	@Override
 	public ResultInfo obtainUserInfo(@RequestBody Map<String, Object> userInfoMap) {
