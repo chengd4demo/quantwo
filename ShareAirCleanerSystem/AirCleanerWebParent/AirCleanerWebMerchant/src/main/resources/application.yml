@@ -7,3 +7,9 @@ eureka:
   client:
     service-url:
       defaultZone:  http://192.168.13.203:8888/eureka/
+token:
+  partner: 77b872abfe1260053032219354882d91
+  key: ldingadmin
+o2:
+  system:
+    domain: http://www.quantwo.cn/app/customer
