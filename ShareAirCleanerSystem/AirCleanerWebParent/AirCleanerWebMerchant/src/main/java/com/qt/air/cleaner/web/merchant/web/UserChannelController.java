@@ -104,6 +104,7 @@ public class UserChannelController {
 			parames.put("phoneNumber", phoneInfo.getPhoneNumber());
 			parames.put("userType", phoneInfo.getUserType());			
 			parames.put("verificationCode", phoneInfo.getVerificationCode());
+			parames.put("inVerificationCode", phoneInfo.getInVerificationCode());
 			return userService.updatePhoneNumber(parames);
 		} catch(Exception  e){
 			logger.error("system error: {}",e.getMessage());
@@ -121,6 +122,7 @@ public class UserChannelController {
 			parames.put("phoneNumber", passwordInfo.getPhoneNumber());
 			parames.put("oldTradePwd", passwordInfo.getOldTradePwd());
 			parames.put("verificationCode", passwordInfo.getVerificationCode());
+			parames.put("inVerificationCode", passwordInfo.getInVerificationCode());
 			parames.put("openId", passwordInfo.getOpenId());
 			parames.put("userType","MERCHANT");
 			return userService.updateTradePwd(parames);

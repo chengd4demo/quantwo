@@ -8,6 +8,8 @@ public class PhoneInfo implements Serializable{
 	private String openId;
 	private String userType;
 	private String verificationCode;
+	private String inVerificationCode;
+	
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
@@ -32,11 +34,18 @@ public class PhoneInfo implements Serializable{
 	public void setVerificationCode(String verificationCode) {
 		this.verificationCode = verificationCode;
 	}
-	
+	public String getInVerificationCode() {
+		return inVerificationCode;
+	}
+	public void setInVerificationCode(String inVerificationCode) {
+		this.inVerificationCode = inVerificationCode;
+	}
 	@Override
 	public String toString() {
-		return "UpdatePhoneNumber [phoneNumber=" + phoneNumber + ", openId=" + openId + ", userType=" + userType
-				+ ", verificationCode=" + verificationCode + "]";
+		return "PhoneInfo [phoneNumber=" + phoneNumber + ", openId=" + openId + ", userType=" + userType
+				+ ", verificationCode=" + verificationCode + ", inVerificationCode=" + inVerificationCode + "]";
 	}
-			
+	
+	
+		
 }

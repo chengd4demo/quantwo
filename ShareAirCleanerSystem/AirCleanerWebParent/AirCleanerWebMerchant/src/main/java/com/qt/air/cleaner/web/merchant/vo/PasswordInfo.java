@@ -11,6 +11,8 @@ public class PasswordInfo implements Serializable{
 	private	String openId;
 	private String oldTradePwd;
 	private String verificationCode;
+	private String inVerificationCode;
+	
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
@@ -47,11 +49,20 @@ public class PasswordInfo implements Serializable{
 	public void setVerificationCode(String verificationCode) {
 		this.verificationCode = verificationCode;
 	}
+	public String getInVerificationCode() {
+		return inVerificationCode;
+	}
+	public void setInVerificationCode(String inVerificationCode) {
+		this.inVerificationCode = inVerificationCode;
+	}
+	
 	@Override
 	public String toString() {
 		return "PasswordInfo [phoneNumber=" + phoneNumber + ", userType=" + userType + ", tradePwd=" + tradePwd
 				+ ", openId=" + openId + ", oldTradePwd=" + oldTradePwd + ", verificationCode=" + verificationCode
-				+ "]";
+				+ ", inVerificationCode=" + inVerificationCode + "]";
 	}
+	
+	
 	
 }
