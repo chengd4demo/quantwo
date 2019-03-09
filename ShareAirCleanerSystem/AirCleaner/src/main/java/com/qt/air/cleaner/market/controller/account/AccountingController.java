@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping("market/accounting")
 public class AccountingController {
-	private final Logger logger = LoggerFactory.getLogger(AccountInBoundController.class);
+	private final Logger logger = LoggerFactory.getLogger(AccountingController.class);
 	private final String  ACCOUNTING_INDEX = "view/market/account/queryAccountingManagementIndex";
 
 	@RequestMapping(method = RequestMethod.GET,path = "/index")

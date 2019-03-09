@@ -110,7 +110,7 @@ public class AccountOutBoundServiceImpl implements AccountOutBoundService{
 		List<Integer> stateList = null;
 		if(StringUtils.equals(Constants.ACCOUNT_OUT_BOUND_METHOD_RECORD, method)) {
 			if (state != null) {
-				stateList = Arrays.asList(state);
+				stateList = new ArrayList<>(Arrays.asList(state));
 				if(5 == state) stateList.add(-1);
 			} else {
 				stateList = Arrays.asList(-1,0,1,2,3);
