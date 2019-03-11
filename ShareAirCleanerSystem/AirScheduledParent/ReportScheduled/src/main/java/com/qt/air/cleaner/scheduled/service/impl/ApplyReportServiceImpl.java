@@ -4,7 +4,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -43,6 +42,7 @@ public class ApplyReportServiceImpl implements ApplyReportService {
 	DeviceRepository deviceRepository;
 	@Autowired
 	ApplyReportRepository applyReportRepository;
+	private static final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 	@Override
 	public void jobApplyReport(Date currentTime) {
 		long count = applyReportRepository.count();
@@ -73,19 +73,8 @@ public class ApplyReportServiceImpl implements ApplyReportService {
 			query.setResultTransformer(Transformers.aliasToBean(ApplyReporView.class));
 			List<ApplyReporView> list =  query.list();
 			em.close();
-			ApplyReport applyReport = null;
 			if (!CollectionUtils.isEmpty(list)) {
 				logger.debug("执行使用统计定时任务，待统计数据共:{}条",list.size());
-				Calendar calendar = new GregorianCalendar(); 
-				if(currentTime != null) {
-					calendar.setTime(currentTime);
-				} else {
-					calendar.setTime(new Date());
-				}
-				calendar.set(Calendar.HOUR_OF_DAY, 0);
-				calendar.set(Calendar.MINUTE, 0);
-				calendar.set(Calendar.SECOND, 0);
-				Date nowDate = Calendar.getInstance().getTime();
 				Device device = null;
 				Company company = null;
 				Trader trader = null;
@@ -93,9 +82,16 @@ public class ApplyReportServiceImpl implements ApplyReportService {
 				Saler saler = null;
 				Long total = 0L;
 				String machNo = null;
+				Date nowDate = Calendar.getInstance().getTime();
+				ApplyReport applyReport = null;
+				applyReport = applyReportRepository.findFirstByOrderBySweepCodeTimeDesc();
+				String todayDate = null;
 				for(ApplyReporView applyReporView : list ) {
 					machNo = applyReporView.getMachno();
-					applyReport = applyReportRepository.findByMachNoAndSweepCodeTime(machNo, calendar.getTime());
+					if(applyReport!=null) {
+						todayDate = df.format(applyReport.getSweepCodeTime()) + '%';
+						applyReport = applyReportRepository.findSweepCodeReportData(machNo,todayDate);
+					}
 					total = applyReporView.getTotal();
 					if (applyReport == null) {
 						logger.debug("保存到使用统计表数据为:{}",new Gson().toJson(applyReporView));

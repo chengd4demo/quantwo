@@ -4,7 +4,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -42,6 +41,7 @@ public class PaymentRecordReportServiceImpl implements PaymentRecordReportServic
 	PaymentRecordReportRepository paymentRecordReportRepository;
 	@Autowired
     private LocalContainerEntityManagerFactoryBean entityManagerFactory;
+	private static final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 	@Autowired
 	DeviceRepository deviceRepository;
 	@Override
@@ -59,10 +59,12 @@ public class PaymentRecordReportServiceImpl implements PaymentRecordReportServic
 	private void paymentRecordHandle(Date currentTime) {
 		String sql = "";
 		if (currentTime == null) {
-			sql = "select t.mach_no as machno,to_char(t.create_time,'YYYY-MM-DD') as sweepcodetime,count(t.id) as amount from act_billing t"
+			sql = "select t.mach_no as machno,to_char(t.create_time,'YYYY-MM-DD') as sweepcodetime,sum(t.amount) as amount from act_billing t"
+					+ " where t.transaction_id is not null"
 					+ " group by t.mach_no, to_char(t.create_time,'YYYY-MM-DD') order by  to_char(t.create_time,'YYYY-MM-DD')  desc";
 		} else {
 			sql = "select t.mach_no as machno,to_char(t.create_time,'YYYY-MM-DD') as sweepcodetime,sum(t.amount) as amount from act_billing t where trunc(t.create_time) = trunc(sysdate)"
+					+ " and t.transaction_id is not null"
 					+ " group by t.mach_no, to_char(t.create_time,'YYYY-MM-DD') order by  to_char(t.create_time,'YYYY-MM-DD')  desc";
 		}
 		EntityManager em = entityManagerFactory.getNativeEntityManagerFactory().createEntityManager();
@@ -74,19 +76,8 @@ public class PaymentRecordReportServiceImpl implements PaymentRecordReportServic
 		query.setResultTransformer(Transformers.aliasToBean(PaymentRecordReportView.class));
 		List<PaymentRecordReportView> list =  query.list();
 		em.close();
-		PaymentRecordReport paymentRecordReport = null;
 		if (!CollectionUtils.isEmpty(list)) {
 			logger.debug("执行支付金额统计定时任务，待统计数据共:{}条",list.size());
-			Calendar calendar = new GregorianCalendar(); 
-			if(currentTime != null) {
-				calendar.setTime(currentTime);
-			} else {
-				calendar.setTime(new Date());
-			}
-			calendar.set(Calendar.HOUR_OF_DAY, 0);
-			calendar.set(Calendar.MINUTE, 0);
-			calendar.set(Calendar.SECOND, 0);
-			Date nowDate = Calendar.getInstance().getTime();
 			Device device = null;
 			Company company = null;
 			Trader trader = null;
@@ -94,9 +85,16 @@ public class PaymentRecordReportServiceImpl implements PaymentRecordReportServic
 			Saler saler = null;
 			Float amount = 0.00f;
 			String machNo = null;
+			Date nowDate = currentTime == null ? Calendar.getInstance().getTime() : currentTime;
+			PaymentRecordReport paymentRecordReport = null;
+			paymentRecordReport = paymentRecordReportRepository.findFirstByOrderBySweepCodeTimeDesc();
+			String todayDate = null;
 			for(PaymentRecordReportView paymentRecordReportView : list ) {
 				machNo = paymentRecordReportView.getMachno();
-				paymentRecordReport = paymentRecordReportRepository.findByMachNoAndSweepCodeTime(machNo, calendar.getTime());
+				if(paymentRecordReport!=null) {
+					todayDate = df.format(paymentRecordReport.getSweepCodeTime()) + "%";
+					paymentRecordReport = paymentRecordReportRepository.findPaymentRecordReportData(machNo,todayDate);
+				}
 				amount = paymentRecordReportView.getAmount();
 				if (paymentRecordReport == null) {
 					logger.debug("保存到支付金额统表数据为:{}",new Gson().toJson(paymentRecordReportView));
@@ -132,14 +130,16 @@ public class PaymentRecordReportServiceImpl implements PaymentRecordReportServic
 						}
 						paymentRecordReportRepository.save(paymentRecordReport);
 					} else {
-						logger.warn("====================================设备信息不存在,设备号:{}",paymentRecordReportView.getMachno());
+						logger.info("====================================设备信息不存在,设备号:{}",paymentRecordReportView.getMachno());
 					}
 				} else {
-					logger.debug("更新支付金额统计表数据为:{}",new Gson().toJson(paymentRecordReportView));
-					paymentRecordReport.setLastOperator("scheduled");
-					paymentRecordReport.setAmounts(amount);
-					paymentRecordReport.setLastOperateTime(nowDate);
-					paymentRecordReportRepository.saveAndFlush(paymentRecordReport);
+					logger.info("更新支付金额统计表数据为:{}",new Gson().toJson(paymentRecordReportView));
+					if (amount != paymentRecordReport.getAmounts()) {
+						paymentRecordReport.setLastOperator("scheduled");
+						paymentRecordReport.setAmounts(amount);
+						paymentRecordReport.setLastOperateTime(nowDate);
+						paymentRecordReportRepository.saveAndFlush(paymentRecordReport);
+					}
 				}
 			}
 		}

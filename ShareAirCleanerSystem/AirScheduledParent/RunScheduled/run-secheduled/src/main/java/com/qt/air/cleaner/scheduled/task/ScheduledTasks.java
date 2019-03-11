@@ -36,7 +36,7 @@ public class ScheduledTasks {
 	 */
 	@Scheduled(fixedRate = 5000)
 	public void sendCashCurrentTime() {
-		cashWithdrawalService.sendRedWithdrawal();
+		//cashWithdrawalService.sendRedWithdrawal();
 	}
 	
 	/**
@@ -44,7 +44,7 @@ public class ScheduledTasks {
 	 */
 	@Scheduled(cron = "0 0/10 * * * ?")
 	public void updateRedWithdrawalState() {
-		cashWithdrawalService.updateRedWithdrawalState();
+		//cashWithdrawalService.updateRedWithdrawalState();
 	}
 
 	/**
@@ -53,11 +53,11 @@ public class ScheduledTasks {
 	@Scheduled(cron = "0 0 10 * * ?")
 	public void openBillingCurrentTime() {
 		// 自动下载前日微信对账单
-		billingService.startDownloadForSuccess(Calendar.getInstance().getTime());
+		//billingService.startDownloadForSuccess(Calendar.getInstance().getTime());
 		// 根据微信下载的对账单记录和通知记录进行对账处理
-		billingService.updateWeiXinStatusByDownload(Calendar.getInstance().getTime());
+		//billingService.updateWeiXinStatusByDownload(Calendar.getInstance().getTime());
 		// 自动自行微信开帐供功能
-		billingService.updateWeixinNotityForOpenAccount(Calendar.getInstance().getTime());
+	//	billingService.updateWeixinNotityForOpenAccount(Calendar.getInstance().getTime());
 	}
 
 }
