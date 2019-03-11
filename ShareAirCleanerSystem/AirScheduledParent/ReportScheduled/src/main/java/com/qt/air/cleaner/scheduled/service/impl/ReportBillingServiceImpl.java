@@ -21,8 +21,8 @@ public class ReportBillingServiceImpl implements ReportBillingService {
 	SweepCodeReportService sweepCodeReportService;
 	@Override
 	public void startReportBilling(Date currentTime) {
-//		applyReportService.jobApplyReport(currentTime);
-//		paymentRecordReportService.jobPaymentRecordReport(currentTime);
+		applyReportService.jobApplyReport(currentTime);
+		paymentRecordReportService.jobPaymentRecordReport(currentTime);
 		sweepCodeReportService.jobSweepCodeReport(currentTime);
 	}
 
