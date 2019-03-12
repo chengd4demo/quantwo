@@ -27,33 +27,39 @@ public class ScheduledTasks {
 
 	/**
 	 * 报表统计
+	 * 启动执行一次,然后每5s执行
+	 * 
 	 */
 	@Scheduled(fixedRate = 5000)
 	public void reportCurrentTime() {
-		//System.out.println("当前时间：" + dateFormat.format(new Date()));
-		//reportBillingService.startReportBilling(Calendar.getInstance().getTime());
+		System.out.println("当前时间：" + dateFormat.format(new Date()));
+		reportBillingService.startReportBilling(Calendar.getInstance().getTime());
 	}
 
 	/**
 	 * 红包发送
+	 * 启动执行一次,每分钟60秒执行
+	 * 
 	 */
-	@Scheduled(fixedRate = 5000)
+	@Scheduled(fixedRate = 60000)
 	public void sendCashCurrentTime() {
-		//cashWithdrawalService.sendRedWithdrawal();
-		System.out.println(withholdTaxes);
+		cashWithdrawalService.sendRedWithdrawal();
 	}
 	
 	/**
 	 * 红包状态更新
+	 * 每三分钟执行一次
 	 */
-//	@Scheduled(cron = "0 0/10 * * * ?")
-	@Scheduled(fixedRate = 6000)
+	@Scheduled(cron = "0 0/3 * * * ?")
+//	@Scheduled(fixedRate = 6000)
 	public void updateRedWithdrawalState() {
 		cashWithdrawalService.updateRedWithdrawalState();
 	}
 
 	/**
 	 * 对账\开账
+	 * 每天早上十点执行
+	 * 
 	 */
 	@Scheduled(cron = "0 0 10 * * ?")
 //	@Scheduled(fixedRate = 5000)
