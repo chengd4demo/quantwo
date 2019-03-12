@@ -69,11 +69,14 @@ public class CashWithdrawalServiceImpl implements CashWithdrawalService {
 	public String redPackActName;
 	@Value("${o2.wechat.red.pack.remark}")
 	public String redPackMark;
+	@Value("${cash.withhold.taxes}")
+	public Float withholdTaxes;
 	@Resource
 	AccountOutboundRepository accountOutboundRepository;
 	protected  String ip;
 	
 	WXPay wxPay = null;
+	@SuppressWarnings("rawtypes")
 	@PostConstruct
 	public void init() {
 		
@@ -143,12 +146,12 @@ public class CashWithdrawalServiceImpl implements CashWithdrawalService {
 		InetAddress ip = null;
 		while (allNetInterfaces.hasMoreElements()) {
 			NetworkInterface netInterface = (NetworkInterface) allNetInterfaces.nextElement();
-			System.out.println(netInterface.getName());
 			Enumeration addresses = netInterface.getInetAddresses();
 			while (addresses.hasMoreElements()) {
 				ip = (InetAddress) addresses.nextElement();
-				if (ip != null && ip instanceof Inet4Address) {
-					System.out.println("本机的IP = " + ip.getHostAddress());
+				if (ip != null && ip instanceof Inet4Address && !ip.getHostAddress().equals("127.0.0.1")) {
+					this.ip = ip.getHostAddress();
+					break;
 				}
 			}
 		}
@@ -160,9 +163,13 @@ public class CashWithdrawalServiceImpl implements CashWithdrawalService {
 		if(!CollectionUtils.isEmpty(outBoundList)) {
 			Map<String, String> sendRedPakMap = null;
 			try {
+				Float amount = 0.00f;
 				for(AccountOutBound outBound : outBoundList) {
-					sendRedPakMap = sendRedPack(outBound.getAmount(), outBound.getCreater(), ip, outBound.getBillingNumber());
-					updateAccountOutBound(sendRedPakMap,outBound,true);
+					if(outBound.getAmount()>0.00f) {
+						amount = (outBound.getAmount()) - (outBound.getAmount()*withholdTaxes);
+						sendRedPakMap = sendRedPack(amount, outBound.getCreater(), ip, outBound.getBillingNumber());
+						updateAccountOutBound(sendRedPakMap,outBound,true);
+					}
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -199,6 +206,16 @@ public class CashWithdrawalServiceImpl implements CashWithdrawalService {
 				} else {
 					String errorCode = responseResult.get("err_code");
 					String errorMsg = responseResult.get("err_code_des");
+					//异常账号
+					if (StringUtils.equals("NO_AUTH", errorCode)) {
+						logger.info("申请提现订单号：{}",outBound.getBillingNumber());
+						logger.warn("该用户{}申请提现发放失败，此请求可能存在风险，已被微信拦截",outBound.getName());
+						account = outBound.getAccount();
+						account.setFreezingAmount(CalculateUtils.sub(account.getFreezingAmount(), outBound.getAmount()));
+						account.setAvailableAmount(CalculateUtils.add(account.getAvailableAmount(), outBound.getAmount()));
+						account.setTotalAmount(CalculateUtils.add(account.getTotalAmount(), outBound.getAmount()));
+						outBound.setAccount(account);
+					}
 					outBound.setErrorCode(errorCode);
 					outBound.setErrorMsg(errorMsg);
 					// 更新出账记录为错误状态，并设置此记录为无效
@@ -206,9 +223,12 @@ public class CashWithdrawalServiceImpl implements CashWithdrawalService {
 				}
 			} else {
 				String errorMsg = responseResult.get("return_msg");
-				outBound.setErrorMsg(errorMsg);
+				String errorCode = responseResult.get("result_code");
+				logger.warn("提现发送现金红包失败：错误码:" + errorCode + "错误信息：" + errorMsg);
+//				outBound.setErrorMsg(errorMsg);
 				// 更新出账记录为错误状态，并设置此记录为无效
-				outBound.setState(AccountOutBound.ACCOUNT_OUT_BOUND_STATE_ERROR);
+//				outBound.setState(AccountOutBound.ACCOUNT_OUT_BOUND_STATE_ERROR);
+				
 			}
 		} else {
 			if (StringUtils.equals(responseResult.get("return_code"), WXPayConstants.SUCCESS)) {
@@ -335,7 +355,7 @@ public class CashWithdrawalServiceImpl implements CashWithdrawalService {
 	@Override
 	public void updateRedWithdrawalState() {
 		Calendar startTime = Calendar.getInstance();
-		logger.debug("开始查询红包记录。。。。当前时间：" + dateFormat.format(startTime));
+		logger.debug("开始查询红包记录。。。。当前时间：" + dateFormat.format(startTime.getTime()));
 		startTime.add(Calendar.DATE, -1);
 		startTime.set(Calendar.HOUR_OF_DAY, 0);
 		startTime.set(Calendar.MINUTE, 0);
@@ -345,11 +365,6 @@ public class CashWithdrawalServiceImpl implements CashWithdrawalService {
 		logger.debug("查询红包开始时间：" + dateFormat.format(startTime.getTime()));
 		
 		Calendar endTime = Calendar.getInstance();
-		endTime.add(Calendar.DATE, -1);
-		endTime.set(Calendar.HOUR_OF_DAY, 23);
-		endTime.set(Calendar.MINUTE, 59);
-		endTime.set(Calendar.SECOND, 59);
-		endTime.set(Calendar.MILLISECOND, 999);
 		logger.debug("查询红包开始时间：" + dateFormat.format(endTime.getTime()));
 		List<Integer> states = new ArrayList<Integer>();
 		states.add(AccountOutBound.ACCOUNT_OUT_BOUND_STATE_COMPLETE);
@@ -359,7 +374,7 @@ public class CashWithdrawalServiceImpl implements CashWithdrawalService {
 			Map<String,String> getbinfoMap = null;
 			try {
 				for(AccountOutBound outBound : outBoundList) {
-					getbinfoMap = gethbinfo(ip,outBound.getBillingNumber());
+					getbinfoMap = gethbInfo(ip,outBound.getBillingNumber());
 					updateAccountOutBound(getbinfoMap,outBound,false);
 				}
 			} catch (Exception e) {
@@ -371,7 +386,7 @@ public class CashWithdrawalServiceImpl implements CashWithdrawalService {
 		
 	}
 	
-	private Map<String, String> gethbinfo(String ip,String billingNumber) throws Exception {
+	private Map<String, String> gethbInfo(String ip,String billingNumber) throws Exception {
 		Map<String, String> reqData = new HashMap<String, String>();
 		//随机字符串
 		reqData.put("nonce_str", WXPayUtil.generateNonceStr());
@@ -380,13 +395,11 @@ public class CashWithdrawalServiceImpl implements CashWithdrawalService {
 		//商户号
 		reqData.put("mch_id", mahId);
 		//公众号ID
-		reqData.put("wxappid", appId);
-		// Ip地址
-		reqData.put("client_ip", ip);
+		reqData.put("appid", appId);
 		// 订单类型
 		reqData.put("bill_type", "MCHT");
 		logger.info("微信现金红包查询请求参数：" + reqData.toString());
-		return wxPay.gethbinfo(reqData);
+		return wxPay.gethbInfo(reqData);
 	}
 	
 	private List<AccountOutBound> queryAccountOutBoundInTimes(List<Integer> states, Date startTime, Date endTime) {
@@ -394,8 +407,8 @@ public class CashWithdrawalServiceImpl implements CashWithdrawalService {
 			@Override
 			public Predicate toPredicate(Root<AccountOutBound> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder cb) {
 				List<Predicate> predicates = new ArrayList<>();
-				predicates.add(cb.greaterThanOrEqualTo(root.get("createTime"), startTime));
-				predicates.add(cb.lessThanOrEqualTo(root.get("createTime"), endTime));
+				predicates.add(cb.greaterThanOrEqualTo(root.get("lastOperateTime"), startTime));
+				predicates.add(cb.lessThanOrEqualTo(root.get("lastOperateTime"), endTime));
 				predicates.add(cb.equal(root.get("removed"), false));
 				In<Integer> in = cb.in(root.get("state"));
 				for (Integer state : states) {
