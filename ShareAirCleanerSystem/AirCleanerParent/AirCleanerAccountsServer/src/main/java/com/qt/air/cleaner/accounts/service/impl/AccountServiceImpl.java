@@ -127,8 +127,8 @@ public class AccountServiceImpl implements AccountService {
 			sql.append("	          from (select to_char(t.create_time,'yyyy-mm-dd hh24:mi:ss') createdate,");
 			sql.append("                       t.amount,t.id, case when(t.state = 0) then 1 else 0 end showbutton,");
 			sql.append("                       case");
-			sql.append("                         when ((t.state = 0 or t.state = 1 or t.state = 2) and t.removed != 'Y') then '处理中'");
-			sql.append("                         when (t.state = 6 and t.removed != 'Y') then  '未领取'");
+			sql.append("                         when ((t.state = 0 or t.state = 2) and t.removed != 'Y') then '处理中'");
+			sql.append("                         when ((t.state = 6 or t.state = 1) and t.removed != 'Y') then  '未领取'");
 			sql.append("                         when (t.state = 4 and t.removed != 'Y') then  '已完成'");
 			sql.append("                         when t.removed = 'Y' then '已取消'");
 			sql.append("                         else '其它' end state");
