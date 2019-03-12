@@ -608,7 +608,7 @@ public static final String ROOT_ORGAN_CODE = "COMPANY";
 	public static Integer[] REQUEST_STATES = {0,2};
 	
 	
-	public static Integer[] UNCOLLECTED_STATES = {1,6};
+	public static Integer[] UNCOLLECTED_STATES = {1,6,7};
 	
 	
 	public static Integer[]  COMPLETED_STATES = {4};
