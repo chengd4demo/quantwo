@@ -236,7 +236,7 @@ public class CashWithdrawalServiceImpl implements CashWithdrawalService {
 				if (StringUtils.equals(responseResult.get("result_code"), WXPayConstants.SUCCESS)) {
 					int status = getStatus(responseResult.get("status"));
 					account = outBound.getAccount();
-					if (status == AccountOutBound.ACCOUNT_OUT_BOUND_STATE_UNCLAIMED) {
+					if (status == AccountOutBound.ACCOUNT_OUT_BOUND_STATE_UNCLAIMED && outBound.getState() != AccountOutBound.ACCOUNT_OUT_BOUND_STATE_UNCLAIMED) {
 						//未领取
 						outBound.setState(AccountOutBound.ACCOUNT_OUT_BOUND_STATE_UNCLAIMED);
 						//红包回退商户账号需要把对应发送红包的商户金额重新计算(a.冻结金额减去 b.可用余额和总账加上)
