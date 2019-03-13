@@ -35,6 +35,7 @@ import com.qt.air.cleaner.device.repository.PriceModelRepository;
 import com.qt.air.cleaner.device.repository.PriceSystemRepository;
 import com.qt.air.cleaner.device.service.DeviceService;
 import com.qt.air.cleaner.device.utils.DeviceUtil;
+import com.qt.air.cleaner.device.vo.CurrentDeviceStatus;
 import com.qt.air.cleaner.device.vo.DeviceMonitor;
 import com.qt.air.cleaner.device.vo.DeviceResult;
 import com.qt.air.cleaner.device.vo.DeviceStatus;
@@ -474,13 +475,93 @@ public class DeviceServiceImpl implements DeviceService {
 		if (device != null) machNo = device.getMachNo();
 		return machNo;
 	}
-
 	
+	/**
+	 * 
+	 * 设备使用次数
+	 * @param parame
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	private List<CurrentDeviceStatus>findDeviceCounts(RequestParame requestParame){
+		String traderId = requestParame.getData().get("traderId");
+		String investorId = requestParame.getData().get("investorId");
+		String companyId = requestParame.getData().get("companyId");
+		StringBuffer sql = new StringBuffer();
+		sql.append("select machno,devicesequence,counts");
+		sql.append("  from (select row_.*, rownum rownum_");
+		sql.append("  from ( "); 
+		sql.append("		select a.machno, a.device_sequence as devicesequence, NVL(b.counts, 0) as counts");
+		sql.append("			from (select d.mach_no as machno, d.id, d.device_sequence from mk_device d");
+		sql.append("				  where ");
+		if (StringUtils.isNotEmpty(traderId)) {
+			sql.append("				d.trader_id = :traderId");
+		} else if (StringUtils.isNotEmpty(investorId)) {
+			sql.append("				d.investor_id = :investorId");
+		} else if (StringUtils.isNoneEmpty(companyId)) {
+			sql.append("				d.company_id = :companyId");
+		}
+		sql.append("				  ) a");
+		sql.append("		left join (select app.mach_no as machno,app.total as counts from rep_apply_record app");
+		sql.append("		 		    where trunc(app.sweep_code_time) = trunc(sysdate)) b");
+		sql.append("		on a.machno = b.machno order by b.counts");
+		sql.append("	) row_");
+		sql.append("	WHERE rownum <= :end");
+		sql.append(")");
+		sql.append("WHERE rownum_ > :start");
+		EntityManager em = entityManagerFactory.getNativeEntityManagerFactory().createEntityManager();
+		Session session = em.unwrap(Session.class);
+		Query query = session.createSQLQuery(sql.toString())
+				.addScalar("machno",StandardBasicTypes.STRING)
+				.addScalar("devicesequence",StandardBasicTypes.STRING)
+				.addScalar("counts",StandardBasicTypes.INTEGER);
+		if (StringUtils.isNotBlank(investorId)) {
+			query.setParameter("investorId", investorId);
+		} else if (StringUtils.isNotBlank(traderId)) {
+			query.setParameter("traderId", traderId);
+		} else if (StringUtils.isNotBlank(companyId)) {
+			query.setParameter("companyId", companyId);
+		} 
+		Integer start = requestParame.getPage().getStart();
+		Integer end = requestParame.getPage().getEnd();
+		query.setParameter("start", start);
+		query.setParameter("end", end);
+		query.setResultTransformer(Transformers.aliasToBean(CurrentDeviceStatus.class));
+		List<CurrentDeviceStatus> list =  query.list();
+		em.close();
+		return list;
+	}
 	
+	/**
+	 * 设备使用次数查询
+	 * 
+	 * @param parame
+	 * @param pageable
+	 * @return
+	 */
+	@Override
+	public ResultInfo queryDeviceCounts(@RequestBody RequestParame requestParame) {
+		List<CurrentDeviceStatus> conuts = this.findDeviceCounts(requestParame);
+		return new ResultInfo(String.valueOf(ResultCode.SC_OK), "success", conuts);
+	}
 	
-	
-	
-	
-	
-
+	/**
+	 * 
+	 * 设备开启状态查询
+	 * @param parame
+	 * @return
+	 */
+	@Override
+	public ResultInfo queryTurnState(@PathVariable("machNo") String machNo) {
+		logger.info("execute method queryTurnState() param --> machNo:{}", machNo);
+		DeviceResult deviceResult = null;
+		try {
+			deviceResult = DeviceUtil.queryDeviceState(machNo);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("查询设备状态异常：{}",e.getMessage());
+			return new ResultInfo(String.valueOf(ResultCode.SC_OK), "success", 0);
+		}
+		return new ResultInfo(String.valueOf(ResultCode.SC_OK), "success", deviceResult == null ? 0 : deviceResult.getTurnOn());
+	}
 }

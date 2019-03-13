@@ -44,6 +44,18 @@ public class DeviceServiceFallBack implements DeviceService {
 		return null;
 	}
 
+	@Override
+	public ResultInfo queryDeviceCounts(RequestParame requestParame) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ResultInfo queryTurnState(String machNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 
 }

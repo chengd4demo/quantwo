@@ -71,4 +71,22 @@ public interface DeviceService {
 	 */
 	@RequestMapping(value = "/findByDeviceSequence",method = RequestMethod.GET)
 	String queryDevice(@RequestParam("deviceSequence") String deviceSequence);
+	
+	
+	/**
+	 * 设备使用次数
+	 * @param parame
+	 * @return
+	 */
+	@RequestMapping(value = "/queryDeviceCounts",method = RequestMethod.POST)
+	ResultInfo queryDeviceCounts(@RequestBody RequestParame requestParame);
+	
+	/**
+	 * 设备开启状态
+	 * @param machNo
+	 * @return
+	 */
+	@RequestMapping(value = "/queryTurnState/{machNo}",method = RequestMethod.POST)
+	ResultInfo queryTurnState(@PathVariable("machNo") String machNo);
+
 }

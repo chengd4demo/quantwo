@@ -104,7 +104,7 @@ public class DeviceChannelController {
 		}
 	}
 	
-	@PostMapping("queryDeviceMonitors")
+	@PostMapping("/queryDeviceMonitors")
 	ResultInfo queryDeviceMonitorPage(@RequestBody RequestParame requestParame) {
 		logger.info("execute method queryDeviceMonitorPage() param --> requestParame:{}", requestParame);
 		try {
@@ -114,4 +114,26 @@ public class DeviceChannelController {
 			return new ResultInfo(String.valueOf(ResultCode.R5001.code),e.getMessage(), requestParame);
 		}
 	}
-}
+	
+	@PostMapping("/queryDeviceCounts")
+	ResultInfo queryDeviceCounts(@RequestBody RequestParame requestParame) {
+		logger.info("execute method queryDeviceCounts() param --> requestParame:{}",requestParame);
+		try {
+			return deviceService.queryDeviceCounts(requestParame);
+		} catch (Exception e) {
+			logger.error("system error: {}",e.getMessage());
+			return new ResultInfo(String.valueOf(ResultCode.R5001.code),e.getMessage(), requestParame);
+		}
+	}
+	
+	@PostMapping("/queryTurnState/{machNo}")
+	ResultInfo queryTurnState(@PathVariable("machNo") String machNo) {
+		logger.info("execute method queryTurnState() param --> requestParame:{}",machNo);
+		try {
+			return deviceService.queryTurnState(machNo);
+		} catch (Exception e) {
+			logger.error("system error:{}",e.getMessage());
+			return new ResultInfo(String.valueOf(ResultCode.R5001.code),e.getMessage(), machNo);
+		}
+		}
+	}

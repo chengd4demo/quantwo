@@ -70,4 +70,21 @@ public interface DeviceService {
 	 */
 	@RequestMapping(value = "/investorForTrader",method = RequestMethod.POST)
 	ResultInfo queryInvestorForTrader(@RequestBody RequestParame requestParame);
+	
+	/**
+	 * 设备使用次数
+	 * @param parame
+	 * @return
+	 */
+	@RequestMapping(value = "/queryDeviceCounts",method = RequestMethod.POST)
+	ResultInfo queryDeviceCounts(@RequestBody RequestParame requestParame);
+	
+	/**
+	 * 设备开启状态
+	 * @param machNo
+	 * @return
+	 */
+	@RequestMapping(value = "/queryTurnState/{machNo}",method = RequestMethod.POST)
+	ResultInfo queryTurnState(@PathVariable("machNo") String machNo);
+
 }
