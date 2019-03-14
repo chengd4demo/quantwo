@@ -87,14 +87,11 @@ public class PaymentRecordReportServiceImpl implements PaymentRecordReportServic
 			String machNo = null;
 			Date nowDate = currentTime == null ? Calendar.getInstance().getTime() : currentTime;
 			PaymentRecordReport paymentRecordReport = null;
-			paymentRecordReport = paymentRecordReportRepository.findFirstByOrderBySweepCodeTimeDesc();
 			String todayDate = null;
 			for(PaymentRecordReportView paymentRecordReportView : list ) {
 				machNo = paymentRecordReportView.getMachno();
-				if(paymentRecordReport!=null) {
-					todayDate = df.format(paymentRecordReport.getSweepCodeTime()) + "%";
-					paymentRecordReport = paymentRecordReportRepository.findPaymentRecordReportData(machNo,todayDate);
-				}
+				todayDate = df.format(nowDate) + "%";
+				paymentRecordReport = paymentRecordReportRepository.findPaymentRecordReportData(machNo,todayDate);
 				amount = paymentRecordReportView.getAmount();
 				if (paymentRecordReport == null) {
 					logger.debug("保存到支付金额统表数据为:{}",new Gson().toJson(paymentRecordReportView));
@@ -134,7 +131,7 @@ public class PaymentRecordReportServiceImpl implements PaymentRecordReportServic
 					}
 				} else {
 					logger.info("更新支付金额统计表数据为:{}",new Gson().toJson(paymentRecordReportView));
-					if (amount != paymentRecordReport.getAmounts()) {
+					if (amount != paymentRecordReport.getAmounts()  && !nowDate.before(paymentRecordReport.getSweepCodeTime())) {
 						paymentRecordReport.setLastOperator("scheduled");
 						paymentRecordReport.setAmounts(amount);
 						paymentRecordReport.setLastOperateTime(nowDate);
