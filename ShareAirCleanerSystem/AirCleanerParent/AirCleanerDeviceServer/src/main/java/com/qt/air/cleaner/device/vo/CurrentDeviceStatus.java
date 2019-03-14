@@ -7,7 +7,6 @@ public class CurrentDeviceStatus implements Serializable {
 	private String machno;
 	private String devicesequence;
 	private Integer counts = 0;
-	
 	public String getMachno() {
 		return machno;
 	}
