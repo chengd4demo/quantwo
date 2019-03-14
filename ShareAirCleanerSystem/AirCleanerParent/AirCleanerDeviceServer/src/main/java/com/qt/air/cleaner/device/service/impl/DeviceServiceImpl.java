@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.gson.Gson;
 import com.qt.air.cleaner.base.dto.RequestParame;
 import com.qt.air.cleaner.base.dto.ResultCode;
 import com.qt.air.cleaner.base.dto.ResultInfo;
@@ -401,7 +402,7 @@ public class DeviceServiceImpl implements DeviceService {
 	
 	@SuppressWarnings("unchecked")
 	private List<TraderDevice>findInvestorForTrader(RequestParame requestParame){
-		logger.info("execute method findInvestorForTrader() param --> requestParame:{}", requestParame);
+		logger.info("execute method findInvestorForTrader() param --> requestParame:{}", new Gson().toJson(requestParame));
 		String investorId = requestParame.getData().get("investorId");
 		StringBuffer sql = new StringBuffer();
 		sql.append("SELECT count, name, usecount, address,traderid ");
@@ -460,7 +461,7 @@ public class DeviceServiceImpl implements DeviceService {
 	 */
 	@Override
 	public ResultInfo queryInvestorForTrader(@RequestBody RequestParame requestParame) {
-		logger.info("execute method queryInvestorForTrader() param --> requestParame:{}", requestParame);
+		logger.info("execute method queryInvestorForTrader() param --> requestParame:{}", new Gson().toJson(requestParame));
 		List<TraderDevice> traderDevice = this.findInvestorForTrader(requestParame);
 		return new ResultInfo(String.valueOf(ResultCode.SC_OK), "success", traderDevice);
 	}
@@ -486,7 +487,7 @@ public class DeviceServiceImpl implements DeviceService {
 	 */
 	@SuppressWarnings("unchecked")
 	private List<CurrentDeviceStatus>findDeviceCounts(RequestParame requestParame){
-		logger.info("execute method findDeviceCounts() param --> requestParame:{}", requestParame);
+		logger.info("execute method findDeviceCounts() param --> requestParame:{}", new Gson().toJson(requestParame));
 		String traderId = requestParame.getData().get("traderId");
 		String investorId = requestParame.getData().get("investorId");
 		String companyId = requestParame.getData().get("companyId");
@@ -544,7 +545,7 @@ public class DeviceServiceImpl implements DeviceService {
 	 */
 	@Override
 	public ResultInfo queryDeviceCounts(@RequestBody RequestParame requestParame) {
-		logger.info("execute method queryDeviceCounts() param --> requestParame:{}", requestParame);
+		logger.info("execute method queryDeviceCounts() param --> requestParame:{}", new Gson().toJson(requestParame));
 		List<CurrentDeviceStatus> conuts = this.findDeviceCounts(requestParame);
 		return new ResultInfo(String.valueOf(ResultCode.SC_OK), "success", conuts);
 	}
