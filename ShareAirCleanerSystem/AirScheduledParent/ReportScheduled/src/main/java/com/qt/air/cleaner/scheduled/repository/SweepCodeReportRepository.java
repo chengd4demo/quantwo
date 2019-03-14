@@ -9,7 +9,7 @@ import com.qt.air.cleaner.scheduled.domain.SweepCodeReport;
 
 @Repository
 public interface SweepCodeReportRepository extends JpaRepository<SweepCodeReport, String> {
-	@Query(value="select t.* from rep_sweep_code t where t.mach_no=:machNo and to_char(t.sweep_code_time,'yyyy-mm-dd hh24:mi:ss') like :sweepCodeTime",nativeQuery = true)
+	@Query(value="select * from ( select t.id, t.create_time, t.creater, t.operate_time, t.operator, t.removed, t.company_id, t.investor_id, t.mach_no, t.saler_id, t.sweep_code_time, t.total, t.trader_id from rep_sweep_code t order by t.sweep_code_time desc ) " + 
+			"where mach_no = :machNo  and to_char(sweep_code_time,'yyyy-mm-dd hh24:mi:ss') like :sweepCodeTime and rownum <= 1",nativeQuery = true)
 	SweepCodeReport findSweepCodeReportData(@Param("machNo") String machNo,@Param("sweepCodeTime") String sweepCodeTime);
-	SweepCodeReport findFirstByOrderBySweepCodeTimeDesc();
 }

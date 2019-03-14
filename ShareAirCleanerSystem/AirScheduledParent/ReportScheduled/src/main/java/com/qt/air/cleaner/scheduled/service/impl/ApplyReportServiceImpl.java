@@ -84,14 +84,11 @@ public class ApplyReportServiceImpl implements ApplyReportService {
 				String machNo = null;
 				Date nowDate = Calendar.getInstance().getTime();
 				ApplyReport applyReport = null;
-				applyReport = applyReportRepository.findFirstByOrderBySweepCodeTimeDesc();
 				String todayDate = null;
 				for(ApplyReporView applyReporView : list ) {
 					machNo = applyReporView.getMachno();
-					if(applyReport!=null) {
-						todayDate = df.format(applyReport.getSweepCodeTime()) + '%';
-						applyReport = applyReportRepository.findSweepCodeReportData(machNo,todayDate);
-					}
+					todayDate = df.format(nowDate) + '%';
+					applyReport = applyReportRepository.findSweepCodeReportData(machNo,todayDate);
 					total = applyReporView.getTotal();
 					if (applyReport == null) {
 						logger.debug("保存到使用统计表数据为:{}",new Gson().toJson(applyReporView));
@@ -131,10 +128,12 @@ public class ApplyReportServiceImpl implements ApplyReportService {
 						}
 					} else {
 						logger.debug("更新支付金额统计表数据为:{}",new Gson().toJson(applyReporView));
-						applyReport.setLastOperator("scheduled");
-						applyReport.setTotal(total);
-						applyReport.setLastOperateTime(nowDate);
-						applyReportRepository.saveAndFlush(applyReport);
+						if (total != applyReport.getTotal() && !nowDate.before(applyReport.getSweepCodeTime())) {
+							applyReport.setLastOperator("scheduled");
+							applyReport.setTotal(total);
+							applyReport.setLastOperateTime(nowDate);
+							applyReportRepository.saveAndFlush(applyReport);
+						}
 					}
 				}
 			}
@@ -147,6 +146,11 @@ public class ApplyReportServiceImpl implements ApplyReportService {
 	
 	private static Date convertStrToDate(String dateStr) throws ParseException {  
 	    return new SimpleDateFormat("yyyy-MM-dd").parse(dateStr);  
+	}
+	
+	public static void main(String[] args) throws ParseException {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		System.out.println(df.parse("2019-03-10 15:47:00").after(new Date()));
 	}
 
 }

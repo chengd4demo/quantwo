@@ -84,14 +84,11 @@ public class SweepCodeReportServiceImpl implements SweepCodeReportService {
 			Long total = 0L;
 			Date nowDate = currentTime == null ? Calendar.getInstance().getTime() : currentTime;
 			SweepCodeReport sweepCodeReport = null;
-			sweepCodeReport  = sweepCodeReportRepository.findFirstByOrderBySweepCodeTimeDesc();
 			String todayDate = null;
 			for(SweepCodeReportView sweepCodeReportView : list ) {
 				machNo = sweepCodeReportView.getMachno();
-				if(sweepCodeReport!=null) {
-					todayDate = df.format(sweepCodeReport.getSweepCodeTime()) + '%';
-					sweepCodeReport = sweepCodeReportRepository.findSweepCodeReportData(machNo,todayDate);
-				}
+				todayDate = df.format(nowDate) + '%';
+				sweepCodeReport = sweepCodeReportRepository.findSweepCodeReportData(machNo,todayDate);
 				total = sweepCodeReportView.getTotal();
 				if (sweepCodeReport == null) {
 					logger.info("保存到扫码统计表数据为:{}",new Gson().toJson(sweepCodeReportView));
@@ -129,7 +126,7 @@ public class SweepCodeReportServiceImpl implements SweepCodeReportService {
 					}
 				} else {
 					logger.info("更新扫码统计表数据为:{}",new Gson().toJson(sweepCodeReportView));
-					if(total != sweepCodeReport.getTotal()){
+					if(total != sweepCodeReport.getTotal()  && !nowDate.before(sweepCodeReport.getSweepCodeTime())){
 						sweepCodeReport.setLastOperator("scheduled");
 						sweepCodeReport.setLastOperateTime(nowDate);
 						sweepCodeReport.setTotal(total);
