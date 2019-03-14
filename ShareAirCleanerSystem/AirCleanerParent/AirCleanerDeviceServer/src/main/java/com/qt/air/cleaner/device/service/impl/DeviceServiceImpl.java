@@ -401,6 +401,7 @@ public class DeviceServiceImpl implements DeviceService {
 	
 	@SuppressWarnings("unchecked")
 	private List<TraderDevice>findInvestorForTrader(RequestParame requestParame){
+		logger.info("execute method findInvestorForTrader() param --> requestParame:{}", requestParame);
 		String investorId = requestParame.getData().get("investorId");
 		StringBuffer sql = new StringBuffer();
 		sql.append("SELECT count, name, usecount, address,traderid ");
@@ -470,6 +471,7 @@ public class DeviceServiceImpl implements DeviceService {
 	 */
 	@Override
 	public String queryDevice(String deviceSequence) {
+		logger.info("execute method queryInvestorForTrader() param --> requestParame:{}", deviceSequence);
 		String machNo = null;
 		Device device = deviceRepository.findByDeviceSequence(deviceSequence);
 		if (device != null) machNo = device.getMachNo();
@@ -484,6 +486,7 @@ public class DeviceServiceImpl implements DeviceService {
 	 */
 	@SuppressWarnings("unchecked")
 	private List<CurrentDeviceStatus>findDeviceCounts(RequestParame requestParame){
+		logger.info("execute method findDeviceCounts() param --> requestParame:{}", requestParame);
 		String traderId = requestParame.getData().get("traderId");
 		String investorId = requestParame.getData().get("investorId");
 		String companyId = requestParame.getData().get("companyId");
@@ -541,6 +544,7 @@ public class DeviceServiceImpl implements DeviceService {
 	 */
 	@Override
 	public ResultInfo queryDeviceCounts(@RequestBody RequestParame requestParame) {
+		logger.info("execute method queryDeviceCounts() param --> requestParame:{}", requestParame);
 		List<CurrentDeviceStatus> conuts = this.findDeviceCounts(requestParame);
 		return new ResultInfo(String.valueOf(ResultCode.SC_OK), "success", conuts);
 	}
