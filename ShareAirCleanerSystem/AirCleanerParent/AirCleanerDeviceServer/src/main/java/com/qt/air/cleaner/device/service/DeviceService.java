@@ -86,7 +86,7 @@ public interface DeviceService {
 	 * @param machNo
 	 * @return
 	 */
-	@RequestMapping(value = "/queryTurnState/{machNo}",method = RequestMethod.POST)
+	@RequestMapping(value = "/queryTurnState/{machNo}",method = RequestMethod.GET)
 	ResultInfo queryTurnState(@PathVariable("machNo") String machNo);
 
 }

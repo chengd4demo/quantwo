@@ -126,7 +126,7 @@ public class DeviceChannelController {
 		}
 	}
 	
-	@PostMapping("/queryTurnState/{machNo}")
+	@GetMapping("/queryTurnState/{machNo}")
 	ResultInfo queryTurnState(@PathVariable("machNo") String machNo) {
 		logger.info("execute method queryTurnState() param --> requestParame:{}",machNo);
 		try {
