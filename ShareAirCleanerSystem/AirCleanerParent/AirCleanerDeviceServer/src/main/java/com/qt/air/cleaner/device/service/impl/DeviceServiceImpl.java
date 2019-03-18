@@ -560,13 +560,18 @@ public class DeviceServiceImpl implements DeviceService {
 	public ResultInfo queryTurnState(@PathVariable("machNo") String machNo) {
 		logger.info("execute method queryTurnState() param --> machNo:{}", machNo);
 		DeviceResult deviceResult = null;
+		int result = 0;
 		try {
 			deviceResult = DeviceUtil.queryDeviceState(machNo);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("查询设备状态异常：{}",e.getMessage());
-			return new ResultInfo(String.valueOf(ResultCode.SC_OK), "success", 0);
+			return new ResultInfo(String.valueOf(ResultCode.SC_OK), "success", result);
 		}
-		return new ResultInfo(String.valueOf(ResultCode.SC_OK), "success", deviceResult == null ? 0 : deviceResult.getTurnOn());
+		if(deviceResult.getOnline()!=0) {
+			result = deviceResult.getTurnOn();
+		}
+		return new ResultInfo(String.valueOf(ResultCode.SC_OK), "success", result);
+		
 	}
 }
