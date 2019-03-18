@@ -2,7 +2,7 @@ spring:
   application:
     name: accounts-server
   profiles:
-    active: test
+    active: prod
 server:
   port: 3005
 eureka:

@@ -2,7 +2,7 @@ spring:
   application:
     name: pay-server
   profiles:
-    active: test
+    active: prod
 server:
   port: 3002
 eureka:
