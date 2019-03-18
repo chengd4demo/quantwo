@@ -28,6 +28,7 @@ import com.qt.air.cleaner.base.dto.ResultInfo;
 import com.qt.air.cleaner.base.exception.BusinessRuntimeException;
 import com.qt.air.cleaner.order.domain.AccountInBound;
 import com.qt.air.cleaner.order.repository.AccountInBoundRepository;
+import com.qt.air.cleaner.order.repository.InvestorRepository;
 import com.qt.air.cleaner.order.repository.TraderRepository;
 import com.qt.air.cleaner.order.service.AccountInBoundService;
 import com.qt.air.cleaner.order.vo.AccountInBoundView;
@@ -38,6 +39,8 @@ public class AccountInBoundServiceImpl implements AccountInBoundService {
 	private static final Logger logger = LoggerFactory.getLogger(AccountInBoundServiceImpl.class);
 	@Resource
 	private TraderRepository traderRepository;
+	@Resource
+	private InvestorRepository investorRepository;
 	@Resource
 	private AccountInBoundRepository accountInBoundRepository;
 	/**
@@ -88,7 +91,7 @@ public class AccountInBoundServiceImpl implements AccountInBoundService {
 				view.setDiscountStr(inBound.getBilling().getDiscountStr());
 				view.setCreateTimeStr(dateFormat.format(inBound.getBilling().getCreateTime()));
 				if(StringUtils.equals("投资商", inBound.getType())){
-					String address = traderRepository.findByWeixinAndDeviceId(weixin, inBound.getBilling().getDeviceId());
+					String address = investorRepository.findByWeixinAndDeviceId(weixin, inBound.getBilling().getDeviceId());
 					if(StringUtils.isEmpty(address)) {
 						view.setAddress("-");
 					}else {
