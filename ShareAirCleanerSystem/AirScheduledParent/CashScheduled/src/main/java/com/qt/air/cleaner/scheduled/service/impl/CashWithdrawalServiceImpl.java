@@ -219,7 +219,11 @@ public class CashWithdrawalServiceImpl implements CashWithdrawalService {
 					outBound.setErrorCode(errorCode);
 					outBound.setErrorMsg(errorMsg);
 					// 更新出账记录为错误状态，并设置此记录为无效
-					outBound.setState(AccountOutBound.ACCOUNT_OUT_BOUND_STATE_ERROR);
+					if (!StringUtils.equals("NO_AUTH", errorCode)) {
+						outBound.setState(AccountOutBound.ACCOUNT_OUT_BOUND_STATE_FAIL);
+					} else {
+						outBound.setState(AccountOutBound.ACCOUNT_OUT_BOUND_STATE_ERROR);
+					}
 				}
 			} else {
 				String errorMsg = responseResult.get("return_msg");
