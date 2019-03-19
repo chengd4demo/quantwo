@@ -54,16 +54,19 @@ public class AccountInBoundServiceImpl implements AccountInBoundService {
 	@Override
 	public ResultInfo queryAccountInbound(@RequestBody RequestParame requestParame) throws BusinessRuntimeException {
 		String weixin = requestParame.getData().get("weixin");
+		String userType = requestParame.getData().get("userType");
 		Integer start = requestParame.getPage().getStart();
 		Integer end = requestParame.getPage().getEnd();
 		Pageable pageable = new PageRequest(start, end, Sort.Direction.DESC, "createTime");
 		logger.info("execute method queryAccountInbound() param --> weixin:{}", requestParame);
+		//根据accountId查询出收入明细，避免更换微信不能查之前的数据
+		String accountId = accountInBoundRepository.findAccountId(weixin, userType);
 		Specification<AccountInBound> specification = new Specification<AccountInBound>() {			
 			@Override
 			public Predicate toPredicate(Root<AccountInBound> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder cb) {
 				List<Predicate> conditions = new ArrayList<>();
 				if (StringUtils.isNotBlank(weixin)) { 
-					Predicate p1 = cb.equal(root.get("weixin"), weixin);
+					Predicate p1 = cb.equal(root.get("account").get("id"), accountId);
 					conditions.add(p1);
 				}
 				Predicate p4 = cb.equal(root.get("removed"), false);

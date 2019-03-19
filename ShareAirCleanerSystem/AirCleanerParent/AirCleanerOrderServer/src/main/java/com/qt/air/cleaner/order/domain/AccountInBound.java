@@ -5,13 +5,20 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.OneToOne;
+import javax.persistence.ParameterMode;
+import javax.persistence.StoredProcedureParameter;
 import javax.persistence.Table;
 
 import com.qt.air.cleaner.base.domain.GenericEntity;
 
 
 @Entity
+@NamedStoredProcedureQuery(name = "find_account_id", procedureName = "find_account_id", parameters = {
+@StoredProcedureParameter(mode = ParameterMode.IN, name = "wx", type = String.class),
+@StoredProcedureParameter(mode = ParameterMode.IN, name = "utype", type = String.class),
+@StoredProcedureParameter(mode = ParameterMode.OUT, name = "accountId", type = String.class)})
 @Table(name = "ACT_ACCOUNT_INBOUND")
 public class AccountInBound extends GenericEntity {
 	
