@@ -51,6 +51,9 @@ public class AccountOutBound extends GenericEntity {
 	// 提现方式-转账
 	public static final Integer ACCOUNT_OUT_BOUND_MODE_TRANSFER = 1;
 	
+	//取消提现
+	public static final Integer ACCOUNT_OUT_BOUND_STATE_CANCEL = 9;
+	
 	@Transient
 	private String cashModeStr;
 	
