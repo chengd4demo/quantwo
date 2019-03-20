@@ -57,6 +57,8 @@ public class AccountOutBound extends GenericEntity {
 		//出账记录状态-- 发放中
 		public static final Integer ACCOUNT_OUT_BOUND_STATE_SEND_ING = 8;
 
+		//出账记录状态-- 已取消
+		public static final Integer ACCOUNT_OUT_BOUND_STATE_CANCEL = 9;
 		
 		// 提现方式--红包
 		public static final Integer ACCOUNT_OUT_BOUND_MODE_REDPACK = 0;

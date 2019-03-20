@@ -79,8 +79,6 @@ public class AccountOutBoundServiceImpl implements AccountOutBoundService{
 	 * @param method
 	 */
 	private void whereFiled(Root<AccountOutBound>  root, CriteriaBuilder cb, List<Predicate> conditions,String timeStr,Integer state, String method) {
-		Predicate p3 = cb.equal(root.get("removed"), false);
-		conditions.add(p3);
 		if (StringUtils.isNotBlank(timeStr)) {
 			// 处理时间
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -116,6 +114,8 @@ public class AccountOutBoundServiceImpl implements AccountOutBoundService{
 				stateList = Arrays.asList(-1,0,1,2,3);
 			}
 		} else {
+			Predicate p3 = cb.equal(root.get("removed"), false);
+			conditions.add(p3);
 			if (state != null) {
 				stateList = Arrays.asList(state);
 			} else {
