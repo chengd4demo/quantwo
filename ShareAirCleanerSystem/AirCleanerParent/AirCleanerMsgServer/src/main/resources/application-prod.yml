@@ -1,16 +1,16 @@
 spring: 
   datasource: 
     driver-class-name: oracle.jdbc.driver.OracleDriver
-    url: jdbc:oracle:thin:@222.212.93.11:8819:orcl
+    url: jdbc:oracle:thin:@192.168.1.238:8819:orcl
     username: market
     password: market2018
   jpa:
     show-sql: true   
   redis:
     database: 1
-    host: 192.168.13.202
+    host: 192.168.1.238
     port: 6379
-    password: 
+    password: quantu%78@ksdf! 
     timeout: 2000
     pool:
       max-active: 8
