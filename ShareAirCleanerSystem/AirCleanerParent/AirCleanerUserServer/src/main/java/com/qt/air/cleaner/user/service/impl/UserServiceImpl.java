@@ -667,7 +667,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public ResultInfo authorize(@RequestParam("userType") String userType) {
 		logger.info("execute method authorize() param: --> {}", userType);
-		String redirectUrl = "http://quantwo.cn/app.html";
+		String redirectUrl = "http://zf2.quantwo.cn/app.html";
 	    String url = WechatMpCore.generateWechatUrl(appId, "snsapi_userinfo", redirectUrl,
 				"MERCHANT".equals(userType) ? "merchant" : "customere");
 		logger.info(url);
