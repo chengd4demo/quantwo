@@ -1,7 +1,7 @@
 spring: 
   datasource: 
     driver-class-name: oracle.jdbc.driver.OracleDriver
-    url: jdbc:oracle:thin:@192.168.1.238:8819:orcl
+    url: jdbc:oracle:thin:@192.168.1.238:8818:orcl
     username: market
     password: market2018
   jpa:
@@ -39,7 +39,7 @@ o2:
       body:
         description: 圈兔圈网络-空气净化器
       notify: 
-        url: http://www.quantwo.cn/wxpament
+        url: http://zf2.quantwo.cn/wxpament
       mah:
         id: 1511610321
       app: 
@@ -48,4 +48,4 @@ o2:
       api: 
         secret: quantuztwyzl39quantwoquantuztwyz
   system:
-    domain: http://quantwo.cn/app.html
+    domain: http://zf2.quantwo.cn/app.html
