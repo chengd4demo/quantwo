@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.qt.air.cleaner.base.utils.CalculateUtils;
 import com.qt.air.cleaner.scheduled.domain.Account;
 import com.qt.air.cleaner.scheduled.domain.AccountInBound;
 import com.qt.air.cleaner.scheduled.domain.Agent;
@@ -43,8 +44,8 @@ public class AccountServiceImpl implements AccountService {
 		inBound.setCreater("defalut");
 		inBound.setCreateTime(Calendar.getInstance().getTime());
 		accountInBoundRepository.saveAndFlush(inBound);
-		account.setTotalAmount(account.getTotalAmount() + amount);
-		account.setFreezingAmount(account.getFreezingAmount() + amount);
+		account.setTotalAmount(CalculateUtils.add(account.getTotalAmount(),amount));
+		account.setFreezingAmount(CalculateUtils.add(account.getFreezingAmount(),amount));
 		accountRepository.saveAndFlush(account);
 		
 	}
@@ -64,8 +65,8 @@ public class AccountServiceImpl implements AccountService {
 		inBound.setCreater("defalut");
 		inBound.setCreateTime(Calendar.getInstance().getTime());
 		accountInBoundRepository.saveAndFlush(inBound);
-		account.setTotalAmount(account.getTotalAmount() + amount);
-		account.setFreezingAmount(account.getFreezingAmount() + amount);
+		account.setTotalAmount(CalculateUtils.add(account.getTotalAmount(),amount));
+		account.setFreezingAmount(CalculateUtils.add(account.getFreezingAmount(),amount));
 		accountRepository.saveAndFlush(account);
 	}
 
@@ -84,8 +85,8 @@ public class AccountServiceImpl implements AccountService {
 		inBound.setCreater("defalut");
 		inBound.setCreateTime(Calendar.getInstance().getTime());
 		accountInBoundRepository.save(inBound);
-		account.setTotalAmount(account.getTotalAmount() + amount);
-		account.setFreezingAmount(account.getFreezingAmount() + amount);
+		account.setTotalAmount(CalculateUtils.add(account.getTotalAmount(),amount));
+		account.setFreezingAmount(CalculateUtils.add(account.getFreezingAmount(),amount));
 		accountRepository.saveAndFlush(account);
 	}
 
@@ -100,8 +101,8 @@ public class AccountServiceImpl implements AccountService {
 		inBound.setName(agent.getName());
 		inBound.setWeixin(agent.getWeixin());
 		inBound.setBilling(billing);
-		inBound.setAmount(amount);
-		inBound.setAccount(account);
+		account.setTotalAmount(CalculateUtils.add(account.getTotalAmount(),amount));
+		account.setFreezingAmount(CalculateUtils.add(account.getFreezingAmount(),amount));
 		inBound.setCreater("defalut");
 		
 	}
