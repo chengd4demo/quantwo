@@ -125,7 +125,7 @@ public class AgentServiceImpl implements AgentService {
 				agent.setLastOperateTime(nowDate);
 				agent.setLastOperator(principal.getUser().getUsername());
 				Account account = new Account();
-				account.setAccountType(Account.ACCOUNT_TYPE_COMPANY);
+				account.setAccountType(agent.getType());
 				account.setCreateTime(nowDate);
 				account.setCreater(principal.getUser().getUsername());
 				account =  accountRepository.saveAndFlush(account);
