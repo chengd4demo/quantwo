@@ -30,11 +30,13 @@ layui.use(['table', 'form', 'layer', 'vip_table','laydate'], function(){
 						}, {
 							field: 'name',
 							title: '用户名称',
+							sort: true,
 							width: 200
 						}, {
 							field: 'type',
 							title: '用户类型',
 							align: 'center',
+							sort: true,
 							width: 90
 						}, {
 							field: 'amount',

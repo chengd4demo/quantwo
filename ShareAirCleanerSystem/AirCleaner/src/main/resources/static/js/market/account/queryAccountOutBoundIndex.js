@@ -39,6 +39,7 @@ layui.use(['table', 'form', 'layer', 'vip_table','laydate'], function(){
 						}, {
 							field: 'timeEnd',
 							title: '支付完成时间',
+							templet: '#stateTime',
 							sort: true,
 							width: 180
 						}, {
