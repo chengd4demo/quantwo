@@ -44,7 +44,7 @@ layui.use(['table', 'form', 'layer', 'vip_table','laydate'], function(){
 						}, {
 							field: 'weixin',
 							title: '微信号',
-							width: 260
+							width: 110
 						}, {
 							field: 'inBoundTime',
 							title: '入账时间',
