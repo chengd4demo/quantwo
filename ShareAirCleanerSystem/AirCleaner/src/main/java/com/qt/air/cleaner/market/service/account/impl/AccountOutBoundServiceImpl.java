@@ -145,12 +145,14 @@ public class AccountOutBoundServiceImpl implements AccountOutBoundService{
 					outBoundRejectReason.setRejectReason(accountOutBoundView.getRejectReason());
 					accountOutBound.setOutBoundRejectReason(outBoundRejectReason);
 				}
-				//审核拒绝,回滚冻结金额、可用余额、总额
-				Account account = accountOutBound.getAccount();
-				account.setFreezingAmount(CalculateUtils.sub(account.getFreezingAmount(), accountOutBound.getAmount()));
-				account.setAvailableAmount(CalculateUtils.add(account.getAvailableAmount(), accountOutBound.getAmount()));
-				account.setTotalAmount(CalculateUtils.add(account.getTotalAmount(), accountOutBound.getAmount()));
-				accountOutBound.setAccount(account);
+			    if(state == 3) {
+			    	//审核拒绝,回滚冻结金额、可用余额、总额
+					Account account = accountOutBound.getAccount();
+					account.setFreezingAmount(CalculateUtils.sub(account.getFreezingAmount(), accountOutBound.getAmount()));
+					account.setAvailableAmount(CalculateUtils.add(account.getAvailableAmount(), accountOutBound.getAmount()));
+					account.setTotalAmount(CalculateUtils.add(account.getTotalAmount(), accountOutBound.getAmount()));
+					accountOutBound.setAccount(account);
+			    }
 				accountOutBoundRepository.saveAndFlush(accountOutBound);
 			} else {
 				throw new BusinessException(ErrorCodeEnum.ES_9011.getErrorCode(), ErrorCodeEnum.ES_9011.getMessage());
