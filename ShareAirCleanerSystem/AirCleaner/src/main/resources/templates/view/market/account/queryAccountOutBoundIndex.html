@@ -168,9 +168,11 @@
 	
 	<!-- 支付完成时间 -->
 	<script type="textml" id="stateTime">
-		{{#  if(d.timeEnd == null){ this.timeEnd == d.createTime }}
-			
-		{{#  } }}
+		{{#  if(d.timeEnd == ''){}}
+			{{ d.applyTime }}
+		{{#  } else { }}
+			 {{ d.timeEnd }}
+  		{{#  } }}
 	</script>
 	
 <script type="text/javascript" src="../../../js/market/account/queryAccountOutBoundIndex.js"></script>
