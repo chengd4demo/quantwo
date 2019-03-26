@@ -51,11 +51,6 @@ layui.use(['table', 'form', 'layer', 'vip_table','laydate'], function(){
 							sort: true,
 							width: 170
 						}, {
-							field: 'amount',
-							title: '支付金额(元)',
-							align: 'center',
-							width: 135
-						}, {
 							field: 'state',
 							title: '状态',
 							templet: '#stateTag',
