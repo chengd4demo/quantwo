@@ -15,7 +15,7 @@
 		<form class="layui-form" layui-form="device" action="" th:object="${device}" >
 		<input type="hidden" name ="id" th:field="*{id}"/>	
 		<input type="hidden" name ="deviceBatchId" th:field="*{deviceBatchId}"/>
-		<input type="hidden" name ="lot" th:fileld="*{lot}"/>	
+		<input type="hidden" name ="lot" th:field="*{lot}"/>	
 		<input id="distributionRatioId" type="hidden" name ="distributionRatio" th:field="*{distributionRatio}"/>		
 		     <!--设备序列号-->
 		    <div class="layui-form-item" th:if="${device.id != null}">
