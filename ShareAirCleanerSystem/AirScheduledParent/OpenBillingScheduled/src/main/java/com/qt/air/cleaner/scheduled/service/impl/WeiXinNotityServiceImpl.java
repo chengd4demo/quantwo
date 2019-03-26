@@ -215,8 +215,10 @@ public class WeiXinNotityServiceImpl implements WeiXinNotityService {
 		Map<String,Integer> shareProfit = getDistributionRatio(device.getDistributionRatio());
 		Investor investor = device.getInvestor();
 		Integer proportion = shareProfit.get(Investor.class.getSimpleName());
-		Float investorAmount = (totalAmount * proportion / 100) >= 0.10f ? (totalAmount * proportion / 100) - ((billing.getCostTime() / 60) * this.free == 0.00f ? 0.09f : this.free)
-				: totalAmount * proportion / 100; // 每小时扣除0.09耗材费用
+		Integer costTimeInteger = billing.getCostTime() / 60;
+		Float realyFree = this.free == 0.00f ? 0.09f : this.free;
+		// 每小时扣除0.09耗材费用
+		Float investorAmount = CalculateUtils.getInvestorAmount(totalAmount,proportion,costTimeInteger,realyFree);
 		BigDecimal bigDecimal = new BigDecimal(String.valueOf(investorAmount));
 		investorAmount = bigDecimal.setScale(2, BigDecimal.ROUND_DOWN).floatValue();
 		if (investorAmount > 0.00f) {
@@ -226,9 +228,7 @@ public class WeiXinNotityServiceImpl implements WeiXinNotityService {
 		/**商家开账逻辑*/
 		Trader trader = device.getTrader();
 		proportion = shareProfit.get(Trader.class.getSimpleName());
-		Float traderAmount = totalAmount * proportion / 100;
-		bigDecimal = new BigDecimal(String.valueOf(traderAmount));
-		traderAmount = bigDecimal.setScale(2, BigDecimal.ROUND_DOWN).floatValue();
+		Float traderAmount = CalculateUtils.getTraderAmount(totalAmount, proportion);
 		if (traderAmount > 0.00f) {
 			accountService.updateTraderAccount(billing, trader, traderAmount);
 		}
@@ -236,23 +236,24 @@ public class WeiXinNotityServiceImpl implements WeiXinNotityService {
 		/**代理开账逻辑*/
 		//获取代理商id
 		List<String> agentIds = getAgentIds(device.getDistributionRatio());
-		Float beforOpenAmount = totalAmount - investorAmount - traderAmount;
+		Float agentAmount = 0.00f;
 		//执行代理商开账业务
 		if (agentIds.size() > 0 ) {
 			String agentId = null;
 			for(int i=0;i<agentIds.size();i++) {
 				agentId = agentIds.get(i);
-				beforOpenAmount = openAgent(agentId,shareProfit,totalAmount,billing,beforOpenAmount);
+				agentAmount = openAgent(agentId,shareProfit,totalAmount,billing);
 			}
 		}
 		/**公司开账逻辑*/
 		Company company = device.getCompany();
 		proportion = shareProfit.get(Company.class.getSimpleName());
-		Float companyAmount = totalAmount * proportion / 100;
-		if (companyAmount < (beforOpenAmount)) {
-			companyAmount = beforOpenAmount;
-			bigDecimal = new BigDecimal(String.valueOf(companyAmount));
-			companyAmount = bigDecimal.setScale(2, BigDecimal.ROUND_DOWN).floatValue();
+		Float companyAmount = CalculateUtils.getCompanyAmount(totalAmount, proportion);
+		Float unitComapnyAmount = new BigDecimal(Float.toString(CalculateUtils.sub(totalAmount, investorAmount)))
+			.subtract(new BigDecimal(Float.toString(traderAmount))).subtract(new BigDecimal(Float.toString(agentAmount)))
+			.setScale(2, BigDecimal.ROUND_DOWN).floatValue();
+		if (companyAmount < unitComapnyAmount) {
+			companyAmount = unitComapnyAmount;
 		}
 		if (companyAmount > 0.00f)
 		accountService.updateCompanyAccount(billing, company, companyAmount);
@@ -265,20 +266,17 @@ public class WeiXinNotityServiceImpl implements WeiXinNotityService {
 	 * @param shareProfit
 	 * @param totalAmount
 	 * @param billingId
-	 * @param beforOpenAmount
 	 */
-	private Float openAgent(String agentId,Map<String,Integer> shareProfit,Float totalAmount,Billing billing,Float beforOpenAmount) {
+	private Float openAgent(String agentId,Map<String,Integer> shareProfit,Float totalAmount,Billing billing) {
 		Agent agent = agentRepository.findByIdAndRemoved(agentId, Boolean.FALSE);
 		String type = agent.getType();
 		Integer proportion  = StringUtils.equals(ShareProfit.ACCOUNT_TYPE_AGENT_DL, type) ? shareProfit.get(Agent.class.getSimpleName()) 
 				: shareProfit.get(Agent.class.getSimpleName() + ShareProfit.ACCOUNT_TYPE_AGENT_ZD);
-		Float agentAmount = totalAmount * proportion / 100;
-		BigDecimal bigDecimal = new BigDecimal(String.valueOf(agentAmount));
-		agentAmount = bigDecimal.setScale(2, BigDecimal.ROUND_DOWN).floatValue();
+		Float agentAmount = CalculateUtils.getAgentAmount(totalAmount, proportion);
 		if (agentAmount > 0.00f) {
 			accountService.updateAgentAccount(billing,agent, agentAmount);
 		}
-		return CalculateUtils.sub(beforOpenAmount, agentAmount);
+		return agentAmount;
 	}
 
 	/**
@@ -294,7 +292,7 @@ public class WeiXinNotityServiceImpl implements WeiXinNotityService {
 		}
 		List<String> result = new ArrayList<>();
 		shareProfits.stream().forEach(p -> {
-			if (StringUtils.equals(ShareProfit.ACCOUNT_TYPE_AGENT_ZD, p.getType()) || StringUtils.equals(ShareProfit.ACCOUNT_TYPE_AGENT_DL, p.getType())) {
+			if (StringUtils.isNotBlank(p.getAgentId()) && (StringUtils.equals(ShareProfit.ACCOUNT_TYPE_AGENT_ZD, p.getType()) || StringUtils.equals(ShareProfit.ACCOUNT_TYPE_AGENT_DL, p.getType()))) {
 				result.add(p.getAgentId());
 			} 
 		});
@@ -320,15 +318,15 @@ public class WeiXinNotityServiceImpl implements WeiXinNotityService {
 		shareProfits.stream().forEach(s -> {
 			String type = s.getType();
 			if (StringUtils.equals(ShareProfit.ACCOUNT_TYPE_COMPANY, type)) {
-				result.put(Company.class.getName(), s.getScale().intValue());
+				result.put(Company.class.getSimpleName(), s.getScale().intValue());
 			}  else if (StringUtils.equals(ShareProfit.ACCOUNT_TYPE_AGENT_ZD, type)) {
-				result.put(Agent.class.getName() + ShareProfit.ACCOUNT_TYPE_AGENT_ZD, s.getScale().intValue());
+				result.put(Agent.class.getSimpleName() + ShareProfit.ACCOUNT_TYPE_AGENT_ZD, s.getScale().intValue());
 			} else if(StringUtils.equals(ShareProfit.ACCOUNT_TYPE_AGENT_DL, type)){
-				result.put(Agent.class.getName(),s.getScale().intValue());
+				result.put(Agent.class.getSimpleName(),s.getScale().intValue());
 			} else if(StringUtils.equals(ShareProfit.ACCOUNT_TYPE_TRADER, type)) {
-				result.put(Trader.class.getName(), s.getScale().intValue());
+				result.put(Trader.class.getSimpleName(), s.getScale().intValue());
 			}  else if(StringUtils.equals(ShareProfit.ACCOUNT_TYPE_INVESTOR, type)) {
-				result.put(Investor.class.getName(), s.getScale().intValue());
+				result.put(Investor.class.getSimpleName(), s.getScale().intValue());
 				this.free = s.getFree();
 			}
 		});
