@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -36,13 +37,13 @@ public class ShareProfit implements Serializable{
 		 * 分润比例
 		 */
 		@Column(name = "SCALE", precision = 2, nullable = true, insertable = true)
-		private Float scale = null;
+		private Float scale = 0.00f;
 		
 		/**
 		 * 手续费
 		 */
 		@Column(name = "FREE", precision = 2, nullable = true, insertable = true)
-		private Float free = null;
+		private Float free = 0.00f;;
 		
 		/**
 		 * 名称
@@ -59,9 +60,19 @@ public class ShareProfit implements Serializable{
 		/**
 		 * 代理商ID
 		 */
-		@Column(name = "AGENT_ID",  length = 32, nullable = true, insertable = true)
+		@Transient
 		private String agentId ;
+		@Column(name = "AGENT_ID",  length = 32, nullable = true, insertable = true)
+		private String agent_id;
 		
+		public String getAgent_id() {
+			return agent_id;
+		}
+
+		public void setAgent_id(String agent_id) {
+			this.agent_id = agent_id;
+		}
+
 		/**
 		 * 分润对象
 		 */
@@ -117,13 +128,9 @@ public class ShareProfit implements Serializable{
 		}
 
 		public String getAgentId() {
-			return agentId;
+			return this.getAgent_id();
 		}
 
-		public void setAgentId(String agentId) {
-			this.agentId = agentId;
-		}
-		
 		
 
 }
