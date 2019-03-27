@@ -43,6 +43,7 @@ public class ScheduledTasks {
 	 */
 	@Scheduled(fixedRate = 60000)
 	public void sendCashCurrentTime() {
+		System.out.println("微信发送红包：" + dateFormat.format(new Date()));
 		cashWithdrawalService.sendRedWithdrawal();
 	}
 	
@@ -50,7 +51,7 @@ public class ScheduledTasks {
 	 * 红包状态更新
 	 * 每三分钟执行一次
 	 */
-	@Scheduled(cron = "0 0/3 * * * ?")
+	@Scheduled(cron = "0 0/1 * * * ?")
 //	@Scheduled(fixedRate = 6000)
 	public void updateRedWithdrawalState() {
 		cashWithdrawalService.updateRedWithdrawalState();
