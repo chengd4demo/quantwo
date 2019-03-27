@@ -165,10 +165,12 @@ public class CashWithdrawalServiceImpl implements CashWithdrawalService {
 			try {
 				Float amount = 0.00f;
 				for(AccountOutBound outBound : outBoundList) {
-					if(outBound.getAmount()>0.00f) {
-						amount = (outBound.getAmount()) - (outBound.getAmount()*withholdTaxes);
+					if(outBound.getAmount()>1.10f) {
+						amount = CalculateUtils.sub(outBound.getAmount(), outBound.getAmount()*withholdTaxes);
 						sendRedPakMap = sendRedPack(amount, outBound.getCreater(), ip, outBound.getBillingNumber());
 						updateAccountOutBound(sendRedPakMap,outBound,true);
+					} else {
+						logger.warn("发送红包金额必须大于1.1元,当前金额为：{}",outBound.getAmount());
 					}
 				}
 			} catch (Exception e) {
@@ -201,8 +203,8 @@ public class CashWithdrawalServiceImpl implements CashWithdrawalService {
 					// 设置微信交易订单号
 					outBound.setTransactionId(transactionId);
 					// 更新账户出账记录和账务信息
-					account = outBound.getAccount();
-					account.setFreezingAmount(CalculateUtils.add(account.getFreezingAmount(), outBound.getAmount()));
+//					account = outBound.getAccount();
+//					account.setFreezingAmount(CalculateUtils.add(account.getFreezingAmount(), outBound.getAmount()));
 				} else {
 					String errorCode = responseResult.get("err_code");
 					String errorMsg = responseResult.get("err_code_des");
@@ -250,6 +252,8 @@ public class CashWithdrawalServiceImpl implements CashWithdrawalService {
 					} else if(status == AccountOutBound.ACCOUNT_OUT_BOUND_STATE_RECEIVE){
 						//已领取
 						outBound.setState(AccountOutBound.ACCOUNT_OUT_BOUND_STATE_RECEIVE);
+						outBound.setErrorCode(null);
+						outBound.setErrorMsg(null);
 						account.setFreezingAmount(CalculateUtils.sub(account.getFreezingAmount(), outBound.getAmount()));
 					} else {
 						//其它
@@ -373,6 +377,8 @@ public class CashWithdrawalServiceImpl implements CashWithdrawalService {
 		List<Integer> states = new ArrayList<Integer>();
 		states.add(AccountOutBound.ACCOUNT_OUT_BOUND_STATE_COMPLETE);
 		states.add(AccountOutBound.ACCOUNT_OUT_BOUND_STATE_FAIL);
+		states.add(AccountOutBound.ACCOUNT_OUT_BOUND_STATE_WATINT_RECEVIE);
+	    states.add(AccountOutBound.ACCOUNT_OUT_BOUND_STATE_SEND_ING);
 		List<AccountOutBound>  outBoundList = queryAccountOutBoundInTimes(states,startTime.getTime(),endTime.getTime());
 		if(!CollectionUtils.isEmpty(outBoundList)) {
 			Map<String,String> getbinfoMap = null;
