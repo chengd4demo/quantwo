@@ -134,6 +134,7 @@ public class WeiXinNotityServiceImpl implements WeiXinNotityService {
 						notity.setErrCodeDes("");
 						billing.setState(Billing.BILLING_STATE_ACCOUNT_OPENED);
 						billingRepository.saveAndFlush(billing);
+						weiXinNotityCurdRepository.saveAndFlush(notity);
 					} else {
 						notity.setErrCodeDes("当前微信通知与对应账单未处于待开帐状态。");
 						notity.setState(WeiXinNotity.WEIXIN_NOTITY_EXCEPTION);
