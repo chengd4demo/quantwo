@@ -309,11 +309,11 @@ public class DeviceServiceImpl implements DeviceService {
 		sql.append(" FROM (");
 		sql.append(" SELECT b.create_time, b.device_id, b.mach_no, b.cost_time AS costtime");
 		sql.append(", CASE ");
-		sql.append(" WHEN CEIL((SYSDATE - TO_DATE(TO_CHAR(b.operate_time, 'yyyy/mm/dd hh24:mi:ss'), 'yyyy/mm/dd"); sql.append("hh24:mi:ss')) * 24 * 60) > b.cost_time THEN '使用结束'");
+		sql.append(" WHEN CEIL((SYSDATE - TO_DATE(TO_CHAR(b.create_time, 'yyyy/mm/dd hh24:mi:ss'), 'yyyy/mm/dd"); sql.append("hh24:mi:ss')) * 24 * 60) > b.cost_time THEN '使用结束'");
 		sql.append(" ELSE '正在使用'");
 		sql.append(" END AS state");
 		sql.append(", CASE");
-		sql.append(" WHEN b.cost_time - CEIL((SYSDATE - TO_DATE(TO_CHAR(b.operate_time, 'yyyy/mm/dd hh24:mi:ss'),"); sql.append("'yyyy/mm/dd hh24:mi:ss')) * 24 * 60) > 0 THEN ROUND((b.cost_time - CEIL((SYSDATE -"); sql.append("TO_DATE(TO_CHAR(b.operate_time, 'yyyy/mm/dd hh24:mi:ss'), 'yyyy/mm/dd hh24:mi:ss')) * 24 * 60)) / 60, 2)");
+		sql.append(" WHEN b.cost_time - CEIL((SYSDATE - TO_DATE(TO_CHAR(b.create_time, 'yyyy/mm/dd hh24:mi:ss'),"); sql.append("'yyyy/mm/dd hh24:mi:ss')) * 24 * 60) > 0 THEN ROUND((b.cost_time - CEIL((SYSDATE -"); sql.append("TO_DATE(TO_CHAR(b.create_time, 'yyyy/mm/dd hh24:mi:ss'), 'yyyy/mm/dd hh24:mi:ss')) * 24 * 60)) / 60, 2)");
 		sql.append(" ELSE 0");
 		sql.append(" END AS lasttime");
 		sql.append(" FROM act_billing b");
