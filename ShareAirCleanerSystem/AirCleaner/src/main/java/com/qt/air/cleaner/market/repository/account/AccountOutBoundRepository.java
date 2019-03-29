@@ -17,6 +17,6 @@ public interface AccountOutBoundRepository extends JpaRepository<AccountOutBound
 
 	Page<AccountOutBound> findAll(Specification<AccountOutBound> specification, Pageable pageable);
 	AccountOutBound findByIdAndRemoved(String id, Boolean removed);
-	@Query("select count(t.id) from AccountOutBound t where (t.createTime between :start and :end) and t.removed = false")
+	@Query("select count(t.id) from AccountOutBound t where (t.createTime between :start and :end) and t.state=0 and t.removed = false")
 	Long findCount(@Param("start") Date start, @Param("end") Date end);
 }
