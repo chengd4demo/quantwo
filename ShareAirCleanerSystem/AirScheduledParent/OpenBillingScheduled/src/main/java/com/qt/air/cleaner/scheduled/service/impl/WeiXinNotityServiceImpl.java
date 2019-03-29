@@ -16,6 +16,7 @@ import javax.persistence.criteria.CriteriaBuilder.In;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -46,6 +47,7 @@ import com.qt.air.cleaner.scheduled.service.WeiXinDownloadService;
 import com.qt.air.cleaner.scheduled.service.WeiXinNotityService;
 
 @Service
+@Transactional
 public class WeiXinNotityServiceImpl implements WeiXinNotityService {
 	protected Logger logger = LoggerFactory.getLogger(getClass());
 	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

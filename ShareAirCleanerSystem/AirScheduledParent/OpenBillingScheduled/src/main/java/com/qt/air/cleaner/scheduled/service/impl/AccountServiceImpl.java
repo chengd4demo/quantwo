@@ -3,6 +3,7 @@ package com.qt.air.cleaner.scheduled.service.impl;
 import java.util.Calendar;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -23,6 +24,7 @@ import com.qt.air.cleaner.scheduled.repository.AccountRepository;
 import com.qt.air.cleaner.scheduled.service.AccountService;
 
 @Service
+@Transactional
 public class AccountServiceImpl implements AccountService {
 	protected Logger logger = LoggerFactory.getLogger(AccountServiceImpl.class);
 	@Resource
@@ -101,10 +103,14 @@ public class AccountServiceImpl implements AccountService {
 		inBound.setName(agent.getName());
 		inBound.setWeixin(agent.getWeixin());
 		inBound.setBilling(billing);
+		inBound.setAmount(amount);
+		inBound.setAccount(account);
+		inBound.setCreater("defalut");
+		inBound.setCreateTime(Calendar.getInstance().getTime());
+		accountInBoundRepository.save(inBound);
 		account.setTotalAmount(CalculateUtils.add(account.getTotalAmount(),amount));
 		account.setFreezingAmount(CalculateUtils.add(account.getFreezingAmount(),amount));
-		inBound.setCreater("defalut");
-		
+		accountRepository.saveAndFlush(account);
 	}
 
 }

@@ -11,6 +11,7 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,6 +28,7 @@ import com.qt.air.cleaner.scheduled.repository.WeiXinDownloadRepository;
 import com.qt.air.cleaner.scheduled.service.WeiXinDownloadService;
 
 @Service
+@Transactional
 public class WeiXinDownloadServiceImpl implements WeiXinDownloadService {
 	@Value("${o2.wechat.subscription.app.id}")
 	public String appId;
