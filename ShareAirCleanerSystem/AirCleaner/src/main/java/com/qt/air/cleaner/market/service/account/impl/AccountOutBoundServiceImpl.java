@@ -119,7 +119,7 @@ public class AccountOutBoundServiceImpl implements AccountOutBoundService{
 			if (state != null) {
 				stateList = Arrays.asList(state);
 			} else {
-				stateList = Arrays.asList(0, 2, 3);
+				stateList = Arrays.asList(0);
 			}
 		}
 		conditions.add(exp.in(stateList));
