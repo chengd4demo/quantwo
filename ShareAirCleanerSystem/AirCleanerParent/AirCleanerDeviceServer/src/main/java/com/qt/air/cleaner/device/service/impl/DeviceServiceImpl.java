@@ -193,7 +193,7 @@ public class DeviceServiceImpl implements DeviceService {
 			sql.append("                      row_number() OVER(PARTITION BY b.mach_no ORDER BY b.create_time desc ) as row_flg,");
 			sql.append("                     case");
 			sql.append("                       when ceil(((sysdate -");
-			sql.append("                                  to_date(to_char(b.operate_time,");
+			sql.append("                                  to_date(to_char(b.create_time,");
 			sql.append("                                                   'yyyy/mm/dd hh24:mi:ss'),");
 			sql.append("                                            'yyyy/mm/dd hh24:mi:ss'))) * 24 * 60) >");
 			sql.append("                             b.cost_time then");
@@ -204,12 +204,12 @@ public class DeviceServiceImpl implements DeviceService {
 			sql.append("                      case");
 			sql.append("                        when b.cost_time -");
 			sql.append("                             ceil(((sysdate -");
-			sql.append("                                 to_date(to_char(b.operate_time,");
+			sql.append("                                 to_date(to_char(b.create_time,");
 			sql.append("                                                    'yyyy/mm/dd hh24:mi:ss'),");
 			sql.append("                                           'yyyy/mm/dd hh24:mi:ss'))) * 24 * 60) > 0 then");
 			sql.append("                         round((b.cost_time -");
 			sql.append("                               ceil(((sysdate -");
-			sql.append("                                     to_date(to_char(b.operate_time,");
+			sql.append("                                     to_date(to_char(b.create_time,");
 			sql.append("                                                       'yyyy/mm/dd hh24:mi:ss'),");
 			sql.append("                                               'yyyy/mm/dd hh24:mi:ss'))) * 24 * 60)) / 60,");
 			sql.append("                               2)");
