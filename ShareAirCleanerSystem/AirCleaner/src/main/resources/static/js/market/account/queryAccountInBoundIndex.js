@@ -82,24 +82,28 @@ layui.use(['table', 'form', 'layer', 'vip_table','laydate'], function(){
 	 table.on('tool(accountInboundTable)',function(obj){
 		var data = obj.data,layEvent = obj.event;
 		if(layEvent === 'inBoundAffirm') {
+			    var lock=false;//默认未锁定
 				layer.confirm('确定入账？', function(index) {
-					//请求
-					$.ajax({
-						url:"/market/accountInBound/affirm/"+data.id,
-						async:false,
-						success:function(data){
-							if(data.code==200){
-								layer.msg('入账成功！',{time:500},function(){
+					if (!lock){
+						lock=true;//锁定
+						//请求
+						$.ajax({
+							url:"/market/accountInBound/affirm/"+data.id,
+							async:false,
+							success:function(data){
+								if(data.code==200){
+									layer.msg('入账成功！',{time:500},function(){
+										layer.close(index);
+										obj.del();
+										$(".layui-laypage-btn").click();
+				            		 });
+								}else {
+									layer.msg(data.msg);
 									layer.close(index);
-									obj.del();
-									$(".layui-laypage-btn").click();
-			            		 });
-							}else {
-								layer.msg(data.msg);
-								layer.close(index);
+								}
 							}
-						}
-					});
+						});
+					}
 				});
 			}
 	 });
