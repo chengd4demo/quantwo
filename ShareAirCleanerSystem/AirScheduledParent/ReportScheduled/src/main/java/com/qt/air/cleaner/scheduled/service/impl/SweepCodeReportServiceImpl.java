@@ -125,8 +125,8 @@ public class SweepCodeReportServiceImpl implements SweepCodeReportService {
 						System.out.println("====================================设备信息不存在,设备号：" + sweepCodeReportView.getMachno());
 					}
 				} else {
-					logger.info("更新扫码统计表数据为:{}",new Gson().toJson(sweepCodeReportView));
 					if(total != sweepCodeReport.getTotal()  && !nowDate.before(sweepCodeReport.getSweepCodeTime())){
+						logger.info("更新扫码统计表数据为:{}",new Gson().toJson(sweepCodeReportView));
 						sweepCodeReport.setLastOperator("scheduled");
 						sweepCodeReport.setLastOperateTime(nowDate);
 						sweepCodeReport.setTotal(total);

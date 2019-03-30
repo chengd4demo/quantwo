@@ -49,7 +49,7 @@ public class ScheduledTasks {
 	
 	/**
 	 * 红包状态更新
-	 * 每三分钟执行一次
+	 * 每一分钟执行一次
 	 */
 	@Scheduled(cron = "0 0/1 * * * ?")
 //	@Scheduled(fixedRate = 6000)
@@ -65,6 +65,7 @@ public class ScheduledTasks {
 	@Scheduled(cron = "0 0 10 * * ?")
 //	@Scheduled(fixedRate = 5000)
 	public void openBillingCurrentTime() {
+		System.out.println("开始执行自动开帐任务：当前系统时间：" + dateFormat.format(new Date()));
 		// 自动下载前日微信对账单
 		billingService.startDownloadForSuccess(Calendar.getInstance().getTime());
 //		 根据微信下载的对账单记录和通知记录进行对账处理

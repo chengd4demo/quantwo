@@ -40,16 +40,19 @@
 			<groupId>com.qt.air.cleaner.scheduled</groupId>
 			<artifactId>open-billing-scheduled</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.qt.air.cleaner.scheduled</groupId>
 			<artifactId>cash-withdrawal-scheduled</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.qt.air.cleaner.scheduled</groupId>
 			<artifactId>report-billing-scheduled</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+			<scope>compile</scope>
 		</dependency>
 	</dependencies>
 	<build>

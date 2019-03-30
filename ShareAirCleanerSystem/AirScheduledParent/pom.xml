@@ -48,8 +48,10 @@
 		<commons-lang3.version>3.5</commons-lang3.version>
 	</properties>
 	<modules>
-		<module>open-billing-scheduled</module>
-		<module>down-billing-scheduled</module>
-	  	<module>cash-withdrawal-scheduled</module>
-  </modules>
+		
+  <module>CashScheduled</module>
+  <module>OpenBillingScheduled</module>
+  <module>ReportScheduled</module>
+  <module>RunScheduled/run-secheduled</module>
+	</modules>
 </project>
