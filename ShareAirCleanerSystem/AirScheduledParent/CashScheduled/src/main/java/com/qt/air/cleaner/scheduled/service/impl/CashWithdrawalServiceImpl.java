@@ -165,13 +165,9 @@ public class CashWithdrawalServiceImpl implements CashWithdrawalService {
 			try {
 				Float amount = 0.00f;
 				for(AccountOutBound outBound : outBoundList) {
-					if(outBound.getAmount()>1.10f) {
-						amount = CalculateUtils.sub(outBound.getAmount(), outBound.getAmount()*withholdTaxes);
-						sendRedPakMap = sendRedPack(amount, outBound.getCreater(), ip, outBound.getBillingNumber());
-						updateAccountOutBound(sendRedPakMap,outBound,true);
-					} else {
-						logger.warn("发送红包金额必须大于1.1元,当前金额为：{}",outBound.getAmount());
-					}
+					amount = CalculateUtils.sub(outBound.getAmount(), outBound.getAmount()*withholdTaxes);
+					sendRedPakMap = sendRedPack(amount, outBound.getCreater(), ip, outBound.getBillingNumber());
+					updateAccountOutBound(sendRedPakMap,outBound,true);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -190,6 +186,8 @@ public class CashWithdrawalServiceImpl implements CashWithdrawalService {
 	 */
 	private void updateAccountOutBound(Map<String, String> responseResult,AccountOutBound outBound,boolean isSend) {
 		Account account = null;
+		String errorMsg = responseResult.get("return_msg");
+		String errorCode = responseResult.get("result_code");
 		if(isSend) {
 			//　开始解析微信结果，根据结果处理后续业务
 			// return_code是通信标识，非交易标识，交易是否成功需要查看result_code来判断
@@ -202,47 +200,50 @@ public class CashWithdrawalServiceImpl implements CashWithdrawalService {
 					outBound.setState(AccountOutBound.ACCOUNT_OUT_BOUND_STATE_COMPLETE);
 					// 设置微信交易订单号
 					outBound.setTransactionId(transactionId);
-					// 更新账户出账记录和账务信息
-//					account = outBound.getAccount();
-//					account.setFreezingAmount(CalculateUtils.add(account.getFreezingAmount(), outBound.getAmount()));
+					outBound.setErrorCode(null);
+					outBound.setErrorMsg(null);
 				} else {
-					String errorCode = responseResult.get("err_code");
-					String errorMsg = responseResult.get("err_code_des");
 					//异常账号
-					if (StringUtils.equals("NO_AUTH", errorCode)) {
+					if (StringUtils.equals("NO_AUTH", errorCode) || StringUtils.equals("MONEY_LIMIT", errorCode)) {
 						logger.info("申请提现订单号：{}",outBound.getBillingNumber());
-						logger.warn("该用户{}申请提现发放失败，此请求可能存在风险，已被微信拦截",outBound.getName());
+						if(StringUtils.equals("NO_AUTH", errorCode)) {
+							logger.warn("该用户:{}申请提现发放失败，此请求可能存在风险，已被微信拦截",outBound.getName());
+						} else {
+							logger.warn("该用户:{}申请提现发放失败，提现金额不能低于2元，当前提发起提现金额为:{}",outBound.getName(),outBound.getAmount());
+						}
 						account = outBound.getAccount();
 						account.setFreezingAmount(CalculateUtils.sub(account.getFreezingAmount(), outBound.getAmount()));
 						account.setAvailableAmount(CalculateUtils.add(account.getAvailableAmount(), outBound.getAmount()));
 						account.setTotalAmount(CalculateUtils.add(account.getTotalAmount(), outBound.getAmount()));
 						outBound.setAccount(account);
-					}
+					} 
 					outBound.setErrorCode(errorCode);
 					outBound.setErrorMsg(errorMsg);
 					// 更新出账记录为错误状态，并设置此记录为无效
 					if (!StringUtils.equals("NO_AUTH", errorCode)) {
-						outBound.setState(AccountOutBound.ACCOUNT_OUT_BOUND_STATE_FAIL);
+						if (StringUtils.equals("SENDNUM_LIMIT", errorCode)) { //当日单个用户发起红包次数上限
+							logger.warn("该用户:{}申请提现发放红包上限....",outBound.getName());
+							outBound.setState(AccountOutBound.ACCOUNT_OUT_BOUND_STATE_AUDIT);
+						} else {
+							outBound.setState(AccountOutBound.ACCOUNT_OUT_BOUND_STATE_FAIL);
+						}
 					} else {
 						outBound.setState(AccountOutBound.ACCOUNT_OUT_BOUND_STATE_ERROR);
 					}
 				}
 			} else {
-				String errorMsg = responseResult.get("return_msg");
-				String errorCode = responseResult.get("result_code");
 				logger.warn("提现发送现金红包失败：错误码:" + errorCode + "错误信息：" + errorMsg);
-//				outBound.setErrorMsg(errorMsg);
-				// 更新出账记录为错误状态，并设置此记录为无效
-//				outBound.setState(AccountOutBound.ACCOUNT_OUT_BOUND_STATE_ERROR);
 				
 			}
+			accountOutboundRepository.saveAndFlush(outBound);
 		} else {
 			if (StringUtils.equals(responseResult.get("return_code"), WXPayConstants.SUCCESS)) {
 				// result_code是交易标识，返回SUCCESS时为交易成功
 				if (StringUtils.equals(responseResult.get("result_code"), WXPayConstants.SUCCESS)) {
 					int status = getStatus(responseResult.get("status"));
 					account = outBound.getAccount();
-					if (status == AccountOutBound.ACCOUNT_OUT_BOUND_STATE_UNCLAIMED && outBound.getState() != AccountOutBound.ACCOUNT_OUT_BOUND_STATE_UNCLAIMED) {
+					Integer befoState = outBound.getState();
+					if (status == AccountOutBound.ACCOUNT_OUT_BOUND_STATE_UNCLAIMED && befoState != AccountOutBound.ACCOUNT_OUT_BOUND_STATE_UNCLAIMED) {
 						//未领取
 						outBound.setState(AccountOutBound.ACCOUNT_OUT_BOUND_STATE_UNCLAIMED);
 						//红包回退商户账号需要把对应发送红包的商户金额重新计算(a.冻结金额减去 b.可用余额和总账加上)
@@ -252,17 +253,20 @@ public class CashWithdrawalServiceImpl implements CashWithdrawalService {
 					} else if(status == AccountOutBound.ACCOUNT_OUT_BOUND_STATE_RECEIVE){
 						//已领取
 						outBound.setState(AccountOutBound.ACCOUNT_OUT_BOUND_STATE_RECEIVE);
-						outBound.setErrorCode(null);
-						outBound.setErrorMsg(null);
 						account.setFreezingAmount(CalculateUtils.sub(account.getFreezingAmount(), outBound.getAmount()));
 					} else {
 						//其它
 						outBound.setState(status);
 					}
+					if (befoState != status) {
+						outBound.setAccount(account);
+						accountOutboundRepository.saveAndFlush(outBound);
+					}
 				} 
+			} else {
+				logger.warn("红包状态从查询失败：错误码:" + errorCode + "错误信息：" + errorMsg);
 			}
 		}
-		accountOutboundRepository.saveAndFlush(outBound);
 	}
 
 	/**
