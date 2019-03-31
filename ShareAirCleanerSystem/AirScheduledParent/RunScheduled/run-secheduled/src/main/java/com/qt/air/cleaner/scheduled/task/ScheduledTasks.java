@@ -39,10 +39,10 @@ public class ScheduledTasks {
 	}
 
 	/**
-	 * 红包发送 启动后延迟30秒执行,每60秒执行一次
+	 * 红包发送 启动后延迟30秒执行,每5秒执行一次
 	 * 
 	 */
-	@Scheduled(initialDelay = 30000, fixedRate = 60000)
+	@Scheduled(initialDelay = 30000, fixedRate = 5000)
 	public void sendCashCurrentTime() {
 		logger.info("开始执微信发送红包任务：当前系统时间：{}", dateFormat.format(new Date()));
 		cashWithdrawalService.sendRedWithdrawal();
@@ -52,7 +52,7 @@ public class ScheduledTasks {
 	 * 红包状态更新 启动后延迟60秒执行,每15秒执行一次
 	 * 
 	 */
-	@Scheduled(initialDelay = 10000, fixedRate = 15000)
+	@Scheduled(initialDelay = 100000, fixedRate = 15000)
 	public void updateRedWithdrawalState() {
 		logger.info("开始执红包状态更新任务：当前系统时间：{}", dateFormat.format(new Date()));
 		cashWithdrawalService.updateRedWithdrawalState();
