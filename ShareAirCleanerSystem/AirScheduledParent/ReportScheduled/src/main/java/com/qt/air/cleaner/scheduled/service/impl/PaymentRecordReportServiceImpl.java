@@ -130,8 +130,8 @@ public class PaymentRecordReportServiceImpl implements PaymentRecordReportServic
 						logger.info("====================================设备信息不存在,设备号:{}",paymentRecordReportView.getMachno());
 					}
 				} else {
-					logger.info("更新支付金额统计表数据为:{}",new Gson().toJson(paymentRecordReportView));
 					if (amount != paymentRecordReport.getAmounts()  && !nowDate.before(paymentRecordReport.getSweepCodeTime())) {
+						logger.info("更新支付金额统计表数据为:{}",new Gson().toJson(paymentRecordReportView));
 						paymentRecordReport.setLastOperator("scheduled");
 						paymentRecordReport.setAmounts(amount);
 						paymentRecordReport.setLastOperateTime(nowDate);

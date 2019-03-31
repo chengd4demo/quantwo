@@ -127,8 +127,8 @@ public class ApplyReportServiceImpl implements ApplyReportService {
 							logger.warn("====================================设备信息不存在,设备号:{}",applyReporView.getMachno());
 						}
 					} else {
-						logger.debug("更新支付金额统计表数据为:{}",new Gson().toJson(applyReporView));
 						if (total != applyReport.getTotal() && !nowDate.before(applyReport.getSweepCodeTime())) {
+							logger.debug("更新设备使用统计表数据为:{}",new Gson().toJson(applyReporView));
 							applyReport.setLastOperator("scheduled");
 							applyReport.setTotal(total);
 							applyReport.setLastOperateTime(nowDate);
