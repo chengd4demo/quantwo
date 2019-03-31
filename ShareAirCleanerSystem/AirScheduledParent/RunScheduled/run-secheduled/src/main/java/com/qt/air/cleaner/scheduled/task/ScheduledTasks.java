@@ -35,42 +35,42 @@ public class ScheduledTasks {
 	@Scheduled(fixedRate = 5000)
 	public void reportCurrentTime() {
 		logger.info("开始执报表统计任务：当前系统时间：{}", dateFormat.format(new Date()));
-		 reportBillingService.startReportBilling(Calendar.getInstance().getTime());
+		reportBillingService.startReportBilling(Calendar.getInstance().getTime());
 	}
 
 	/**
 	 * 红包发送 启动后延迟30秒执行,每60秒执行一次
 	 * 
 	 */
-	@Scheduled(initialDelay=30000,fixedRate = 60000)
+	@Scheduled(initialDelay = 30000, fixedRate = 60000)
 	public void sendCashCurrentTime() {
 		logger.info("开始执微信发送红包任务：当前系统时间：{}", dateFormat.format(new Date()));
-		 cashWithdrawalService.sendRedWithdrawal();
+		cashWithdrawalService.sendRedWithdrawal();
 	}
 
 	/**
 	 * 红包状态更新 启动后延迟60秒执行,每15秒执行一次
 	 * 
 	 */
-	@Scheduled(initialDelay=10000,fixedRate = 15000)
+	@Scheduled(initialDelay = 10000, fixedRate = 15000)
 	public void updateRedWithdrawalState() {
 		logger.info("开始执红包状态更新任务：当前系统时间：{}", dateFormat.format(new Date()));
-		 cashWithdrawalService.updateRedWithdrawalState();
+		cashWithdrawalService.updateRedWithdrawalState();
 	}
 
 	/**
 	 * 对账\开账 每天早上十点执行
 	 * 
 	 */
-	 @Scheduled(cron = "0 0 10 * * ?")
+	@Scheduled(cron = "0 0 10 * * ?")
 	public void openBillingCurrentTime() {
 		logger.info("开始执行自动开帐任务：当前系统时间：{}", dateFormat.format(new Date()));
-		 //自动下载前日微信对账单
-		 billingService.startDownloadForSuccess(Calendar.getInstance().getTime());
-		 //根据微信下载的对账单记录和通知记录进行对账处理
-		 billingService.updateWeiXinStatusByDownload(Calendar.getInstance().getTime());
-		 //自动自行微信开帐供功能
-		 billingService.updateWeixinNotityForOpenAccount(Calendar.getInstance().getTime());
+		// 自动下载前日微信对账单
+		billingService.startDownloadForSuccess(Calendar.getInstance().getTime());
+		// 根据微信下载的对账单记录和通知记录进行对账处理
+		billingService.updateWeiXinStatusByDownload(Calendar.getInstance().getTime());
+		// 自动自行微信开帐供功能
+		billingService.updateWeixinNotityForOpenAccount(Calendar.getInstance().getTime());
 	}
 
 }
