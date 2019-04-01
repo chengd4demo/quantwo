@@ -87,7 +87,7 @@ public class ApplyReportServiceImpl implements ApplyReportService {
 				String todayDate = null;
 				for(ApplyReporView applyReporView : list ) {
 					machNo = applyReporView.getMachno();
-					todayDate = df.format(nowDate) + '%';
+					todayDate = df.format(currentTime) + '%';
 					applyReport = applyReportRepository.findSweepCodeReportData(machNo,todayDate);
 					total = applyReporView.getTotal();
 					if (applyReport == null) {

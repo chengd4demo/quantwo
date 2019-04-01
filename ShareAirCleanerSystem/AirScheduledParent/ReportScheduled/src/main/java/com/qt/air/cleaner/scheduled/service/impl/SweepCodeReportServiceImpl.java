@@ -87,7 +87,7 @@ public class SweepCodeReportServiceImpl implements SweepCodeReportService {
 			String todayDate = null;
 			for(SweepCodeReportView sweepCodeReportView : list ) {
 				machNo = sweepCodeReportView.getMachno();
-				todayDate = df.format(nowDate) + '%';
+				todayDate = df.format(currentTime) + '%';
 				sweepCodeReport = sweepCodeReportRepository.findSweepCodeReportData(machNo,todayDate);
 				total = sweepCodeReportView.getTotal();
 				if (sweepCodeReport == null) {

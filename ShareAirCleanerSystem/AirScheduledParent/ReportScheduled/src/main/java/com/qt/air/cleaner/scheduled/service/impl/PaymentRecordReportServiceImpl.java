@@ -90,7 +90,7 @@ public class PaymentRecordReportServiceImpl implements PaymentRecordReportServic
 			String todayDate = null;
 			for(PaymentRecordReportView paymentRecordReportView : list ) {
 				machNo = paymentRecordReportView.getMachno();
-				todayDate = df.format(nowDate) + "%";
+				todayDate = df.format(currentTime) + "%";
 				paymentRecordReport = paymentRecordReportRepository.findPaymentRecordReportData(machNo,todayDate);
 				amount = paymentRecordReportView.getAmount();
 				if (paymentRecordReport == null) {
