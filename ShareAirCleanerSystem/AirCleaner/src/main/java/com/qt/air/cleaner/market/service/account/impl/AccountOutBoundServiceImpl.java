@@ -111,7 +111,7 @@ public class AccountOutBoundServiceImpl implements AccountOutBoundService{
 				stateList = new ArrayList<>(Arrays.asList(state));
 				if(5 == state) stateList.add(-1);
 			} else {
-				stateList = Arrays.asList(-1,0,1,2,3);
+				stateList = Arrays.asList(-1,0,1,2,3,4,5,6,7,8,9);
 			}
 		} else {
 			Predicate p3 = cb.equal(root.get("removed"), false);
