@@ -272,7 +272,7 @@ var optionBar = {
 	        }
 	    ]
 	};
-myChartBar.setOption(optionBar);
+myChartBar.setOption(optionBar,true);
 function getSeries(devices) {
 	var serie = {type: 'bar',barWidth:7}
 	var seriesArray = null;
@@ -333,5 +333,5 @@ var optionPie = {
         }
     ]
   }
-  myChartPie.setOption(optionPie);
+  myChartPie.setOption(optionPie,true);
 }

@@ -289,5 +289,5 @@ function load(obj) {
 	    ],
 	    series : obj.series
 	}; 
-	myChart.setOption(option);
+	myChart.setOption(option,true);
 }

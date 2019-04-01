@@ -193,7 +193,7 @@ function count(timeStart,timeEnd,triderId,type){
 function load(obj) {
 	var myChart = echarts.init(document.getElementById('chartmain'));
 	$('#lableSweeptId').empty();
-	var deviceTotal = obj.devices.length
+	var deviceTotal = obj.devices == null ? 0 : obj.devices.length
 	var total = obj.total
 	var rate = parseInt(obj.rate)
 	var lableSweeptDom = '<div style="float: left;">商家设备数量：' + deviceTotal +
@@ -261,5 +261,5 @@ function load(obj) {
 		series : obj.series
 	};
 
-	myChart.setOption(option);
+	myChart.setOption(option,true);
 }
