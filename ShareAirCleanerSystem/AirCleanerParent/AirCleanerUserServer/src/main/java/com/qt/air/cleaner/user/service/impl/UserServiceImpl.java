@@ -26,6 +26,7 @@ import com.qt.air.cleaner.base.dto.ResultInfo;
 import com.qt.air.cleaner.base.enums.ErrorCodeEnum;
 import com.qt.air.cleaner.base.exception.BusinessRuntimeException;
 import com.qt.air.cleaner.user.domain.Account;
+import com.qt.air.cleaner.user.domain.Agent;
 import com.qt.air.cleaner.user.domain.Company;
 import com.qt.air.cleaner.user.domain.Customer;
 import com.qt.air.cleaner.user.domain.Investor;
@@ -33,6 +34,7 @@ import com.qt.air.cleaner.user.domain.Saler;
 import com.qt.air.cleaner.user.domain.Trader;
 import com.qt.air.cleaner.user.dto.Bound;
 import com.qt.air.cleaner.user.dto.SelfInfo;
+import com.qt.air.cleaner.user.repository.AgentRepository;
 import com.qt.air.cleaner.user.repository.CompanyRepository;
 import com.qt.air.cleaner.user.repository.CustomerRepository;
 import com.qt.air.cleaner.user.repository.InvestorRepository;
@@ -60,6 +62,8 @@ public class UserServiceImpl implements UserService {
 	private SalerRepository salerRepository;
 	@Resource
 	private TraderRepository traderRepository;
+	@Resource
+	private AgentRepository agentRepository;
 	@Resource
 	private StringRedisTemplate stringRedisTemplate;
 	
@@ -152,6 +156,19 @@ public class UserServiceImpl implements UserService {
 						userInfo.setAlipay(true);
 					return userInfo;
 				}
+				Agent agent =agentRepository.findByWeixinAndRemoved(weixin,false);
+				if (agent != null) {
+					userInfo =new UserInfo();
+					userInfo.setId(agent.getId());
+					userInfo.setIdentificationNumber(agent.getIdentificationNumber());
+					userInfo.setNickName(agent.getLegalPerson());
+					userInfo.setWeixin(agent.getWeixin());
+					userInfo.setUserType(agent.getType());
+					userInfo.setPhoneNumber(agent.getPhoneNumber());
+					if (StringUtils.isNotBlank(agent.getAlipay()))
+						userInfo.setAlipay(true);
+					return userInfo;
+				}
 
 			} else if (StringUtils.equals("CUSTOMER", userType)) {
 				Customer customer = customerRepository.findByWeixinAndRemoved(weixin, false);
@@ -230,6 +247,14 @@ public class UserServiceImpl implements UserService {
 						saler.setLastOperator(saler.getCreater());
 						salerRepository.saveAndFlush(saler);
 					}
+					Agent agent = agentRepository.findByIdentificationNumberAndPhoneNumberAndRemoved(
+							identificationNumber, phoneNumber, false);
+					if (agent != null) {
+						agent.setWeixin(openId);
+						agent.setLastOperateTime(nowDate);
+						agent.setLastOperator(agent.getLegalPerson());
+						agentRepository.saveAndFlush(agent);
+					}
 				} else if (StringUtils.equals("CUSTOMER", bound.getUserType()) && StringUtils.isNotBlank(phoneNumber)) {
 					Customer customer = customerRepository.findByPhoneNumberAndRemoved(phoneNumber, false);
 					if (StringUtils.isNoneBlank(openId) && StringUtils.isNotBlank(phoneNumber)) {
@@ -277,7 +302,7 @@ public class UserServiceImpl implements UserService {
 						customerRepository.saveAndFlush(customer);
 					}
 				} else {
-					// 平台用户更新操作，查询公司、投资商、商家、促销员
+					// 平台用户更新操作，查询公司、投资商、商家、代理、促销员
 					// 查询对象不等于null 更新相应字段
 					Company company = companyRepository.findByWeixinAndRemoved(weixin, Boolean.FALSE);
 					if (company != null) {
@@ -296,6 +321,12 @@ public class UserServiceImpl implements UserService {
 						trader.setLegalPerson(selfInfo.getNickName());
 						trader.setSocialCreditCode(selfInfo.getIdentificationNumber());
 						traderRepository.saveAndFlush(trader);
+					}
+					Agent agent = agentRepository.findByWeixinAndRemoved(weixin, Boolean.FALSE);
+					if(agent != null) {
+						agent.setLegalPerson(selfInfo.getNickName());
+						agent.setIdentificationNumber(selfInfo.getIdentificationNumber());
+						agentRepository.saveAndFlush(agent);
 					}
 					Saler saler = salerRepository.findByWeixinAndRemoved(weixin, Boolean.FALSE);
 					if (saler != null) {
@@ -353,6 +384,12 @@ public class UserServiceImpl implements UserService {
 					if (trader != null) {
 						trader.setPhoneNumber(phoneNumber);
 						traderRepository.saveAndFlush(trader);
+						isOk = true;
+					}
+					Agent agent = agentRepository.findByWeixinAndRemoved(weixin, false);
+					if (agent != null) {
+						agent.setPhoneNumber(phoneNumber);
+						agentRepository.saveAndFlush(agent);
 						isOk = true;
 					}
 					Saler saler = salerRepository.findByWeixinAndRemoved(weixin, false);
@@ -432,6 +469,13 @@ public class UserServiceImpl implements UserService {
 					if (saler != null) {
 						saler.setAlipay(DigestUtils.md5Hex(traderPwd));
 						salerRepository.saveAndFlush(saler);
+						isOk = true;
+					}
+					Agent agent = agentRepository.findByWeixinAndPhoneNumberAndRemoved(weixin, phoneNumber,
+							false);
+					if (agent != null) {
+						agent.setAlipay(DigestUtils.md5Hex(traderPwd));
+						agentRepository.saveAndFlush(agent);
 						isOk = true;
 					}
 					if (!isOk) {
@@ -570,6 +614,17 @@ public class UserServiceImpl implements UserService {
 						company.setWeixin(weixin);
 						company.setLastOperator(company.getLegalPerson());
 						company = companyRepository.saveAndFlush(company);
+					}
+					isOk = true;
+				}
+				
+				Agent agent = agentRepository
+						.findByIdentificationNumberAndPhoneNumberAndRemoved(identificationNumber, phoneNumber, false);
+				if (agent != null) {
+					if (!StringUtils.equals(investor.getWeixin(), weixin)) {
+						agent.setWeixin(weixin);
+						agent.setLegalPerson(investor.getLegalPerson());
+						agent = agentRepository.saveAndFlush(agent);
 					}
 					isOk = true;
 				}
