@@ -95,9 +95,15 @@ public class PriceValueServiceImpl implements PriceValueService{
 			Date nowDate = Calendar.getInstance().getTime();				
 			if (StringUtils.isNotBlank(id)) {
 				priceValue = priceValueRepository.findByIdAndRemoved(id, false);
-				BeanUtils.copyProperties(priceValueView, priceValue);	
-				BigDecimal bigDeciaml = new BigDecimal((float)priceValueView.getDiscount()/100);
-				priceValue.setDiscount(bigDeciaml.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue());
+				BeanUtils.copyProperties(priceValueView, priceValue);
+				try {
+					priceValue.setActiveStartTime(df.parse(priceValueView.getActiveStartTime()));
+					priceValue.setActiveEndTime(df.parse(priceValueView.getActiveEndTime()));
+					BigDecimal bigDeciaml = new BigDecimal((float)priceValueView.getDiscount()/100);
+					priceValue.setDiscount(bigDeciaml.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue());
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
 				priceValue.setLastOperator(principal.getUser().getUsername());
 				priceValue.setLastOperateTime(nowDate);
 			} else {
