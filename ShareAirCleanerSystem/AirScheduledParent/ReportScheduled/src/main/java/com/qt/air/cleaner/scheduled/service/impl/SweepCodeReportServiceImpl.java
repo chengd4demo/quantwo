@@ -2,6 +2,7 @@ package com.qt.air.cleaner.scheduled.service.impl;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -56,7 +57,7 @@ public class SweepCodeReportServiceImpl implements SweepCodeReportService {
 		}
 	}
 	
-	@SuppressWarnings({ "unchecked", "static-access" })
+	@SuppressWarnings({ "unchecked" })
 	private void jobSweepCodeHandle(Date currentTime) {
 		String sql = "";
 		if (currentTime == null) {
@@ -74,67 +75,96 @@ public class SweepCodeReportServiceImpl implements SweepCodeReportService {
 		List<SweepCodeReportView> list =  query.list();
 		em.close();
 		if (!CollectionUtils.isEmpty(list)) {
-			logger.info("扫码统计定时任务执行，待统计数据共:{}条",list.size());
-			String machNo = null;
-			Device device = null;
-			Company company = null;
-			Trader trader = null;
-			Investor investor = null;
-			Saler saler = null;
-			Long total = 0L;
-			Date nowDate = currentTime == null ? Calendar.getInstance().getTime() : currentTime;
-			SweepCodeReport sweepCodeReport = null;
-			String todayDate = null;
-			for(SweepCodeReportView sweepCodeReportView : list ) {
-				machNo = sweepCodeReportView.getMachno();
-				todayDate = df.format(currentTime) + '%';
-				sweepCodeReport = sweepCodeReportRepository.findSweepCodeReportData(machNo,todayDate);
-				total = sweepCodeReportView.getTotal();
-				if (sweepCodeReport == null) {
-					logger.info("保存到扫码统计表数据为:{}",new Gson().toJson(sweepCodeReportView));
-					sweepCodeReport = new SweepCodeReport();
-					device = deviceRepository.findByMachNo(sweepCodeReportView.getMachno());
-					if (device != null) {
-						saler = device.getSaler();
-						if (saler != null) {
-							sweepCodeReport.setSalerId(saler.getId());
-						}
-						investor = device.getInvestor();
-						if (investor != null) {
-							sweepCodeReport.setInvestorId(investor.getId());
-						}
-						trader = device.getTrader();
-						if (trader != null) {
-							sweepCodeReport.setTraderId(trader.getId());
-						}
-						company = device.getCompany();
-						if (company != null) {
-							sweepCodeReport.setCompanyId(company.getId());
-						}
-						sweepCodeReport.setMachNo(machNo);
-						sweepCodeReport.setTotal(total);
-						sweepCodeReport.setCreateTime(nowDate);
-						sweepCodeReport.setCreater("scheduled");
-						try {
-							sweepCodeReport.setSweepCodeTime(this.convertStrToDate(sweepCodeReportView.getSweepcodetime()));
-						} catch (ParseException e) {
-							e.printStackTrace();
-						}
-						sweepCodeReportRepository.save(sweepCodeReport);
-					} else {
-						System.out.println("====================================设备信息不存在,设备号：" + sweepCodeReportView.getMachno());
+			batchExecute(list,currentTime);
+		}
+	}
+
+	/**
+	 * 报表统计处理
+	 * 
+	 * @param currentTime
+	 * @param list
+	 */
+	@SuppressWarnings("static-access")
+	private void executeReport(Date currentTime, List<SweepCodeReportView> list) {
+		logger.info("扫码统计定时任务执行，待统计数据共:{}条",list.size());
+		String machNo = null;
+		Device device = null;
+		Company company = null;
+		Trader trader = null;
+		Investor investor = null;
+		Saler saler = null;
+		Long total = 0L;
+		Date nowDate = currentTime == null ? Calendar.getInstance().getTime() : currentTime;
+		SweepCodeReport sweepCodeReport = null;
+		String todayDate = null;
+		for(SweepCodeReportView sweepCodeReportView : list ) {
+			machNo = sweepCodeReportView.getMachno();
+			todayDate = df.format(nowDate) + '%';
+			sweepCodeReport = sweepCodeReportRepository.findSweepCodeReportData(machNo,todayDate);
+			total = sweepCodeReportView.getTotal();
+			if (sweepCodeReport == null) {
+				logger.info("保存到扫码统计表数据为:{}",new Gson().toJson(sweepCodeReportView));
+				sweepCodeReport = new SweepCodeReport();
+				device = deviceRepository.findByMachNo(sweepCodeReportView.getMachno());
+				if (device != null) {
+					saler = device.getSaler();
+					if (saler != null) {
+						sweepCodeReport.setSalerId(saler.getId());
 					}
+					investor = device.getInvestor();
+					if (investor != null) {
+						sweepCodeReport.setInvestorId(investor.getId());
+					}
+					trader = device.getTrader();
+					if (trader != null) {
+						sweepCodeReport.setTraderId(trader.getId());
+					}
+					company = device.getCompany();
+					if (company != null) {
+						sweepCodeReport.setCompanyId(company.getId());
+					}
+					sweepCodeReport.setMachNo(machNo);
+					sweepCodeReport.setTotal(total);
+					sweepCodeReport.setCreateTime(nowDate);
+					sweepCodeReport.setCreater("scheduled");
+					try {
+						sweepCodeReport.setSweepCodeTime(this.convertStrToDate(sweepCodeReportView.getSweepcodetime()));
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+					sweepCodeReportRepository.save(sweepCodeReport);
 				} else {
-					if(total != sweepCodeReport.getTotal()  && !nowDate.before(sweepCodeReport.getSweepCodeTime())){
-						logger.info("更新扫码统计表数据为:{}",new Gson().toJson(sweepCodeReportView));
-						sweepCodeReport.setLastOperator("scheduled");
-						sweepCodeReport.setLastOperateTime(nowDate);
-						sweepCodeReport.setTotal(total);
-						sweepCodeReportRepository.saveAndFlush(sweepCodeReport);
-					}
+					System.out.println("====================================设备信息不存在,设备号：" + sweepCodeReportView.getMachno());
+				}
+			} else {
+				if(total != sweepCodeReport.getTotal()  && !nowDate.before(sweepCodeReport.getSweepCodeTime())){
+					logger.info("更新扫码统计表数据为:{}",new Gson().toJson(sweepCodeReportView));
+					sweepCodeReport.setLastOperator("scheduled");
+					sweepCodeReport.setLastOperateTime(nowDate);
+					sweepCodeReport.setTotal(total);
+					sweepCodeReportRepository.saveAndFlush(sweepCodeReport);
 				}
 			}
 		}
+	}
+
+	/**
+	 * 分批处理数据
+	 * 
+	 * @param dataList
+	 * @param currentTime
+	 */
+	private void batchExecute(List<SweepCodeReportView> dataList,Date currentTime) {
+		 int pointsDataLimit = 50;
+		 List<SweepCodeReportView> newList = new ArrayList<SweepCodeReportView>(); 
+		 for(int i=0;i<dataList.size();i++){//分批次处理
+			  newList.add(dataList.get(i));
+			  if(pointsDataLimit == newList.size()||i == dataList.size()-1){
+				  executeReport(currentTime, newList);
+				  newList.clear();
+			  }
+		 }
 	}
 	
 	private static Date convertStrToDate(String dateStr) throws ParseException {  
