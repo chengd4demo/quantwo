@@ -182,6 +182,7 @@ public class DeviceServiceImpl implements DeviceService {
 			String investorId = requestParame.getData().get("investorId");
 			String customerId = requestParame.getData().get("customerId");
 			String queryType = requestParame.getData().get("queryType");
+			String agentId = requestParame.getData().get("agentId");
 			StringBuffer sql = new StringBuffer();
 			sql.append("select device_id as deviceid,state as devicestate,tradername,address,mach_no as machno,to_char(create_time,'yyyy-mm-dd hh24:mi:ss') as usedate,costtime,lasttime,unitprice,realyprice,devicesequence");
 			sql.append("  from (select row_.*, rownum rownum_");
@@ -216,7 +217,7 @@ public class DeviceServiceImpl implements DeviceService {
 			sql.append("                        else");
 			sql.append("                         0");
 			sql.append("                      end lasttime");
-			sql.append("                 from act_billing b, mk_device d, mk_trader t, mk_investor i");
+			sql.append("                 from act_billing b, mk_device d, mk_trader t, mk_investor i, (select a2.pid, a2.agent_id from (select ft.pid, ft.agent_id from mk_agent ag left join ps_share_profit ft on ag.id = ft.agent_id) a2) a");
 			sql.append("                where b.device_id = d.id");
 			sql.append("                  and d.trader_id = t.id");
 			sql.append("                  and d.investor_id = i.id");
@@ -228,6 +229,9 @@ public class DeviceServiceImpl implements DeviceService {
 				sql.append("                  and (i.id = :investorId)");
 			} else if(StringUtils.isNotBlank(customerId)){
 				sql.append("                  and (b.creater = :customerId)");
+			} else if (StringUtils.isNotBlank(agentId)) {
+				sql.append("                  and d.distribution_ratio = a.pid");
+				sql.append("                  and (a.agent_id = :agentId)");
 			}
 			sql.append("and(b.transaction_id is not Null)");
 			sql.append("                order by b.create_time desc) row_");
