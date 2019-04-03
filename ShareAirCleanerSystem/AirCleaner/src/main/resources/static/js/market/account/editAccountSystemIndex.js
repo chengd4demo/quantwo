@@ -55,7 +55,7 @@ layui.use(['form', 'layedit', 'laydate', 'layer'], function() {
 
               			});
                 	} else {
-                		layer.msg('保存失败！');
+                		layer.msg(data.msg);
                 	}
                 }
               })

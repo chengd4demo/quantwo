@@ -20,7 +20,6 @@ public class AccountOutBoundView {
 	private String returnMsg; //错误信息
 	private String errCode; //错误代码
 	private String accountId; //关联对象Id
-	private String accountName; //关联对象Name
 	private String applyTime;	//申请时间
 	private String errorMsg;
 	private String method;
@@ -47,6 +46,9 @@ public class AccountOutBoundView {
 		if(accountOutBound.getOutBoundRejectReason() != null){
 			this.setRejectReason(accountOutBound.getOutBoundRejectReason().getRejectReason());
 			this.setRejectReasonId(accountOutBound.getOutBoundRejectReason().getId());
+		}
+		if(accountOutBound.getAccount() != null) {
+			this.setAccountId(accountOutBound.getAccount().getId());
 		}
 	}
 	
@@ -104,10 +106,6 @@ public class AccountOutBoundView {
 
 	public String getAccountId() {
 		return accountId;
-	}
-
-	public String getAccountName() {
-		return accountName;
 	}
 
 	public String getApplyTime() {
@@ -174,10 +172,6 @@ public class AccountOutBoundView {
 		this.accountId = accountId;
 	}
 
-	public void setAccountName(String accountName) {
-		this.accountName = accountName;
-	}
-
 	public void setApplyTime(String applyTime) {
 		this.applyTime = applyTime;
 	}
@@ -211,7 +205,7 @@ public class AccountOutBoundView {
 		return "AccountOutBoundView [id=" + id + ", name=" + name + ", phoneNumber=" + phoneNumber + ", nickName="
 				+ nickName + ", timeEnd=" + timeEnd + ", type=" + type + ", cashMode=" + cashMode + ", amount=" + amount
 				+ ", state=" + state + ", returnCode=" + returnCode + ", returnMsg=" + returnMsg + ", errCode="
-				+ errCode + ", accountId=" + accountId + ", accountName=" + accountName + ", applyTime=" + applyTime
+				+ errCode + ", accountId=" + accountId + ", applyTime=" + applyTime
 				+ ", errorMsg=" + errorMsg + ", method=" + method + ", rejectReason=" + rejectReason
 				+ ", rejectReasonId=" + rejectReasonId + ", df=" + df + "]";
 	}

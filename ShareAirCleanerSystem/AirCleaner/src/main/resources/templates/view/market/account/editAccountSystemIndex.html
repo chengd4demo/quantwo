@@ -13,8 +13,9 @@
 	<fieldset class="layui-elem-field" style="border-color:rgb(30, 159, 255); margin-top:1em;padding-left:1em;padding-right:2em;padding-top:1em;">
 		<legend>审核提现</legend>
 		<form class="layui-form" action="" th:object="${outBound}" >
-		<input type="hidden" name ="id" th:field="*{id}"/>
-		<input type="hidden" name ="rejectReasonId" th:field="*{rejectReasonId}"/>		
+			<input type="hidden" name ="id" th:field="*{id}"/>
+			<input type="hidden" name ="accountId" th:field="*{accountId}"/>
+			<input type="hidden" name ="rejectReasonId" th:field="*{rejectReasonId}"/>		
 		    <!-- 审核判定 -->
 		     <div class="layui-form-item">
 		        <label class="layui-form-label" style="width: 120Px"><span style="color:red">*</span>是否通过审核:</label>

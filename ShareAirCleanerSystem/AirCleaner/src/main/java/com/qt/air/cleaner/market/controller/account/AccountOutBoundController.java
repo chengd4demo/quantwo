@@ -65,6 +65,7 @@ public class AccountOutBoundController {
 		AccountOutBound result = accountOutBoundService.findByIdRemoved(id,false);
 		AccountOutBoundView accountOutBound = new AccountOutBoundView();
 		accountOutBound.setId(result.getId());
+		accountOutBound.setAccountId(result.getAccount().getId());
 		accountOutBound.setRejectReasonId(result.getOutBoundRejectReason().getId());
 		model.addAttribute("outBound",accountOutBound);
 		return GENERIC_ACCOUNTSYSTEM_EDIT;

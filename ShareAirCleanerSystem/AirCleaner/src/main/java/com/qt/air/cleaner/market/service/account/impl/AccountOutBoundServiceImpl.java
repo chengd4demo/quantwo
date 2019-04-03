@@ -135,8 +135,12 @@ public class AccountOutBoundServiceImpl implements AccountOutBoundService{
 		if(accountOutBoundView != null){
 			AccountOutBound accountOutBound = null;
 			String id = accountOutBoundView.getId();
-			Integer state = accountOutBoundView.getState();		
+			Integer state = accountOutBoundView.getState();
+			String accountId = accountOutBoundView.getAccountId();
 			if (StringUtils.isNotBlank(id)) {
+				if (!auditCheck(accountId)) {
+					throw new BusinessException(ErrorCodeEnum.ES_9016.getErrorCode(), ErrorCodeEnum.ES_9016.getMessage());
+				}
 				accountOutBound = accountOutBoundRepository.findByIdAndRemoved(id, false);
 				accountOutBound.setState(state);				
 				String rejectReasonId =  accountOutBoundView.getRejectReasonId();
@@ -159,6 +163,15 @@ public class AccountOutBoundServiceImpl implements AccountOutBoundService{
 			}
 		}
 		
+	}
+
+	/**
+	 * 提现审核校验（当日次数或金额限制）
+	 * @param accountId
+	 * @return
+	 */
+	private boolean auditCheck(String accountId) {
+		return accountOutBoundRepository.findFrequency(accountId);
 	}
 
 	@Override
