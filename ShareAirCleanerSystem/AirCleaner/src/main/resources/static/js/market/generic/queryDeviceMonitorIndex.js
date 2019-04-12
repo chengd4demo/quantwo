@@ -1,4 +1,5 @@
 layui.use(['tree'], function(){
+	var $ = layui.jquery
     layui.tree({
         elem: '#demo' //传入元素选择器
         ,target:'bodyFrame'
@@ -13,5 +14,10 @@ layui.use(['tree'], function(){
                 href:'/welcome'
             }]
         }]
+        ,click:function(item) {
+        	var name = item.name
+        	console.log(name)
+        	$("#name").text(name)
+        }
     });
 });
