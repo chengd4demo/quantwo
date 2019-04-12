@@ -1,48 +1,17 @@
 @charset "utf-8";
 
-.layui-header {
-    background: none;
-}
-.div-1{
-	width: 80%;
-	margin-top: 10px;
-}
-.shange{
-	width: 22%;
-	height: 80px;
-	float: left;
-    margin-right: 10px; 
-    background: #D8E1FC;
-}
-.shange-1{
-	margin-top: 10px;
-	margin-left: 10px;
-	color: #999999;
-}
-.shange-2{
-	font-size: 50px;
-	color: #0C4BAA;
-	margin-top: -10px; 
-	text-align: center; 
-	margin-left: 40px;
-}
-.shange-3{
-	width: 30%;
-	height: 80px;
-	float: left;
-    margin-right: 7px; 
-    background: #D8E1FC;
-}
-.div-2{	
-	width: 80%;
-	margin-top: 100px;
-}
-.layui-collapse{
-	margin-top: 20px; 
-	width: 775px;
-}
-.tixian{
+.caption{
 	height: 30px; 
 	line-height: 30px; 
 	margin-left: 10px;
+}
+.layui-header {
+    background: none;
+}
+.layui-col-xs6 {
+    width: 100%;
+}
+.layui-collapse{
+	margin-top: 20px; 
+	width: 80%;
 }

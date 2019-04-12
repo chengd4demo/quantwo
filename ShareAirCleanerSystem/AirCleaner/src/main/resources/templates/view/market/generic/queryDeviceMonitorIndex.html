@@ -11,12 +11,30 @@
     <link rel="icon" href="../../../frame/static/image/code.png">
 </head>
 <body class="body">
-	<div class="layui-card-header">
+	<div  id="con1" class="layui-card-header">
+		<i class="layui-icon">  </i> <span class="layui-breadcrumb"
+			lay-separator=">" style="visibility: visible;"> <a>您现在的所在位置</a>
+		<span lay-separator="">&gt;</span> <a>设备监控</a>
+	</div>
+	<div  id="con2" class="layui-card-header" style="display: none">
 		<i class="layui-icon">  </i> <span class="layui-breadcrumb"
 			lay-separator=">" style="visibility: visible;"> <a>您现在的所在位置</a>
 		<span lay-separator="">&gt;</span> <a>设备监控</a> <span
-		lay-separator="">&gt;</span> <cite><a id="name">设备批次管理</a></cite></span>
+		lay-separator="">&gt;</span> <cite><a>频率使用率监控</a></cite></span>
+	</div>
+	<div  id="con3" class="layui-card-header" style="display: none">
+		<i class="layui-icon">  </i> <span class="layui-breadcrumb"
+			lay-separator=">" style="visibility: visible;"> <a>您现在的所在位置</a>
+		<span lay-separator="">&gt;</span> <a>设备监控</a> <span
+		lay-separator="">&gt;</span> <cite><a>设备滤芯监控</a></cite></span>
 	</div>	
+   <div class="layui-header" style="margin:10px auto auto 10px">
+       <div class="layui-logo">
+       	<div style="width:15%; margin-top:20px; border-right:1px solid #DBDBDB">
+			 <ul id="demo"></ul>
+       	</div>
+       </div>
+   </div>	
    <div class="layui-header" style="margin:10px auto auto 10px">
        <div class="layui-logo">
        	<div style="width:15%; margin-top:20px; border-right:1px solid #DBDBDB">
@@ -26,11 +44,32 @@
    </div>
    <div class="layui-body" style="margin:25px auto auto 10px">
         <!-- 内容主体区域 -->
-        <iframe src="/welcome" frameborder="0" height="100%" width="100%" name="bodyFrame"></iframe>
+        <iframe src="/welcome" frameborder="0" height="99%" width="100%" name="bodyFrame"></iframe>
     </div>
 	<script type="text/javascript" src="../../../../frame/layui/layui.js"></script>
 	<script type="text/javascript" src="../../../../js/index.js"></script>
 	<script type="text/javascript" src="../../../../js/market/generic/queryDeviceMonitorIndex.js"></script> 
+<script type="text/javascript">
+window.onload = function(){
+	
+	document.getElementById("node1").onclick = function(){
+		document.getElementById("con1").style.display = "block";
+		document.getElementById("con2").style.display = "none";
+		document.getElementById("con3").style.display = "none";
 
+	}
+	document.getElementById("node2").onclick = function(){
+		document.getElementById("con2").style.display = "block";
+		document.getElementById("con1").style.display = "none";
+		document.getElementById("con3").style.display = "none";
+	}
+	document.getElementById("node3").onclick = function(){
+		document.getElementById("con3").style.display = "block";		 
+		document.getElementById("con1").style.display = "none";
+		document.getElementById("con2").style.display = "none";
+
+	}	
+}
+</script>
 </body>
 		

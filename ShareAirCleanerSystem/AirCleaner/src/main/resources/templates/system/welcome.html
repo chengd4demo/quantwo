@@ -11,67 +11,114 @@
     <link rel="stylesheet" href="../frame/static/css/welcome.css" />
     <link rel="icon" href="../frame/static/image/code.png">
 </head>
+	<style>
+		body{
+			width: 100%;
+			margin: 0px;
+			padding: 0px;
+			box-sizing: border-box;
+		}
+		.layui-row.layui-col-space1{
+			width: 80%;
+		}
+		.layui-row.layui-col-space5{
+			width: 80.5%;
+		}
+		.grid-demo{
+			background: #D8E1FC;
+			height: 80px;
+		}
+		.grid-demo div:nth-child(1){
+			padding-top: 10px;
+			margin-top: 10px;
+			margin-left: 10px;
+			color: #999999;
+		}
+		.grid-demo div:nth-child(2){
+			font-size: 50px;
+			color: #0C4BAA;
+			margin-top: -10px; 
+			text-align: center; 
+			margin-left: 40px;
+		}
+	</style>
 <body class="body">
-	
-	<div class="div-1">   
-	    <div class="shange">
-	    	<h6 class="shange-1">提现申请</h6>
-	    	<h1 id="cashApplyId" class="shange-2" >0</h1>
+	<!-- 栅格上 -->  
+    <div class="layui-row layui-col-space1">
+	    <div class="layui-col-md3" >
+		    <div class="grid-demo">
+			    <div>提现申请</div>
+		    	<div id="cashApplyId">0</div>
+		    </div>
 	    </div>
-	    <div class="shange">
-	    	<h6 class="shange-1">退款申请</h6>
-	    	<h1 id="refundApplyId" class="shange-2" >0</h1>
+	    <div class="layui-col-md3">
+		    <div class="grid-demo">
+			    <div>退款申请</div>
+			    <div id="refundApplyId">0</div>
+		    </div>
 	    </div>
-	    <div class="shange">
-	    	<h6 class="shange-1">今日订单数</h6>
-	    	<h1 id="todayOrderId" class="shange-2" >0</h1>
+	    <div class="layui-col-md3">
+	        <div class="grid-demo">
+			    <div>今日订单数</div>
+			    <div id="todayOrderId">0</div>
+		    </div>
 	    </div>
-	    <div class="shange" style="margin-right: auto;">
-	    	<h6 class="shange-1">成交量</h6>
-	    	<h1 id="volumeId" class="shange-2" >0</h1>
+	    <div class="layui-col-md3">
+		    <div class="grid-demo">
+			    <div>成交量</div>
+			    <div id="volumeId">0</div>
+		    </div>
 	    </div>
-	    
-	</div>
-	<div class="div-2">   
-	    <div class="shange-3">
-	    	<h6 class="shange-1">设备数量</h6>
-	    	<h1 id="deviceId"class="shange-2" >0</h1>
+  	</div>
+    <!-- 栅格下 -->  
+    <div class="layui-row layui-col-space5">
+	    <div class="layui-col-md4">
+		    <div class="grid-demo">
+				<div>设备数量</div>
+	    		<div id="deviceId">0</div>
+		    </div>
 	    </div>
-	    <div class="shange-3">
-	    	<h6 class="shange-1">设备在线数量</h6>
-	    	<h1 id="deviceOnlineId" class="shange-2">0</h1>
+	    <div class="layui-col-md4">
+	      	<div class="grid-demo">
+		      	<div>设备在线数量</div>
+		    	<div id="deviceOnlineId">0</div>
+	      	</div>
 	    </div>
-	    <div class="shange-3" style="margin-right: auto;">
-	    	<h6 class="shange-1">扫码量</h6>
-	    	<h1 id="sweepCodeCountId" class="shange-2" >0</h1>
+	    <div class="layui-col-md4">
+	      	<div class="grid-demo">
+		      	<div>扫码量</div>
+		    	<div id="sweepCodeCountId">0</div>
+	      	</div>
 	    </div>
-	</div>
-		<div class="layui-col-xs6 layui-col-sm6 layui-col-md6">
-        <div class="layui-collapse" >
-            <div class="layui-colla-item">
-                <h2 class="tixian">扫码率</h2>
-                <div class="layui-colla-content layui-show">      
-                    <br/>
-                    <div class="layui-progress layui-progress-big" lay-showPercent="true" lay-filter = "sweepCodeRateId">
-                        <div class="layui-progress-bar layui-bg-orange" lay-percent="0%"></div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
+    </div>
+    <!-- 进度条START -->
+    <div class="layui-col-xs6 layui-col-sm6 layui-col-md6">
+    	<!-- 扫码率 -->
+    	<div class="layui-collapse" >
+	        <div class="layui-colla-item">
+		        <h2 class="caption">扫码率</h2>
+		        <div class="layui-colla-content layui-show">      
+			        <br/>
+			        <div class="layui-progress layui-progress-big" lay-showPercent="true" lay-filter = "sweepCodeRateId">
+			        	<div class="layui-progress-bar layui-bg-orange" lay-percent="0%"></div>
+			        </div>
+		        </div>
+	        </div>
+    	</div>
+		<!-- 成交率 -->
         <div class="layui-collapse">
             <div class="layui-colla-item">
-                <h2 class="tixian">成交率</h2>
+                <h2 class="caption">成交率</h2>
                 <div class="layui-colla-content layui-show">                   
                     <br/>
                     <div class="layui-progress layui-progress-big" lay-showPercent="true" lay-filter="volumeRateId">
                         <div class="layui-progress-bar layui-bg-blue" lay-percent="0%"></div>
                     </div>
-
                 </div>
             </div>
         </div>
-       </div>
+   	</div>
+   	<!-- 进度条END -->
 <script type="text/javascript" src="../frame/layui/layui.js"></script>
 <script type="text/javascript" src="../js/index.js"></script>
 <script type="text/javascript" src="../js/jquery-3.2.1.js"></script>

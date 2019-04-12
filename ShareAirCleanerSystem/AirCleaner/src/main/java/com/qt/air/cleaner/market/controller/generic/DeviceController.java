@@ -44,7 +44,9 @@ public class DeviceController {
 	private final String GENERIC_DEVICES_DEVICE_INDEX = "view/market/generic/queryDeviceIndex",
 			GENERIC_DEVICES_DEVICE_EDIT = "view/market/generic/editDeviceIndex",
 			GENERIC_DEVICE_QRCODE = "view/market/generic/viewDeviceQRcodeIndex",
-			GENERIC_SHARE_PROFILE = "view/market/generic/editNewShareProfile"; 
+			GENERIC_SHARE_PROFILE = "view/market/generic/editNewShareProfile",
+			GENERIC_DEVICE_RATE = "view/market/generic/queryDviceRateIndex",
+			GENERIC_DEVICE_CHIP = "view/market/generic/queryDeviceChipIndex";
 	@Autowired
 	DeviceService deviceService;
 	@Autowired
@@ -67,6 +69,16 @@ public class DeviceController {
 	public String add() {
 		
 		return GENERIC_SHARE_PROFILE;
+	}
+	@RequestMapping (method = RequestMethod.GET,path = "/addRate")
+	public String addRate() {
+		
+		return GENERIC_DEVICE_RATE;
+	}
+	@RequestMapping (method = RequestMethod.GET,path = "/addChip")
+	public String addChip() {
+				
+		return GENERIC_DEVICE_CHIP;
 	}
 
 	@RequestMapping(method = RequestMethod.GET, path = "/index/{id}/{deviceBatchName}")

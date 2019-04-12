@@ -16,6 +16,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -23,6 +24,7 @@ import org.springframework.stereotype.Service;
 
 import com.qt.air.cleaner.common.constants.Constants;
 import com.qt.air.cleaner.common.exception.BusinessException;
+import com.qt.air.cleaner.config.shiro.vo.Principal;
 import com.qt.air.cleaner.market.domain.account.Account;
 import com.qt.air.cleaner.market.domain.account.AccountOutBound;
 import com.qt.air.cleaner.market.domain.account.OutBoundRejectReason;
@@ -137,6 +139,7 @@ public class AccountOutBoundServiceImpl implements AccountOutBoundService{
 			String id = accountOutBoundView.getId();
 			Integer state = accountOutBoundView.getState();
 			String accountId = accountOutBoundView.getAccountId();
+			Principal principal = (Principal) SecurityUtils.getSubject().getPrincipal();
 			if (StringUtils.isNotBlank(id)) {
 				if (!auditCheck(accountId)) {
 					throw new BusinessException(ErrorCodeEnum.ES_9016.getErrorCode(), ErrorCodeEnum.ES_9016.getMessage());
@@ -148,6 +151,9 @@ public class AccountOutBoundServiceImpl implements AccountOutBoundService{
 					OutBoundRejectReason outBoundRejectReason = outBoundRejectReasonRepository.findOne(rejectReasonId);
 					outBoundRejectReason.setRejectReason(accountOutBoundView.getRejectReason());
 					accountOutBound.setOutBoundRejectReason(outBoundRejectReason);
+				}else {
+					accountOutBound = new AccountOutBound();					
+					accountOutBound.setLastOperator(principal.getUser().getUsername());
 				}
 			    if(state == 3) {
 			    	//审核拒绝,回滚冻结金额、可用余额、总额
