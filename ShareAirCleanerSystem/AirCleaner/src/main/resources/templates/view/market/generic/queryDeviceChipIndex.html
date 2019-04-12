@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>设备滤芯监控</title>
+    <link rel="stylesheet" href="../../../../frame/layui/css/layui.css">
+    <link rel="stylesheet" href="../../../../frame/static/css/style.css">
+    <link rel="stylesheet" href="../../../../frame/font-awesome-4.7.0/css/font-awesome.min.css">
+    <style type="text/css">
+    	.upload {
+    		margin:0 auto;
+			width:90%;
+			height:180px;
+			text-align: center;
+			border:1px solid #1E9FFF;
+    	}
+    </style>
+</head>
+<body class="body">	
+<fieldset class="layui-elem-field" style="border-color:rgb(30, 159, 255); margin-top:1em;padding-left:2em;padding-right:2em;padding-top:1em;">
+	<legend>设备信息查询</legend>
+	<form class="layui-form" id="searchForm">
+		<div style="margin-top:5px;" class="layui-row">
+			<!--设备编号-->
+			<div class="layui-col-md4">
+				<div class="layui-form-item">
+					<label class="layui-form-label"> 设备编号:</label>
+					<div class="layui-input-block">
+						<input type="text" class="layui-input" name="machNo" autocomplete="off" placeholder="设备编号">
+					</div>
+				</div>
+			</div>
+			<!--设备序列号-->
+			<div class="layui-col-md4">
+				<div class="layui-form-item">
+					<label class="layui-form-label" style="word-break: keep-all;"> 设备序列号:</label>
+					<div class="layui-input-block">
+						<input type="text" class="layui-input" name="deviceSequence" autocomplete="off" placeholder="设备编号">
+					</div>
+				</div>
+			</div>
+			<!--设备批次-->
+			<div class="layui-col-md4">
+				<div class="layui-form-item">
+				<label class="layui-form-label">设备批次:</label>
+					<div class="layui-input-block">
+						<input type="text" class="layui-input" readonly="readonly"  autocomplete="off" placeholder="设备批次">
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--投资商-->
+		<div style="margin-top:5px;" class="layui-form">
+			<div class="layui-col-md4">
+				<div class="layui-form-item">
+		            <label class="layui-form-label">所属投资商:</label>
+		            <div class="layui-input-block">
+		               <select>
+		                    <option>直接选择或搜索选择</option>
+		                    <option></option>                                        
+		                </select>
+		            </div>
+    			</div>
+			</div>
+		</div>
+		<!--商户-->
+		<div class="layui-col-md4">
+			<div class="layui-form-item">
+	            <label class="layui-form-label">商家:</label>
+	            <div class="layui-input-block">
+	               <select>
+	                    <option>直接选择或搜索选择</option>
+	                    <option></option>                                        
+	                </select>
+	            </div>
+   			</div>
+		</div>
+		<!--促销员-->
+		<div class="layui-col-md4">
+			<div class="layui-form-item">
+	            <label class="layui-form-label">促销员:</label>
+	            <div class="layui-input-block">
+	               <select>
+	                    <option value="">直接选择或搜索选择</option>
+	                    <option></option>                                        
+	                </select>
+	            </div>
+   			</div>
+		</div>
+		<div style="margin-top:5px;" class="layui-row">	
+			<!--右侧功能按钮-->
+			<div class="layui-col-md4" style="float: right;">
+				<div class="layui-btn-container" style="text-align:center;margin-bottom: 1em;">					
+					<div class="layui-inline" style="margin-right: 0px;">
+							<button id="searchBtn" class="layui-btn layui-btn-primary" lay-submit=""   lay-filter="searchSubmit" title="查询">查询</button>
+						</div>
+					<div class="layui-inline" style="margin-right: 0px;">
+						<button class="layui-btn layui-btn-primary" lay-filter="bnt-reset" title="重置">重置</button>									
+					</div>					
+				</div>
+			</div>
+		</div>
+	</form>
+</fieldset>
+	<!--功能按钮-->
+	<div class="layui-form-item" style="margin-bottom: 0px;margin-left:2%;">        
+      <input type="radio" name="sex" value="警告" title="警告" checked="" style="margin-left:2%;">
+      <label>警告</label>
+      <input type="radio" name="sex" value="全部" title="全部" style="margin-left:2%;">
+      <label>全部</label>   
+  	</div>		
+    <!-- 表格 -->
+	<table id="deviceChipList" lay-filter="deviceChipTable"></table>
+	<script type="text/javascript" src="../../frame/layui/layui.js"></script>
+	<script type="text/javascript" src="../../js/index.js"></script>
+	<script type="text/javascript" src="../../js/market/generic/queryDeviceChipIndex.js"></script> 
+</body>
+</html>
