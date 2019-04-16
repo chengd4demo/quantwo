@@ -156,7 +156,7 @@
 		{{#  } else if (d.state === 1 || d.state === 4 || d.state === 6 ||  d.state === 7) { }}
 			已完成的出账记录
 		{{#  } else if (d.state === 3) { }}
-			审核未通过
+			{{d.rejectReason}}
 		{{#  } else if (d.state === 9) { }}
 			用户取消提现
   		{{#  } else if (d.state === 5) { }}
