@@ -23,36 +23,36 @@ layui.use(['table', 'form', 'layer', 'vip_table'], function(){
 				 title: '设备编码',
 				 width: 155
 	 		 }, {
-				 field: 'deviceSequence',
+				 field: 'devicesequence',
 				 title: '序列号',
 				 width: 155
 	 		 }, {
-				 field: 'deviceBatchName',
+				 field: 'batchname',
 				 title: '所属批次',
 				 width: 120
 	 		 }, {
-				 field: 'setupTime',
+				 field: 'setuptime',
 				 title: '安装时间',
 				 sort: true,
 				 width: 120
 	 		 }, {
-				 field: 'setupAddress',
+				 field: 'setupaddress',
 				 title: '安装地址',
 				 width: 180
 	 		 }, {
-				 field: 'investorName',
+				 field: 'investorlegalperson',
 				 title: '投资商',
 				 width: 120
 	 		 }, {
-				 field: 'traderName',
+				 field: 'tradername',
 				 title: '商家',
 				 width: 120 							
 	 		 }, {
-				 field: 'salerName',
+				 field: 'salername',
 				 title: '促销员',
 				 width: 120 							
 	 		 }, {
-				 field: 'createTime',
+				 field: 'lastusetime',
 				 title: '最后使用时间',
 				 sort: true,
 				 width: 165 							
