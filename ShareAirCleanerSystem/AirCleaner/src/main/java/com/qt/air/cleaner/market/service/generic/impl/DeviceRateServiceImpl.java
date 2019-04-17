@@ -1,5 +1,6 @@
 package com.qt.air.cleaner.market.service.generic.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -36,7 +37,7 @@ public class DeviceRateServiceImpl implements DeviceRateService{
 		long count = getDeviceRateCount(new StringBuffer(), machNo, deviceSequence);
 		if(count == 0) return new PageImpl<DeviceRateView>(null, pageable, count);
 		sql = new StringBuffer();
-		sql.append("SELECT MACH_NO machno,DEVICE_SEQUENCE devicesequence,BATCH_NAME batchname,to_char(SETUP_TIME,'yyyy-MM-dd') setuptime,SETUP_ADDRESS setupaddress,investor_legal_person investorlegalperson,trader_name tradername,saler_name salername,to_char(billing_create_time,'yyyy-MM-dd HH24:mi:ss') lastusetime");
+		sql.append("SELECT MACH_NO machno,DEVICE_SEQUENCE devicesequence,BATCH_NAME batchname,SETUP_TIME setuptime,SETUP_ADDRESS setupaddress,investor_legal_person investorlegalperson,trader_name tradername,saler_name salername,to_char(billing_create_time,'yyyy-MM-dd HH24:mi:ss') lastusetime");
 		sql.append("  FROM (select row_.*, rownum rownum_");
 		sql.append("	FROM (SELECT d.*, t2.CREATE_TIME AS billing_create_time,t3.LEGAL_PERSON investor_legal_person,t4.NAME trader_name,t5.BATCH_NAME,t6.NAME saler_name");
 		sql.append("	FROM mk_device d");
@@ -120,9 +121,7 @@ public class DeviceRateServiceImpl implements DeviceRateService{
 			query.setParameter("deviceSequence", deviceSequence);
 		}
 		long result = 0L;
-		if (query.uniqueResult() != null) {
-			result = (long)query.uniqueResult();;
-		} 
+		result = new BigDecimal(query.uniqueResult().toString()).longValue();
 		em.close();
 		return result;
 		

@@ -19,7 +19,7 @@ layui.use(['table', 'form', 'layer', 'vip_table'], function(){
          }		
 	 	 ,cols: [[
 	 		    {
-				 field: 'machNo',
+				 field: 'machno',
 				 title: '设备编码',
 				 width: 155
 	 		 }, {
