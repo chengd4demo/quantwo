@@ -1,0 +1,25 @@
+server:
+  port: 3333
+spring:
+  application:
+    name: eureka-service
+  profiles: peer1
+eureka:
+  client:
+    fetch-registry: true #是否检索服务
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://quantu:eh6N2L9P@peer2:4444/eureka/,http://quantu:eh6N2L9P@peer3:5555/eureka/
+  instance:
+    hostname: peer1
+endpoints:
+  shutdown:
+    enabled: true
+    sensitive: false
+# 安全认证的配置  
+security:  
+  basic:  
+    enabled: true  
+  user:  
+    name: quantu  # 用户名  
+    password: eh6N2L9P   # 用户密码  
