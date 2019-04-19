@@ -29,20 +29,9 @@ public class DeviceRateController {
 	
 	@Autowired
 	DeviceRateService deviceRateService;
-	@Autowired
-	DeviceService deviceService;
-	@Autowired
-	InvestorService investorService;
-	@Autowired
-	CompanyService companyService;
-	@Autowired
-	TraderService traderService;
-	@Autowired
-	SalerService salerService;
 	
 	@RequestMapping (method = RequestMethod.GET,path = "/index")
 	public String index() {
-		
 		return GENERIC_DEVICE_RATE;
 	}
 	@RequestMapping(method = RequestMethod.GET, path = "/page")

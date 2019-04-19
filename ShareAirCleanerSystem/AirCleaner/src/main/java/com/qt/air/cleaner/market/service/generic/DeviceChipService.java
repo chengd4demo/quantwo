@@ -3,7 +3,7 @@ package com.qt.air.cleaner.market.service.generic;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import com.qt.air.cleaner.market.domain.generic.Device;
+import com.qt.air.cleaner.market.controller.generic.DeviceChip;
 import com.qt.air.cleaner.market.vo.generic.DeviceChipView;
 
 public interface DeviceChipService {
@@ -15,6 +15,6 @@ public interface DeviceChipService {
 	 * @param pageable
 	 * @return
 	 */
-	public Page<Device> findAllDevice(DeviceChipView deviceChipView, Pageable pageable);
+	public Page<DeviceChip> findAllDevice(DeviceChipView deviceChipView, Pageable pageable);
 	
 }
