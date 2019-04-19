@@ -4,10 +4,10 @@ layui.use(['table', 'form', 'layer', 'vip_table'], function(){
 		,form = layui.form
 	    ,layer = layui.layer
 	    ,vipTable = layui.vip_table
-	    ,$ = layui.jquery,deviceBatchId = $("#hiddenDeviceBatchId").val();
+	    ,$ = layui.jquery;
 	 tableIns=table.render({
  		 elem: '#deviceChipList'
-         ,url:'/market/device/chip/page?deviceBatchId='+deviceBatchId
+         ,url:'/market/device/chip/page'
     	 ,method: 'GET' //默认：get请求
          ,height: 315
          ,page: true

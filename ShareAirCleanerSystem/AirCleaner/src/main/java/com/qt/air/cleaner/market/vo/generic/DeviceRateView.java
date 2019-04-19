@@ -5,6 +5,16 @@ import java.io.Serializable;
 public class DeviceRateView implements Serializable{
 	private static final long serialVersionUID = 3136001109933219767L;
 	
+	private String machno; //设备编号
+	private String devicesequence; //序列号
+	private String batchname; //设备批次名
+	private String setuptime; //安装时间
+	private String setupaddress; //安装地址
+	private String investorlegalperson; //投资商名		
+	private String tradername; //商家名	
+	private String salername; //促销员名
+	private String lastusetime; //最后使用时间
+	
 	public String getMachno() {
 		return machno;
 	}
@@ -59,17 +69,5 @@ public class DeviceRateView implements Serializable{
 	public void setLastusetime(String lastusetime) {
 		this.lastusetime = lastusetime;
 	}
-	private String machno; //设备编号
-	private String devicesequence; //序列号
-	private String batchname; //设备批次名
-	private String setuptime; //安装时间
-	private String setupaddress; //安装地址
-	private String investorlegalperson; //投资商名		
-	private String tradername; //商家名	
-	private String salername; //促销员名
-	private String lastusetime; //最后使用时间
-	
-	
-	
 	
 }
