@@ -30,7 +30,7 @@
 				<div class="layui-form-item">
 					<label class="layui-form-label"> 设备编号:</label>
 					<div class="layui-input-block">
-						<input type="text" class="layui-input" name="machNo" autocomplete="off" placeholder="设备编号">
+						<input type="text" class="layui-input" name="machno" autocomplete="off" placeholder="设备编号">
 					</div>
 				</div>
 			</div>
@@ -39,7 +39,7 @@
 				<div class="layui-form-item">
 					<label class="layui-form-label" style="word-break: keep-all;"> 设备序列号:</label>
 					<div class="layui-input-block">
-						<input type="text" class="layui-input" name="deviceSequence" autocomplete="off" placeholder="设备编号">
+						<input type="text" class="layui-input" name="devicesequence" autocomplete="off" placeholder="设备序列号">
 					</div>
 				</div>
 			</div>
@@ -48,51 +48,68 @@
 				<div class="layui-form-item">
 				<label class="layui-form-label">设备批次:</label>
 					<div class="layui-input-block">
-						<input type="text" class="layui-input" readonly="readonly"  autocomplete="off" placeholder="设备批次">
+						<input type="text" class="layui-input" name="batchname" autocomplete="off" placeholder="设备批次">
 					</div>
 				</div>
 			</div>
 		</div>
 		<!--投资商-->
-		<div style="margin-top:5px;" class="layui-form">
-			<div class="layui-col-md4">
-				<div class="layui-form-item">
-		            <label class="layui-form-label">所属投资商</label>
-		            <div class="layui-input-block">
-		               <select  lay-search="">
-		                    <option value="">直接选择或搜索选择</option>
-		                    <option></option>                                        
-		                </select>
-		            </div>
-    			</div>
+		<div class="layui-col-md4">
+			<div class="layui-form-item">
+				<label class="layui-form-label">投资商:</label>
+				<div class="layui-input-block" id="investorTag">
+					<div style="height:0px;width:0px;overflow:hidden">
+						<input name="investorid">
+					</div>
+					<div class="layui-input-inline" style="width:100%";> 
+						<select id="investor" name="investorid" lay-filter="investorTag" lay-search="">  
+							<option value="">直接选择或搜索选择</option>   
+						</select>
+					</div>
+				</div>
 			</div>
 		</div>
 		<!--商户-->
 		<div class="layui-col-md4">
 			<div class="layui-form-item">
-	            <label class="layui-form-label">商家:</label>
-	            <div class="layui-input-block">
-	               <select>
-	                    <option>直接选择或搜索选择</option>
-	                    <option></option>                                        
-	                </select>
-	            </div>
-   			</div>
+				<label class="layui-form-label">商家:</label>
+				<div class="layui-input-block" id="traderTag">
+					<div style="height:0px;width:0px;overflow:hidden">
+						<input name="traderid">
+					</div>
+					<div class="layui-input-inline" style="width:100%";> 
+						<select id="trader" name="traderid" lay-filter="traderTag" lay-search="">  
+							<option value="">直接选择或搜索选择</option>   
+						</select>
+					</div>
+				</div>
+			</div>
 		</div>
 		<!--促销员-->
 		<div class="layui-col-md4">
 			<div class="layui-form-item">
-	            <label class="layui-form-label">促销员:</label>
-	            <div class="layui-input-block">
-	               <select>
-	                    <option value="">直接选择或搜索选择</option>
-	                    <option></option>                                        
-	                </select>
-	            </div>
-   			</div>
+				<label class="layui-form-label">促销员:</label>
+				<div class="layui-input-block" id="saleridTag">
+					<div style="height:0px;width:0px;overflow:hidden">
+						<input name="salerid">
+					</div>
+					<div class="layui-input-inline" style="width:100%";> 
+						<select id="saler" name="salerid" lay-filter="saleridTag" lay-search="">  
+							<option value="">直接选择或搜索选择</option>   
+						</select>
+					</div>
+				</div>
+			</div>
 		</div>
-		<div style="margin-top:5px;" class="layui-row">	
-			<!--右侧功能按钮-->
+		<div style="margin-top:5px;" class="layui-row">
+			<!--左侧功能按钮-->
+			<div class="layui-col-md4">
+				<div class="layui-form-item" style="margin-bottom: -8%;margin-left:2%;">        
+			      <input type="radio" id="typeTime" name="type"  value="警告" title="警告" checked="" style="margin-left:2%;">
+			      <input type="radio" id="renascenceTime" name="type" value="全部" title="全部" style="margin-left:2%;">
+			  	</div>
+		  	</div>
+	  		<!--右侧功能按钮-->
 			<div class="layui-col-md4" style="float: right;">
 				<div class="layui-btn-container" style="text-align:center;margin-bottom: 1em;">					
 					<div class="layui-inline" style="margin-right: 0px;">
@@ -103,20 +120,26 @@
 					</div>					
 				</div>
 			</div>
-		</div>
+		</div>		
 	</form>
 </fieldset>
-	<!--功能按钮-->
-	<div class="layui-form-item" style="margin-bottom: 0px;margin-left:2%;">        
-      <input type="radio" name="sex" value="警告" title="警告" checked="" style="margin-left:2%;">
-      <label>警告</label>
-      <input type="radio" name="sex" value="全部" title="全部" style="margin-left:2%;">
-      <label>全部</label>   
-  	</div>		
     <!-- 表格 -->
 	<table id="deviceChipList" lay-filter="deviceChipTable"></table>
 	<script type="text/javascript" src="../../../frame/layui/layui.js"></script>
 	<script type="text/javascript" src="../../../js/index.js"></script>
-	<script type="text/javascript" src="../../../js/market/generic/queryDeviceChipIndex.js"></script> 
+	<script type="text/javascript" src="../../../js/market/generic/queryDeviceChipIndex.js"></script>
+	
+	<!-- 耗材状态 -->
+	<!-- <script type="textml" id="typeTime">
+		{{#  if(d.employtime >=750){}}
+			{{ d.warning }}		
+  		{{#  } }}
+	</script>
+	<script type="textml" id="renascenceTime">
+		{{#  if(d.renascencetime !== ''){}}
+			{{ d.renascencetime }}	 
+  		{{#  } }}
+	</script> -->
+	
 </body>
 </html>

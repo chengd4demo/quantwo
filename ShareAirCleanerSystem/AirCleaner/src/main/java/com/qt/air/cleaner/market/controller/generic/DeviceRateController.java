@@ -11,12 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.qt.air.cleaner.common.constants.Constants;
-import com.qt.air.cleaner.market.service.generic.CompanyService;
 import com.qt.air.cleaner.market.service.generic.DeviceRateService;
-import com.qt.air.cleaner.market.service.generic.DeviceService;
-import com.qt.air.cleaner.market.service.generic.InvestorService;
-import com.qt.air.cleaner.market.service.generic.SalerService;
-import com.qt.air.cleaner.market.service.generic.TraderService;
 import com.qt.air.cleaner.market.vo.generic.DeviceRateView;
 import com.qt.air.cleaner.vo.common.PageInfo;
 
@@ -29,20 +24,9 @@ public class DeviceRateController {
 	
 	@Autowired
 	DeviceRateService deviceRateService;
-	@Autowired
-	DeviceService deviceService;
-	@Autowired
-	InvestorService investorService;
-	@Autowired
-	CompanyService companyService;
-	@Autowired
-	TraderService traderService;
-	@Autowired
-	SalerService salerService;
 	
 	@RequestMapping (method = RequestMethod.GET,path = "/index")
 	public String index() {
-		
 		return GENERIC_DEVICE_RATE;
 	}
 	@RequestMapping(method = RequestMethod.GET, path = "/page")

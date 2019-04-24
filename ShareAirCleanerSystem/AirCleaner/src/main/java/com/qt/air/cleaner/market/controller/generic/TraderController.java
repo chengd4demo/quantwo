@@ -100,4 +100,14 @@ public class TraderController {
 		}
 		return RetResponse.makeOKRsp();
 	}
+	@RequestMapping(method = RequestMethod.GET, path = "/list")
+	@ResponseBody
+	public List<TraderView> list() {
+		List<Trader> traderList = traderService.findAll(false);
+		List<TraderView> result = new ArrayList<>();
+		for(Trader trader : traderList){
+			result.add(new TraderView(trader));
+		}
+		return result;
+	}
 }
