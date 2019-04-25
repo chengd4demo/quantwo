@@ -107,20 +107,65 @@ layui.use(['table','element','vip_tab'], function(){
              }, {
 				 field: 'renascencetime',
 				 title: '滤芯总生命时长(单位：小时)',
+				 align: 'center',
 				 width: 210 							
              }, {
 				 field: 'employtime',
 				 title: '已使用时长(单位：小时)',
-				 width: 180 							
+				 align: 'center',
+				 sort: true,
+				 width: 200 							
              }, {
 				 field: 'surplustime',
 				 title: '剩余时长(单位：小时)',
-				 width: 180 							
-             }
+				 align: 'center',
+				 sort: true,
+				 width: 200 							
+             },{
+				fixed: 'right',
+				title: '操作',
+				width: 80,
+				align: 'center',
+				toolbar: '#barOption'
+			 }
          ]]
 		 ,done: function(res, curr, count){
 			 pageCurr=curr;
 		 }
+	 });
+	 /*layui.use('form',function(){
+	    form.on('radio(*)', function (data){
+	        console.log(data.value);
+	    })
+	 })*/
+	 //恢复操作
+	 table.on('tool(deviceChipTable)',function(obj){
+		 var data = obj.data,layEvent = obj.event;
+		 if(layEvent === 'recovery') {
+			 var lock=false;//默认未锁定
+				layer.confirm('确定恢复滤芯时长？', function(index) {
+					if (!lock){
+						lock=true;//锁定
+						//请求
+						$.ajax({
+							url:"",
+							async:false,
+							success:function(data){
+								if(data.code==200){
+									layer.msg('恢复成功！',{time:500},function(){
+										layer.close(index);
+										obj.del();
+										$(".layui-laypage-btn").click();
+				            		 });
+								}else {
+									layer.msg(data.msg);
+									layer.close(index);
+								}
+							}
+						});
+					}
+				});
+			} 
 	 });
 	 
 	 //查询

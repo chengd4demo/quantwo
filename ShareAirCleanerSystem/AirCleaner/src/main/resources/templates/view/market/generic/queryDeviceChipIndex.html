@@ -105,8 +105,8 @@
 			<!--左侧功能按钮-->
 			<div class="layui-col-md4">
 				<div class="layui-form-item" style="margin-bottom: -8%;margin-left:2%;">        
-			      <input type="radio" id="typeTime" name="type"  value="警告" title="警告" checked="" style="margin-left:2%;">
-			      <input type="radio" id="renascenceTime" name="type" value="全部" title="全部" style="margin-left:2%;">
+			      <input type="radio" id="typeTime" name="warning"  value="警告" title="警告" checked="" style="margin-left:2%;">
+			      <input type="radio" id="renascenceTime" name="warning" value="全部" title="全部" style="margin-left:2%;">
 			  	</div>
 		  	</div>
 	  		<!--右侧功能按钮-->
@@ -128,18 +128,9 @@
 	<script type="text/javascript" src="../../../frame/layui/layui.js"></script>
 	<script type="text/javascript" src="../../../js/index.js"></script>
 	<script type="text/javascript" src="../../../js/market/generic/queryDeviceChipIndex.js"></script>
-	
-	<!-- 耗材状态 -->
-	<!-- <script type="textml" id="typeTime">
-		{{#  if(d.employtime >=750){}}
-			{{ d.warning }}		
-  		{{#  } }}
+	<script type="text/html" id="barOption">
+		<a class="layui-btn layui-btn-mini layui-btn-normal" lay-event="recovery" title="恢复滤芯时长">恢复</a>			
 	</script>
-	<script type="textml" id="renascenceTime">
-		{{#  if(d.renascencetime !== ''){}}
-			{{ d.renascencetime }}	 
-  		{{#  } }}
-	</script> -->
 	
 </body>
 </html>
