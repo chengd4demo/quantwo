@@ -1,6 +1,7 @@
 package com.qt.air.cleaner.market.service.generic.impl;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -34,7 +35,7 @@ public class DeviceChipServiceImpl implements DeviceChipService{
 	public Page<DeviceChip> findAllDevice(DeviceChipView deviceChipView, Pageable pageable) {
 		StringBuffer sql = new StringBuffer();
 		long count = getDeviceChipCount(new StringBuffer(),deviceChipView);
-		if(count == 0) return new PageImpl<DeviceChip>(null, pageable, count);
+		if(count == 0) return new PageImpl<DeviceChip>(new ArrayList<DeviceChip>(), pageable, count);
 		sql = new StringBuffer();
 		sql.append("SELECT machno,devicesequence,batchname,setuptime,setupaddress,legalperson,tradername,salername,800 renascencetime,employtime,case WHEN employtime > 800 then 0 ELSE 800-employtime END surplustime");
 		sql.append("  FROM (select row_.*, rownum rownum_");

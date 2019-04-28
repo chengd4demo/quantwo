@@ -1,6 +1,7 @@
 package com.qt.air.cleaner.market.service.generic.impl;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -35,7 +36,7 @@ public class DeviceRateServiceImpl implements DeviceRateService{
 		String deviceSequence = deviceRateView.getDevicesequence();
 		StringBuffer sql = new StringBuffer();
 		long count = getDeviceRateCount(new StringBuffer(), machNo, deviceSequence);
-		if(count == 0) return new PageImpl<DeviceRateView>(null, pageable, count);
+		if(count == 0) return new PageImpl<DeviceRateView>(new ArrayList<DeviceRateView>(), pageable, count);
 		sql = new StringBuffer();
 		sql.append("SELECT MACH_NO machno,DEVICE_SEQUENCE devicesequence,BATCH_NAME batchname,SETUP_TIME setuptime,SETUP_ADDRESS setupaddress,investor_legal_person investorlegalperson,trader_name tradername,saler_name salername,to_char(billing_create_time,'yyyy-MM-dd HH24:mi:ss') lastusetime");
 		sql.append("  FROM (select row_.*, rownum rownum_");

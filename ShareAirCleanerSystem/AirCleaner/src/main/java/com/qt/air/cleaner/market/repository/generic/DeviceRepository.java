@@ -18,5 +18,6 @@ public interface DeviceRepository extends JpaRepository<Device, String>{
 	@Query("update Device I set I.removed = true where I.id = :id")
 	void deleteDevice(@Param("id") String id);
 	Device findByDistributionRatioAndRemoved(String distributionRatio,Boolean removed);
+	Device findByMachNoAndRemoved(String fromListDefaultNull, boolean b);
 	
 }
