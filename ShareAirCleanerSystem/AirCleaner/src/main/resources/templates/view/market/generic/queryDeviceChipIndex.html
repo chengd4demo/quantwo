@@ -61,11 +61,9 @@
 					<div style="height:0px;width:0px;overflow:hidden">
 						<input name="investorid">
 					</div>
-					<div class="layui-input-inline" style="width:100%";> 
-						<select id="investor" name="investorid" lay-filter="investorTag" lay-search="">  
-							<option value="">直接选择或搜索选择</option>   
-						</select>
-					</div>
+					<select id="investor" name="investorid" lay-filter="investorTag" lay-search="">  
+						<option value="">直接选择或搜索选择</option>   
+					</select>
 				</div>
 			</div>
 		</div>
@@ -77,11 +75,9 @@
 					<div style="height:0px;width:0px;overflow:hidden">
 						<input name="traderid">
 					</div>
-					<div class="layui-input-inline" style="width:100%";> 
-						<select id="trader" name="traderid" lay-filter="traderTag" lay-search="">  
-							<option value="">直接选择或搜索选择</option>   
-						</select>
-					</div>
+					<select id="trader" name="traderid" lay-filter="traderTag" lay-search="">  
+						<option value="">直接选择或搜索选择</option>   
+					</select>
 				</div>
 			</div>
 		</div>
@@ -93,28 +89,26 @@
 					<div style="height:0px;width:0px;overflow:hidden">
 						<input name="salerid">
 					</div>
-					<div class="layui-input-inline" style="width:100%";> 
-						<select id="saler" name="salerid" lay-filter="saleridTag" lay-search="">  
-							<option value="">直接选择或搜索选择</option>   
-						</select>
-					</div>
+					<select id="saler" name="salerid" lay-filter="saleridTag" lay-search="">  
+						<option value="">直接选择或搜索选择</option>   
+					</select>
 				</div>
 			</div>
 		</div>
 		<div style="margin-top:5px;" class="layui-row">
 			<!--左侧功能按钮-->
 			<div class="layui-col-md4">
-				<div class="layui-form-item" style="margin-bottom: -8%;margin-left:2%;">        
-			      <input type="radio" id="typeTime" name="warning"  value="警告" title="警告" checked="" style="margin-left:2%;">
-			      <input type="radio" id="renascenceTime" name="warning" value="全部" title="全部" style="margin-left:2%;">
+				<div class="layui-form-item" style="margin-bottom: -8%;margin-left:2%;">
+					<input type="radio" id="renascenceTime" name="type" value="all" title="全部" checked="" style="margin-left:2%;">        
+			        <input type="radio" id="typeTime" name="type"  value="warning" title="警告" style="margin-left:2%;">
 			  	</div>
 		  	</div>
 	  		<!--右侧功能按钮-->
 			<div class="layui-col-md4" style="float: right;">
 				<div class="layui-btn-container" style="text-align:center;margin-bottom: 1em;">					
 					<div class="layui-inline" style="margin-right: 0px;">
-							<button id="searchBtn" class="layui-btn layui-btn-primary" lay-submit=""   lay-filter="searchSubmit" title="查询">查询</button>
-						</div>
+						<button id="searchBtn" class="layui-btn layui-btn-primary" lay-submit=""   lay-filter="searchSubmit" title="查询">查询</button>
+					</div>
 					<div class="layui-inline" style="margin-right: 0px;">
 						<button class="layui-btn layui-btn-primary" lay-filter="bnt-reset" title="重置">重置</button>									
 					</div>					

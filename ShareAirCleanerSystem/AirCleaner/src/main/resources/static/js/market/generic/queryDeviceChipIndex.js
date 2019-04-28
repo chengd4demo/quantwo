@@ -133,11 +133,6 @@ layui.use(['table','element','vip_tab'], function(){
 			 pageCurr=curr;
 		 }
 	 });
-	 /*layui.use('form',function(){
-	    form.on('radio(*)', function (data){
-	        console.log(data.value);
-	    })
-	 })*/
 	 //恢复操作
 	 table.on('tool(deviceChipTable)',function(obj){
 		 var data = obj.data,layEvent = obj.event;
