@@ -30,12 +30,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 import com.qt.air.cleaner.accounts.domain.Account;
 import com.qt.air.cleaner.accounts.domain.AccountOutBound;
+import com.qt.air.cleaner.accounts.domain.Agent;
 import com.qt.air.cleaner.accounts.domain.Company;
 import com.qt.air.cleaner.accounts.domain.Investor;
 import com.qt.air.cleaner.accounts.domain.OutBoundRejectReason;
 import com.qt.air.cleaner.accounts.domain.Trader;
 import com.qt.air.cleaner.accounts.repository.AccountOutboundRepository;
 import com.qt.air.cleaner.accounts.repository.AccountRepository;
+import com.qt.air.cleaner.accounts.repository.AgentRepository;
 import com.qt.air.cleaner.accounts.repository.CompanyRepository;
 import com.qt.air.cleaner.accounts.repository.InvestorRepository;
 import com.qt.air.cleaner.accounts.repository.OutBoundRejectReasonRepository;
@@ -68,6 +70,8 @@ public class AccountServiceImpl implements AccountService {
 	@Resource
 	private CompanyRepository companyRepository;
 	@Resource
+	private AgentRepository agentRepository;
+	@Resource
 	private AccountOutboundRepository accountOutboundRepository;
 	@Resource
 	private AccountRepository accountRepository;
@@ -92,6 +96,10 @@ public class AccountServiceImpl implements AccountService {
 		Company company = companyRepository.findByWeixin(weixin);
 		if(company != null) {
 			dtoes.add(new AccountDto(company, company.getAccount()));
+		}
+		Agent agent = agentRepository.findByWeixin(weixin);
+		if(agent != null) {
+			dtoes.add(new AccountDto(agent, agent.getAccount()));
 		}
 		Float totalAcmount = 0.00f;
 		Float availableAmount = 0.00f;
@@ -253,6 +261,11 @@ public class AccountServiceImpl implements AccountService {
 			if (investor != null) {
 				account = investor.getAccount();
 			} 
+		} else if(StringUtils.equals(Account.ACCOUNT_TYPE_ZD, type) || StringUtils.equals(Account.ACCOUNT_TYPE_DL, type)){
+			Agent agent = agentRepository.findByWeixin(weixin);
+			if (agent != null) {
+				account = agent.getAccount();
+			} 
 		}
 		
 		/**
@@ -283,6 +296,11 @@ public class AccountServiceImpl implements AccountService {
 			Investor investor = investorRepository.findByWeixin(weixin);
 			if (investor != null) {
 				account = investor.getAccount();
+			} 
+		}else if(StringUtils.equals(Account.ACCOUNT_TYPE_ZD, type) || StringUtils.equals(Account.ACCOUNT_TYPE_DL, type)){
+			Agent agent = agentRepository.findByWeixin(weixin);
+			if (agent != null) {
+				account = agent.getAccount();
 			} 
 		}
 		return account;
@@ -348,6 +366,11 @@ public class AccountServiceImpl implements AccountService {
 			Investor investor = investorRepository.findByWeixin(weixin);
 			if (investor != null) {
 				password = investor.getAlipay();
+			} 
+		}else if(StringUtils.equals(Account.ACCOUNT_TYPE_ZD, userType) || StringUtils.equals(Account.ACCOUNT_TYPE_DL, userType)){
+			Agent agent = agentRepository.findByWeixin(weixin);
+			if (agent != null) {
+				password = agent.getAlipay();
 			} 
 		}
 		return password;
