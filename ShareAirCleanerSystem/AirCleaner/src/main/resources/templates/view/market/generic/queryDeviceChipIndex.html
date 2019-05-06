@@ -99,6 +99,7 @@
 			<!--左侧功能按钮-->
 			<div class="layui-col-md4">
 				<div class="layui-form-item" style="margin-bottom: -8%;margin-left:2%;">
+				<label class="layui-form-label">类型:</label>
 					<input type="radio" id="renascenceTime" name="type" value="all" title="全部" checked="" style="margin-left:2%;">        
 			        <input type="radio" id="typeTime" name="type"  value="warning" title="警告" style="margin-left:2%;">
 			  	</div>
@@ -122,9 +123,11 @@
 	<script type="text/javascript" src="../../../frame/layui/layui.js"></script>
 	<script type="text/javascript" src="../../../js/index.js"></script>
 	<script type="text/javascript" src="../../../js/market/generic/queryDeviceChipIndex.js"></script>
+	<!-- 列表操作按钮 -->
 	<script type="text/html" id="barOption">
-		<a class="layui-btn layui-btn-mini layui-btn-normal" lay-event="recovery" title="恢复滤芯时长">恢复</a>			
+		{{#  if(d.employtime >= 750){ }}
+			<a class="layui-btn layui-btn-mini layui-btn-normal" lay-event="recovery" title="恢复滤芯时长">恢复</a>
+		{{#  }}}			
 	</script>
-	
 </body>
 </html>
