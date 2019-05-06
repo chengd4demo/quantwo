@@ -26,6 +26,10 @@ public class Account extends GenericEntity {
 	public final static String ACCOUNT_TYPE_SALER = "SR";
 	//消费者
 	public final static String ACCOUNT_TYPE_CUSTOMER = "CR";
+	//总代理
+	public final static String ACCOUNT_TYPE_ZD = "ZD";
+	//代理商
+	public final static String ACCOUNT_TYPE_DL = "DL";	
 	
 	private static final long serialVersionUID = 3011122636062608081L;
 	

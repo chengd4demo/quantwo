@@ -3,6 +3,7 @@ package com.qt.air.cleaner.accounts.vo;
 import java.io.Serializable;
 
 import com.qt.air.cleaner.accounts.domain.Account;
+import com.qt.air.cleaner.accounts.domain.Agent;
 import com.qt.air.cleaner.accounts.domain.Company;
 import com.qt.air.cleaner.accounts.domain.Investor;
 import com.qt.air.cleaner.accounts.domain.Trader;
@@ -120,6 +121,18 @@ public class AccountDto implements Serializable {
 		this.setName(company.getName());
 		this.setAddress(company.getAddress());
 		this.setWeixin(company.getWeixin());
+		this.setTotalAmount(account.getTotalAmount());
+		this.setAvailableAmount(account.getAvailableAmount());
+		this.setFreezingAmount(account.getFreezingAmount());
+		this.setAccountType(account.getAccountType());
+	}
+	
+	public AccountDto(Agent agent, Account account) {
+		super();
+		this.setIdentificationNumber(agent.getIdentificationNumber());
+		this.setName(agent.getName());
+		this.setAddress(agent.getAddress());
+		this.setWeixin(agent.getWeixin());
 		this.setTotalAmount(account.getTotalAmount());
 		this.setAvailableAmount(account.getAvailableAmount());
 		this.setFreezingAmount(account.getFreezingAmount());
