@@ -7,7 +7,7 @@ layui.use(['table','element','vip_tab'], function(){
 		//请求
 		$.ajax({
 			url:"/market/investor/list",
-			async:false,
+			async:true,
 			success:function(data){
 				var investor,t='';
 				if(data != undefined && data.length != 0) {
@@ -24,7 +24,7 @@ layui.use(['table','element','vip_tab'], function(){
 		//请求
 		$.ajax({
 			url:"/market/traders/list",
-			async:false,
+			async:true,
 			success:function(data){
 				var trader,t='';
 				if(data != undefined && data.length != 0) {
@@ -41,7 +41,7 @@ layui.use(['table','element','vip_tab'], function(){
 		//请求
 		$.ajax({
 			url:"/market/saler/list",
-			async:false,
+			async:true,
 			success:function(data){
 				var saler,t='';
 				if(data != undefined && data.length != 0) {

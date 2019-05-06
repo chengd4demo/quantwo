@@ -69,7 +69,7 @@ public class DeviceChipServiceImpl implements DeviceChipService{
 		sql.append(" WHERE");
 		sql.append(" ROWNUM <= :end");
 		if (StringUtils.equals("warning",deviceChipView.getType())) {
-			sql.append(" AND ow_.employtime >=750");
+			sql.append(" AND row_.employtime >=750");
 		}
 		sql.append(" ) WHERE rownum_ > :start");
 		EntityManager em = entityManagerFactory.getNativeEntityManagerFactory().createEntityManager();
@@ -113,9 +113,9 @@ public class DeviceChipServiceImpl implements DeviceChipService{
 	}
 
 	private long getDeviceChipCount(StringBuffer sql, DeviceChipView deviceChipView) {
-		sql.append("SELECT count(row_.machno) count");
-		sql.append("	FROM(");
-		sql.append("	SELECT bill.MACH_NO machno,mk1.DEVICE_SEQUENCE devicesequence,mkb.BATCH_NAME batchname,mk1.SETUP_TIME setuptime,mk1.SETUP_ADDRESS setupaddress,mk2.LEGAL_PERSON legalperson,mk3.NAME tradername,mk4.NAME salername");
+		sql.append("SELECT count(machno) count");
+		sql.append("	FROM (select row_.*  FROM (");
+		sql.append("	SELECT bill.MACH_NO machno,mk1.DEVICE_SEQUENCE devicesequence,mkb.BATCH_NAME batchname,mk1.SETUP_TIME setuptime,mk1.SETUP_ADDRESS setupaddress,mk2.LEGAL_PERSON legalperson,mk3.NAME tradername,mk4.NAME salername,sum(bill.COST_TIME / 60) employtime");
 		sql.append("		FROM ACT_BILLING bill");
 		sql.append("			LEFT JOIN MK_DEVICE mk1 ON bill.MACH_NO = mk1.MACH_NO");
 		sql.append("			LEFT JOIN MK_DEVICE_BATCH mkb ON mk1.DEVICE_BATCH_ID = mkb.ID");
@@ -143,7 +143,9 @@ public class DeviceChipServiceImpl implements DeviceChipService{
 		}
 		sql.append("	GROUP BY bill.MACH_NO,mk1.DEVICE_SEQUENCE,mkb.BATCH_NAME,mk1.SETUP_TIME,mk1.SETUP_ADDRESS,mk2.LEGAL_PERSON,mk3.NAME,mk4.NAME) row_");
 		if(StringUtils.equals("warning",deviceChipView.getType())) {
-			sql.append(" WHERE ow_.employtime >=750");
+			sql.append(" WHERE row_.employtime >=750)");
+		} else {
+			sql.append(")");
 		}
 		EntityManager em = entityManagerFactory.getNativeEntityManagerFactory().createEntityManager();
 		Session session = em.unwrap(Session.class);
