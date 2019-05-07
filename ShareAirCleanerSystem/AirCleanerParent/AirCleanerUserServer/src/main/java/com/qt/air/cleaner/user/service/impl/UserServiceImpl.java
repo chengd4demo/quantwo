@@ -71,7 +71,8 @@ public class UserServiceImpl implements UserService {
 	public String appSecret;
 	@Value("${o2.wechat.subscription.app.id}")
 	public String appId;
-
+	@Value("${auth.redirect.url}")
+	public String redirectUrl;
 	/**
 	 * 查询用户信息
 	 * 
@@ -621,9 +622,9 @@ public class UserServiceImpl implements UserService {
 				Agent agent = agentRepository
 						.findByIdentificationNumberAndPhoneNumberAndRemoved(identificationNumber, phoneNumber, false);
 				if (agent != null) {
-					if (!StringUtils.equals(investor.getWeixin(), weixin)) {
+					if (!StringUtils.equals(agent.getWeixin(), weixin)) {
 						agent.setWeixin(weixin);
-						agent.setLegalPerson(investor.getLegalPerson());
+						agent.setLegalPerson(agent.getLegalPerson());
 						agent = agentRepository.saveAndFlush(agent);
 					}
 					isOk = true;
@@ -722,7 +723,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public ResultInfo authorize(@RequestParam("userType") String userType) {
 		logger.info("execute method authorize() param: --> {}", userType);
-		String redirectUrl = "http://zf2.quantwo.cn/app.html";
 	    String url = WechatMpCore.generateWechatUrl(appId, "snsapi_userinfo", redirectUrl,
 				"MERCHANT".equals(userType) ? "merchant" : "customere");
 		logger.info(url);
