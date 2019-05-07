@@ -21,4 +21,5 @@ public interface AccountInBoundRepository extends JpaRepository<AccountInBound, 
 	@Modifying
 	@Query(value="update AccountInBound set state=1 where id=:id and removed=false")
 	void updateState(@Param("id") String id);
+	List<AccountInBound>  findByIdIn(String[] string);
 }

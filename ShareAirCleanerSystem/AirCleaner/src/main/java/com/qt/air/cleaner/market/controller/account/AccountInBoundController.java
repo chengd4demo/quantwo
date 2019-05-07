@@ -3,6 +3,8 @@ package com.qt.air.cleaner.market.controller.account;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,5 +67,25 @@ public class AccountInBoundController {
 		}
 		return RetResponse.makeOKRsp();
 	}
+	
+	@RequestMapping (method = RequestMethod.POST,path = "/batch/affirm")
+	@ResponseBody
+	public RetResult<Object> inBoundAffirm (HttpServletRequest reuqust){
+		String[] ids = reuqust.getParameterValues("ids[]");
+		try {
+			if (ids == null || ids.length ==0) {
+				return RetResponse.makeErrRsp(ErrorCodeEnum.ES_4001.getMessage());
+			} else {
+				accountInBoundService.updateBatchAffirm(ids);
+			}
+			
+		} catch (Exception e) {
+			logger.error("入账确认异常：{}",e.getMessage());
+			return RetResponse.makeErrRsp(ErrorCodeEnum.ES_4001.getMessage());
+		}
+		return RetResponse.makeOKRsp();
+	}
+	
+	
 	
 }

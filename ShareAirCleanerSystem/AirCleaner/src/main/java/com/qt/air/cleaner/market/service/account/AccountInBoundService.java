@@ -32,6 +32,16 @@ public interface AccountInBoundService {
 	 */
 	List<AccountInBound> findAll(boolean removed);
 	
+	/**
+	 * 入账确认更新
+	 * @param id
+	 */
 	public void updateState(String id);
+
+	/**
+	 * 批量入账确认更新
+	 * @param ids
+	 */
+	public void updateBatchAffirm(String[] ids);
 
 }

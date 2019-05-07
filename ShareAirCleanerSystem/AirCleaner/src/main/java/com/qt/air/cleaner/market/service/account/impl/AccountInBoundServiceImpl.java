@@ -19,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import com.qt.air.cleaner.market.domain.account.Account;
 import com.qt.air.cleaner.market.domain.account.AccountInBound;
@@ -28,7 +29,6 @@ import com.qt.air.cleaner.market.service.account.AccountInBoundService;
 import com.qt.air.cleaner.market.vo.account.AccountInBoundView;
 import com.qt.air.cleaner.utils.CalculateUtils;
 
-
 @Service
 @Transactional
 public class AccountInBoundServiceImpl implements AccountInBoundService {
@@ -36,13 +36,12 @@ public class AccountInBoundServiceImpl implements AccountInBoundService {
 	AccountInBoundRepository accountInBoundRepository;
 	@Resource
 	AccountRepository accountRepository;
-	
-	
+
 	@Override
 	public List<AccountInBound> findAll(boolean removed) {
-		return  accountInBoundRepository.findByRemoved(false);
+		return accountInBoundRepository.findByRemoved(false);
 	}
-	
+
 	/**
 	 * 入账记录分页模糊查询
 	 *
@@ -52,27 +51,27 @@ public class AccountInBoundServiceImpl implements AccountInBoundService {
 	 */
 	@Override
 	public Page<AccountInBound> findAllAccountInBound(AccountInBoundView accountInBoundView, Pageable pageable) {
-		Specification<AccountInBound> specification = new Specification<AccountInBound>() {			
+		Specification<AccountInBound> specification = new Specification<AccountInBound>() {
 			@Override
-			public Predicate toPredicate(Root<AccountInBound> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder cb) {
+			public Predicate toPredicate(Root<AccountInBound> root, CriteriaQuery<?> criteriaQuery,
+					CriteriaBuilder cb) {
 				List<Predicate> conditions = new ArrayList<>();
 				String name = accountInBoundView.getName();
 				if (StringUtils.isNotBlank(name)) { // 订单号
 					Predicate p1 = cb.like(root.get("name"), "%" + StringUtils.trim(name) + "%");
 					conditions.add(p1);
 				}
-				
+
 				String inBoundTime = accountInBoundView.getInBoundTime();
 				if (StringUtils.isNotBlank(inBoundTime)) { // 入账时间
-					whereTime(root, cb, conditions,inBoundTime);
+					whereTime(root, cb, conditions, inBoundTime);
 				}
 				Integer state = accountInBoundView.getState();
-				if(state!=null) {//订单状态
+				if (state != null) {// 订单状态
 					Predicate p3 = cb.equal(root.get("state"), state);
 					conditions.add(p3);
 				}
-				
-				
+
 				Predicate p4 = cb.equal(root.get("removed"), false);
 				conditions.add(p4);
 				Predicate[] p = new Predicate[conditions.size()];
@@ -81,10 +80,9 @@ public class AccountInBoundServiceImpl implements AccountInBoundService {
 
 		};
 		return accountInBoundRepository.findAll(specification, pageable);
-	
-	
+
 	}
-	
+
 	/**
 	 * 根据日期查询
 	 * 
@@ -93,7 +91,7 @@ public class AccountInBoundServiceImpl implements AccountInBoundService {
 	 * @param conditions
 	 * @param timeStr
 	 */
-	private void whereTime(Root<AccountInBound>  root, CriteriaBuilder cb, List<Predicate> conditions,String timeStr) {
+	private void whereTime(Root<AccountInBound> root, CriteriaBuilder cb, List<Predicate> conditions, String timeStr) {
 		// 处理时间
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		Date startDate;
@@ -115,14 +113,15 @@ public class AccountInBoundServiceImpl implements AccountInBoundService {
 
 	/**
 	 * 入账确认
+	 * 
 	 * @param id
 	 * 
-	 * */ 
+	 */
 	@Override
 	public void updateState(String id) {
-		if(StringUtils.isNoneBlank(id)) {
-			AccountInBound inBound = accountInBoundRepository.findByIdAndRemoved(id,Boolean.FALSE);
-			if(inBound != null) {
+		if (StringUtils.isNoneBlank(id)) {
+			AccountInBound inBound = accountInBoundRepository.findByIdAndRemoved(id, Boolean.FALSE);
+			if (inBound != null) {
 				accountInBoundRepository.updateState(id);
 				Account account = inBound.getAccount();
 				account.setFreezingAmount(CalculateUtils.sub(account.getFreezingAmount(), inBound.getAmount()));
@@ -130,6 +129,34 @@ public class AccountInBoundServiceImpl implements AccountInBoundService {
 				accountRepository.saveAndFlush(account);
 			}
 		}
-		
+
+	}
+
+	/**
+	 * 批量入账确认更新
+	 * 
+	 * @param ids
+	 */
+	@Override
+	public void updateBatchAffirm(String[] ids) {
+		Account account = null;
+		AccountInBound accountInBound = null;
+		Float amount = 0.00f;
+		List<AccountInBound> accountInBoundList = accountInBoundRepository.findByIdIn(ids);
+		if (!CollectionUtils.isEmpty(accountInBoundList)) {
+			for(int i=0;i<accountInBoundList.size();i++) {
+				accountInBound = accountInBoundList.get(i);
+				if (accountInBound != null && accountInBound.getAccount() != null) {
+					amount = accountInBound.getAmount();
+					if (amount > 0 && accountInBound.getState() == 0) {
+						account = accountInBound.getAccount();
+						account.setFreezingAmount(CalculateUtils.sub(account.getFreezingAmount(), amount));
+						account.setAvailableAmount(CalculateUtils.add(account.getAvailableAmount(), amount));
+						accountInBound.setAccount(account);
+						accountInBoundRepository.saveAndFlush(accountInBound);
+					}
+				}
+			}
+		}
 	}
 }

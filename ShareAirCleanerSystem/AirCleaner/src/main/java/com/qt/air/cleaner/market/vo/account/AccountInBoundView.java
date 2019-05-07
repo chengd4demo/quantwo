@@ -3,6 +3,7 @@ package com.qt.air.cleaner.market.vo.account;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.qt.air.cleaner.market.domain.account.AccountInBound;
 
 public class AccountInBoundView implements Serializable {
@@ -16,6 +17,7 @@ public class AccountInBoundView implements Serializable {
 	private String inBoundTime;//	入账时间
 	private String phoneNum;//	手机号
 	private Integer state;//	状态
+	@JsonIgnore
 	private SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:ss:mm");
 	public AccountInBoundView(AccountInBound accountInBound) {
 		super();
@@ -105,13 +107,18 @@ public class AccountInBoundView implements Serializable {
 		this.state = state;
 	}
 
+	public SimpleDateFormat getDf() {
+		return df;
+	}
+
+	public void setDf(SimpleDateFormat df) {
+		this.df = df;
+	}
+
 	@Override
 	public String toString() {
 		return "AccountInBoundView [id=" + id + ", code=" + code + ", name=" + name + ", type=" + type + ", amount="
-				+ amount + ", weixin=" + weixin + ", inBoundTime=" + inBoundTime + ", state=" + state + "]";
+				+ amount + ", weixin=" + weixin + ", inBoundTime=" + inBoundTime + ", phoneNum=" + phoneNum + ", state="
+				+ state + "]";
 	}
-
-		
-	
-	
 }

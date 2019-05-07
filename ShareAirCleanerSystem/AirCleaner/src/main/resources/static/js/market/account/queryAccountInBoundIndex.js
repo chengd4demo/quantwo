@@ -23,6 +23,7 @@ layui.use(['table', 'form', 'layer', 'vip_table','laydate'], function(){
 	                ,limitName: 'limit' //每页数据量的参数名，默认：limit
 	            }
 	            ,cols: [[
+	            	{field: 'id', width:80, title:'ID'},
 	                 {
 							field: 'code',
 							title: '用户编号',
@@ -69,6 +70,7 @@ layui.use(['table', 'form', 'layer', 'vip_table','laydate'], function(){
 		,  done: function(res, curr, count){
 			 pageCurr=curr;
 			 numbers=count;
+			 $("[data-field='id']").css('display','none');
 		}
 	 });
 	
@@ -107,6 +109,49 @@ layui.use(['table', 'form', 'layer', 'vip_table','laydate'], function(){
 				});
 			}
 	 });
+	 layui.jquery('#batchinboundaffirm .layui-btn').on('click', function(){
+		 	var othis = $(this), method = othis.data('method');
+		 	active[method] ? active[method].call(this, othis) : '';
+		 });
+	 var active = {
+	   batchinboundaffirm: function(){
+		   var ids = new Array()
+		   var tbodyObj = $('tbody')[0].rows
+		   var id = '',state=''
+		   for(var i=0;i<tbodyObj.length;i++) {
+			  state=tbodyObj[i].innerText.split('\n')[6]
+		      if(state!='已确认')ids.push(tbodyObj[i].firstChild.innerText)
+		    }
+		   if(ids.length==0) {
+			   layer.msg('没有待确认数据！',{time:1200});
+		   } else {
+			   layer.confirm('确定入账？', function(index) {
+				   var lock=false;//默认未锁定
+				   if (!lock){
+					    //请求
+						$.ajax({
+							url:"/market/accountInBound/batch/affirm",
+							type:"POST",
+							async:false,
+							data:{ids:ids},
+							success:function(data){
+								if(data.code==200){
+									layer.msg('入账成功！',{time:500},function(){
+										layer.close(index);
+										$(".layui-laypage-btn").click();
+				            		 });
+								}else {
+									layer.msg(data.msg);
+									layer.close(index);
+								}
+								lock=true;//锁定
+							}
+						});
+				   }
+			   });
+		   }
+	   }
+	 }
 });
 function load(obj){
    //重新加载table
@@ -116,4 +161,13 @@ function load(obj){
            curr: pageCurr //从当前页码开始
        }
    });
+}
+
+/**
+ * 获取入账ID和金额
+ * @returns
+ */
+function batciInBoundData(j) { 
+	
+	return {ids:ids,amounts:amounts}
 }
