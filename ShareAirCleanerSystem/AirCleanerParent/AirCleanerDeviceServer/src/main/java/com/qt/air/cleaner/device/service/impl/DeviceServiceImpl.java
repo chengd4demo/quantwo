@@ -4,6 +4,7 @@ package com.qt.air.cleaner.device.service.impl;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -18,6 +19,8 @@ import org.hibernate.type.StandardBasicTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,10 +30,13 @@ import com.google.gson.Gson;
 import com.qt.air.cleaner.base.dto.RequestParame;
 import com.qt.air.cleaner.base.dto.ResultCode;
 import com.qt.air.cleaner.base.dto.ResultInfo;
+import com.qt.air.cleaner.base.enums.ErrorCodeEnum;
 import com.qt.air.cleaner.device.domain.Device;
+import com.qt.air.cleaner.device.domain.DeviceChip;
 import com.qt.air.cleaner.device.domain.PriceModel;
 import com.qt.air.cleaner.device.domain.PriceSystem;
 import com.qt.air.cleaner.device.domain.PriceValue;
+import com.qt.air.cleaner.device.repository.DeviceChipRepository;
 import com.qt.air.cleaner.device.repository.DeviceRepository;
 import com.qt.air.cleaner.device.repository.PriceModelRepository;
 import com.qt.air.cleaner.device.repository.PriceSystemRepository;
@@ -57,6 +63,8 @@ public class DeviceServiceImpl implements DeviceService {
 	private PriceModelRepository priceModelRepository;
 	@Autowired
 	private PriceSystemRepository priceSystemRepository;	
+	@Autowired
+	private DeviceChipRepository deviceChipRepository;
 	@Autowired
     private LocalContainerEntityManagerFactoryBean entityManagerFactory;
 	/**
@@ -604,5 +612,40 @@ public class DeviceServiceImpl implements DeviceService {
 		}
 		return new ResultInfo(String.valueOf(ResultCode.SC_OK), "success", result);
 		
+	}
+
+	/**
+	 * 设备pm25数据累计更新(供物联网调用)
+	 * 
+	 * @param requestParame
+	 * @return
+	 */
+	@Override
+	public ResultInfo updatPmDataUpPlatform(@RequestBody RequestParame requestParame) {
+		logger.info("execute method updatPmDataUpPlatform() param --> requestParame:{}", new Gson().toJson(requestParame));
+		try {
+			String machNo = requestParame.getData().get("machNo");
+			Integer pmValue = Integer.parseInt(requestParame.getData().get("pmValue"));
+			DeviceChip deviceChip = new DeviceChip();
+			deviceChip.setMachNo(machNo);
+			ExampleMatcher matcher = ExampleMatcher.matching().withIgnorePaths("pmValue");
+			Example<DeviceChip> example = Example.of(deviceChip,matcher);
+			deviceChip = deviceChipRepository.findOne(example);
+			if (deviceChip!=null) {
+				//更新累加pm值
+				deviceChip.setPmValue(pmValue+deviceChip.getPmValue());
+			} else {
+				deviceChip = new DeviceChip();
+				deviceChip.setCreateTime(new Date());
+				deviceChip.setCreater("defalult");
+				deviceChip.setMachNo(machNo);
+				deviceChip.setPmValue(pmValue);
+			}
+			deviceChipRepository.saveAndFlush(deviceChip);
+		} catch (RuntimeException e) {
+			logger.error("设备pm25数据累计更新异常：{}",e.getMessage());
+			return new ResultInfo(ErrorCodeEnum.ES_1030.getErrorCode(), ErrorCodeEnum.ES_1030.getMessage(), 0);
+		}
+		return new ResultInfo(String.valueOf(ResultCode.SC_OK), "success", 1);
 	}
 }

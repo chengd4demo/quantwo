@@ -88,5 +88,15 @@ public interface DeviceService {
 	 */
 	@RequestMapping(value = "/queryTurnState/{machNo}",method = RequestMethod.GET)
 	ResultInfo queryTurnState(@PathVariable("machNo") String machNo);
+	
+	/**
+	 * 设备pm25数据累计更新(供物联网调用)
+	 * 
+	 * @param requestParame
+	 * @return
+	 */
+	@RequestMapping(value = "/updatePmDataUpPlatform",method = RequestMethod.POST)
+	ResultInfo updatPmDataUpPlatform(@RequestBody RequestParame requestParame);
+	
 
 }
