@@ -153,6 +153,7 @@ public class AccountInBoundServiceImpl implements AccountInBoundService {
 						account.setFreezingAmount(CalculateUtils.sub(account.getFreezingAmount(), amount));
 						account.setAvailableAmount(CalculateUtils.add(account.getAvailableAmount(), amount));
 						accountInBound.setAccount(account);
+						accountInBound.setState(1); //更新入账状态为已确认
 						accountInBoundRepository.saveAndFlush(accountInBound);
 					}
 				}
