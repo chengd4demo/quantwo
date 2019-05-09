@@ -6,8 +6,8 @@ layui.use(['table','element','vip_tab'], function(){
 	 function getInvestorList(){
 		//请求
 		$.ajax({
-			url:"/market/investor/list",
-			async:true,
+			url:"/market/device/chip/investor/list",
+			async:false,
 			success:function(data){
 				var investor,t='';
 				if(data != undefined && data.length != 0) {
@@ -23,8 +23,8 @@ layui.use(['table','element','vip_tab'], function(){
 	 function getTraderList(){
 		//请求
 		$.ajax({
-			url:"/market/traders/list",
-			async:true,
+			url:"/market/device/chip/trader/list",
+			async:false,
 			success:function(data){
 				var trader,t='';
 				if(data != undefined && data.length != 0) {
@@ -40,8 +40,8 @@ layui.use(['table','element','vip_tab'], function(){
 	 function getSalerList(){
 		//请求
 		$.ajax({
-			url:"/market/saler/list",
-			async:true,
+			url:"/market/device/chip/saler/list",
+			async:false,
 			success:function(data){
 				var saler,t='';
 				if(data != undefined && data.length != 0) {
@@ -143,7 +143,7 @@ layui.use(['table','element','vip_tab'], function(){
 						lock=true;//锁定
 						//请求
 						$.ajax({
-							url:"",
+							url:"/market/device/chip/updateChangeTime/"+ data.machno,
 							async:false,
 							success:function(data){
 								if(data.code==200){
