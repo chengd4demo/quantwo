@@ -22,10 +22,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.aliyuncs.exceptions.ClientException;
 import com.github.wxpay.sdk.IWXPayDomain;
 import com.github.wxpay.sdk.WXPay;
 import com.github.wxpay.sdk.WXPayConfig;
@@ -38,6 +40,8 @@ import com.qt.air.cleaner.base.dto.ResultCode;
 import com.qt.air.cleaner.base.dto.ResultInfo;
 import com.qt.air.cleaner.base.enums.ErrorCodeEnum;
 import com.qt.air.cleaner.base.exception.BusinessRuntimeException;
+import com.qt.air.cleaner.base.utils.SmsUtils;
+import com.qt.air.cleaner.msg.service.MsgService;
 import com.qt.air.cleaner.pay.domain.Billing;
 import com.qt.air.cleaner.pay.domain.Device;
 import com.qt.air.cleaner.pay.domain.PriceValue;
@@ -87,6 +91,8 @@ public class PayServiceImpl implements PayService {
 	public String notifyUrl;
 	@Value("${o2.wechat.subscription.body.description}")
 	public String body;
+	@Value("${send.message.phones}")
+	public String phones;
 	
 	@Value("${o2.weixin.cache.name}")
 	public String WEIXIN_CACHE_NAME;
@@ -386,11 +392,26 @@ public class PayServiceImpl implements PayService {
 			}
 		} catch (Exception e) {
 			logger.error("统一下单错误", e);
+			sendWaringMsg(e.getMessage());
 			return new ResultInfo(ErrorCodeEnum.ES_1025.getErrorCode(), ErrorCodeEnum.ES_1025.getMessage(), null);
 		}
 		//跳转jspai
 		return new ResultInfo(String.valueOf(ResultCode.SC_OK),"success",resultMap);
 	}
+	
+	@Async
+	private void sendWaringMsg(String errorMsg) {
+		String[] phoneArray = phones.split(",");
+		for(String phone : phoneArray) {
+			try {
+				SmsUtils.sendSms(phone, errorMsg);
+			} catch (ClientException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+
 	private Map<String,String> generateWeiXinBilling(Device device,PriceValue priceValue, String openId, String ip){
 		
 		try {
