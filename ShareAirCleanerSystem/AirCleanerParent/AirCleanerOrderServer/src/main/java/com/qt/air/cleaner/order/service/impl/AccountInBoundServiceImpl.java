@@ -96,13 +96,18 @@ public class AccountInBoundServiceImpl implements AccountInBoundService {
 				view.setUnitPrice(inBound.getBilling().getAmount());
 				view.setDiscountStr(inBound.getBilling().getDiscountStr());
 				view.setCreateTimeStr(dateFormat.format(inBound.getBilling().getCreateTime()));
-				if(StringUtils.equals("投资商", inBound.getType()) || StringUtils.equals("代理商", inBound.getType()) || StringUtils.equals("总代理", inBound.getType())){
-					String address = investorRepository.findByWeixinAndDeviceId(weixin, inBound.getBilling().getDeviceId());
-					if(StringUtils.isEmpty(address)) {
-						view.setAddress("-");
-					}else {
-						view.setAddress(address);
-					}
+				String address = null;
+				if (StringUtils.equals("投资商", inBound.getType())){
+					address = investorRepository.findInvestorByWeixinAndDeviceIdInvestor(weixin, inBound.getBilling().getDeviceId());
+				} else if(StringUtils.equals("代理", inBound.getType()) || StringUtils.equals("区域总代理", inBound.getType())) {
+					address = investorRepository.findAgentByWeixinAndDeviceId(weixin, inBound.getBilling().getDeviceId());
+				} else if(StringUtils.equals("运营商", inBound.getType())) {
+					address = investorRepository.findCompanyByWeixinAndDeviceId(weixin, inBound.getBilling().getDeviceId());
+				}
+				if(StringUtils.isEmpty(address)) {
+					view.setAddress("-");
+				}else {
+					view.setAddress(address);
 				}
 				result.add(view);
 			}
