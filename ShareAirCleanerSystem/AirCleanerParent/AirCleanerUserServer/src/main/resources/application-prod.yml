@@ -31,3 +31,6 @@ o2:
       app: 
         id: wx93953fe379a2c548
         secret: 883fcd2427e25e9c00600af8a664fb87
+auth:
+  redirect: 
+    url: http://zf2.quantwo.cn/app.html
