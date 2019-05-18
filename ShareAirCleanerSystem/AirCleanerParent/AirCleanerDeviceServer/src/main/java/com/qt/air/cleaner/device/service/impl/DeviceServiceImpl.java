@@ -173,6 +173,7 @@ public class DeviceServiceImpl implements DeviceService {
 	 */
 	@Override
 	public ResultInfo queryDeviceMonitorPage(@RequestBody RequestParame requestParame) {
+		logger.info("设备监控列表查询,请求参数:{}",new Gson().toJson(requestParame));
 		List<DeviceMonitor> devices = this.findDeviceMonitorPage(requestParame);
 		return new ResultInfo(String.valueOf(ResultCode.SC_OK), "success", devices);
 	}
@@ -231,17 +232,19 @@ public class DeviceServiceImpl implements DeviceService {
 			sql.append("                  and d.investor_id = i.id");
 			if(StringUtils.isNotBlank(traderId) && StringUtils.isNotBlank(investorId)) {
 				sql.append("                  and (t.id = :traderId and i.id = :investorId)");
+			} else if (StringUtils.isNotBlank(traderId) && StringUtils.isNotBlank(agentId)) {
+				sql.append("                  and d.distribution_ratio = a.pid");
+				sql.append("                  and (t.id = :traderId and a.agent_id = :agentId)");
 			} else if(StringUtils.isNotBlank(traderId)) {
 				sql.append("                  and (t.id = :traderId)");
 			} else if(StringUtils.isNotBlank(investorId)){
 				sql.append("                  and (i.id = :investorId)");
 			} else if(StringUtils.isNotBlank(customerId)){
 				sql.append("                  and (b.creater = :customerId)");
-			} else if (StringUtils.isNotBlank(traderId) && StringUtils.isNotBlank(agentId)) {
-				sql.append("                  and d.distribution_ratio = a.pid");
-				sql.append("                  and (t.id = :traderId and a.agent_id = :agentId)");
-			}
-			sql.append("and(b.transaction_id is not Null)");
+			} else if(StringUtils.isNotBlank(agentId)){
+				sql.append("                  and d.distribution_ratio = a.pid and (a.agent_id = :agentId)");
+			} 
+			sql.append(" and (b.transaction_id is not Null)");
 			sql.append("                order by b.create_time desc) row_");
 			if (!StringUtils.equals(queryType, "record")) {
 				sql.append("        where rownum <= :end and row_.row_flg = '1')");
@@ -275,6 +278,8 @@ public class DeviceServiceImpl implements DeviceService {
 				query.setParameter("investorId", investorId);
 			} else if (StringUtils.isNotBlank(customerId)) {
 				query.setParameter("customerId", customerId);
+			} else if(StringUtils.isNotBlank(agentId)){
+				query.setParameter("agentId", agentId);
 			}
 			Integer start = requestParame.getPage().getStart();
 			Integer end = requestParame.getPage().getEnd();
@@ -419,6 +424,7 @@ public class DeviceServiceImpl implements DeviceService {
 	private List<TraderDevice>findInvestorForTrader(RequestParame requestParame){
 		logger.info("execute method findInvestorForTrader() param --> requestParame:{}", new Gson().toJson(requestParame));
 		String investorId = requestParame.getData().get("investorId");
+		String companyId = requestParame.getData().get("companyId");
 		String agentId = requestParame.getData().get("agentId");
 		StringBuffer sql = new StringBuffer();
 		sql.append("SELECT count, name, usecount, address,traderid ");
@@ -432,7 +438,7 @@ public class DeviceServiceImpl implements DeviceService {
 			sql.append("		INNER JOIN (");
 			sql.append("			SELECT COUNT(d.mach_no) AS count, d.trader_id, d.investor_id");
 			sql.append("			FROM mk_device d,(select a2.pid, a2.agent_id from (select ft.pid, ft.agent_id from mk_agent ag left join ps_share_profit ft on ag.id = ft.agent_id) a2) a3");
-			sql.append("            WHERE d.distribution_ratio = a3.pid");
+			sql.append("            WHERE d.distribution_ratio = a3.pid and a3.agent_id =:agentId");
 			sql.append("			GROUP BY d.trader_id, d.investor_id,a3.agent_id");
 			sql.append("		) d1 ON d1.trader_id = t.id ");
 			sql.append("			LEFT JOIN (");
@@ -443,8 +449,23 @@ public class DeviceServiceImpl implements DeviceService {
 			sql.append("							hh24:mi:ss'), 'yyyy/mm/dd hh24:mi:ss')) * 24 * 60) > 0");
 			sql.append("					AND a.agent_id =:agentId");
 			sql.append("				GROUP BY d2.trader_id");
-			sql.append("			) d3 ON d1.trader_id = d3.trader_id");
-			sql.append("		WHERE d1.agent_id =:agentId");
+			sql.append("			) d3 ON d1.trader_id = d3.trader_id)");
+		} else if(StringUtils.isNotBlank(companyId)) { //公司下面的落地商户
+			sql.append("		INNER JOIN (");
+			sql.append("			SELECT COUNT(d.mach_no) AS count, d.trader_id, d.company_id");
+			sql.append("			FROM mk_device d");
+			sql.append("			GROUP BY d.trader_id, d.company_id");
+			sql.append("		) d1 ON d1.trader_id = t.id ");
+			sql.append("			LEFT JOIN (");
+			sql.append("				SELECT COUNT(b.id) AS usecount, d2.trader_id");
+			sql.append("				FROM act_billing b, mk_device d2");
+			sql.append("				WHERE b.mach_no = d2.mach_no");
+			sql.append("					AND b.cost_time - ceil((SYSDATE - to_date(to_char(b.operate_time, 'yyyy/mm/dd"); 
+			sql.append("							hh24:mi:ss'), 'yyyy/mm/dd hh24:mi:ss')) * 24 * 60) > 0");
+			sql.append("					AND d2.company_id =:companyId");
+			sql.append("				GROUP BY d2.trader_id");
+			sql.append("			) d3 ON d1.trader_id = d3.trader_id"); 
+			sql.append("		WHERE d1.company_id =:companyId) ");
 		} else {	//投资商下面的落地商户
 			sql.append("		INNER JOIN (");
 			sql.append("			SELECT COUNT(d.mach_no) AS count, d.trader_id, d.investor_id");
@@ -460,9 +481,9 @@ public class DeviceServiceImpl implements DeviceService {
 			sql.append("					AND d2.investor_id =:investorid");
 			sql.append("				GROUP BY d2.trader_id");
 			sql.append("			) d3 ON d1.trader_id = d3.trader_id"); 
-			sql.append("		WHERE d1.investor_id =:investorid");
+			sql.append("		WHERE d1.investor_id =:investorid) ");
 		} 
-		sql.append("	) row_");
+		sql.append(" row_");
 		sql.append("	WHERE rownum <= :end");
 		sql.append(")");
 		sql.append("WHERE rownum_ > :start");
@@ -476,6 +497,8 @@ public class DeviceServiceImpl implements DeviceService {
 				.addScalar("usecount",StandardBasicTypes.INTEGER);
 		if (StringUtils.isNotBlank(agentId)) { 
 			query.setParameter("agentId", agentId);
+		} else if(StringUtils.isNotBlank(companyId)) {
+			query.setParameter("companyId", companyId);
 		} else {
 			query.setParameter("investorid", investorId);
 		}
@@ -530,19 +553,27 @@ public class DeviceServiceImpl implements DeviceService {
 		String traderId = requestParame.getData().get("traderId");
 		String investorId = requestParame.getData().get("investorId");
 		String companyId = requestParame.getData().get("companyId");
+		String agentId = requestParame.getData().get("agnetId");
 		StringBuffer sql = new StringBuffer();
 		sql.append("select machno,devicesequence,counts");
 		sql.append("  from (select row_.*, rownum rownum_");
 		sql.append("  from ( "); 
 		sql.append("		select a.machno, a.device_sequence as devicesequence, NVL(b.counts, 0) as counts");
-		sql.append("			from (select d.mach_no as machno, d.id, d.device_sequence from mk_device d");
-		sql.append("				  where ");
-		if (StringUtils.isNotEmpty(traderId)) {
-			sql.append("				d.trader_id = :traderId");
-		} else if (StringUtils.isNotEmpty(investorId)) {
-			sql.append("				d.investor_id = :investorId");
-		} else if (StringUtils.isNoneEmpty(companyId)) {
-			sql.append("				d.company_id = :companyId");
+		if (StringUtils.isNotBlank(agentId)) { //代理商查询逻辑
+			sql.append("			from (select d.mach_no as machno, d.id, d.device_sequence from mk_device d");
+			sql.append(" ,(select a2.pid, a2.agent_id from (select ft.pid, ft.agent_id from mk_agent ag left join ps_share_profit ft on ag.id = ft.agent_id) a2) a3");
+			sql.append("				  where ");
+			sql.append("				  a3.pid = d.distribution_ratio and a3.agent_id = :agentId");
+		} else {	//公司、落地商户、投资商查询逻辑
+			sql.append("			from (select d.mach_no as machno, d.id, d.device_sequence from mk_device d");
+			sql.append("				  where ");
+			if (StringUtils.isNotEmpty(traderId)) {
+				sql.append("				d.trader_id = :traderId");
+			} else if (StringUtils.isNotEmpty(investorId)) {
+				sql.append("				d.investor_id = :investorId");
+			} else if (StringUtils.isNoneEmpty(companyId)) {
+				sql.append("				d.company_id = :companyId");
+			}
 		}
 		sql.append("				  ) a");
 		sql.append("		left join (select app.mach_no as machno,app.total as counts from rep_apply_record app");
@@ -558,13 +589,18 @@ public class DeviceServiceImpl implements DeviceService {
 				.addScalar("machno",StandardBasicTypes.STRING)
 				.addScalar("devicesequence",StandardBasicTypes.STRING)
 				.addScalar("counts",StandardBasicTypes.INTEGER);
-		if (StringUtils.isNotBlank(investorId)) {
-			query.setParameter("investorId", investorId);
-		} else if (StringUtils.isNotBlank(traderId)) {
-			query.setParameter("traderId", traderId);
-		} else if (StringUtils.isNotBlank(companyId)) {
-			query.setParameter("companyId", companyId);
-		} 
+		if (StringUtils.isNotBlank(agentId)) { 
+			query.setParameter("agentId", agentId);
+		} else {
+			if (StringUtils.isNotBlank(investorId)) {
+				query.setParameter("investorId", investorId);
+			} else if (StringUtils.isNotBlank(traderId)) {
+				query.setParameter("traderId", traderId);
+			} else if (StringUtils.isNotBlank(companyId)) {
+				query.setParameter("companyId", companyId);
+			} 
+		}
+	
 		Integer start = requestParame.getPage().getStart();
 		Integer end = requestParame.getPage().getEnd();
 		query.setParameter("start", start);
