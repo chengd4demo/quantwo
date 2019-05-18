@@ -49,3 +49,6 @@ o2:
         secret: quantuztwyzl39quantwoquantuztwyz
   system:
     domain: http://zf2.quantwo.cn/app.html
+send:
+  message: 
+   phones: 13111881331,13111881313,13980401061

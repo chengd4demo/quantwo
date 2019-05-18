@@ -1,7 +1,7 @@
 spring: 
   datasource: 
     driver-class-name: oracle.jdbc.driver.OracleDriver
-    url: jdbc:oracle:thin:@192.168.13.202:1521:orcl
+    url: jdbc:oracle:thin:@222.212.93.11:8002:orcl
     username: market
     password: market2018
   jpa:
@@ -49,3 +49,6 @@ o2:
         secret: quantuztwyzl39quantwoquantuztwyz
   system:
     domain: http://quantwo.cn/app.html
+send:
+  message: 
+   phones: 13111881331,13111881313,13980401061
