@@ -108,8 +108,12 @@
 			促销员
 		{{#  } else if(d.type === 'CR') { }}
 			消费者
+		{{#  } else if(d.type === 'ZL') { }}
+			区域总代
+		{{#  } else if(d.type === 'DL') { }}
+			代理
 		{{#  } else { }}
-			{{#  d.state }}
+			-
 		{{#  } }}
 	</script>
 	
