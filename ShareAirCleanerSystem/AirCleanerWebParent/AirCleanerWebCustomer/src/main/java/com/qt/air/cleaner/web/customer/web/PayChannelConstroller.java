@@ -37,7 +37,9 @@ public class PayChannelConstroller {
 	public ResultInfo payAuthorization(HttpServletRequest request,HttpServletResponse response) {
 		String machNo = request.getParameter("machNo");
 		String priceId = request.getParameter("priceId");
+		String ipAddress = request.getHeader("HTTP_X_FORWARDED_FOR") == null ? request.getRemoteAddr() : request.getHeader("HTTP_X_FORWARDED_FOR");
 		logger.info("execute pay-channel's method payAuthorization()  start -> param:{machNo: "+machNo+",priceId: "+priceId+"}");	
+		logger.info("ipAddress -> " + ipAddress);
 		try {
 			if(StringUtils.isNotBlank(machNo) && StringUtils.isNotBlank(priceId)) {
 				RequestParame parames = new RequestParame();
@@ -46,6 +48,7 @@ public class PayChannelConstroller {
 					 put("payType","WX");
 					 put("priceId",priceId);
 					 put("deviceId",machNo);
+					 put("ipAddress",ipAddress);
 					}
 				});
 				return payService.payAuth(parames);
