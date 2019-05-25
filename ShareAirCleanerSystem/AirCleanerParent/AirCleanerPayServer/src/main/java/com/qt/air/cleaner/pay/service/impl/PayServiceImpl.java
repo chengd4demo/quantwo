@@ -170,7 +170,7 @@ public class PayServiceImpl implements PayService {
 		String payPlatformType = requestParame.getData().get("payType");
 		String deviceId = requestParame.getData().get("deviceId");
 		String priceId = requestParame.getData().get("priceId");
-		String ipAddress = request.getRemoteAddr();
+		String ipAddress = requestParame.getData().get("ipAddress");
 		try {
 			if (StringUtils.equals("WX", payPlatformType)){
 				Map<String,String> signMap = new TreeMap<String,String>();
@@ -391,7 +391,7 @@ public class PayServiceImpl implements PayService {
 			}
 		} catch (Exception e) {
 			logger.error("统一下单错误", e);
-			sendWaringMsg(e.getMessage());
+			sendWaringMsg("支付渠道");
 			return new ResultInfo(ErrorCodeEnum.ES_1025.getErrorCode(), ErrorCodeEnum.ES_1025.getMessage(), null);
 		}
 		//跳转jspai
