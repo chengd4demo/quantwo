@@ -119,7 +119,7 @@ public class SalerServiceImpl implements SalerService{
 				saler.setLastOperateTime(nowDate);
 				saler.setLastOperator(principal.getUser().getUsername());
 				Account account = new Account();
-				account.setAccountType(Account.ACCOUNT_TYPE_COMPANY);
+				account.setAccountType(Account.ACCOUNT_TYPE_SALER);
 				account.setCreateTime(nowDate);
 				account.setCreater(principal.getUser().getUsername());
 				account =  accountRepository.saveAndFlush(account);

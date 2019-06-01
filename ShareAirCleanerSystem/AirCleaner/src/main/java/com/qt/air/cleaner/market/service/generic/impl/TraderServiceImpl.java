@@ -111,7 +111,7 @@ public class TraderServiceImpl implements com.qt.air.cleaner.market.service.gene
 				trader.setLastOperateTime(nowDate);
 				trader.setLastOperator(principal.getUser().getUsername());
 				Account account = new Account();
-				account.setAccountType(Account.ACCOUNT_TYPE_COMPANY);
+				account.setAccountType(Account.ACCOUNT_TYPE_TRADER);
 				account.setCreateTime(nowDate);
 				account.setCreater(principal.getUser().getUsername());
 				account =  accountRepository.saveAndFlush(account);
