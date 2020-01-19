@@ -2,11 +2,11 @@ spring:
   application:
     name: device-server
   profiles:
-    active: prod
+    active: dev
 server:
   port: 3000
 eureka:
   client:
     service-url:
-      defaultZone: http://192.168.13.203:8888/eureka/
+      defaultZone: http://quantu:eh6N2L9P@222.212.93.11:8121/eureka/
   

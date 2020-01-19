@@ -12,4 +12,4 @@ token:
   key: ldingadmin
 o2:
   system:
-    domain: http://www.quantwo.cn/app/customer
+    domain: http://zf2.quantwo.cn/app/customer

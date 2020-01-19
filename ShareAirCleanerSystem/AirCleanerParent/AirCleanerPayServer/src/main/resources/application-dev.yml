@@ -1,7 +1,7 @@
 spring: 
   datasource: 
     driver-class-name: oracle.jdbc.driver.OracleDriver
-    url: jdbc:oracle:thin:@222.212.93.11:8002:orcl
+    url: jdbc:oracle:thin:@222.212.93.11:8819:orcl
     username: market
     password: market2018
   jpa:
@@ -9,8 +9,8 @@ spring:
   redis:
     database: 2
     host: 222.212.93.11
-    port: 8003
-    password: 
+    port: 6379
+    password: quantu%78@ksdf! 
     timeout: 2000
     pool:
       max-active: 8
@@ -25,6 +25,8 @@ device:
     method: turn_on
   turn-off: 
     method: turn_off
+  pm25:
+    method: pm25
 o2: 
   weixin: 
     cache:  
@@ -35,15 +37,18 @@ o2:
         path: /cer/apiclient_cert.p12
     subscription: 
       body:
-        description: \u5708\u5154\u5708\u7F51\u7EDC-\u7A7A\u6C14\u51C0\u5316\u5668
+        description: 圈兔圈网络-空气净化器
       notify: 
-        url: http://zf.quantwo.cn/device/billing/notify
+        url: http://zf2.quantwo.cn/wxpament
       mah:
-        id: 1241601202
+        id: 1511610321
       app: 
         id: wx93953fe379a2c548
-        secret: 197df6c676f312411f6f7ce6c65fbf60
-      api: 
         secret: 883fcd2427e25e9c00600af8a664fb87
+      api: 
+        secret: quantuztwyzl39quantwoquantuztwyz
   system:
-    domain: http://quantwo.cn/app.html
+    domain: http://zf2.quantwo.cn/app.html
+send:
+  message: 
+   phones: 13111881331,13111881313,13980401061

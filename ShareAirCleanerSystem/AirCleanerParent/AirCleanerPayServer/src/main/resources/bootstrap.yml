@@ -3,6 +3,9 @@ spring:
     name: pay-server
   profiles:
     active: prod
+  cloud:
+    config:
+      enabled: false
 server:
   port: 3002
 eureka:
